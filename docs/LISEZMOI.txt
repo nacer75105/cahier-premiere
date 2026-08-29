@@ -1,0 +1,8 @@
+Ce dossier est publié par GitHub Pages.
+
+index.html est une copie de public/index.html. Servi sans serveur, il
+detecte l'absence de /api/ping et masque les fonctions IA : cours,
+exercices, entrainement, mode controle et revision espacee fonctionnent
+normalement, la progression reste dans le navigateur de l appareil.
+
+Pour le regenerer apres une modification :  npm run pages
