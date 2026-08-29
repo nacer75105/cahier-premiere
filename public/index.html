@@ -4260,15 +4260,88 @@ function api(route, corps){
 /* ---------------------------------------------------------------
    Détection : le serveur est-il là ?
    --------------------------------------------------------------- */
-fetch("/api/ping").then(function(r){ return r.ok ? r.json() : null; })
-  .then(function(j){
-    if(!j || !j.ok) return;
-    window.IA_ACTIVE = true;
-    window.IA_MODELE = j.modele || "";
-    if(window.RENDER) window.RENDER();
-    return charger();   // le serveur détient la progression de référence
-  })
-  .catch(function(){ /* mode hors-ligne : rien à faire */ });
+function sonder(){
+  return fetch("/api/ping", { headers:{ "X-Code": code() } })
+    .then(function(r){ return r.ok ? r.json() : null; })
+    .then(function(j){
+      if(!j || !j.ok) return;
+      window.IA_MODELE = j.modele || "";
+      if(j.codeRequis && !j.codeOk){
+        window.IA_ACTIVE = false;
+        demanderCode(!!code());     // code absent, ou code refusé
+        return;
+      }
+      window.IA_ACTIVE = true;
+      if(window.RENDER) window.RENDER();
+      return charger();             // le serveur détient la progression de référence
+    })
+    .catch(function(){ /* mode hors-ligne : rien à faire */ });
+}
+sonder();
+
+/* Écran de saisie du code, affiché seulement si le serveur en exige un */
+function demanderCode(refuse){
+  if(document.getElementById("volet-code")) return;
+  var volet = el("div");
+  volet.id = "volet-code";
+  volet.style.cssText = "position:fixed;inset:0;z-index:300;background:var(--paper);"+
+    "display:grid;place-items:center;padding:24px";
+  var carte = el("div","card pad");
+  carte.style.cssText = "max-width:420px;width:100%";
+  carte.innerHTML =
+    '<div class="eyebrow" style="margin-bottom:8px">Cahier de Première</div>'+
+    '<div style="font-family:var(--f-disp);font-weight:700;font-size:20px;margin-bottom:6px">'+
+      (refuse ? "Ce code ne convient pas" : "Code d’accès")+'</div>'+
+    '<p class="small muted">'+
+      (refuse ? "Vérifie le code et réessaie."
+              : "Entre le code d’accès pour activer l’aide de Claude. Il n’est demandé qu’une fois sur cet appareil.")+
+    '</p>';
+  var champ = el("input","inp");
+  champ.type = "password";
+  champ.autocomplete = "off";
+  champ.placeholder = "Code d’accès";
+  champ.style.cssText = "width:100%;margin-top:14px;font-family:var(--f-body);font-size:16px";
+  var msg = el("div","small"); msg.style.cssText="color:var(--rouge);margin-top:8px;min-height:18px";
+  var rangee = el("div","row"); rangee.style.marginTop="12px";
+  var valider = el("button","btn pri","Valider");
+  var sans = el("button","btn gho","Continuer sans l’IA");
+  rangee.appendChild(valider); rangee.appendChild(sans);
+
+  function essayer(){
+    var v = champ.value.trim();
+    if(!v){ champ.focus(); return; }
+    valider.disabled = true; valider.textContent = "Vérification…";
+    setCode(v);
+    fetch("/api/ping", { headers:{ "X-Code": v } })
+      .then(function(r){ return r.json(); })
+      .then(function(j){
+        if(j && j.codeOk){
+          volet.remove();
+          window.IA_ACTIVE = true;
+          if(window.RENDER) window.RENDER();
+          charger();
+          A.toast("Aide de Claude activée.");
+        } else {
+          setCode("");
+          msg.textContent = "Code refusé.";
+          valider.disabled = false; valider.textContent = "Valider";
+          champ.value = ""; champ.focus();
+        }
+      })
+      .catch(function(){
+        msg.textContent = "Serveur injoignable.";
+        valider.disabled = false; valider.textContent = "Valider";
+      });
+  }
+  valider.onclick = essayer;
+  champ.addEventListener("keydown", function(e){ if(e.key==="Enter") essayer(); });
+  sans.onclick = function(){ volet.remove(); };
+
+  carte.appendChild(champ); carte.appendChild(msg); carte.appendChild(rangee);
+  volet.appendChild(carte);
+  document.body.appendChild(volet);
+  setTimeout(function(){ champ.focus(); }, 50);
+}
 
 /* ---------------------------------------------------------------
    Progression partagée entre les appareils
@@ -4478,10 +4551,7 @@ window.VUE_PHOTO = function(){
 /* ---------------------------------------------------------------
    4. Saisie du code d'accès si le serveur le refuse
    --------------------------------------------------------------- */
-window.IA_CODE = function(){
-  var c = window.prompt ? window.prompt("Code d’accès du serveur :") : null;
-  if(c){ setCode(c); window.RENDER(); }
-};
+window.IA_CODE = function(){ demanderCode(false); };
 })();
 </script>
 </body></html>

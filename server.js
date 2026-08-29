@@ -34,6 +34,18 @@ if (!process.env.ANTHROPIC_API_KEY && !process.env.ANTHROPIC_AUTH_TOKEN) {
   process.exit(1);
 }
 
+// En ligne, le site est joignable par n'importe qui. Sans code d'accès,
+// la clé API serait consommée par des inconnus : on refuse de démarrer.
+const EN_LIGNE = !!(process.env.RENDER || process.env.PUBLIC);
+if (EN_LIGNE && !CODE_ACCES) {
+  console.error(
+    "\n  CODE_ACCES est vide alors que le serveur est exposé publiquement.\n" +
+      "  N'importe qui pourrait alors dépenser ta clé API.\n" +
+      "  Ajoute la variable CODE_ACCES dans les réglages de l'hébergeur, puis relance.\n",
+  );
+  process.exit(1);
+}
+
 const claude = new Anthropic();
 const app = express();
 app.use(express.json({ limit: "12mb" })); // les photos arrivent en base64
@@ -103,8 +115,32 @@ function blocImage(dataUrl) {
 
 /* ============================ endpoints ============================ */
 
-app.get("/api/ping", (_req, res) => {
-  res.json({ ok: true, modele: MODELE, restant: PLAFOND_JOUR - compteur.n });
+app.get("/api/ping", (req, res) => {
+  res.json({
+    ok: true,
+    modele: MODELE,
+    restant: PLAFOND_JOUR - compteur.n,
+    codeRequis: !!CODE_ACCES,
+    codeOk: !CODE_ACCES || req.get("X-Code") === CODE_ACCES,
+  });
+});
+
+/* Auto-test : une seule adresse à ouvrir après la mise en ligne pour savoir
+   si le stockage fonctionne réellement. Ne consomme aucun appel à l'API. */
+app.get("/api/diag", autorise, async (_req, res) => {
+  const bilan = { stockage: STOCKAGE, lecture: null, ecriture: null, erreur: null };
+  try {
+    const avant = await lireEtat();
+    bilan.lecture = avant ? `ok (maj ${new Date(avant.maj).toLocaleString("fr-FR")})` : "ok (vide)";
+    // aller-retour d'écriture sans toucher à la progression réelle
+    const temoin = { maj: (avant && avant.maj) || 0, etat: (avant && avant.etat) || { essai: true } };
+    await ecrireEtat(temoin);
+    const apres = await lireEtat();
+    bilan.ecriture = apres ? "ok" : "échec : rien relu après écriture";
+  } catch (e) {
+    bilan.erreur = e.message;
+  }
+  res.status(bilan.erreur ? 503 : 200).json(bilan);
 });
 
 /* --- 0. progression partagée entre les appareils ---------------------
@@ -134,6 +170,8 @@ async function lireEtat() {
     });
     if (!r.ok) throw new Error(`entrepôt injoignable (${r.status})`);
     const j = await r.json();
+    // Upstash signale ses erreurs dans le corps, parfois avec un HTTP 200
+    if (j.error) throw new Error(`entrepôt : ${j.error}`);
     return j.result ? JSON.parse(j.result) : null;
   }
   try {
@@ -151,6 +189,8 @@ async function ecrireEtat(o) {
       body: JSON.stringify(o),
     });
     if (!r.ok) throw new Error(`écriture refusée par l'entrepôt (${r.status})`);
+    const j = await r.json().catch(() => ({}));
+    if (j.error) throw new Error(`entrepôt : ${j.error}`);
     return;
   }
   const tmp = FICHIER_ETAT + ".tmp";

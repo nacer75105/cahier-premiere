@@ -135,6 +135,67 @@ d'un appareil à l'autre.
 **Le dossier `donnees/` contient tout le travail de l'élève.** Sauvegarde-le de
 temps en temps. Il est exclu de Git, comme `.env`.
 
+## Mettre en ligne (Render + Upstash, gratuit)
+
+Une fois en ligne, l'application est joignable de partout, iPhone compris,
+PC éteint — avec l'IA et la progression synchronisée.
+
+### 1. L'entrepôt de progression (Upstash)
+
+Le disque des hébergeurs gratuits est effacé à chaque redémarrage. La
+progression va donc dans un entrepôt externe.
+
+1. Créer un compte sur https://upstash.com (gratuit, connexion GitHub possible)
+2. **Create Database** → un nom, la région la plus proche (Europe), **Free**
+3. Dans l'onglet **REST API** de la base, relever les deux valeurs
+   `UPSTASH_REDIS_REST_URL` et `UPSTASH_REDIS_REST_TOKEN`
+
+### 2. L'hébergement (Render)
+
+1. Créer un compte sur https://render.com et le connecter à GitHub
+2. **New → Web Service** → choisir le dépôt `cahier-premiere`
+3. Render lit `render.yaml` : ne rien changer aux réglages proposés
+4. Dans **Environment**, renseigner les quatre variables :
+
+| Variable | Valeur |
+|---|---|
+| `ANTHROPIC_API_KEY` | ta clé API |
+| `CODE_ACCES` | un mot de passe simple, à donner à l'élève |
+| `UPSTASH_REDIS_REST_URL` | relevée à l'étape 1 |
+| `UPSTASH_REDIS_REST_TOKEN` | relevée à l'étape 1 |
+
+5. **Create Web Service**. Le premier démarrage prend 2 à 3 minutes.
+
+> **`CODE_ACCES` est obligatoire en ligne.** Le serveur refuse de démarrer sans
+> lui et l'écrit dans les journaux : sans code, n'importe qui pourrait dépenser
+> ta clé API. L'élève le saisit une seule fois par appareil.
+
+### 3. Vérifier que le stockage marche
+
+Ouvrir l'adresse fournie par Render, saisir le code, puis visiter :
+
+```
+https://<ton-adresse>.onrender.com/api/diag
+```
+
+La réponse attendue :
+
+```json
+{"stockage":"entrepôt Upstash","lecture":"ok (vide)","ecriture":"ok","erreur":null}
+```
+
+Si `erreur` n'est pas `null`, le message dit ce qui coince (jeton refusé,
+entrepôt injoignable…). Cet auto-test ne consomme aucun appel à l'API Claude.
+
+### Ce qu'il faut savoir de l'offre gratuite Render
+
+- **Mise en veille** après 15 minutes sans visite : le réveil prend 30 à 50 s
+  à la première ouverture, puis tout est fluide.
+- **Le disque est effacé** à chaque redémarrage — d'où Upstash. Si tu ne
+  renseignes pas les deux variables Upstash, le serveur retombe sur le fichier
+  local et la progression sera perdue à chaque redéploiement. Il l'annonce au
+  démarrage : `Progression : fichier local`.
+
 ## Notes techniques
 
 - **Zod 4 est obligatoire.** Le helper de sortie structurée du SDK appelle
