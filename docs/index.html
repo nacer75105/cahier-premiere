@@ -2495,7 +2495,9 @@ function vueAccueil(){
   hero.innerHTML =
     '<div class="eyebrow">Spécialité mathématiques · Première générale</div>'+
     '<h1 style="font-size:38px;margin:8px 0 10px;letter-spacing:-.02em">Ton cahier de maths</h1>'+
-    '<p class="muted" style="max-width:56ch;font-size:17px">Huit chapitres expliqués simplement, avec des exemples déroulés étape par étape et des exercices qui te disent <b>où</b> tu t'+"'"+'es trompée, pas seulement que c'+"'"+'est faux.</p>';
+    '<p class="muted" style="max-width:56ch;font-size:17px">Tout le programme expliqué simplement — '+
+      COURS.length+' chapitres, avec des exemples déroulés étape par étape et des exercices qui te disent '+
+      '<b>où</b> tu t'+"'"+'es trompée, pas seulement que c'+"'"+'est faux.</p>';
   w.appendChild(hero);
 
   var duj = dues();
@@ -4461,7 +4463,8 @@ window.VUE_PHOTO = function(){
 
   w.appendChild(el("div","callout co-piege",
     '<div class="ct">À garder en tête</div><p>Cette correction est rédigée par un modèle de langage : elle est très utile pour comprendre, mais elle peut se tromper sur un calcul. '+
-    'Les 91 exercices des chapitres, eux, sont vérifiés. En cas de désaccord entre les deux, c’est le cahier qui a raison.</p>'));
+    'Les '+(window.COURS||[]).reduce(function(n,c){ return n+c.exos.length; },0)+
+    ' exercices des chapitres, eux, sont vérifiés. En cas de désaccord entre les deux, c’est le cahier qui a raison.</p>'));
 
   function charger(file){
     if(file.size > 6*1024*1024){ A.toast("Photo trop lourde (6 Mo maximum)."); return; }
