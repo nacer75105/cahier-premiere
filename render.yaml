@@ -1,0 +1,23 @@
+# Configuration pour Render — https://render.com
+# Le dépôt branché ici, Render lit ce fichier et fait le reste.
+services:
+  - type: web
+    name: cahier-premiere
+    runtime: node
+    plan: free
+    buildCommand: npm install
+    # pas de --env-file ici : les variables viennent des réglages Render
+    startCommand: node server.js
+    envVars:
+      - key: ANTHROPIC_API_KEY
+        sync: false          # à coller dans les réglages Render, jamais dans le dépôt
+      - key: CODE_ACCES
+        sync: false          # obligatoire : le site sera public
+      - key: UPSTASH_REDIS_REST_URL
+        sync: false
+      - key: UPSTASH_REDIS_REST_TOKEN
+        sync: false
+      - key: MODELE
+        value: claude-opus-5
+      - key: PLAFOND_JOUR
+        value: "80"

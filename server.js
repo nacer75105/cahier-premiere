@@ -113,39 +113,77 @@ app.get("/api/ping", (_req, res) => {
    empêche un appareil resté en arrière-plan d'écraser un travail plus
    récent fait ailleurs.
    ------------------------------------------------------------------- */
+/* Deux stockages possibles, choisis automatiquement :
+   - un fichier local, quand le serveur tourne à la maison ;
+   - un entrepôt Upstash Redis, quand il tourne chez un hébergeur dont le
+     disque est effacé à chaque redémarrage (Render, Vercel, Koyeb…).
+   Il suffit de renseigner les deux variables Upstash pour basculer. */
+const KV_URL = (process.env.UPSTASH_REDIS_REST_URL || "").replace(/\/+$/, "");
+const KV_TOKEN = process.env.UPSTASH_REDIS_REST_TOKEN || "";
+const KV_CLE = "cahier-premiere:etat";
+const STOCKAGE = KV_URL && KV_TOKEN ? "entrepôt Upstash" : "fichier local";
+
 const DOSSIER_DONNEES = path.join(ICI, "donnees");
 const FICHIER_ETAT = path.join(DOSSIER_DONNEES, "etat.json");
-fs.mkdirSync(DOSSIER_DONNEES, { recursive: true });
+if (STOCKAGE === "fichier local") fs.mkdirSync(DOSSIER_DONNEES, { recursive: true });
 
-function lireEtat() {
+async function lireEtat() {
+  if (KV_URL && KV_TOKEN) {
+    const r = await fetch(`${KV_URL}/get/${KV_CLE}`, {
+      headers: { Authorization: `Bearer ${KV_TOKEN}` },
+    });
+    if (!r.ok) throw new Error(`entrepôt injoignable (${r.status})`);
+    const j = await r.json();
+    return j.result ? JSON.parse(j.result) : null;
+  }
   try {
     return JSON.parse(fs.readFileSync(FICHIER_ETAT, "utf8"));
   } catch {
     return null;
   }
 }
-function ecrireEtat(o) {
+
+async function ecrireEtat(o) {
+  if (KV_URL && KV_TOKEN) {
+    const r = await fetch(`${KV_URL}/set/${KV_CLE}`, {
+      method: "POST",
+      headers: { Authorization: `Bearer ${KV_TOKEN}` },
+      body: JSON.stringify(o),
+    });
+    if (!r.ok) throw new Error(`écriture refusée par l'entrepôt (${r.status})`);
+    return;
+  }
   const tmp = FICHIER_ETAT + ".tmp";
   fs.writeFileSync(tmp, JSON.stringify(o));
   fs.renameSync(tmp, FICHIER_ETAT); // écriture atomique : jamais de fichier à moitié écrit
 }
 
-app.get("/api/etat", autorise, (_req, res) => {
-  res.json(lireEtat() || { maj: 0, etat: null });
+app.get("/api/etat", autorise, async (_req, res) => {
+  try {
+    res.json((await lireEtat()) || { maj: 0, etat: null });
+  } catch (e) {
+    console.error("[etat/lecture]", e.message);
+    res.status(503).json({ erreur: messageLisible(e) });
+  }
 });
 
-app.put("/api/etat", autorise, (req, res) => {
+app.put("/api/etat", autorise, async (req, res) => {
   const { maj, etat } = req.body || {};
   if (!etat || typeof etat !== "object")
     return res.status(400).json({ erreur: "état manquant" });
-  const actuel = lireEtat();
-  if (actuel && actuel.maj > (maj || 0)) {
-    // le serveur détient plus récent : on ne l'écrase pas, on le renvoie
-    return res.status(409).json({ erreur: "version plus récente sur le serveur", ...actuel });
+  try {
+    const actuel = await lireEtat();
+    if (actuel && actuel.maj > (maj || 0)) {
+      // le serveur détient plus récent : on ne l'écrase pas, on le renvoie
+      return res.status(409).json({ erreur: "version plus récente sur le serveur", ...actuel });
+    }
+    const horodatage = maj || Date.now();
+    await ecrireEtat({ maj: horodatage, etat });
+    res.json({ ok: true, maj: horodatage });
+  } catch (e) {
+    console.error("[etat/ecriture]", e.message);
+    res.status(503).json({ erreur: messageLisible(e) });
   }
-  const horodatage = maj || Date.now();
-  ecrireEtat({ maj: horodatage, etat });
-  res.json({ ok: true, maj: horodatage });
 });
 
 /* --- 1. réexpliquer un exercice du cahier --- */
@@ -403,5 +441,6 @@ app.listen(PORT, () => {
   console.log(`\n  Cahier de Première — http://localhost:${PORT}`);
   console.log(`  Modèle : ${MODELE}`);
   console.log(`  Plafond : ${PLAFOND_JOUR} appels par jour`);
+  console.log(`  Progression : ${STOCKAGE}`);
   console.log(CODE_ACCES ? "  Code d'accès : activé\n" : "  Code d'accès : désactivé (usage local)\n");
 });
