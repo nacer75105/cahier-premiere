@@ -11,12 +11,12 @@
 /* ---------- Jetons ---------- */
 :root{
   --paper:#F6F7FB; --surface:#FFFFFF; --surface2:#EEF1F9; --surface3:#E4E9F6;
-  --ink:#151A2D; --ink2:#535B78; --ink3:#868DA8;
+  --ink:#151A2D; --ink2:#535B78; --ink3:#5F667F;
   --line:#DCE2F0; --line2:#C7D0E6;
   --bleu:#2B49CF; --bleuSoft:#E8ECFC; --bleuLine:#B9C5F5;
   --rouge:#CE3B54; --rougeSoft:#FCECEF; --rougeLine:#F0BDC7;
   --vert:#0B8A63; --vertSoft:#E2F4EE; --vertLine:#A9DCC9;
-  --ambre:#B57A05; --ambreSoft:#FDF2D8; --ambreLine:#EFD79A;
+  --ambre:#8A5D03; --ambreSoft:#FDF2D8; --ambreLine:#EFD79A;
   --shadow:0 1px 2px rgba(21,26,45,.05), 0 8px 24px -12px rgba(21,26,45,.16);
   --shadowUp:0 -1px 2px rgba(21,26,45,.05), 0 -8px 24px -12px rgba(21,26,45,.16);
   --r:14px; --r2:10px;
@@ -387,6 +387,23 @@ textarea.inp{font-family:var(--f-body);font-size:15px;line-height:1.55;resize:ve
   </div>
 </div>
 <div id="toasts"></div>
+<style>
+/* ---------- Recherche dans la barre latérale ---------- */
+.rechChamp{
+  width:calc(100% - 20px); margin:2px 10px 8px; padding:7px 11px;
+  border:1px solid var(--line); background:var(--surface2); color:var(--ink);
+  border-radius:9px; font:inherit; font-size:13.5px;
+}
+.rechChamp::placeholder{color:var(--ink3)}
+.rechChamp:focus{outline:none; border-color:var(--bleu); background:var(--surface)}
+.secBtn{
+  width:100%; text-align:left; background:none; border:0;
+  padding:5px 10px 5px 46px; border-radius:var(--r2);
+  color:var(--ink3); font-size:13px; line-height:1.35;
+}
+.secBtn:hover{background:var(--surface2); color:var(--bleu)}
+.railVide{padding:10px; font-size:13px; color:var(--ink3)}
+</style>
 <script>
 /* =====================================================================
    1. Rendu mathématique léger
@@ -3411,6 +3428,7 @@ var PLOTS = {
 COURS.sort(function(a,b){ return a.n - b.n; });
 
 var route = { page:"accueil", chap:null, onglet:"cours", fiche:null };
+var recherche = "";
 
 /* ===================================================================
    Totaux et progression
@@ -4068,15 +4086,56 @@ function paintRail(){
     r.appendChild(b);
   });
   r.appendChild(el("div","railLabel","Programme"));
-  COURS.forEach(function(c){
-    var b = el("button","chapBtn");
-    var pc = progChap(c);
-    b.innerHTML = '<span class="chapNum">'+c.n+'</span><span class="t">'+A.esc(c.titre)+'</span>'+
-      '<span class="dot'+(pc===100?" done":(pc>0?" part":""))+'"></span>';
-    b.setAttribute("aria-current", route.page==="chap" && route.chap===c.id);
-    b.onclick=function(){ route={page:"chap",chap:c.id,onglet:"cours"}; document.body.classList.remove("nav"); render(); };
-    r.appendChild(b);
-  });
+
+  /* recherche : filtre les chapitres et affiche les parties qui répondent */
+  var champ = el("input","rechChamp");
+  champ.type = "search";
+  champ.placeholder = "Chercher une notion…";
+  champ.setAttribute("aria-label","Chercher une notion dans le programme");
+  champ.value = recherche;
+  r.appendChild(champ);
+  var resultats = el("div");
+  r.appendChild(resultats);
+
+  function peindreChapitres(){
+    resultats.innerHTML = "";
+    var q = A.norm(recherche);
+    var trouve = 0;
+    COURS.forEach(function(c){
+      var pc = progChap(c);
+      var secs = [];
+      if(q){
+        if(A.norm(c.titre+" "+c.sous+" "+c.desc).indexOf(q) < 0){
+          c.sections.forEach(function(s,i){
+            if(A.norm(s.titre).indexOf(q) >= 0) secs.push({ t:s.titre, i:i });
+          });
+          if(!secs.length) return;      // ce chapitre ne correspond pas
+        }
+      }
+      trouve++;
+      var b = el("button","chapBtn");
+      b.innerHTML = '<span class="chapNum">'+c.n+'</span><span class="t">'+A.esc(c.titre)+'</span>'+
+        '<span class="dot'+(pc===100?" done":(pc>0?" part":""))+'"></span>';
+      b.setAttribute("aria-current", route.page==="chap" && route.chap===c.id);
+      b.onclick=function(){ route={page:"chap",chap:c.id,onglet:"cours"}; document.body.classList.remove("nav"); render(); };
+      resultats.appendChild(b);
+      secs.forEach(function(s){
+        var sb = el("button","secBtn", A.esc(s.t));
+        sb.onclick=function(){
+          route={page:"chap",chap:c.id,onglet:"cours"};
+          document.body.classList.remove("nav"); render();
+          setTimeout(function(){
+            var h = $$("#view .secHead")[s.i];
+            if(h) h.scrollIntoView({behavior:"smooth", block:"start"});
+          }, 80);
+        };
+        resultats.appendChild(sb);
+      });
+    });
+    if(!trouve) resultats.appendChild(el("div","railVide","Aucune partie ne correspond."));
+  }
+  champ.oninput = function(){ recherche = champ.value; peindreChapitres(); };
+  peindreChapitres();
   if(S.perso && S.perso.length){
     r.appendChild(el("div","railLabel","Mes fiches"));
     S.perso.forEach(function(f){
@@ -4146,6 +4205,15 @@ window.WRAPDIV = wrap;
 window.SETVIEW = setView;
 window.LES_COURS = COURS;
 window.DIAGNOSTIC = diagnostic;
+
+/* Mode hors ligne : une fois la page ouverte une première fois, elle
+   reste utilisable sans connexion — dans le bus, au lycée, en vacances.
+   Les appels au serveur, eux, ne sont jamais mis en cache. */
+if("serviceWorker" in navigator && location.protocol.indexOf("http")===0){
+  window.addEventListener("load", function(){
+    navigator.serviceWorker.register("sw.js").catch(function(){});
+  });
+}
 render();
 })();
 </script>
