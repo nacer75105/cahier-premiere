@@ -794,6 +794,8 @@ duree:40,
 sections:[
  {titre:"Le trinôme et sa courbe", blocs:[
   {t:"idee", x:"Un **trinôme du second degré**, c'est une expression de la forme $ax^2 + bx + c$ avec $a ≠ 0$. Sa courbe s'appelle une **parabole**."},
+  {t:"p", x:"Avant les formules, une question légitime : pourquoi consacrer un chapitre entier à cette forme précise ? Parce qu'elle décrit une quantité étonnante de situations réelles. La trajectoire d'un ballon lancé. L'aire d'un rectangle dont on fixe le périmètre. Le bénéfice d'une entreprise selon la quantité produite — il monte, atteint un maximum, puis redescend quand il faut trop baisser les prix. Chaque fois qu'une grandeur **passe par un maximum ou un minimum** puis repart dans l'autre sens, un trinôme est souvent derrière."},
+  {t:"p", x:"C'est ce qui distingue le second degré du premier. Une fonction affine $ax + b$ monte toujours, ou descend toujours : elle ne change jamais d'avis. Un trinôme, lui, fait demi-tour une fois. Ce demi-tour, c'est le **sommet** de la parabole, et c'est presque toujours ce qu'on cherche dans un problème concret."},
   {t:"p", x:"Les trois coefficients ont chacun un rôle. Le plus important est $a$ : c'est lui qui décide de la forme générale."},
   {t:"liste", items:[
    "Si $a > 0$, la parabole est tournée vers le haut (comme un sourire). Elle a un **minimum**.",
@@ -809,7 +811,10 @@ sections:[
 
  {titre:"Le discriminant : combien de solutions ?", blocs:[
   {t:"idee", x:"Le **discriminant** est un nombre qui répond à une seule question : combien de fois la parabole coupe-t-elle l'axe des abscisses ?"},
+  {t:"p", x:"Reformulons, parce que c'est le cœur du chapitre. Résoudre $ax^2 + bx + c = 0$, c'est chercher **où la courbe passe par la hauteur zéro** — c'est-à-dire où elle croise l'axe horizontal. Or une parabole peut le croiser deux fois, l'effleurer une seule fois, ou passer complètement à côté sans jamais le toucher. Trois situations, trois nombres de solutions."},
+  {t:"p", x:"Le discriminant est un **détecteur** : un seul calcul, et il dit dans lequel des trois cas on se trouve. Son nom vient d'ailleurs de là — il « discrimine », il sépare les cas. C'est pour ça qu'on le calcule toujours en premier : inutile de se lancer dans la formule des racines si on est dans le cas où il n'y en a aucune."},
   {t:"formule", titre:"Discriminant", x:"$Δ = b^2 - 4ac$", note:"Δ est la lettre grecque « delta ». On la calcule toujours en premier."},
+  {t:"p", x:"D'où sort cette expression ? Elle vient de la **forme canonique**, qu'on verra plus loin : en réarrangeant $ax^2+bx+c$, on parvient à l'écrire sous une forme où tout se joue sur le signe de $b^2 - 4ac$. Tu n'as pas à savoir refaire ce calcul, mais retiens que le discriminant n'est pas une invention arbitraire : c'est ce qui reste quand on essaie d'isoler $x$."},
   {t:"tbl", head:["Valeur de $Δ$","Nombre de solutions","Ce qu'on voit"], rows:[
    ["$Δ > 0$","2 solutions","La parabole traverse l'axe en deux points"],
    ["$Δ = 0$","1 solution (double)","La parabole touche l'axe sans le traverser"],
@@ -841,8 +846,24 @@ sections:[
  ]},
 
  {titre:"Le signe du trinôme", blocs:[
-  {t:"idee", x:"Question typique : pour quelles valeurs de $x$ l'expression est-elle positive ? La réponse tient en une phrase à retenir par cœur."},
+  {t:"idee", x:"Question typique : pour quelles valeurs de $x$ l'expression est-elle positive ? La réponse tient en une phrase — mais il vaut mieux la voir que la croire."},
+  {t:"p", x:"« Le signe du trinôme » veut dire : à quelle hauteur se trouve la courbe. **Positif = au-dessus de l'axe. Négatif = en dessous.** Rien de plus. Résoudre une inéquation du second degré, c'est donc lire sur quelle portion de l'axe horizontal la parabole est au-dessus, ou en dessous."},
+  {t:"fig", titre:"Le signe se lit directement sur la parabole",
+   vue:[-3,-5,5,6], w:400, h:340,
+   objets:[
+    {t:"courbe", f:"trinome-signe", couleur:"bleu"},
+    {t:"point", x:-1, y:0, nom:null, couleur:"rouge"},
+    {t:"point", x:3, y:0, nom:null, couleur:"rouge"},
+    {t:"texte", x:-2.1, y:3.2, txt:"positif", couleur:"vert"},
+    {t:"texte", x:1, y:-2.3, txt:"négatif", couleur:"rouge"},
+    {t:"texte", x:4.1, y:3.2, txt:"positif", couleur:"vert"},
+    {t:"texte", x:-1, y:-0.9, txt:"−1", couleur:"rouge"},
+    {t:"texte", x:3, y:-0.9, txt:"3", couleur:"rouge"}
+   ],
+   note:"$f(x) = x^2 - 2x - 3$, avec $a > 0$. La courbe est au-dessus de l'axe à l'extérieur des racines, en dessous entre les deux."},
+  {t:"p", x:"Cette image explique la règle mieux qu'une phrase. Une parabole tournée vers le haut ne peut plonger sous l'axe **qu'entre ses deux points de traversée** : elle descend, passe dessous, remonte. Partout ailleurs elle est au-dessus. Et si elle est tournée vers le bas, c'est exactement l'inverse."},
   {t:"formule", titre:"La règle d'or", x:"Le trinôme est **du signe de $a$**, sauf entre les racines.", note:"« Signe de a partout, signe contraire à l'intérieur. »"},
+  {t:"p", x:"Et quand il n'y a pas de racines ? La parabole ne traverse jamais l'axe : elle reste **entièrement d'un côté**, celui que dicte le signe de $a$. C'est un cas rassurant, pas un cas difficile — le signe est le même partout, il n'y a rien à découper."},
   {t:"tbl", head:["Cas","Signe de $ax^2+bx+c$"], rows:[
    ["$Δ < 0$","Toujours du signe de $a$, jamais nul"],
    ["$Δ = 0$","Toujours du signe de $a$, sauf en $x_0$ où il vaut 0"],
@@ -870,6 +891,23 @@ sections:[
    {q:"Vérification", r:"$2 × 1 - 10 + 8 = 0$ ✓ et $2 × 16 - 40 + 8 = 0$ ✓."}
   ]},
   {t:"piege", titre:"Le signe de la somme", x:"C'est $-@f{b}{a}$, avec un moins. Pour $x^2 - 5x + 6$, la somme des racines vaut $+5$ et non $-5$ : les racines sont 2 et 3."}
+ ]},
+
+ {titre:"Récapitulatif : un seul réflexe, calculer Δ", blocs:[
+  {t:"idee", x:"Presque tout ce chapitre part du même geste : **identifier $a$, $b$, $c$, puis calculer le discriminant**. Ce qui vient ensuite dépend de la question, mais le point de départ ne change jamais."},
+  {t:"p", x:"La première erreur, avant tout calcul, c'est de mal lire les coefficients. Rappelle-toi que **le signe fait partie du coefficient** : dans $2x^2 - 7x + 3$, on a $b = -7$, pas 7. Et quand un terme manque, son coefficient vaut zéro : dans $x^2 - 4$, on a $b = 0$ et $c = -4$. Écris les trois valeurs sur une ligne à part avant de te lancer — dix secondes qui évitent la moitié des erreurs."},
+  {t:"tbl", head:["La question ressemble à…","Ce qu'il faut faire"], rows:[
+   ["« Résoudre $ax^2+bx+c = 0$ »","$Δ$, puis $@f{-b ± @r{Δ}}{2a}$ si $Δ ≥ 0$"],
+   ["« Combien de solutions ? »","$Δ$ seul, et son signe. On s'arrête là."],
+   ["« Factoriser »","Les racines, puis $a(x - x_1)(x - x_2)$"],
+   ["« Résoudre une inéquation »","Les racines, puis la règle du signe de $a$"],
+   ["« Maximum ou minimum »","$α = -@f{b}{2a}$, puis $f(α)$ pour la valeur"],
+   ["« Une racine est donnée, trouver l'autre »","Somme ou produit des racines"],
+   ["Un problème concret (aire, bénéfice…)","Traduire en trinôme, puis chercher le sommet"]
+  ]},
+  {t:"astuce", titre:"Les contrôles qui rattrapent presque tout", x:"**Remplace tes racines dans l'équation.** Si tu ne tombes pas sur 0, elles sont fausses. Ce test est infaillible et prend vingt secondes.<br><br>**Vérifie le signe de $Δ$ avant de prendre une racine carrée.** Si $Δ$ est négatif, il n'y a rien à extraire : la réponse est « aucune solution », et c'est une réponse complète.<br><br>**Regarde si le résultat est plausible.** Une aire négative, une quantité produite négative, un temps négatif : dans un problème concret, ces réponses sont à écarter même si le calcul est juste."},
+  {t:"piege", titre:"Les trois erreurs les plus fréquentes", x:"**1. Le double signe moins.** $-4ac$ devient **plus** quand $a$ ou $c$ est négatif. $-4 × 1 × (-3) = +12$.<br>**2. Le $-b$ oublié.** La formule commence par $-b$ : si $b = -5$, alors $-b = +5$.<br>**3. Le signe dans la factorisation.** Une racine négative donne un facteur avec un plus : $x_1 = -4$ donne $(x + 4)$."},
+  {t:"p", x:"Enfin, un conseil de méthode. Ce chapitre récompense la lenteur. Les erreurs ne viennent presque jamais d'une incompréhension — elles viennent de signes recopiés trop vite. Écris chaque étape sur sa propre ligne, garde les parenthèses autour des nombres négatifs, et ne fais jamais deux calculs de tête à la suite."}
  ]}
 ],
 exos:[
@@ -878,7 +916,11 @@ exos:[
   diag:[{v:49, m:"Tu as calculé $25 + 24$. Mais ici $c = +6$ est positif, donc $-4ac = -4 × 1 × 6 = -24$. On **retire** 24."},
         {v:-1, m:"Erreur de signe : $b^2$ vaut toujours un nombre positif. $(-5)^2 = +25$, pas $-25$. Un carré ne peut pas être négatif."},
         {v:25, m:"Tu t'es arrêté à $b^2$. La formule complète est $Δ = b^2 - 4ac$ : il reste à retirer $4 × 1 × 6 = 24$."}],
-  corr:["J'identifie : $a = 1$, $b = -5$, $c = 6$.","$Δ = b^2 - 4ac = (-5)^2 - 4 × 1 × 6$.","$(-5)^2 = 25$ et $4 × 1 × 6 = 24$.","$Δ = 25 - 24 = 1$."],
+  corr:["**Étape 1 — écrire les trois coefficients à part.** $a = 1$ (rien devant $x^2$ signifie 1), $b = -5$ (**le signe moins en fait partie**), $c = 6$. Cette ligne écrite noir sur blanc évite la majorité des erreurs de ce chapitre.",
+        "**Étape 2 — recopier la formule avant de calculer.** $Δ = b^2 - 4ac$. Puis je remplace en gardant les parenthèses : $Δ = (-5)^2 - 4 × 1 × 6$. Les parenthèses autour de $-5$ ne sont pas décoratives : sans elles, on écrit $-5^2$ qui vaut $-25$.",
+        "**Étape 3 — les deux morceaux séparément.** $(-5)^2 = 25$ : un carré est toujours positif, le moins disparaît. Et $4 × 1 × 6 = 24$.",
+        "**Étape 4 — assembler.** $Δ = 25 - 24 = 1$.",
+        "**Ce que ce résultat annonce.** $Δ = 1 > 0$, donc il y aura deux solutions distinctes. Et comme $@r{1} = 1$ tombe juste, les racines seront des nombres simples — ici 2 et 3."],
   indice:"$Δ = b^2 - 4ac$. Fais bien attention : $(-5)^2$ est positif."},
 
  {id:"sd2", niveau:1, type:"qcm", enonce:"L'équation $x^2 + x + 3 = 0$ admet :",
@@ -926,7 +968,13 @@ exos:[
   diag:[{v:100, m:"Tu as pris un côté de 10 cm. Mais si le périmètre vaut 20, alors longueur + largeur $= 10$, et non chaque côté $= 10$."},
         {v:24, m:"Tu es proche : $6 × 4 = 24$. Mais l'aire maximale est atteinte pour le **carré**, donc $5 × 5 = 25$."},
         {v:20, m:"Tu as repris le périmètre. L'aire est un produit de deux longueurs, pas la somme des quatre côtés."}],
-  corr:["Si $x$ est la largeur, la longueur vaut $10 - x$ (car $2(x + L) = 20$).","L'aire est $A(x) = x(10 - x) = -x^2 + 10x$.","Ici $a = -1 < 0$ : la parabole a un maximum, atteint en $α = -@f{10}{-2} = 5$.","$A(5) = 5 × 5 = 25$ cm². C'est un carré de côté 5."],
+  corr:["**Étape 1 — nommer l'inconnue.** Un problème concret commence toujours là. J'appelle $x$ la largeur du rectangle. C'est mon choix, il faut juste s'y tenir jusqu'au bout.",
+        "**Étape 2 — exprimer l'autre dimension avec la même lettre.** Le périmètre vaut 20, donc $2 × (largeur + longueur) = 20$, soit $largeur + longueur = 10$. Si la largeur est $x$, la longueur est donc $10 - x$. C'est l'étape clé : **une seule inconnue au lieu de deux**.",
+        "**Étape 3 — écrire ce qu'on veut maximiser.** L'aire d'un rectangle est le produit des deux dimensions : $A(x) = x(10 - x)$. Je développe pour reconnaître un trinôme : $A(x) = -x^2 + 10x$.",
+        "**Étape 4 — reconnaître la situation.** Ici $a = -1$, donc négatif : la parabole est tournée vers le bas et possède un **maximum**. C'est bien ce qu'on cherche.",
+        "**Étape 5 — trouver où ce maximum se produit.** $α = -@f{b}{2a} = -@f{10}{2 × (-1)} = -@f{10}{-2} = 5$. Attention au double signe moins : il donne un résultat positif.",
+        "**Étape 6 — calculer la valeur du maximum.** La question demande l'aire, pas la largeur : il faut donc calculer $A(5) = 5 × (10 - 5) = 5 × 5 = 25$ cm².",
+        "**Interprétation.** La largeur et la longueur valent toutes deux 5 : le rectangle d'aire maximale à périmètre fixé est le **carré**. C'est un résultat qu'il vaut la peine de retenir, il revient souvent."],
   indice:"Appelle $x$ la largeur, exprime la longueur en fonction de $x$, puis écris l'aire. Tu obtiendras un trinôme."},
 
  {id:"sd8", niveau:3, type:"qcm", enonce:"Une parabole a pour équation $y = -2x^2 + 5x + 1$. Que peut-on affirmer ?",
@@ -968,6 +1016,8 @@ duree:45,
 sections:[
  {titre:"L'idée : mesurer une pente", blocs:[
   {t:"idee", x:"La dérivée répond à une question simple : **à quelle vitesse la courbe monte-t-elle à cet endroit précis ?**"},
+  {t:"p", x:"Commençons par le problème qu'elle résout, sinon la suite paraît gratuite. Tu sais déjà mesurer une **vitesse moyenne** : 120 km parcourus en 2 heures, cela fait 60 km/h. Mais cette moyenne cache tout. Tu as pu rouler à 90 sur autoroute, t'arrêter à un péage, ralentir en ville. La question « quelle était ma vitesse **à l'instant précis** où je passais devant l'église ? » n'a pas de réponse avec une simple moyenne : à un instant précis, le temps écoulé est nul, et on ne peut pas diviser par zéro."},
+  {t:"p", x:"C'est exactement le problème que la dérivée résout. L'idée : au lieu de mesurer sur deux heures, mesure sur une minute. Puis sur une seconde. Puis sur un centième de seconde. La valeur trouvée se stabilise autour d'un nombre — et **ce nombre-là est la vitesse instantanée**. La dérivée, c'est ce procédé appliqué à n'importe quelle courbe : on regarde ce qui se passe sur un intervalle qu'on rétrécit jusqu'à le rendre presque nul."},
   {t:"p", x:"Sur une route, une pente de 10 % veut dire : quand j'avance de 100 m, je monte de 10 m. En maths, c'est pareil : on compare ce que $f(x)$ gagne en hauteur à ce que $x$ parcourt en largeur."},
   {t:"formule", titre:"Taux de variation entre deux points", x:"$@f{f(b) - f(a)}{b - a}$", note:"C'est la pente moyenne de la courbe entre $a$ et $b$."},
   {t:"p", x:"Le problème : cette pente est une **moyenne** sur un intervalle. Pour connaître la pente en un point précis, on rapproche $b$ de $a$ jusqu'à ce qu'ils se touchent presque. Le nombre vers lequel on tend s'appelle le **nombre dérivé**, noté $f'(a)$."},
@@ -1024,6 +1074,9 @@ sections:[
  {titre:"Du signe de la dérivée aux variations", blocs:[
   {t:"idee", x:"C'est ici que la dérivée devient vraiment utile : **le signe de $f'$ donne les variations de $f$**, sans avoir besoin de tracer la courbe."},
   {t:"formule", titre:"Le lien fondamental", x:"$f' > 0$ sur un intervalle → $f$ est **croissante**<br>$f' < 0$ sur un intervalle → $f$ est **décroissante**<br>$f'$ s'annule en changeant de signe → **extremum** (max ou min)"},
+  {t:"p", x:"Ce lien mérite qu'on s'y arrête, parce que c'est lui qui rend la dérivée utile. Relis les trois lignes : à gauche, on parle du **signe** d'une expression — un simple calcul. À droite, on parle de la **forme** d'une courbe — quelque chose de visuel. La dérivée fait le pont entre les deux. Elle permet de décrire l'allure d'une courbe qu'on n'a jamais tracée."},
+  {t:"p", x:"L'intuition est directe si tu penses à une marche. Ta pente est positive : tu montes. Négative : tu descends. Nulle : tu es sur un replat — et si juste avant tu montais et juste après tu descends, ce replat est un **sommet**. C'est tout le contenu du troisième point : un extremum se trouve là où la pente s'annule **en changeant de signe**."},
+  {t:"piege", titre:"S'annuler ne suffit pas", x:"La dérivée peut s'annuler sans qu'il y ait de maximum ni de minimum. Pour $f(x) = x^3$ en $x = 0$, la pente vaut zéro — la courbe fait une pause — mais elle continue de monter juste après. C'est un simple palier, pas un sommet.<br><br>Ce qui fait l'extremum, ce n'est pas l'annulation : c'est le **changement de signe** de part et d'autre. Regarde toujours ce qui se passe avant et après, pas seulement au point."},
   {t:"exemple", titre:"Exemple guidé — étude complète", enonce:"Étudier les variations de $f(x) = x^2 - 6x + 5$ sur ℝ.", etapes:[
    {q:"Dériver", r:"$f'(x) = 2x - 6$."},
    {q:"Chercher où la dérivée s'annule", r:"$2x - 6 = 0$ donne $2x = 6$, donc $x = 3$."},
@@ -1062,6 +1115,23 @@ sections:[
          "Il manque le signe moins. La courbe de $@f{1}{x}$ descend partout : sa dérivée ne peut pas être positive.",
          "Tu as confondu avec la dérivée de $@r{x}$, qui vaut $@f{1}{2@r{x}}$.",
          "La dérivée d'une constante vaut 1 ? Non : c'est la dérivée de $x$. Ici la variable est au dénominateur."]}
+ ]},
+
+ {titre:"Récapitulatif : dériver, annuler, conclure", blocs:[
+  {t:"idee", x:"Quelle que soit la question, la même séquence revient : **dériver**, chercher où la dérivée **s'annule**, étudier son **signe**, en déduire les variations. Quatre gestes, toujours dans cet ordre."},
+  {t:"p", x:"C'est la méthode la plus rentable de toute l'année, parce qu'elle ne dépend pas de la fonction. Que ce soit un polynôme, un quotient ou une exponentielle, les quatre étapes ne changent pas — seule la première demande de connaître la bonne formule de dérivation. Apprends la séquence, pas les cas particuliers."},
+  {t:"tbl", head:["La question ressemble à…","Ce qu'il faut faire"], rows:[
+   ["« Dériver $f$ »","Terme par terme, avec le tableau des dérivées"],
+   ["« Calculer $f'(2)$ »","Dériver **d'abord**, remplacer **ensuite**"],
+   ["« Équation de la tangente en $a$ »","$y = f'(a)(x - a) + f(a)$, puis développer"],
+   ["« Sens de variation »","$f'(x) = 0$, signe de $f'$, tableau"],
+   ["« Maximum / minimum »","Même chose, puis calculer $f$ à l'endroit trouvé"],
+   ["Un problème d'optimisation","Traduire en fonction, puis chercher l'extremum"]
+  ]},
+  {t:"formule", titre:"Les dérivées à savoir sans réfléchir", x:"$k → 0$ &nbsp;·&nbsp; $x → 1$ &nbsp;·&nbsp; $x^n → n x^{n-1}$<br>$@f{1}{x} → -@f{1}{x^2}$ &nbsp;·&nbsp; $@r{x} → @f{1}{2@r{x}}$ &nbsp;·&nbsp; $e^{x} → e^{x}$", note:"Les six lignes qui couvrent l'immense majorité des exercices."},
+  {t:"piege", titre:"Les trois confusions qui coûtent le plus", x:"**1. $f(a)$ contre $f'(a)$.** L'un est la hauteur, l'autre la pente. Pour une tangente, il faut les deux — et il faut les calculer séparément.<br>**2. La constante recopiée.** La dérivée d'un nombre seul vaut zéro : le $-7$ disparaît, il ne se recopie pas.<br>**3. Le signe moins du quotient.** Dans $@f{u'v - uv'}{v^2}$, le moins porte sur **tout** le produit $uv'$. Mets les parenthèses avant de développer."},
+  {t:"astuce", titre:"Le contrôle qui ne trompe pas", x:"Après avoir trouvé les variations, demande-toi si elles sont cohérentes avec le peu que tu sais de la fonction. Une parabole tournée vers le haut **doit** descendre puis monter — jamais l'inverse. Un bénéfice **doit** monter puis redescendre. Si ton tableau de variations raconte le contraire du bon sens, cherche une erreur de signe dans $f'$."},
+  {t:"p", x:"Et pour réviser : reprends la figure de la tangente au début du chapitre, celle où le point glisse. Fais-la bouger en te demandant à chaque position « la pente est-elle positive ou négative ? » avant de lire la valeur affichée. C'est en anticipant, pas en lisant, que le lien entre le signe de $f'$ et l'allure de la courbe devient automatique."}
  ]}
 ],
 exos:[
@@ -1126,7 +1196,12 @@ exos:[
   diag:[{v:40, m:"Tu as oublié de diviser par 2. De $-2x + 40 = 0$ on tire $2x = 40$, donc $x = 20$."},
         {v:300, m:"Tu as donné le bénéfice maximal ($B(20) = 300$), pas la quantité à produire. Relis ce qui est demandé."},
         {v:-20, m:"Erreur de signe : $-2x + 40 = 0$ donne $-2x = -40$, puis $x = 20$. Une quantité produite ne peut pas être négative, c'est un bon signal d'alerte."}],
-  corr:["Je dérive : $B'(x) = -2x + 40$.","Je résous $B'(x) = 0$ : $-2x = -40$, donc $x = 20$.","Le coefficient de $x^2$ est négatif : la parabole est tournée vers le bas, donc c'est bien un maximum.","Il faut produire 20 articles (le bénéfice vaut alors 300 milliers d'euros)."],
+  corr:["**Étape 1 — comprendre ce qu'on cherche.** « Bénéfice maximal » veut dire : le point le plus haut de la courbe. Or au sommet, la courbe est plate — la pente y vaut zéro. On cherche donc où $B'(x) = 0$.",
+        "**Étape 2 — dériver.** $B(x) = -x^2 + 40x - 100$. Terme par terme : $-x^2$ donne $-2x$, $40x$ donne $40$, et la constante $-100$ disparaît. Donc $B'(x) = -2x + 40$.",
+        "**Étape 3 — résoudre $B'(x) = 0$.** $-2x + 40 = 0$, donc $-2x = -40$, donc $x = @f{-40}{-2} = 20$. Deux nombres négatifs divisés donnent un positif — heureusement, une quantité produite ne peut pas être négative.",
+        "**Étape 4 — vérifier que c'est bien un maximum et non un minimum.** Le coefficient de $x^2$ vaut $-1$, il est négatif : la parabole est tournée vers le bas. Le sommet est donc bien un maximum. Cette vérification n'est pas facultative — sans elle, on pourrait présenter un minimum comme la réponse.",
+        "**Conclusion.** Il faut produire **20 articles**.",
+        "**Contrôle de plausibilité.** Le bénéfice vaut alors $B(20) = -400 + 800 - 100 = 300$ milliers d'euros. Testons juste à côté : $B(19) = -361 + 760 - 100 = 299$, et $B(21) = -441 + 840 - 100 = 299$. Les deux voisins sont plus bas : 20 est bien le sommet. ✓"],
   indice:"Un maximum se trouve là où la dérivée s'annule. Dérive $B$ puis résous $B'(x) = 0$."},
 
  {id:"de9", niveau:2, type:"qcm", enonce:"Quelle est la dérivée de $f(x) = @f{1}{x}$ ?",
@@ -2857,7 +2932,14 @@ window.FIGURE_MANIP = function(b){
   var m = MODELES[b.nom];
   return m ? m() : el("div","figNote","(figure indisponible)");
 };
-window.COURBES = {};
+/* courbes nommées, utilisables dans les figures via {t:"courbe", f:"..."} */
+window.COURBES = {
+  "trinome-signe":  function(x){ return x*x - 2*x - 3; },      // racines -1 et 3
+  "trinome-neg":    function(x){ return -x*x + 2*x + 3; },     // même chose, retournée
+  "parabole-min":   function(x){ return x*x - 6*x + 5; },      // sommet en 3
+  "carre":          function(x){ return x*x; },
+  "cubique":        function(x){ return 0.25*x*x*x - x; }
+};
 })();
 </script>
 <style>
