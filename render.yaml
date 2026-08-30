@@ -19,5 +19,7 @@ services:
         sync: false
       - key: MODELE
         value: claude-opus-5
+      - key: PAR_MINUTE
+        value: "6"
       - key: PLAFOND_JOUR
         value: "80"

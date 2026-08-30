@@ -197,6 +197,20 @@ entrepôt injoignable…). Cet auto-test ne consomme aucun appel à l'API Claude
   local et la progression sera perdue à chaque redéploiement. Il l'annonce au
   démarrage : `Progression : fichier local`.
 
+## Garde-fous sur les coûts
+
+Trois protections se cumulent :
+
+- `CODE_ACCES` : sans lui, le serveur refuse de démarrer en ligne.
+- `PAR_MINUTE` (6 par défaut) : nombre maximum de demandes par minute et par
+  adresse. Empêche qu'un clic répété ou une boucle vide le plafond du jour.
+- `PLAFOND_JOUR` : nombre maximum d'appels par jour. **Il est stocké dans
+  Upstash**, pas en mémoire : un redémarrage de l'hébergeur ne le remet pas à
+  zéro. Sans entrepôt configuré, il retombe sur un compteur en mémoire, qui ne
+  protège que tant que le service ne redémarre pas.
+
+Une requête mal formée ne consomme aucun quota : la validation passe avant.
+
 ## Notes techniques
 
 - **Zod 4 est obligatoire.** Le helper de sortie structurée du SDK appelle

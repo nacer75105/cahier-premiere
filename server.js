@@ -51,13 +51,74 @@ const app = express();
 app.use(express.json({ limit: "12mb" })); // les photos arrivent en base64
 
 /* ------------------ garde-fou : plafond d'appels / jour ------------------ */
-let compteur = { jour: new Date().toDateString(), n: 0 };
-function consommer() {
+/* Le plafond doit survivre à un redémarrage : sur une offre gratuite, le
+   service s'endort et repart plusieurs fois par jour. Un compteur gardé en
+   mémoire se remettrait à zéro à chaque réveil et ne protégerait rien.
+   On l'écrit donc dans l'entrepôt, avec une opération atomique. */
+let compteurMemoire = { jour: "", n: 0 };
+function cleQuota() {
+  return "cahier-premiere:quota:" + new Date().toISOString().slice(0, 10);
+}
+function enteteKV() {
+  return { Authorization: `Bearer ${KV_TOKEN}` };
+}
+
+/* incrémente et renvoie le nouveau total, ou null si pas d'entrepôt */
+async function incrementerQuota() {
+  if (!KV_URL || !KV_TOKEN) return null;
+  const cle = cleQuota();
+  const r = await fetch(`${KV_URL}/incr/${cle}`, { headers: enteteKV() });
+  if (!r.ok) throw new Error(`entrepôt injoignable (${r.status})`);
+  const j = await r.json();
+  if (j.error) throw new Error(`entrepôt : ${j.error}`);
+  const n = Number(j.result);
+  // première écriture de la journée : on programme l'effacement automatique
+  if (n === 1) {
+    fetch(`${KV_URL}/expire/${cle}/172800`, { headers: enteteKV() }).catch(() => {});
+  }
+  return n;
+}
+
+async function litQuota() {
+  if (!KV_URL || !KV_TOKEN) {
+    return compteurMemoire.jour === new Date().toDateString() ? compteurMemoire.n : 0;
+  }
+  try {
+    const r = await fetch(`${KV_URL}/get/${cleQuota()}`, { headers: enteteKV() });
+    const j = await r.json();
+    return Number(j.result) || 0;
+  } catch {
+    return 0;
+  }
+}
+
+async function consommer() {
+  try {
+    const n = await incrementerQuota();
+    if (n !== null) return n <= PLAFOND_JOUR;
+  } catch (e) {
+    console.warn("[quota] entrepôt indisponible, repli en mémoire :", e.message);
+  }
+  // repli : sans entrepôt, ou s'il ne répond pas
   const aujourdhui = new Date().toDateString();
-  if (compteur.jour !== aujourdhui) compteur = { jour: aujourdhui, n: 0 };
-  if (compteur.n >= PLAFOND_JOUR) return false;
-  compteur.n++;
+  if (compteurMemoire.jour !== aujourdhui) compteurMemoire = { jour: aujourdhui, n: 0 };
+  if (compteurMemoire.n >= PLAFOND_JOUR) return false;
+  compteurMemoire.n++;
   return true;
+}
+
+/* Limite par minute et par adresse : empêche qu'un clic répété ou une boucle
+   dans le navigateur ne vide le plafond de la journée en quelques secondes. */
+const PAR_MINUTE = Number(process.env.PAR_MINUTE || 6);
+const recents = new Map();
+function tropRapide(req) {
+  const ip = (req.headers["x-forwarded-for"] || req.ip || "?").split(",")[0].trim();
+  const t = Date.now();
+  const liste = (recents.get(ip) || []).filter((x) => t - x < 60000);
+  liste.push(t);
+  recents.set(ip, liste);
+  if (recents.size > 500) recents.clear(); // garde-fou mémoire
+  return liste.length > PAR_MINUTE;
 }
 
 /* ------------------------- code d'accès ------------------------- */
@@ -115,15 +176,39 @@ function blocImage(dataUrl) {
 
 /* ============================ endpoints ============================ */
 
-app.get("/api/ping", (req, res) => {
+app.get("/api/ping", async (req, res) => {
   res.json({
     ok: true,
     modele: MODELE,
-    restant: PLAFOND_JOUR - compteur.n,
+    restant: Math.max(0, PLAFOND_JOUR - (await litQuota())),
     codeRequis: !!CODE_ACCES,
     codeOk: !CODE_ACCES || req.get("X-Code") === CODE_ACCES,
   });
 });
+
+/* Écrit puis relit un témoin sur une clé séparée. La progression n'est
+   jamais touchée : un diagnostic ne doit rien pouvoir casser. */
+async function testerEcriture() {
+  const marque = "diag-" + Date.now();
+  if (KV_URL && KV_TOKEN) {
+    const cle = "cahier-premiere:diag";
+    const w = await fetch(`${KV_URL}/set/${cle}?EX=300`, {
+      method: "POST", headers: enteteKV(), body: marque,
+    });
+    if (!w.ok) throw new Error(`écriture refusée par l'entrepôt (${w.status})`);
+    const jw = await w.json().catch(() => ({}));
+    if (jw.error) throw new Error(`entrepôt : ${jw.error}`);
+    const r = await fetch(`${KV_URL}/get/${cle}`, { headers: enteteKV() });
+    const j = await r.json();
+    if (j.error) throw new Error(`entrepôt : ${j.error}`);
+    return j.result === marque ? "ok" : "échec : la valeur relue ne correspond pas";
+  }
+  const f = path.join(DOSSIER_DONNEES, "diag.tmp");
+  fs.writeFileSync(f, marque);
+  const relu = fs.readFileSync(f, "utf8");
+  fs.unlinkSync(f);
+  return relu === marque ? "ok" : "échec : la valeur relue ne correspond pas";
+}
 
 /* Auto-test : une seule adresse à ouvrir après la mise en ligne pour savoir
    si le stockage fonctionne réellement. Ne consomme aucun appel à l'API. */
@@ -132,11 +217,9 @@ app.get("/api/diag", autorise, async (_req, res) => {
   try {
     const avant = await lireEtat();
     bilan.lecture = avant ? `ok (maj ${new Date(avant.maj).toLocaleString("fr-FR")})` : "ok (vide)";
-    // aller-retour d'écriture sans toucher à la progression réelle
-    const temoin = { maj: (avant && avant.maj) || 0, etat: (avant && avant.etat) || { essai: true } };
-    await ecrireEtat(temoin);
-    const apres = await lireEtat();
-    bilan.ecriture = apres ? "ok" : "échec : rien relu après écriture";
+    // L'aller-retour d'écriture se fait sur une clé dédiée : le diagnostic
+    // ne doit jamais toucher à la progression de l'élève, même vide.
+    bilan.ecriture = await testerEcriture();
   } catch (e) {
     bilan.erreur = e.message;
   }
@@ -228,11 +311,14 @@ app.put("/api/etat", autorise, async (req, res) => {
 
 /* --- 1. réexpliquer un exercice du cahier --- */
 app.post("/api/expliquer", autorise, async (req, res) => {
-  if (!consommer())
+  if (tropRapide(req))
+    return res.status(429).json({ erreur: "trop de demandes d'affilée — attends une minute" });
+  const { enonce, correction, question, reussi } = req.body || {};
+  if (!enonce) return res.status(400).json({ erreur: "énoncé manquant" });
+  // le quota se consomme seulement une fois la requête reconnue valide
+  if (!(await consommer()))
     return res.status(429).json({ erreur: "plafond d'appels du jour atteint" });
   try {
-    const { enonce, correction, question, reussi } = req.body || {};
-    if (!enonce) return res.status(400).json({ erreur: "énoncé manquant" });
 
     const texte = await demander({
       system: SYSTEME_TUTEUR,
@@ -260,11 +346,13 @@ app.post("/api/expliquer", autorise, async (req, res) => {
 
 /* --- 2. corriger une photo de travail manuscrit --- */
 app.post("/api/photo", autorise, async (req, res) => {
-  if (!consommer())
+  if (tropRapide(req))
+    return res.status(429).json({ erreur: "trop de demandes d'affilée — attends une minute" });
+  const { image, question } = req.body || {};
+  if (!image) return res.status(400).json({ erreur: "image manquante" });
+  if (!(await consommer()))
     return res.status(429).json({ erreur: "plafond d'appels du jour atteint" });
   try {
-    const { image, question } = req.body || {};
-    if (!image) return res.status(400).json({ erreur: "image manquante" });
 
     const texte = await demander({
       system: SYSTEME_TUTEUR,
@@ -347,12 +435,14 @@ const SYSTEME_FICHE = `Tu es professeur de mathématiques en Première (spécial
 - Vérifie tes calculs. Un exercice dont la réponse est fausse est pire qu'un exercice absent.`;
 
 app.post("/api/fiche", autorise, async (req, res) => {
-  if (!consommer())
+  if (tropRapide(req))
+    return res.status(429).json({ erreur: "trop de demandes d'affilée — attends une minute" });
+  const { titre, texte, image } = req.body || {};
+  if (!texte && !image)
+    return res.status(400).json({ erreur: "aucun contenu à traiter" });
+  if (!(await consommer()))
     return res.status(429).json({ erreur: "plafond d'appels du jour atteint" });
   try {
-    const { titre, texte, image } = req.body || {};
-    if (!texte && !image)
-      return res.status(400).json({ erreur: "aucun contenu à traiter" });
 
     const content = [];
     if (image) content.push(blocImage(image));
