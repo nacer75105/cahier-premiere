@@ -601,7 +601,10 @@ duree:35,
 sections:[
  {titre:"Une suite, c'est une liste numérotée", blocs:[
   {t:"idee", x:"Une suite, c'est une **liste de nombres rangés dans l'ordre**, où chaque nombre porte une étiquette : son numéro de place."},
+  {t:"p", x:"Avant la définition, la raison d'être. Beaucoup de choses dans la vie n'évoluent pas de façon continue, mais **par paliers réguliers** : un salaire qui augmente chaque année, une population de bactéries qui double toutes les heures, le solde d'un compte après chaque mois, la hauteur d'une balle à chaque rebond. Dans tous ces cas, on n'a pas besoin de connaître la valeur « à un instant quelconque » — on veut la valeur **au bout de 1 an, de 2 ans, de 10 ans**. Une suite, c'est l'outil fait pour ça : une valeur par étape, et une règle pour passer d'une étape à la suivante."},
+  {t:"p", x:"C'est la différence avec les fonctions que tu connais. Une fonction accepte n'importe quel nombre : $f(2{,}37)$ a un sens. Une suite, non : $u_{2{,}37}$ n'existe pas, parce qu'il n'y a pas de « 2,37-ième année ». Les places sont des entiers : 0, 1, 2, 3… On dit que la suite est **discrète**, par opposition à continue."},
   {t:"p", x:"On écrit $u_0$ pour le premier terme, $u_1$ pour le deuxième, $u_2$ pour le troisième… Le nombre $u_n$ se lit « u indice n ». Le petit $n$ en bas, c'est **la place** ; $u_n$, c'est **la valeur** qui se trouve à cette place. Ce sont deux choses différentes, et c'est là que naissent 80 % des erreurs."},
+  {t:"p", x:"Une image qui aide : imagine une rangée de casiers numérotés. Le numéro écrit sur la porte, c'est $n$. Ce qu'il y a **à l'intérieur** du casier, c'est $u_n$. Le casier n° 3 peut très bien contenir le nombre 47 : on écrit alors $u_3 = 47$. Le numéro de la porte et le contenu n'ont aucune raison d'être égaux."},
   {t:"tbl", head:["Rang $n$","0","1","2","3","4"], rows:[["Terme $u_n$","3","5","7","9","11"]]},
   {t:"p", x:"Sur cet exemple : $u_0 = 3$ et $u_3 = 9$. Le terme $u_3$ n'est pas le nombre 3 : c'est le terme **de rang 3**, c'est-à-dire le quatrième de la liste puisqu'on a commencé à compter à 0."},
   {t:"piege", titre:"L'erreur classique", x:"Écrire « $u_3 = 3$ » parce que le 3 apparaît. Le 3 du bas est une adresse, pas une valeur. Pense à un immeuble : l'appartement n° 3 ne contient pas forcément 3 personnes."},
@@ -627,8 +630,12 @@ sections:[
  {titre:"Suites arithmétiques : on ajoute toujours la même chose", blocs:[
   {t:"idee", x:"Une suite est **arithmétique** si, pour passer d'un terme au suivant, on ajoute toujours le même nombre. Ce nombre s'appelle la **raison**, notée $r$."},
   {t:"p", x:"Exemple : 5 ; 8 ; 11 ; 14 ; 17… À chaque fois on ajoute 3. Donc $r = 3$."},
+  {t:"p", x:"Où en rencontre-t-on ? Partout où quelque chose s'ajoute par quantité fixe : un abonnement à 15 € par mois, une plante qui pousse de 2 cm par semaine, un escalier dont chaque marche fait 18 cm. À chaque étape, on ajoute la même chose. C'est le modèle d'évolution le plus simple qui existe, et c'est pour ça qu'on commence par lui."},
   {t:"formule", titre:"Les deux formules à connaître", x:"$u_{n+1} = u_n + r$ &nbsp;&nbsp;(relation de récurrence)<br>$u_n = u_0 + n × r$ &nbsp;&nbsp;(terme général, si on part de $u_0$)", note:"Si la suite commence à $u_1$, la formule devient $u_n = u_1 + (n-1) × r$."},
+  {t:"p", x:"Ces deux formules ne disent pas la même chose, et il faut bien voir la différence. La première, $u_{n+1} = u_n + r$, décrit **le pas** : elle dit comment passer d'un terme au suivant, mais rien de plus. Pour connaître $u_{100}$ avec elle, il faudrait faire cent additions. La seconde, $u_n = u_0 + n × r$, décrit **le raccourci** : elle saute directement à n'importe quel rang."},
+  {t:"p", x:"D'où vient ce raccourci ? Il se démontre en trois lignes, et le comprendre évite de le confondre avec celui des suites géométriques. Pour aller de $u_0$ à $u_1$, on ajoute $r$ une fois. Pour aller de $u_0$ à $u_2$, on ajoute $r$ deux fois. Pour aller de $u_0$ à $u_{10}$, dix fois. Donc pour aller de $u_0$ à $u_n$ : on ajoute $r$ exactement **$n$ fois**, ce qui s'écrit $n × r$. La formule n'est rien d'autre que « le point de départ, plus $n$ pas »."},
   {t:"astuce", titre:"Comment reconnaître", x:"Calcule les différences entre termes consécutifs. Si tu trouves toujours le même nombre, c'est arithmétique. Exemple : 8−5 = 3, 11−8 = 3, 14−11 = 3 → oui."},
+  {t:"p", x:"Attention à un point de méthode : **une seule différence ne prouve rien**. Si tu regardes uniquement $8 - 5 = 3$, tu ne sais pas encore. Il faut en vérifier au moins deux ou trois : c'est leur égalité qui caractérise une suite arithmétique. La suite 5 ; 8 ; 16 ; 32 commence comme une arithmétique de raison 3, et n'en est pas une."},
   {t:"exemple", titre:"Exemple guidé — atteindre un terme lointain", enonce:"Une suite arithmétique vérifie $u_0 = 7$ et $r = 4$. Calculer $u_{20}$.", etapes:[
    {q:"Quelle formule choisir ?", r:"Aller de $u_0$ à $u_{20}$ pas à pas prendrait 20 lignes. On utilise le terme général : $u_n = u_0 + n × r$."},
    {q:"Remplacer", r:"$u_{20} = 7 + 20 × 4$."},
@@ -642,6 +649,15 @@ sections:[
   {t:"idee", x:"Une suite est **géométrique** si, pour passer d'un terme au suivant, on multiplie toujours par le même nombre. Ce nombre s'appelle la **raison**, notée $q$."},
   {t:"p", x:"Exemple : 2 ; 6 ; 18 ; 54… À chaque fois on multiplie par 3. Donc $q = 3$."},
   {t:"formule", titre:"Les deux formules à connaître", x:"$u_{n+1} = q × u_n$ &nbsp;&nbsp;(récurrence)<br>$u_n = u_0 × q^{n}$ &nbsp;&nbsp;(terme général)", note:"L'exposant, c'est le nombre de multiplications effectuées."},
+  {t:"p", x:"Le raisonnement est exactement le même que pour l'arithmétique, avec une seule opération changée. Là-bas on ajoutait $r$ à chaque pas, donc après $n$ pas on avait ajouté $n × r$. Ici on **multiplie** par $q$ à chaque pas, donc après $n$ pas on a multiplié par $q × q × … × q$, soit $q^{n}$. Une puissance, c'est simplement une multiplication répétée — de la même façon qu'une multiplication est une addition répétée."},
+  {t:"tbl", head:["","Arithmétique","Géométrique"], rows:[
+   ["À chaque pas, on…","ajoute $r$","multiplie par $q$"],
+   ["Après $n$ pas","on a ajouté $n × r$","on a multiplié par $q^{n}$"],
+   ["Terme général","$u_n = u_0 + n r$","$u_n = u_0 × q^{n}$"],
+   ["On la reconnaît par","les différences constantes","les quotients constants"],
+   ["Allure de la croissance","régulière, en ligne droite","de plus en plus rapide"]
+  ]},
+  {t:"p", x:"Ce tableau vaut la peine d'être recopié à la main : les deux colonnes se répondent ligne à ligne. Presque toutes les erreurs de ce chapitre viennent d'un mélange entre elles — un $+$ mis à la place d'un $×$, ou un $n$ écrit en facteur au lieu d'un exposant."},
   {t:"astuce", titre:"Comment reconnaître", x:"Calcule les quotients entre termes consécutifs : $6 ÷ 2 = 3$, $18 ÷ 6 = 3$, $54 ÷ 18 = 3$. Toujours le même → géométrique."},
   {t:"p", x:"Les suites géométriques sont **le langage des pourcentages**. Un capital qui augmente de 5 % par an est multiplié chaque année par 1,05 : c'est une suite géométrique de raison $q = 1{,}05$."},
   {t:"formule", titre:"Pourcentages ↔ raison", x:"Augmenter de $t$ % &nbsp;⇔&nbsp; multiplier par $1 + @f{t}{100}$<br>Diminuer de $t$ % &nbsp;⇔&nbsp; multiplier par $1 - @f{t}{100}$", note:"+5 % → ×1,05 &nbsp;·&nbsp; −20 % → ×0,8 &nbsp;·&nbsp; +100 % → ×2"},
@@ -678,6 +694,27 @@ sections:[
    {q:"Appliquer la formule", r:"$S = 15 × @f{5 + 47}{2} = 15 × 26 = 390$."},
    {q:"Contrôle", r:"La moyenne des termes est 26, il y en a 15 : le total doit tourner autour de $15 × 26$. Cohérent."}
   ]}
+ ]},
+
+ {titre:"Récapitulatif : reconnaître, puis appliquer", blocs:[
+  {t:"idee", x:"Tout ce chapitre tient en deux gestes : **d'abord reconnaître** de quel type de suite il s'agit, **ensuite seulement** appliquer la formule correspondante. Se tromper de type rend tout le reste faux, même si les calculs sont impeccables."},
+  {t:"p", x:"C'est pour ça que la première chose à faire devant un énoncé n'est jamais de calculer, mais de **tester**. Deux tests, dans cet ordre :"},
+  {t:"liste", items:[
+   "**Test des différences** — je soustrais deux termes consécutifs, deux ou trois fois. Toujours le même résultat ? C'est arithmétique, et ce résultat est $r$.",
+   "**Test des quotients** — je divise deux termes consécutifs, deux ou trois fois. Toujours le même résultat ? C'est géométrique, et ce résultat est $q$.",
+   "Aucun des deux ne marche ? La suite n'est ni l'une ni l'autre — on la traite alors terme par terme, avec sa formule propre."
+  ]},
+  {t:"tbl", head:["La question ressemble à…","Ce qu'il faut faire"], rows:[
+   ["« Calculer $u_5$ » avec $u_n = $ une expression","Remplacer $n$ par 5, respecter les priorités"],
+   ["« Calculer $u_{20}$ » avec $u_0$ et une raison","Terme général : $u_0 + 20r$ ou $u_0 × q^{20}$"],
+   ["« Calculer $u_2$ » avec $u_{n+1} = …$","De proche en proche : $u_1$, puis $u_2$"],
+   ["Un pourcentage d'évolution répété","Géométrique, $q = 1 ± @f{t}{100}$"],
+   ["« La suite est-elle croissante ? »","Signe de $r$, ou position de $q$ par rapport à 1"],
+   ["« Calculer la somme »","Formule des sommes, en comptant bien les termes"]
+  ]},
+  {t:"piege", titre:"Les trois erreurs les plus coûteuses", x:"**1. Confondre place et valeur.** $u_3$ est le contenu du casier n° 3, pas le nombre 3.<br>**2. Compter les pas de travers.** De $u_0$ à $u_{10}$ il y a 10 pas, mais 11 termes. Le premier est gratuit.<br>**3. Traiter un pourcentage comme une addition.** +5 % par an sur 10 ans, ce n'est pas +50 % : c'est $×1{,}05^{10}$, soit environ +63 %. Les intérêts produisent eux-mêmes des intérêts."},
+  {t:"astuce", titre:"Le contrôle qui coûte dix secondes", x:"Après chaque résultat, demande-toi s'il est **plausible**. Une suite qui part de 7 avec une raison $+4$ ne peut pas donner un terme négatif. Un capital placé à 3 % ne peut pas doubler en deux ans. Ce réflexe attrape la plupart des erreurs de signe et d'exposant sans avoir à tout refaire."},
+  {t:"p", x:"Dernier conseil de méthode : quand un énoncé te perd, **écris les cinq premiers termes**. Rien ne remplace le fait de voir la suite concrètement. Souvent, la nature de la suite saute alors aux yeux, et la formule à utiliser devient évidente."}
  ]}
 ],
 exos:[
@@ -1464,16 +1501,39 @@ sections:[
   {t:"p", x:"Avant les formules, comprenons ce que ce nombre raconte. Imagine que tu tires une luge avec une corde. Si tu tires bien dans l'axe de la marche, tout ton effort sert à avancer. Si tu tires en biais, une partie de l'effort est perdue à soulever la luge. Et si tu tirais perpendiculairement, à angle droit, tu ne la ferais pas avancer du tout."},
   {t:"p", x:"Le produit scalaire mesure exactement ça : **la part d'un vecteur qui va dans la direction de l'autre**. Deux vecteurs alignés dans le même sens → grand nombre positif. Perpendiculaires → zéro. Sens opposés → nombre négatif. C'est pour cette raison qu'un produit scalaire nul signifie « angle droit » : c'est la situation où l'un n'apporte rien à l'autre."},
   {t:"figi", nom:"produit-scalaire"},
+  {t:"p", x:"Pourquoi trois formules pour une seule notion ? Parce qu'on ne dispose pas toujours des mêmes informations. Parfois l'énoncé donne des coordonnées, parfois des longueurs et un angle. Les trois formules calculent **exactement le même nombre** ; on choisit celle qui correspond à ce qu'on a sous la main. Ce n'est pas trois choses à apprendre, c'est une seule chose vue par trois portes différentes."},
   {t:"formule", titre:"Avec les coordonnées — la plus utilisée", x:"Si $@v{u}(x ; y)$ et $@v{v}(x' ; y')$, alors $@v{u} · @v{v} = x x' + y y'$", note:"On multiplie les abscisses entre elles, les ordonnées entre elles, et on additionne."},
+  {t:"p", x:"Cette formule paraît sortir de nulle part. Voici comment la comprendre. Un déplacement se décompose toujours en deux morceaux indépendants : ce qui se passe **horizontalement** et ce qui se passe **verticalement**. Le produit scalaire compare les deux vecteurs séparément dans chaque direction — $x x'$ pour l'horizontale, $y y'$ pour la verticale — puis additionne les deux comparaisons."},
+  {t:"p", x:"Et pourquoi une multiplication dans chaque direction ? Parce qu'elle porte le signe. Si les deux vecteurs vont vers la droite, $x$ et $x'$ sont tous deux positifs : le produit est positif, ils « s'accordent ». Si l'un va à droite et l'autre à gauche, le produit devient négatif : ils se contrarient. Le total dit qui l'emporte. Un produit scalaire nul, c'est donc un **équilibre exact** entre ce qui s'accorde et ce qui se contrarie — et cet équilibre, géométriquement, c'est l'angle droit."},
   {t:"formule", titre:"Avec l'angle", x:"$@v{u} · @v{v} = ||@v{u}|| × ||@v{v}|| × cos θ$", note:"$θ$ est l'angle entre les deux vecteurs. Utile pour trouver un angle."},
+  {t:"p", x:"Celle-ci rend visible ce que la première cachait. Les deux longueurs disent « quelle est la taille des vecteurs », et le $cos θ$ dit « à quel point ils pointent dans la même direction » : il vaut 1 s'ils sont parfaitement alignés, 0 s'ils sont perpendiculaires, $-1$ s'ils sont opposés. Le produit scalaire, c'est donc **la taille multipliée par l'accord**. Retiens le cas central : quand l'angle est droit, $cos(90°) = 0$, et tout le produit s'effondre à zéro quelles que soient les longueurs."},
   {t:"formule", titre:"Avec les normes", x:"$@v{u} · @v{v} = @f{1}{2}(||@v{u}||^2 + ||@v{v}||^2 - ||@v{u} - @v{v}||^2)$", note:"Réservée aux situations où on ne dispose que de longueurs."},
-  {t:"piege", titre:"Le résultat est un nombre", x:"Écrire « $@v{u} · @v{v} = (6 ; 8)$ » n'a pas de sens. Un produit scalaire donne toujours **un seul nombre**, éventuellement négatif."},
-  {t:"exemple", titre:"Exemple guidé — calcul en coordonnées", enonce:"Soit $@v{u}(3 ; -2)$ et $@v{v}(4 ; 5)$. Calculer $@v{u} · @v{v}$.", etapes:[
-   {q:"Appliquer la formule", r:"$@v{u} · @v{v} = 3 × 4 + (-2) × 5$."},
-   {q:"Calculer chaque produit", r:"$3 × 4 = 12$ et $(-2) × 5 = -10$."},
-   {q:"Additionner", r:"$12 + (-10) = 2$."},
-   {q:"Interpréter", r:"Le résultat est positif : l'angle entre les deux vecteurs est aigu (inférieur à 90°)."}
+  {t:"p", x:"Celle-là est la moins fréquente, et il ne faut surtout pas s'y accrocher. Elle sert quand un énoncé ne donne que des distances — trois longueurs d'un triangle, par exemple — sans coordonnées ni angle. Si tu as des coordonnées, n'y touche pas : la première formule est dix fois plus rapide."},
+  {t:"tbl", head:["Ce que donne l'énoncé","Formule à prendre"], rows:[
+   ["Des coordonnées de points ou de vecteurs","$x x' + y y'$ — presque toujours celle-ci"],
+   ["Des longueurs et un angle","$||@v{u}|| × ||@v{v}|| × cos θ$"],
+   ["Un angle à trouver","La même, réarrangée pour isoler $cos θ$"],
+   ["Uniquement des longueurs","Celle avec les normes, ou Al-Kashi"]
   ]},
+  {t:"astuce", titre:"Le réflexe à prendre en contrôle", x:"Avant de choisir, regarde l'énoncé et demande-toi : « qu'est-ce qu'on me donne ? » Des parenthèses avec deux nombres dedans → coordonnées → première formule. Un angle en degrés → deuxième formule. Ce seul réflexe évite la moitié des blocages."},
+  {t:"piege", titre:"Le résultat est un nombre", x:"Écrire « $@v{u} · @v{v} = (6 ; 8)$ » n'a pas de sens. Un produit scalaire donne toujours **un seul nombre**, éventuellement négatif. C'est d'ailleurs de là que vient son nom : « scalaire » veut dire « simple nombre », par opposition à « vectoriel ». Si ta réponse a deux coordonnées, tu as fait autre chose qu'un produit scalaire."},
+  {t:"exemple", titre:"Exemple guidé — calcul en coordonnées", enonce:"Soit $@v{u}(3 ; -2)$ et $@v{v}(4 ; 5)$. Calculer $@v{u} · @v{v}$.", etapes:[
+   {q:"Choisir la formule", r:"L'énoncé donne des coordonnées. C'est donc $x x' + y y'$, sans hésiter."},
+   {q:"Identifier qui est qui", r:"Pour $@v{u}$ : $x = 3$ et $y = -2$. Pour $@v{v}$ : $x' = 4$ et $y' = 5$. **Le signe moins fait partie de la coordonnée** : $y$ vaut $-2$, pas 2. C'est là que la moitié des erreurs se produisent."},
+   {q:"Appliquer la formule", r:"$@v{u} · @v{v} = 3 × 4 + (-2) × 5$. J'écris les parenthèses autour de $-2$ : elles ne servent à rien mathématiquement, mais elles m'empêchent d'oublier le signe."},
+   {q:"Calculer chaque produit", r:"$3 × 4 = 12$ et $(-2) × 5 = -10$."},
+   {q:"Additionner", r:"$12 + (-10) = 12 - 10 = 2$."},
+   {q:"Interpréter", r:"Le résultat est positif, donc l'angle est aigu : les deux vecteurs pointent globalement du même côté. Un contrôle utile — si tu traces rapidement les deux vecteurs et qu'ils t'apparaissent nettement opposés alors que tu as trouvé un nombre positif, c'est qu'il y a une erreur de signe quelque part."}
+  ]},
+  {t:"p", x:"Passons maintenant au cas où l'énoncé donne un angle plutôt que des coordonnées. La démarche change complètement, et c'est justement pour ça qu'il faut savoir reconnaître la situation."},
+  {t:"exemple", titre:"Exemple guidé — quand on connaît l'angle", enonce:"Deux vecteurs $@v{u}$ et $@v{v}$ ont pour longueurs $||@v{u}|| = 4$ et $||@v{v}|| = 6$, et l'angle entre eux mesure 60°. Calculer $@v{u} · @v{v}$.", etapes:[
+   {q:"Repérer ce qu'on a", r:"Deux longueurs et un angle : aucune coordonnée. C'est donc la deuxième formule."},
+   {q:"Écrire la formule", r:"$@v{u} · @v{v} = ||@v{u}|| × ||@v{v}|| × cos θ = 4 × 6 × cos(60°)$."},
+   {q:"Remplacer le cosinus", r:"$cos(60°) = @f{1}{2}$. C'est une valeur du tableau du chapitre Trigonométrie, à connaître par cœur."},
+   {q:"Calculer", r:"$4 × 6 × @f{1}{2} = 24 × @f{1}{2} = 12$."},
+   {q:"Ce que ça raconte", r:"Le produit maximal possible pour ces deux longueurs serait $4 × 6 = 24$, atteint si les vecteurs étaient parfaitement alignés. On obtient 12, soit la moitié : à 60°, les vecteurs ne « s'accordent » qu'à moitié."}
+  ]},
+  {t:"astuce", titre:"Retrouver un angle", x:"La même formule sert dans l'autre sens. Si tu connais les coordonnées, tu peux calculer $@v{u} · @v{v}$ **et** les deux longueurs, puis en déduire $cos θ = @f{@v{u} · @v{v}}{||@v{u}|| × ||@v{v}||}$. C'est la seule méthode du programme pour trouver un angle dans un repère."},
   {t:"check", q:"Soit $@v{u}(2 ; 3)$ et $@v{v}(5 ; -1)$. Combien vaut $@v{u} · @v{v}$ ?",
    choix:["7","13","10","$(10 ; -3)$"], bonne:0,
    expl:["Exact : $2 × 5 + 3 × (-1) = 10 - 3 = 7$.",
@@ -1484,7 +1544,10 @@ sections:[
 
  {titre:"Orthogonalité : le critère qui sert tout le temps", blocs:[
   {t:"idee", x:"C'est l'application reine du produit scalaire : il permet de tester si deux directions sont perpendiculaires, sans rapporteur."},
+  {t:"p", x:"Prends la mesure de ce que ça change. Avant, pour prouver qu'un angle est droit, il fallait Pythagore : calculer trois longueurs, souvent avec des racines carrées, puis vérifier une égalité. Maintenant, deux multiplications et une addition suffisent, et le résultat est un nombre entier la plupart du temps. C'est **l'outil le plus rentable de tout le chapitre**, et il tombe à presque tous les contrôles."},
   {t:"formule", titre:"Critère d'orthogonalité", x:"$@v{u} ⊥ @v{v}$ &nbsp;⇔&nbsp; $@v{u} · @v{v} = 0$", note:"Produit scalaire nul = vecteurs perpendiculaires. C'est une équivalence : ça marche dans les deux sens."},
+  {t:"p", x:"Le petit symbole ⇔ se lit « équivaut à », et il compte. Il signifie que la propriété fonctionne **dans les deux sens** : si tu sais que l'angle est droit, tu peux affirmer que le produit scalaire est nul ; et si tu trouves un produit scalaire nul, tu peux affirmer que l'angle est droit. C'est ce qui en fait un outil de **démonstration** : trouver zéro n'est pas un indice, c'est une preuve."},
+  {t:"p", x:"D'où vient ce zéro ? De la deuxième formule. Le produit scalaire vaut $||@v{u}|| × ||@v{v}|| × cos θ$. Les deux longueurs ne sont jamais nulles (sinon il n'y aurait pas de vecteur). Donc le seul moyen d'obtenir zéro, c'est que $cos θ = 0$ — et le cosinus ne s'annule qu'à 90°. Le critère n'est pas une règle arbitraire à mémoriser : c'est une conséquence directe."},
   {t:"p", x:"Le signe du produit scalaire renseigne aussi sur l'allure de l'angle, ce qui donne un contrôle rapide."},
   {t:"tbl", head:["Signe de $@v{u} · @v{v}$","Angle entre les vecteurs"], rows:[
    ["Positif","Aigu — les vecteurs pointent globalement dans la même direction"],
@@ -1509,7 +1572,22 @@ sections:[
    {q:"Produit scalaire", r:"$(-3) × (-1) + (-1) × 3 = 3 - 3 = 0$."},
    {q:"Conclure", r:"Le produit scalaire est nul, donc $@v{BA} ⊥ @v{BC}$ : le triangle est bien rectangle en $B$."}
   ]},
-  {t:"piege", titre:"Partir du bon sommet", x:"Pour un angle droit en $B$, il faut les vecteurs **issus de $B$** : $@v{BA}$ et $@v{BC}$. Utiliser $@v{AB}$ et $@v{BC}$ mélange les origines et fausse le raisonnement."}
+  {t:"piege", titre:"Partir du bon sommet", x:"Pour un angle droit en $B$, il faut les vecteurs **issus de $B$** : $@v{BA}$ et $@v{BC}$. Utiliser $@v{AB}$ et $@v{BC}$ mélange les origines et fausse le raisonnement.<br><br>Pour ne plus s'y tromper : l'angle se trouve **au sommet où les deux traits se rejoignent**. Les deux vecteurs doivent donc partir de ce sommet-là, comme deux bras écartés depuis une même épaule. Le nom du sommet est toujours la **première lettre** des deux vecteurs : angle en $B$ → $@v{B}$… et $@v{B}$…"},
+  {t:"astuce", titre:"La méthode complète, à réutiliser telle quelle", x:"1. Repérer le sommet où l'angle est supposé droit.<br>2. Écrire les deux vecteurs qui **partent** de ce sommet.<br>3. Calculer leurs coordonnées (arrivée moins départ, pour chacun).<br>4. Faire le produit scalaire.<br>5. Conclure : nul → rectangle en ce sommet ; non nul → pas rectangle là.<br><br>Ces cinq lignes se recopient à l'identique dans n'importe quel exercice de ce type. Apprends la démarche, pas l'exemple."},
+  {t:"p", x:"Une variante revient souvent : au lieu de vérifier un angle droit, on demande de **trouver une valeur inconnue** pour que l'angle le devienne. La méthode ne change pas — on écrit le produit scalaire, sauf qu'il contient une lettre, et on résout l'équation « = 0 »."},
+  {t:"exemple", titre:"Exemple guidé — trouver la valeur qui rend perpendiculaire", enonce:"Pour quelle valeur de $m$ les vecteurs $@v{u}(2 ; m)$ et $@v{v}(6 ; -3)$ sont-ils orthogonaux ?", etapes:[
+   {q:"Traduire la question", r:"« Orthogonaux » veut dire « produit scalaire nul ». La question devient donc : pour quel $m$ a-t-on $@v{u} · @v{v} = 0$ ?"},
+   {q:"Écrire le produit scalaire avec la lettre", r:"$@v{u} · @v{v} = 2 × 6 + m × (-3) = 12 - 3m$. La lettre se manipule comme un nombre ordinaire."},
+   {q:"Poser l'équation", r:"$12 - 3m = 0$."},
+   {q:"Résoudre", r:"$12 = 3m$, donc $m = @f{12}{3} = 4$."},
+   {q:"Vérifier — toujours", r:"Avec $m = 4$ : $@v{u}(2 ; 4)$ et $@v{v}(6 ; -3)$, donc $2 × 6 + 4 × (-3) = 12 - 12 = 0$ ✓. Cette vérification prend dix secondes et attrape toutes les erreurs de signe."}
+  ]},
+  {t:"check", q:"Dans un triangle $RST$, on veut prouver l'angle droit en $S$. Quels vecteurs faut-il utiliser ?",
+   choix:["$@v{SR}$ et $@v{ST}$","$@v{RS}$ et $@v{ST}$","$@v{RS}$ et $@v{RT}$","$@v{TR}$ et $@v{TS}$"], bonne:0,
+   expl:["Exact : les deux vecteurs partent bien de $S$, le sommet de l'angle.",
+         "$@v{RS}$ part de $R$, pas de $S$. Les deux vecteurs doivent avoir la **même** première lettre.",
+         "Ces deux-là partent de $R$ : ils testeraient l'angle en $R$, pas en $S$.",
+         "Ceux-ci partent de $T$ : ils testeraient l'angle en $T$."]}
  ]},
 
  {titre:"Applications : droites et cercles", blocs:[
@@ -1571,6 +1649,23 @@ sections:[
    {q:"Contrôle", r:"$BC$ doit être compris entre $7 - 5 = 2$ et $7 + 5 = 12$ (inégalité triangulaire). C'est le cas. ✓"}
   ]},
   {t:"piege", titre:"L'angle doit être entre les deux côtés", x:"Al-Kashi n'utilise que l'angle **encadré par les deux côtés connus**. Si l'énoncé donne un autre angle, la formule ne s'applique pas directement : il faut d'abord passer par la somme des angles du triangle."}
+ ]},
+
+ {titre:"Récapitulatif : que faire selon la question posée", blocs:[
+  {t:"idee", x:"Le chapitre entier tient dans une seule idée : **le produit scalaire transforme une question sur des angles en un simple calcul de nombres**. Tout le reste n'est que la façon de s'en servir selon ce que l'énoncé fournit."},
+  {t:"p", x:"En contrôle, la difficulté n'est presque jamais le calcul lui-même — c'est de savoir quelle porte ouvrir. Ce tableau relie chaque question type à sa méthode. Relis-le la veille : il vaut mieux qu'une relecture complète du chapitre."},
+  {t:"tbl", head:["La question ressemble à…","Ce qu'il faut faire"], rows:[
+   ["« Calculer $@v{u} · @v{v}$ » avec des coordonnées","$x x' + y y'$, en surveillant les signes"],
+   ["« Montrer que le triangle est rectangle en $B$ »","Les deux vecteurs partant de $B$, produit scalaire, montrer qu'il vaut 0"],
+   ["« Pour quelle valeur de $m$… orthogonaux »","Produit scalaire avec la lettre, puis résoudre « = 0 »"],
+   ["« Calculer la longueur $AB$ »","$@r{x^2 + y^2}$ sur le vecteur $@v{AB}$"],
+   ["« Calculer l'angle »","$cos θ = @f{@v{u} · @v{v}}{||@v{u}|| × ||@v{v}||}$"],
+   ["« Calculer un côté » avec un angle donné","Al-Kashi"],
+   ["« Distance d'un point à une droite »","Passer par le projeté orthogonal"]
+  ]},
+  {t:"formule", titre:"Les trois lignes à savoir écrire sans réfléchir", x:"$@v{AB}(x_B - x_A ; y_B - y_A)$<br>$@v{u} · @v{v} = x x' + y y'$<br>$@v{u} ⊥ @v{v} ⇔ @v{u} · @v{v} = 0$", note:"Si tu ne devais retenir que trois choses de ce chapitre, ce serait celles-là."},
+  {t:"astuce", titre:"Les trois erreurs qui coûtent le plus de points", x:"**1. Le sens du vecteur** — arrivée moins départ, jamais l'inverse.<br>**2. Le mauvais sommet** — pour un angle en $B$, les deux vecteurs partent de $B$.<br>**3. Les signes négatifs** — écris les parenthèses autour des coordonnées négatives, systématiquement.<br><br>Ces trois-là représentent l'essentiel des points perdus sur ce chapitre. Aucune n'est une erreur de compréhension : ce sont des erreurs d'inattention, donc entièrement évitables en ralentissant."},
+  {t:"p", x:"Un dernier mot sur la méthode de travail. Ce chapitre se révise **avec un crayon et du papier quadrillé**, pas en relisant. Reprends deux ou trois exercices déjà faits, refais-les en traçant la figure à chaque fois — même quand l'énoncé ne le demande pas. La figure ne sert pas à trouver la réponse, elle sert à repérer quand la réponse trouvée est absurde."}
  ]}
 ],
 exos:[
