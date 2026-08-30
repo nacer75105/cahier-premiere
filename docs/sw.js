@@ -8,7 +8,7 @@
      des appels à Claude et la progression, qui doivent rester frais.
    ===================================================================== */
 
-const VERSION = "cahier-v2";
+const VERSION = "cahier-v3";
 const ESSENTIELS = ["./", "./index.html"];
 
 self.addEventListener("install", (e) => {

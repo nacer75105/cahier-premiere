@@ -337,6 +337,31 @@ textarea.inp{font-family:var(--f-body);font-size:15px;line-height:1.55;resize:ve
 }
 @keyframes up{from{opacity:0;transform:translateX(-50%) translateY(10px)}to{opacity:1;transform:translateX(-50%)}}
 
+
+/* ---------- La méthode, pas à pas ---------- */
+.methode{
+  background:var(--surface); border:1px solid var(--vertLine); border-left:4px solid var(--vert);
+  border-radius:var(--r); padding:16px 18px 18px
+}
+.methode .mt{
+  font-family:var(--f-disp); font-weight:700; font-size:15.5px; color:var(--vert);
+  margin-bottom:10px; display:flex; gap:8px; align-items:center
+}
+.methode .mt::before{content:"\2192"; font-size:15px}
+.mList{counter-reset:etp; margin:0; padding:0; list-style:none; display:grid; gap:9px}
+.mList li{position:relative; padding-left:34px; line-height:1.7; max-width:62ch; font-size:15.5px}
+.mList li::before{
+  counter-increment:etp; content:counter(etp);
+  position:absolute; left:0; top:1px; width:24px; height:24px; border-radius:99px;
+  background:var(--vertSoft); color:var(--vert); display:grid; place-items:center;
+  font-size:12.5px; font-weight:700; font-variant-numeric:tabular-nums
+}
+.mEx{
+  margin-top:14px; padding:11px 14px; background:var(--surface2); border-radius:var(--r2);
+  font-size:14.5px; line-height:1.55; color:var(--ink2)
+}
+.mEx b{color:var(--ink)}
+
 /* ---------- Responsive ---------- */
 @media (max-width:900px){
   .shell{grid-template-columns:1fr}
@@ -778,6 +803,21 @@ sections:[
   {t:"piege", titre:"Les trois erreurs les plus coûteuses", x:"**1. Confondre place et valeur.** $u_3$ est le contenu du casier n° 3, pas le nombre 3.<br>**2. Compter les pas de travers.** De $u_0$ à $u_{10}$ il y a 10 pas, mais 11 termes. Le premier est gratuit.<br>**3. Traiter un pourcentage comme une addition.** +5 % par an sur 10 ans, ce n'est pas +50 % : c'est $×1{,}05^{10}$, soit environ +63 %. Les intérêts produisent eux-mêmes des intérêts."},
   {t:"astuce", titre:"Le contrôle qui coûte dix secondes", x:"Après chaque résultat, demande-toi s'il est **plausible**. Une suite qui part de 7 avec une raison $+4$ ne peut pas donner un terme négatif. Un capital placé à 3 % ne peut pas doubler en deux ans. Ce réflexe attrape la plupart des erreurs de signe et d'exposant sans avoir à tout refaire."},
   {t:"p", x:"Dernier conseil de méthode : quand un énoncé te perd, **écris les cinq premiers termes**. Rien ne remplace le fait de voir la suite concrètement. Souvent, la nature de la suite saute alors aux yeux, et la formule à utiliser devient évidente."}
+ ]},
+{titre:"Les méthodes du chapitre", blocs:[
+  {t:"methode", titre:"Reconnaître le type d'une suite", etapes:[
+   "**Écrire les premiers termes** si l'énoncé ne les donne pas. Rien ne remplace le fait de voir la suite concrètement.",
+   "**Tester les différences** : soustraire deux termes consécutifs, deux ou trois fois. Toujours le même résultat ? La suite est arithmétique, et ce résultat est $r$.",
+   "**Tester les quotients** : diviser deux termes consécutifs, deux ou trois fois. Toujours le même ? La suite est géométrique, et ce résultat est $q$.",
+   "**Conclure, et seulement alors appliquer la formule** du type reconnu. Se tromper de type rend tout le reste faux, même avec des calculs impeccables."
+  ], exemple:"Sur 2 ; 6 ; 18 ; 54 : les différences valent 4, 12, 36 — pas constantes. Les quotients valent 3, 3, 3 — constants. C'est une suite géométrique de raison $q = 3$."},
+  {t:"methode", titre:"Atteindre un terme lointain", etapes:[
+   "**Identifier le type** de la suite, et relever le premier terme et la raison.",
+   "**Repérer l'indice de départ** : la suite commence-t-elle à $u_0$ ou à $u_1$ ? La formule change.",
+   "**Compter les pas**, pas les termes. De $u_0$ à $u_n$ il y a $n$ pas ; de $u_1$ à $u_n$ il y en a $n-1$.",
+   "**Appliquer le terme général** : $u_n = u_0 + n r$ pour une arithmétique, $u_n = u_0 × q^{n}$ pour une géométrique.",
+   "**Contrôler la plausibilité** : une suite qui part de 7 avec $r = +4$ ne peut pas donner un terme négatif."
+  ], exemple:"$u_0 = 7$ et $r = 4$ : pour $u_{20}$, il y a 20 pas depuis $u_0$, donc $u_{20} = 7 + 20 × 4 = 87$."}
  ]}
 ],
 exos:[
@@ -971,6 +1011,22 @@ sections:[
   {t:"astuce", titre:"Les contrôles qui rattrapent presque tout", x:"**Remplace tes racines dans l'équation.** Si tu ne tombes pas sur 0, elles sont fausses. Ce test est infaillible et prend vingt secondes.<br><br>**Vérifie le signe de $Δ$ avant de prendre une racine carrée.** Si $Δ$ est négatif, il n'y a rien à extraire : la réponse est « aucune solution », et c'est une réponse complète.<br><br>**Regarde si le résultat est plausible.** Une aire négative, une quantité produite négative, un temps négatif : dans un problème concret, ces réponses sont à écarter même si le calcul est juste."},
   {t:"piege", titre:"Les trois erreurs les plus fréquentes", x:"**1. Le double signe moins.** $-4ac$ devient **plus** quand $a$ ou $c$ est négatif. $-4 × 1 × (-3) = +12$.<br>**2. Le $-b$ oublié.** La formule commence par $-b$ : si $b = -5$, alors $-b = +5$.<br>**3. Le signe dans la factorisation.** Une racine négative donne un facteur avec un plus : $x_1 = -4$ donne $(x + 4)$."},
   {t:"p", x:"Enfin, un conseil de méthode. Ce chapitre récompense la lenteur. Les erreurs ne viennent presque jamais d'une incompréhension — elles viennent de signes recopiés trop vite. Écris chaque étape sur sa propre ligne, garde les parenthèses autour des nombres négatifs, et ne fais jamais deux calculs de tête à la suite."}
+ ]},
+{titre:"Les méthodes du chapitre", blocs:[
+  {t:"methode", titre:"Résoudre une équation du second degré", etapes:[
+   "**Tout ramener d'un côté**, pour obtenir la forme $ax^2 + bx + c = 0$. Sans cette mise en forme, les coefficients sont faux.",
+   "**Relever $a$, $b$ et $c$ avec leur signe.** C'est là que se perdent la plupart des points : le signe fait partie du coefficient.",
+   "**Calculer le discriminant** $Δ = b^2 - 4ac$, en prenant garde au signe de $c$ : $-4 × a × (-3)$ donne un $+$.",
+   "**Regarder le signe de $Δ$.** Positif : deux solutions. Nul : une seule. Négatif : aucune — et on s'arrête là.",
+   "**Calculer les solutions** $x = @f{-b ± @r{Δ}}{2a}$, puis vérifier en les remplaçant dans l'équation de départ."
+  ], exemple:"$x^2 - 2x - 3 = 0$ : $a = 1$, $b = -2$, $c = -3$. $Δ = 4 + 12 = 16 > 0$, donc $x = @f{2 ± 4}{2}$, soit $x = 3$ ou $x = -1$."},
+  {t:"methode", titre:"Étudier le signe d'un trinôme", etapes:[
+   "**Chercher les racines** en résolvant $ax^2 + bx + c = 0$.",
+   "**Regarder le signe de $a$** : il donne l'allure de la parabole, vers le haut si $a > 0$, vers le bas sinon.",
+   "**Retenir la règle** : le trinôme est du signe de $a$ **partout, sauf entre les racines**.",
+   "**Dresser le tableau de signes**, avec les racines rangées dans l'ordre croissant.",
+   "**Vérifier sur un point** : choisir une valeur simple, la remplacer, et confronter au tableau."
+  ], exemple:"Pour $x^2 - 2x - 3$, les racines sont $-1$ et $3$ et $a > 0$ : le trinôme est positif avant $-1$, négatif entre $-1$ et $3$, positif après. Test en $x = 0$ : $-3$, bien négatif."}
  ]}
 ],
 exos:[
@@ -1230,6 +1286,22 @@ sections:[
   {t:"piege", titre:"Les trois confusions qui coûtent le plus", x:"**1. $f(a)$ contre $f'(a)$.** L'un est la hauteur, l'autre la pente. Pour une tangente, il faut les deux — et il faut les calculer séparément.<br>**2. La constante recopiée.** La dérivée d'un nombre seul vaut zéro : le $-7$ disparaît, il ne se recopie pas.<br>**3. Le signe moins du quotient.** Dans $@f{u'v - uv'}{v^2}$, le moins porte sur **tout** le produit $uv'$. Mets les parenthèses avant de développer."},
   {t:"astuce", titre:"Le contrôle qui ne trompe pas", x:"Après avoir trouvé les variations, demande-toi si elles sont cohérentes avec le peu que tu sais de la fonction. Une parabole tournée vers le haut **doit** descendre puis monter — jamais l'inverse. Un bénéfice **doit** monter puis redescendre. Si ton tableau de variations raconte le contraire du bon sens, cherche une erreur de signe dans $f'$."},
   {t:"p", x:"Et pour réviser : reprends la figure de la tangente au début du chapitre, celle où le point glisse. Fais-la bouger en te demandant à chaque position « la pente est-elle positive ou négative ? » avant de lire la valeur affichée. C'est en anticipant, pas en lisant, que le lien entre le signe de $f'$ et l'allure de la courbe devient automatique."}
+ ]},
+{titre:"Les méthodes du chapitre", blocs:[
+  {t:"methode", titre:"Dériver une fonction", etapes:[
+   "**Reconnaître la structure** de l'expression : une somme ? un produit ? un quotient ? une puissance ?",
+   "**Découper en morceaux simples**, et dériver chaque morceau avec sa formule de base.",
+   "**Appliquer la règle qui correspond à la structure** : la dérivée d'une somme est la somme des dérivées, mais celle d'un produit n'est **pas** le produit des dérivées.",
+   "**Simplifier**, sans forcer : une dérivée développée mais juste vaut mieux qu'une dérivée factorisée et fausse.",
+   "**Contrôler sur un cas simple** : la dérivée d'une constante est nulle, celle de $x$ vaut 1."
+  ], exemple:"$f(x) = 3x^2 - 5x + 2$ est une somme : je dérive terme à terme. $(3x^2)' = 6x$, $(-5x)' = -5$, $(2)' = 0$. Donc $f'(x) = 6x - 5$."},
+  {t:"methode", titre:"Écrire l'équation d'une tangente", etapes:[
+   "**Relever l'abscisse $a$** du point de contact, donnée dans l'énoncé.",
+   "**Calculer $f(a)$** : c'est l'ordonnée du point de contact.",
+   "**Calculer $f'(x)$**, puis $f'(a)$ : c'est le coefficient directeur de la tangente.",
+   "**Écrire la formule** $y = f'(a)(x - a) + f(a)$, sans rien remplacer d'autre pour l'instant.",
+   "**Remplacer et développer** seulement à la fin, pour obtenir la forme $y = mx + p$."
+  ], exemple:"$f(x) = x^2$ en $a = 3$ : $f(3) = 9$ et $f'(x) = 2x$ donc $f'(3) = 6$. La tangente est $y = 6(x - 3) + 9 = 6x - 9$."}
  ]}
 ],
 exos:[
@@ -1436,6 +1508,21 @@ sections:[
   {t:"piege", titre:"Les trois erreurs les plus fréquentes", x:"**1. $e^{0} = 0$.** Non : tout nombre à la puissance zéro vaut 1. C'est l'exposant qui est nul, pas le résultat.<br>**2. $e^{a} × e^{b} = e^{ab}$.** Non : on **additionne** les exposants. La multiplication des exposants correspond à $(e^{a})^{b}$, ce qui est autre chose.<br>**3. Le facteur oublié en dérivant.** $(e^{2x})'$ vaut $2e^{2x}$, pas $e^{2x}$. La dérivée de l'exposant sort toujours devant."},
   {t:"astuce", titre:"Le contrôle qui rattrape tout", x:"L'exponentielle est **toujours strictement positive**. Si un calcul te donne une exponentielle négative ou nulle, il y a une erreur, sans exception. Et si tu obtiens une valeur numérique aberrante — une population de bactéries négative, un capital qui a fondu alors qu'il rapporte des intérêts — reprends le signe de l'exposant."},
   {t:"p", x:"Enfin, garde le lien avec les suites en tête. Une suite géométrique de raison $q$ et une exponentielle décrivent le même phénomène : l'une par paliers, l'autre en continu. Quand un énoncé parle d'évolution par années entières, pense suite ; quand il parle d'évolution à tout instant, pense exponentielle. Les deux chapitres se répondent."}
+ ]},
+{titre:"Les méthodes du chapitre", blocs:[
+  {t:"methode", titre:"Simplifier une expression avec des exponentielles", etapes:[
+   "**Se rappeler que $exp$ transforme les sommes en produits** : $e^{a+b} = e^{a} × e^{b}$. C'est la propriété qui sert dans neuf cas sur dix.",
+   "**Écrire chaque exponentielle sous la forme $e^{quelque chose}$**, sans mélanger l'exposant et le facteur devant.",
+   "**Regrouper les exposants** : on additionne quand on multiplie, on soustrait quand on divise, on multiplie quand on élève à une puissance.",
+   "**Vérifier avec un cas simple**, par exemple en remplaçant $x$ par 0 : toutes les exponentielles valent alors 1."
+  ], exemple:"$@f{e^{3x} × e^{x}}{e^{2x}} = @f{e^{4x}}{e^{2x}} = e^{4x-2x} = e^{2x}$. Contrôle en $x = 0$ : les deux membres valent 1."},
+  {t:"methode", titre:"Résoudre une équation avec une exponentielle", etapes:[
+   "**Isoler l'exponentielle** d'un côté du signe égal, comme on isolerait une inconnue.",
+   "**Vérifier que l'autre membre est strictement positif** : une exponentielle ne peut jamais valoir 0 ni un nombre négatif. Sinon, il n'y a pas de solution.",
+   "**Passer au logarithme** des deux côtés, ou identifier directement les exposants si les deux membres sont des exponentielles.",
+   "**Résoudre l'équation obtenue**, qui est en général du premier degré.",
+   "**Vérifier** en remplaçant dans l'équation de départ."
+  ], exemple:"$e^{2x} = e^{x+3}$ : les deux membres sont des exponentielles, j'identifie les exposants. $2x = x + 3$, donc $x = 3$."}
  ]}
 ],
 exos:[
@@ -1669,6 +1756,21 @@ sections:[
   {t:"piege", titre:"Les trois erreurs les plus fréquentes", x:"**1. Oublier la seconde solution.** $cos x = @f{1}{2}$ a **deux** réponses par tour, pas une. Réflexe : place la valeur sur l'axe et compte les points d'intersection avec le cercle.<br>**2. Se tromper de signe hors du premier quart.** Le croquis règle la question en une seconde.<br>**3. Confondre cosinus et sinus.** Cos comme **c**ouché : horizontal, abscisse. Sin monte : vertical, ordonnée."},
   {t:"astuce", titre:"Le contrôle de plausibilité", x:"Avant d'écrire une réponse, demande-toi si le signe est cohérent avec la position du point. Un angle de 150° pointe en haut à gauche : son sinus **doit** être positif et son cosinus **doit** être négatif. Si ton calcul dit le contraire, il y a une erreur — inutile de chercher plus loin, reprends le signe."},
   {t:"p", x:"Pour réviser, reviens sur la figure du cercle manipulable au début du chapitre. Fais tourner le point et, à chaque quart, annonce à voix haute les signes du cosinus et du sinus **avant** de lire les valeurs affichées. Quand tu ne te trompes plus, ce chapitre est acquis."}
+ ]},
+{titre:"Les méthodes du chapitre", blocs:[
+  {t:"methode", titre:"Placer un angle sur le cercle trigonométrique", etapes:[
+   "**Repérer le signe** : un angle positif se lit dans le sens inverse des aiguilles d'une montre, un angle négatif dans l'autre sens.",
+   "**Comparer à $π$** pour situer le quadrant : $@f{π}{2}$ est en haut, $π$ à gauche, $@f{3π}{2}$ en bas.",
+   "**Retirer ou ajouter des tours** de $2π$ si l'angle en dépasse : $@f{9π}{4} = @f{π}{4} + 2π$, c'est le même point.",
+   "**Lire le cosinus en abscisse et le sinus en ordonnée** — jamais l'inverse. C'est la source d'erreur numéro un."
+  ], exemple:"$@f{5π}{4}$ dépasse $π$ mais reste sous $@f{3π}{2}$ : le point est dans le troisième quadrant, en bas à gauche. Cosinus et sinus y sont tous deux négatifs."},
+  {t:"methode", titre:"Résoudre une équation trigonométrique", etapes:[
+   "**Isoler le cosinus ou le sinus** d'un côté.",
+   "**Vérifier que la valeur est entre $-1$ et $1$** : au-delà, il n'y a aucune solution.",
+   "**Trouver une solution évidente** parmi les valeurs remarquables ($0$, $@f{π}{6}$, $@f{π}{4}$, $@f{π}{3}$, $@f{π}{2}$).",
+   "**Chercher la seconde solution du tour** par symétrie : $-x$ pour un cosinus, $π - x$ pour un sinus.",
+   "**Ajouter les tours** en $+ 2kπ$ si l'énoncé demande toutes les solutions."
+  ], exemple:"$cos(x) = @f{1}{2}$ : une solution évidente est $x = @f{π}{3}$. Par symétrie du cosinus, l'autre est $x = -@f{π}{3}$. D'où $x = ±@f{π}{3} + 2kπ$."}
  ]}
 ],
 exos:[
@@ -1969,6 +2071,20 @@ sections:[
   {t:"formule", titre:"Les trois lignes à savoir écrire sans réfléchir", x:"$@v{AB}(x_B - x_A ; y_B - y_A)$<br>$@v{u} · @v{v} = x x' + y y'$<br>$@v{u} ⊥ @v{v} ⇔ @v{u} · @v{v} = 0$", note:"Si tu ne devais retenir que trois choses de ce chapitre, ce serait celles-là."},
   {t:"astuce", titre:"Les trois erreurs qui coûtent le plus de points", x:"**1. Le sens du vecteur** — arrivée moins départ, jamais l'inverse.<br>**2. Le mauvais sommet** — pour un angle en $B$, les deux vecteurs partent de $B$.<br>**3. Les signes négatifs** — écris les parenthèses autour des coordonnées négatives, systématiquement.<br><br>Ces trois-là représentent l'essentiel des points perdus sur ce chapitre. Aucune n'est une erreur de compréhension : ce sont des erreurs d'inattention, donc entièrement évitables en ralentissant."},
   {t:"p", x:"Un dernier mot sur la méthode de travail. Ce chapitre se révise **avec un crayon et du papier quadrillé**, pas en relisant. Reprends deux ou trois exercices déjà faits, refais-les en traçant la figure à chaque fois — même quand l'énoncé ne le demande pas. La figure ne sert pas à trouver la réponse, elle sert à repérer quand la réponse trouvée est absurde."}
+ ]},
+{titre:"Les méthodes du chapitre", blocs:[
+  {t:"methode", titre:"Calculer un produit scalaire", etapes:[
+   "**Regarder ce que donne l'énoncé** : des coordonnées, ou des longueurs et un angle ? C'est cela qui choisit la formule.",
+   "**Avec des coordonnées** : $@v{u} · @v{v} = xx' + yy'$. On multiplie les abscisses entre elles, les ordonnées entre elles, et on additionne.",
+   "**Avec des longueurs et un angle** : $@v{u} · @v{v} = ‖@v{u}‖ × ‖@v{v}‖ × cos(θ)$.",
+   "**Vérifier le signe obtenu** : positif si les vecteurs pointent grossièrement dans le même sens, négatif s'ils s'opposent, nul s'ils sont perpendiculaires."
+  ], exemple:"Pour $@v{u}(3 ; 2)$ et $@v{v}(-1 ; 4)$ : $@v{u} · @v{v} = 3 × (-1) + 2 × 4 = -3 + 8 = 5$. Positif : les deux vecteurs pointent plutôt du même côté."},
+  {t:"methode", titre:"Montrer que deux droites sont perpendiculaires", etapes:[
+   "**Trouver un vecteur directeur de chaque droite**, à partir de deux points ou de l'équation.",
+   "**Calculer leur produit scalaire** avec les coordonnées.",
+   "**Conclure** : le produit scalaire est nul **si et seulement si** les vecteurs sont orthogonaux.",
+   "**Rédiger la conclusion en toutes lettres** : « le produit scalaire est nul, donc les droites sont perpendiculaires ». C'est cette phrase qui rapporte le point."
+  ], exemple:"$@v{u}(2 ; 3)$ et $@v{v}(-3 ; 2)$ : $2 × (-3) + 3 × 2 = -6 + 6 = 0$. Le produit scalaire est nul, les droites sont donc perpendiculaires."}
  ]}
 ],
 exos:[
@@ -2174,6 +2290,22 @@ sections:[
   {t:"astuce", titre:"La méthode en quatre temps", x:"1. **Nommer** les événements par une lettre, et l'écrire noir sur blanc.<br>2. **Traduire** chaque phrase de l'énoncé en une probabilité, en repérant les conditionnelles.<br>3. **Dessiner** l'arbre et y placer toutes les valeurs connues ; compléter par la règle « la somme fait 1 ».<br>4. **Répondre** : multiplier le long d'un chemin, additionner entre les chemins."},
   {t:"piege", titre:"L'erreur qui coûte le plus : inverser le conditionnement", x:"$P_A(B)$ et $P_B(A)$ sont deux nombres différents, souvent très différents. Dans l'exemple de l'usine, l'un vaut 0,05 et l'autre 0,79.<br><br>C'est l'erreur de raisonnement la plus répandue, et pas seulement chez les élèves : « 99 % des malades ont un test positif » ne signifie **pas** « 99 % des tests positifs sont des malades ». Si la maladie est rare, les faux positifs peuvent être bien plus nombreux que les vrais. Avant tout calcul, demande-toi toujours : **qu'est-ce qu'on sait déjà ?** C'est ça qui va au dénominateur."},
   {t:"p", x:"Pour réviser, refais deux exercices en dessinant l'arbre **avant** de lire les questions. Tu constateras que la plupart des questions se répondent alors en lisant simplement le schéma, sans réfléchir davantage."}
+ ]},
+{titre:"Les méthodes du chapitre", blocs:[
+  {t:"methode", titre:"Construire et lire un arbre pondéré", etapes:[
+   "**Choisir ce qui se joue en premier** : c'est ce qui donne les branches du premier niveau.",
+   "**Écrire une probabilité sur chaque branche.** Celles qui partent d'un même nœud doivent totaliser 1 : c'est le premier contrôle.",
+   "**Pour une intersection, multiplier le long d'un chemin** : $P(A ∩ B) = P(A) × P_A(B)$.",
+   "**Pour un événement atteint par plusieurs chemins, additionner** les résultats de chaque chemin.",
+   "**Contrôler à la fin** : la somme des probabilités de toutes les feuilles doit valoir 1."
+  ], exemple:"Deux machines produisent 60 % et 40 % des pièces, avec 5 % et 2 % de défauts. La probabilité qu'une pièce soit défectueuse vaut $0{,}60 × 0{,}05 + 0{,}40 × 0{,}02 = 0{,}030 + 0{,}008 = 0{,}038$."},
+  {t:"methode", titre:"Calculer une probabilité conditionnelle", etapes:[
+   "**Repérer l'événement qui sert de condition** : c'est celui qui suit « sachant que ». Il devient le nouvel univers.",
+   "**Écrire la définition** $P_A(B) = @f{P(A ∩ B)}{P(A)}$, avant tout remplacement.",
+   "**Calculer le numérateur**, souvent en multipliant le long d'un chemin de l'arbre.",
+   "**Diviser**, et vérifier que le résultat est bien entre 0 et 1.",
+   "**Se méfier de l'inversion** : $P_A(B)$ et $P_B(A)$ n'ont aucune raison d'être égales."
+  ], exemple:"Avec $P(A) = 0{,}6$ et $P(A ∩ B) = 0{,}03$ : $P_A(B) = @f{0{,}03}{0{,}6} = 0{,}05$."}
  ]}
 ],
 exos:[
@@ -2359,6 +2491,21 @@ sections:[
   {t:"piege", titre:"Les trois erreurs les plus fréquentes", x:"**1. La moyenne simple au lieu de la moyenne pondérée.** Chaque valeur doit être multipliée par sa probabilité.<br>**2. La mise oubliée.** Si l'énoncé parle de gain net, un billet à 3 € qui rapporte 100 € donne un gain net de 97 €, pas 100 — et $-3$ € en cas de perte.<br>**3. La variance calculée dans le désordre.** On élève les **valeurs** au carré, pas les probabilités, et on retire $[E(X)]^2$ tout à la fin."},
   {t:"astuce", titre:"Deux contrôles imparables", x:"**La somme des probabilités doit valoir exactement 1.** Si ce n'est pas le cas, inutile de continuer : la loi est fausse.<br><br>**La variance ne peut jamais être négative.** Un résultat négatif signale toujours une erreur — le plus souvent le carré de l'espérance soustrait trop tôt."},
   {t:"p", x:"Un dernier mot sur le sens de tout ça. Ce chapitre est celui des assurances, des casinos et des paris. Tous reposent sur la même idée : à court terme, tout peut arriver ; à long terme, l'espérance finit par l'emporter. C'est pour cette raison qu'un casino avec une espérance légèrement défavorable au joueur gagne à coup sûr — non pas à chaque partie, mais sur des millions de parties."}
+ ]},
+{titre:"Les méthodes du chapitre", blocs:[
+  {t:"methode", titre:"Dresser une loi de probabilité", etapes:[
+   "**Lister toutes les valeurs possibles** de la variable aléatoire, sans en oublier.",
+   "**Calculer la probabilité de chacune**, en revenant à l'expérience de départ.",
+   "**Ranger le tout dans un tableau** à deux lignes : les valeurs, puis leurs probabilités.",
+   "**Vérifier que la somme des probabilités vaut exactement 1.** Si elle ne tombe pas juste, une valeur a été oubliée ou comptée deux fois."
+  ], exemple:"Pour un jeu où l'on gagne 5 € avec une probabilité de $0{,}2$ et où l'on perd 1 € sinon : les valeurs sont $5$ et $-1$, de probabilités $0{,}2$ et $0{,}8$. Somme : $0{,}2 + 0{,}8 = 1$."},
+  {t:"methode", titre:"Calculer une espérance, et l'interpréter", etapes:[
+   "**Dresser d'abord la loi de probabilité.** Sans elle, aucun calcul n'est possible.",
+   "**Multiplier chaque valeur par sa probabilité**, ligne par ligne.",
+   "**Additionner tous ces produits** : c'est $E(X)$.",
+   "**Interpréter en français** : c'est le gain moyen qu'on obtiendrait en répétant l'expérience un très grand nombre de fois.",
+   "**Conclure sur l'équité si on le demande** : le jeu est équitable si $E(X) = 0$, favorable au joueur si $E(X) > 0$."
+  ], exemple:"$E(X) = 5 × 0{,}2 + (-1) × 0{,}8 = 1 - 0{,}8 = 0{,}2$ €. En moyenne, le joueur gagne 20 centimes par partie : le jeu lui est favorable."}
  ]}
 ],
 exos:[
@@ -2596,6 +2743,20 @@ sections:[
   {t:"astuce", titre:"Les deux réflexes qui font gagner le plus", x:"**Fais un croquis, même approximatif.** Deux minutes de dessin à main levée révèlent immédiatement une réponse absurde : une droite du mauvais côté, un rayon trop grand, un point qui devrait être à l'intérieur.<br><br>**Vérifie toujours avec un point.** Une équation de droite se contrôle en y remplaçant un point connu : si tu ne trouves pas 0, l'erreur est en amont. Ce contrôle prend dix secondes et rattrape presque toutes les fautes de signe."},
   {t:"piege", titre:"Les trois pièges de ce chapitre", x:"**1. Le normal et le directeur inversés.** Le normal se recopie tel quel depuis l'équation ; le directeur demande d'échanger et de changer un signe.<br>**2. Le signe du centre.** $(x + 3)^2$ correspond à une abscisse de centre égale à $-3$, pas $+3$. On lit ce qu'on **retranche**.<br>**3. Le rayon confondu avec son carré.** Une équation qui finit par $= 25$ décrit un cercle de rayon 5."},
   {t:"p", x:"Un mot sur la façon de réviser ce chapitre. Il ne se retient pas en relisant : il se retient en **refaisant deux exercices complets** avec la figure tracée à côté. C'est en voyant la droite et son vecteur normal côte à côte que le lien entre l'équation et le dessin finit par devenir automatique."}
+ ]},
+{titre:"Les méthodes du chapitre", blocs:[
+  {t:"methode", titre:"Trouver l'équation d'une droite passant par deux points", etapes:[
+   "**Calculer le coefficient directeur** $m = @f{y_B - y_A}{x_B - x_A}$, en respectant l'ordre : les deux différences doivent aller de $A$ vers $B$.",
+   "**Écrire $y = mx + p$** avec le $m$ trouvé, et $p$ encore inconnu.",
+   "**Remplacer par les coordonnées d'un des deux points** — le plus simple des deux — pour trouver $p$.",
+   "**Vérifier avec l'autre point** : ses coordonnées doivent satisfaire l'équation. Si non, l'erreur est en amont."
+  ], exemple:"Par $A(1 ; 2)$ et $B(3 ; 8)$ : $m = @f{8-2}{3-1} = 3$. Puis $2 = 3 × 1 + p$ donne $p = -1$. L'équation est $y = 3x - 1$. Test en $B$ : $3 × 3 - 1 = 8$. C'est bon."},
+  {t:"methode", titre:"Reconnaître l'équation d'un cercle", etapes:[
+   "**Repérer la forme attendue** : $(x - a)^2 + (y - b)^2 = R^2$, de centre $Ω(a ; b)$ et de rayon $R$.",
+   "**Attention aux signes** : $(x - 3)^2$ correspond à une abscisse de centre **égale à $+3$**, pas $-3$.",
+   "**Lire le rayon** : le membre de droite est $R^2$, il faut donc en prendre la racine carrée.",
+   "**Vérifier que le membre de droite est positif** : sinon, aucun point ne convient et l'ensemble est vide."
+  ], exemple:"$(x-3)^2 + (y+1)^2 = 25$ : le centre est $Ω(3 ; -1)$ — attention au signe du $+1$ — et le rayon vaut $@r{25} = 5$."}
  ]}
 ],
 exos:[
@@ -2794,6 +2955,22 @@ sections:[
   {t:"piege", titre:"Les trois pièges de lecture", x:"**1. range(n) s'arrête à n−1.** range(6) donne 0,1,2,3,4,5 : six valeurs, dont la dernière est 5.<br>**2. L'indentation décide de tout.** Une ligne décalée est **dans** la boucle et se répète ; une ligne alignée à gauche s'exécute une seule fois, après.<br>**3. La boucle while dépasse le seuil.** À la sortie, la valeur a déjà franchi la limite — c'est normal, et c'est souvent ce qu'on demande."},
   {t:"astuce", titre:"Le lien avec le reste du programme", x:"Ce chapitre n'est pas une matière à part : c'est un **outil pour les autres chapitres**. Une boucle qui ajoute toujours la même chose, c'est une suite arithmétique. Une boucle qui multiplie, c'est une suite géométrique. Un while avec un seuil, c'est la question « à partir de quelle année dépasse-t-on… ». Et une simulation avec randint, c'est de l'estimation de probabilité.<br><br>Quand un programme te paraît obscur, demande-toi de quel chapitre il parle. La réponse éclaire presque toujours le code."},
   {t:"p", x:"Enfin, ne cherche pas à retenir Python par cœur. Cinq mots suffisent pour tout le programme de Première : <b>for</b>, <b>while</b>, <b>if</b>, <b>def</b>, <b>return</b>. Ce qu'on évalue, c'est ta capacité à suivre une exécution pas à pas — la même rigueur que pour dérouler une suite à la main."}
+ ]},
+{titre:"Les méthodes du chapitre", blocs:[
+  {t:"methode", titre:"Lire un algorithme sans se tromper", etapes:[
+   "**Repérer les variables** et leur valeur de départ.",
+   "**Dresser un tableau** avec une colonne par variable, et une ligne par tour de boucle.",
+   "**Dérouler à la main, tour par tour**, en écrivant les valeurs. Ne jamais essayer de deviner le résultat de tête.",
+   "**Repérer la condition d'arrêt** et vérifier à quel tour elle devient fausse.",
+   "**Lire la réponse dans la dernière ligne** du tableau, pas dans la première."
+  ], exemple:"Avec $u = 1$ et une boucle « tant que $u < 10$ : $u = 2u$ », le tableau donne 1, 2, 4, 8, 16. La condition devient fausse à 16 : c'est la valeur finale."},
+  {t:"methode", titre:"Choisir entre « pour » et « tant que »", etapes:[
+   "**Se demander si l'on connaît le nombre de tours à l'avance.**",
+   "**Si oui, une boucle « pour »** : elle répète un nombre fixé de fois, et c'est le cas le plus fréquent.",
+   "**Si non, une boucle « tant que »** : elle continue jusqu'à ce qu'une condition cesse d'être vraie.",
+   "**Vérifier que la condition finira par devenir fausse** : sinon la boucle tourne indéfiniment.",
+   "**S'assurer qu'une variable de la condition change dans la boucle** — c'est l'oubli qui provoque les boucles infinies."
+  ], exemple:"« Calculer les 10 premiers termes » : le nombre de tours est connu, donc une boucle « pour ». « Trouver le premier terme qui dépasse 1000 » : on ne sait pas combien il en faudra, donc « tant que »."}
  ]}
 ],
 exos:[
@@ -3490,6 +3667,16 @@ function bloc(b){
         b.rows.map(function(r){return '<tr>'+r.map(function(x){return '<td>'+T(x)+'</td>';}).join("")+'</tr>';}).join("")+
         '</tbody></table></div>';
     case "mb":    return '<div class="mblock">'+T(b.x)+'</div>';
+    /* la marche à suivre, numérotée, avec son application immédiate :
+       c'est ce qu'une élève cherche en premier devant un exercice */
+    case "methode":
+      return '<div class="methode">'+
+        '<div class="mt">'+T(b.titre||"La méthode, pas à pas")+'</div>'+
+        '<ol class="mList">'+
+          b.etapes.map(function(e){ return '<li>'+T(e)+'</li>'; }).join("")+
+        '</ol>'+
+        (b.exemple ? '<div class="mEx"><b>Sur un exemple.</b> '+T(b.exemple)+'</div>' : "")+
+        '</div>';
     default:      return "";
   }
 }
@@ -3963,6 +4150,7 @@ function vueChapitre(){
     var b=el("button","btn pri","Passer aux exercices →"); b.style.marginTop="14px";
     b.onclick=function(){ route.onglet="exos"; render(); };
     fin.appendChild(b); w.appendChild(fin);
+    if(window.VIDEOS_ZONE) w.appendChild(window.VIDEOS_ZONE(c.id, c.titre));
   } else {
     var list = el("div","grid"); list.style.marginTop="20px";
     c.exos.forEach(function(x,i){
@@ -4048,14 +4236,25 @@ function vueRevoir(){
   return w;
 }
 
+var memoOnglet = "formules";
+
 function vueMemo(){
   var w = wrap();
   w.innerHTML = '<div class="eyebrow">Aide-mémoire</div>'+
-    '<h1 style="font-size:31px;margin:8px 0 8px">Toutes les formules du programme</h1>'+
-    '<p class="muted" style="max-width:60ch">Rassemblées automatiquement depuis les chapitres. À relire la veille d\'un contrôle.</p>';
+    '<h1 style="font-size:31px;margin:8px 0 8px">Tout le programme en condensé</h1>'+
+    '<p class="muted" style="max-width:60ch">Rassemblé automatiquement depuis les chapitres. Les formules pour réviser, les méthodes pour savoir par où commencer devant un exercice.</p>';
+  var seg = el("div","seg"); seg.style.margin="18px 0 4px";
+  [["formules","Les formules"],["methodes","Les méthodes"]].forEach(function(o){
+    var bt = el("button",null,o[1]);
+    bt.setAttribute("aria-pressed", memoOnglet===o[0]);
+    bt.onclick=function(){ memoOnglet=o[0]; render(); };
+    seg.appendChild(bt);
+  });
+  w.appendChild(seg);
+  var typeMemo = memoOnglet==="formules" ? "formule" : "methode";
   COURS.forEach(function(c){
     var fs=[];
-    c.sections.forEach(function(s){ s.blocs.forEach(function(b){ if(b.t==="formule") fs.push(b); }); });
+    c.sections.forEach(function(s){ s.blocs.forEach(function(b){ if(b.t===typeMemo) fs.push(b); }); });
     if(!fs.length) return;
     var h = el("div","secHead");
     h.innerHTML='<span class="n">'+c.n+'</span><h2>'+A.esc(c.titre)+'</h2>';
@@ -6677,6 +6876,285 @@ window.VUE_PHOTO = function(){
    4. Saisie du code d'accès si le serveur le refuse
    --------------------------------------------------------------- */
 window.IA_CODE = function(){ demanderCode(false); };
+})();
+</script>
+<style>
+/* ---------- Vidéos ---------- */
+.videoBoite{
+  background:var(--surface); border:1px solid var(--line); border-radius:var(--r);
+  padding:14px 16px 16px; display:grid; gap:10px; justify-items:start; margin-top:14px
+}
+.videoTitre{font-family:var(--f-disp); font-weight:700; font-size:16px; letter-spacing:-.01em}
+.videoCadre{
+  position:relative; width:100%; max-width:640px; aspect-ratio:16/9;
+  background:var(--surface3); border-radius:var(--r2); overflow:hidden;
+  border:1px solid var(--line)
+}
+.videoCadre iframe, .videoCadre video{
+  position:absolute; inset:0; width:100%; height:100%; border:0; display:block; background:#000
+}
+.videoNote{font-size:14px; color:var(--ink2); line-height:1.55; max-width:62ch}
+.videoPied{display:flex; gap:8px; align-items:center}
+
+/* la marche à suivre, numérotée */
+.proto{counter-reset:etape; display:grid; gap:10px; margin:0; padding:0}
+.proto li{list-style:none; position:relative; padding-left:38px; line-height:1.55}
+.proto li::before{
+  counter-increment:etape; content:counter(etape);
+  position:absolute; left:0; top:1px; width:26px; height:26px; border-radius:8px;
+  background:var(--bleuSoft); color:var(--bleu); display:grid; place-items:center;
+  font-size:13px; font-weight:700
+}
+</style>
+<script>
+/* =====================================================================
+   Vidéos de cours
+   ---------------------------------------------------------------------
+   Deux façons d'avoir une vidéo dans le cahier :
+
+   - un bloc {t:"video", url:"…"} écrit directement dans un chapitre ;
+   - un lien collé depuis l'application, rangé avec la progression et
+     donc partagé entre les appareils.
+
+   Aucun lien n'est fourni d'avance : une adresse inventée mène à une
+   page morte, ce qui est pire que pas de vidéo du tout. C'est celui qui
+   connaît la chaîne ou le cours filmé qui colle son adresse.
+
+   Seuls quelques hébergeurs sont acceptés, et YouTube passe par son
+   domaine sans cookie. Une vidéo demande une connexion : hors ligne,
+   le cadre affiche simplement le titre et le lien.
+   ===================================================================== */
+(function(){
+"use strict";
+var A = window.APP, el = A.el, T = A.T, S = A.S;
+
+if(!S.videos) S.videos = {};
+
+/* ---------------------------------------------------------------
+   Reconnaissance de l'adresse
+   Renvoie {mode:"cadre"|"fichier", src, hote} ou null si l'adresse
+   n'est pas d'une source acceptée.
+   --------------------------------------------------------------- */
+function analyser(url){
+  var u = String(url || "").trim();
+  if(!/^https?:\/\//i.test(u)) return null;
+
+  var debut = 0;                                   // démarrage en secondes
+  var mt = u.match(/[?&#]t=(\d+)m(\d+)s|[?&#](?:t|start)=(\d+)/i);
+  if(mt) debut = mt[3] ? +mt[3] : (+mt[1])*60 + (+mt[2]);
+
+  var m;
+  // YouTube, sous toutes ses formes
+  m = u.match(/(?:youtube\.com\/(?:watch\?(?:.*&)?v=|embed\/|shorts\/|live\/)|youtu\.be\/)([A-Za-z0-9_-]{11})/i);
+  if(m) return { mode:"cadre", hote:"YouTube",
+    src:"https://www.youtube-nocookie.com/embed/"+m[1]+"?rel=0"+(debut?"&start="+debut:"") };
+
+  // Vimeo
+  m = u.match(/vimeo\.com\/(?:video\/)?(\d+)/i);
+  if(m) return { mode:"cadre", hote:"Vimeo",
+    src:"https://player.vimeo.com/video/"+m[1]+(debut?"#t="+debut+"s":"") };
+
+  // Lumni et les autres portails éducatifs publics passent par leur lecteur
+  m = u.match(/^https:\/\/(?:www\.)?(lumni\.fr|dailymotion\.com|geo\.dailymotion\.com)\//i);
+  if(m && /dailymotion/i.test(u)){
+    var d = u.match(/dailymotion\.com\/(?:video\/|embed\/video\/)([A-Za-z0-9]+)/i);
+    if(d) return { mode:"cadre", hote:"Dailymotion",
+      src:"https://www.dailymotion.com/embed/video/"+d[1] };
+  }
+
+  // un fichier vidéo posé à côté de l'application, ou sur un serveur
+  if(/\.(mp4|webm|ogv|ogg)(\?.*)?$/i.test(u)) return { mode:"fichier", hote:"fichier vidéo", src:u };
+
+  return null;
+}
+
+/* ---------------------------------------------------------------
+   Le lecteur lui-même
+   --------------------------------------------------------------- */
+function lecteur(v){
+  var info = analyser(v.url);
+  var boite = el("div","videoBoite");
+
+  var titre = el("div","videoTitre", T(v.titre || "Vidéo"));
+  boite.appendChild(titre);
+
+  if(!info){
+    boite.appendChild(el("div","callout co-piege",
+      '<div class="ct">Adresse non reconnue</div><p class="small">Le cahier accepte les liens YouTube, Vimeo, Dailymotion, '+
+      'et les fichiers vidéo (.mp4, .webm). Vérifie l’adresse, ou copie-la depuis la barre du navigateur '+
+      'pendant que la vidéo est ouverte.</p>'));
+    var brut = el("a", "small", A.esc(v.url));
+    brut.href = v.url; brut.target = "_blank"; brut.rel = "noopener noreferrer";
+    boite.appendChild(brut);
+    return boite;
+  }
+
+  var cadre = el("div","videoCadre");
+  if(info.mode === "fichier"){
+    var vid = document.createElement("video");
+    vid.src = info.src; vid.controls = true; vid.preload = "none";
+    vid.setAttribute("playsinline", "");
+    cadre.appendChild(vid);
+  } else {
+    var f = document.createElement("iframe");
+    f.src = info.src;
+    f.title = v.titre || "Vidéo de cours";
+    f.loading = "lazy";
+    // YouTube refuse l'affichage sans référent (erreur 153) : on envoie
+    // l'origine seule, ce qui suffit à l'autorisation sans en dire plus.
+    f.referrerPolicy = "origin";
+    f.allow = "accelerometer; encrypted-media; picture-in-picture; fullscreen";
+    f.setAttribute("allowfullscreen", "");
+    cadre.appendChild(f);
+  }
+  boite.appendChild(cadre);
+
+  if(v.note) boite.appendChild(el("div","videoNote", T(v.note)));
+  var pied = el("div","videoPied");
+  pied.innerHTML = '<span class="tag">'+A.esc(info.hote)+'</span>';
+  boite.appendChild(pied);
+  return boite;
+}
+
+/* bloc {t:"video"} écrit dans le contenu d'un chapitre */
+window.VIDEO_BLOC = function(b){ return lecteur(b); };
+
+/* ---------------------------------------------------------------
+   Les vidéos ajoutées depuis l'application, chapitre par chapitre
+   --------------------------------------------------------------- */
+function liste(chapId){ return (S.videos && S.videos[chapId]) || []; }
+
+window.VIDEOS_ZONE = function(chapId, titreChap){
+  var zone = el("div");
+  zone.style.marginTop = "40px";
+
+  var vs = liste(chapId);
+  var head = el("div","secHead");
+  head.innerHTML = '<span class="n">▶</span><h2>Vidéos du chapitre</h2>';
+  zone.appendChild(head);
+
+  var intro = el("p","muted small");
+  intro.style.margin = "10px 0 16px";
+  intro.style.maxWidth = "62ch";
+  intro.textContent = vs.length
+    ? "Les vidéos que tu as ajoutées pour ce chapitre. Elles te suivent d’un appareil à l’autre."
+    : "Aucune vidéo pour l’instant. Colle ici le lien d’une vidéo qui explique bien ce chapitre — "
+      + "une capsule de ta prof, une vidéo de révision — et elle restera rangée avec le cours.";
+  zone.appendChild(intro);
+
+  vs.forEach(function(v, i){
+    var boite = lecteur(v);
+    var sup = el("button","btn gho sm","Retirer");
+    sup.style.marginTop = "8px";
+    sup.onclick = function(){
+      if(!confirm("Retirer cette vidéo du chapitre ?")) return;
+      S.videos[chapId].splice(i, 1);
+      if(!S.videos[chapId].length) delete S.videos[chapId];
+      A.save(); window.RENDER();
+    };
+    boite.appendChild(sup);
+    zone.appendChild(boite);
+  });
+
+  /* --- trouver une vidéo, puis l'ajouter --- */
+  var carte = el("div","card pad");
+  carte.style.marginTop = vs.length ? "18px" : "0";
+  carte.appendChild(el("div","eyebrow","Ajouter une vidéo"));
+
+  /* On ouvre la recherche YouTube déjà remplie avec le titre du chapitre.
+     Le cahier ne choisit pas la vidéo à la place de l'élève : il l'amène
+     devant les résultats, elle juge, et rapporte l'adresse. */
+  var marche = el("ol","proto");
+  marche.style.margin = "12px 0 4px";
+  [
+   "Clique sur le bouton ci-dessous : la recherche YouTube s’ouvre dans un autre onglet, déjà remplie.",
+   "Choisis une vidéo, ouvre-la, et regarde qu’elle te convienne.",
+   "Copie l’adresse dans la barre du navigateur — elle commence par <b>youtube.com/watch</b> — puis reviens ici et colle-la."
+  ].forEach(function(t){
+    var li = document.createElement("li");
+    li.innerHTML = T(t);
+    marche.appendChild(li);
+  });
+  carte.appendChild(marche);
+
+  var bChercher = el("button","btn","Chercher sur YouTube ↗");
+  bChercher.style.marginTop = "6px";
+  bChercher.onclick = function(){
+    var q = (titreChap || "maths") + " première spécialité maths";
+    window.open("https://www.youtube.com/results?search_query=" +
+                encodeURIComponent(q), "_blank", "noopener");
+  };
+  carte.appendChild(bChercher);
+
+  var champUrl = el("input","inp");
+  champUrl.type = "url";
+  champUrl.placeholder = "Colle ici l’adresse de la vidéo…";
+  champUrl.style.marginTop = "16px";
+  champUrl.style.fontFamily = "var(--f-body)";
+  champUrl.style.fontSize = "14.5px";
+  champUrl.style.width = "100%";
+  carte.appendChild(champUrl);
+
+  var champTitre = el("input","inp");
+  champTitre.type = "text";
+  champTitre.placeholder = "Un titre, pour t’y retrouver (facultatif)";
+  champTitre.style.marginTop = "10px";
+  champTitre.style.fontFamily = "var(--f-body)";
+  champTitre.style.fontSize = "14.5px";
+  champTitre.style.width = "100%";
+  carte.appendChild(champTitre);
+
+  var apercu = el("div");
+  apercu.style.marginTop = "12px";
+  carte.appendChild(apercu);
+
+  var ligne = el("div","row");
+  ligne.style.marginTop = "12px";
+  var bAdd = el("button","btn pri","Ajouter au chapitre");
+  ligne.appendChild(bAdd);
+  var etat = el("div","small muted");
+  ligne.appendChild(etat);
+  carte.appendChild(ligne);
+
+  /* l'aperçu se met à jour à la frappe : on voit tout de suite si le lien passe */
+  champUrl.addEventListener("input", function(){
+    apercu.innerHTML = "";
+    var u = champUrl.value.trim();
+    if(!u){ etat.textContent = ""; return; }
+    var info = analyser(u);
+    if(info){
+      etat.textContent = "Lien reconnu (" + info.hote + ").";
+      apercu.appendChild(lecteur({ titre: champTitre.value || "Aperçu", url: u }));
+    } else {
+      etat.textContent = "Adresse non reconnue — YouTube, Vimeo, Dailymotion ou un fichier .mp4.";
+    }
+  });
+
+  bAdd.onclick = function(){
+    var u = champUrl.value.trim();
+    if(!u){ champUrl.focus(); return; }
+    if(!analyser(u)){ A.toast("Cette adresse n’est pas reconnue."); return; }
+    if(!S.videos[chapId]) S.videos[chapId] = [];
+    S.videos[chapId].push({
+      id: A.uid(),
+      titre: champTitre.value.trim() || ("Vidéo — " + (titreChap || "chapitre")),
+      url: u
+    });
+    A.save();
+    A.toast("Vidéo ajoutée au chapitre.");
+    window.RENDER();
+  };
+
+  zone.appendChild(carte);
+  return zone;
+};
+
+/* combien de vidéos en tout, pour l'accueil */
+window.VIDEOS_TOTAL = function(){
+  var n = 0;
+  for(var k in (S.videos || {})) n += S.videos[k].length;
+  return n;
+};
 })();
 </script>
 </body></html>
