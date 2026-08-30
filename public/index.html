@@ -3866,6 +3866,51 @@ function vueAccueil(){
   return w;
 }
 
+/* Les exercices du cours sont en nombre fini. Ceux-ci sont générés :
+   tant qu'elle en veut, elle en a, avec des nombres toujours différents. */
+function exercicesSansFin(c){
+  var zone = el("div");
+  if(!window.GEN || !window.GEN.pourChapitre(c.id).length) return zone;
+  var tete = el("div","secHead");
+  tete.innerHTML = '<span class="n">∞</span><h2>Continuer à s\'entraîner</h2>';
+  zone.appendChild(tete);
+  var intro = el("div","callout co-astuce");
+  intro.style.marginTop = "16px";
+  intro.innerHTML = '<div class="ct">Autant d\'exercices que tu veux</div>'+
+    '<p>Ceux-ci sont fabriqués à la demande sur ce chapitre : les nombres changent à chaque fois, '+
+    'mais l\'explication de l\'erreur est recalculée avec eux. Tu ne retomberas jamais deux fois sur le même énoncé.</p>';
+  zone.appendChild(intro);
+
+  var boite = el("div"); boite.style.marginTop="16px";
+  zone.appendChild(boite);
+  var barre = el("div","row"); barre.style.marginTop="14px";
+  var bGo = el("button","btn pri","Me donner un exercice");
+  var compteur = el("span","small muted");
+  var faits = 0, reussis = 0;
+  barre.appendChild(bGo); barre.appendChild(compteur);
+  zone.appendChild(barre);
+
+  function suivant(){
+    boite.innerHTML = "";
+    var exo = window.GEN.fabriquer(c.id, 3);
+    var faux = { id:"entrainement", titre:c.titre, n:c.n, exos:[exo] };
+    var etiq = el("div","row"); etiq.style.marginBottom="8px";
+    etiq.innerHTML = '<span class="tag b">'+A.esc(exo.source)+'</span>'+
+                     '<span class="pill">Niveau '+exo.niveau+'</span>';
+    boite.appendChild(etiq);
+    boite.appendChild(exoNode(faux, exo, null, function(ok, actions){
+      faits++; if(ok) reussis++;
+      compteur.textContent = faits+" fait"+(faits>1?"s":"")+", "+reussis+" réussi"+(reussis>1?"s":"");
+      var b = el("button","btn pri sm","Un autre →");
+      b.onclick = function(){ suivant(); boite.scrollIntoView({behavior:"smooth", block:"center"}); };
+      actions.appendChild(b);
+    }));
+    bGo.textContent = "Changer d'exercice";
+  }
+  bGo.onclick = suivant;
+  return zone;
+}
+
 function vueChapitre(){
   var c = COURS.filter(function(x){return x.id===route.chap;})[0];
   if(!c) return vueAccueil();
@@ -3905,6 +3950,7 @@ function vueChapitre(){
       list.appendChild(holder);
     });
     w.appendChild(list);
+    w.appendChild(exercicesSansFin(c));
   }
   return w;
 }
@@ -5039,15 +5085,37 @@ var G_DERIV = [
   }}
 ];
 
+/* outils partagés avec le second jeu de générateurs (p6b) */
+function shuffleUnique(t){
+  var vu={}, out=[];
+  t.forEach(function(x){ if(!vu[x]){ vu[x]=1; out.push(x); } });
+  return A.shuffle(out);
+}
+window.GEN_OUTILS = { ri:ri, nz:nz, pick:pick, arr:arr, fr:fr, sg:sg,
+                      terme:terme, apres:apres, trinome:trinome,
+                      shuffleUnique:shuffleUnique };
+
+/* le chapitre d'origine de chaque générateur du premier jeu */
+G_SUITES.forEach(function(g){ g.chap = "suites"; });
+G_SECOND.forEach(function(g){ g.chap = "second"; });
+G_DERIV .forEach(function(g){ g.chap = "derivee"; });
+
 var FAMILLES = [
   { id:"suites",  titre:"Suites numériques", gens:G_SUITES },
   { id:"second",  titre:"Second degré",      gens:G_SECOND },
   { id:"derivee", titre:"Dérivation",        gens:G_DERIV  }
 ];
-function tousGens(){ return G_SUITES.concat(G_SECOND).concat(G_DERIV); }
+function tousGens(){
+  return G_SUITES.concat(G_SECOND).concat(G_DERIV).concat(window.GEN_SUP || []);
+}
+/* les générateurs rattachés à un chapitre donné */
+function pourChapitre(id){
+  return tousGens().filter(function(g){ return g.chap === id; });
+}
 function fabriquer(famId, niveauMax){
-  var pool = famId==="mix" ? tousGens()
-           : FAMILLES.filter(function(f){return f.id===famId;})[0].gens;
+  var fam = FAMILLES.filter(function(f){return f.id===famId;})[0];
+  var pool = famId==="mix" ? tousGens() : (fam ? fam.gens : pourChapitre(famId));
+  if(!pool || !pool.length) pool = tousGens();
   if(niveauMax) {
     var f2 = pool.filter(function(g){ return g.niveau<=niveauMax; });
     if(f2.length) pool = f2;
@@ -5071,7 +5139,8 @@ function fabriquer(famId, niveauMax){
   }
   return e;
 }
-window.GEN = { fabriquer:fabriquer, FAMILLES:FAMILLES };
+window.GEN = { fabriquer:fabriquer, FAMILLES:FAMILLES,
+               pourChapitre:pourChapitre, tous:tousGens };
 
 /* =====================================================================
    Vue « Entraînement illimité »
@@ -5156,6 +5225,402 @@ window.VUE_ENTRAINEMENT = function(){
   w.appendChild(passer);
   return w;
 };
+})();
+</script>
+<script>
+/* =====================================================================
+   Générateurs supplémentaires — un jeu par chapitre du programme.
+   Même contrat que les premiers : les distracteurs et leurs explications
+   sont recalculés avec les nombres tirés.
+   ===================================================================== */
+(function(){
+"use strict";
+var A = window.APP;
+var H = window.GEN_OUTILS;   // helpers exposés par le premier fichier
+
+var ri=H.ri, nz=H.nz, pick=H.pick, arr=H.arr, fr=H.fr, sg=H.sg, terme=H.terme, apres=H.apres;
+
+/* ------------------------ EXPONENTIELLE ------------------------ */
+var G_EXPO = [
+{ id:"ex-simplifier", chap:"expo", titre:"Simplifier une expression", niveau:1, gen:function(){
+    var a=ri(2,9), b=ri(2,9), c=ri(1,6), rep=a+b-c;
+    var choix=H.shuffleUnique(["$e^{"+rep+"}$","$e^{"+(a+b+c)+"}$","$e^{"+(a*b-c)+"}$","$e^{"+(a-b+c)+"}$"]);
+    var bonne=choix.indexOf("$e^{"+rep+"}$");
+    return { type:"qcm", niveau:1, choix:choix, bonne:bonne,
+      enonce:"Simplifier $@f{e^{"+a+"} × e^{"+b+"}}{e^{"+c+"}}$.",
+      diag:choix.map(function(s,i){
+        if(i===bonne) return "";
+        if(s==="$e^{"+(a+b+c)+"}$") return "Tu as additionné les trois exposants. Le $e^{"+c+"}$ est au **dénominateur** : il faut le retrancher, pas l'ajouter.";
+        if(s==="$e^{"+(a*b-c)+"}$") return "Tu as multiplié $"+a+"$ et $"+b+"$. Un **produit** d'exponentielles fait s'additionner les exposants, il ne les multiplie pas.";
+        return "Erreur de signe dans le regroupement : c'est $"+a+" + "+b+" - "+c+"$, dans cet ordre.";
+      }),
+      corr:["**Numérateur d'abord.** $e^{"+a+"} × e^{"+b+"} = e^{"+a+"+"+b+"} = e^{"+(a+b)+"}$ : un produit additionne les exposants.",
+            "**Puis la division.** $@f{e^{"+(a+b)+"}}{e^{"+c+"}} = e^{"+(a+b)+" - "+c+"}$ : un quotient les soustrait.",
+            "**Calcul final.** $"+(a+b)+" - "+c+" = "+rep+"$, donc le résultat est $e^{"+rep+"}$.",
+            "**À retenir.** On n'a jamais calculé la moindre valeur numérique : tout se joue sur les exposants."],
+      indice:"Traite le numérateur en premier, puis applique la règle du quotient." };
+  }},
+
+{ id:"ex-derivee", chap:"expo", titre:"Dériver une exponentielle", niveau:2, gen:function(){
+    var k=nz(-6,7), c=pick([1,2,3,5]);
+    var enonce = "$f(x) = "+(c===1?"":fr(c))+"e^{"+terme(k,"x")+"}$";
+    var rep = c*k;
+    var choix=H.shuffleUnique([
+      "$"+fr(rep)+"e^{"+terme(k,"x")+"}$",
+      "$"+(c===1?"":fr(c))+"e^{"+terme(k,"x")+"}$",
+      "$"+fr(c*k)+"x e^{"+terme(k,"x")+"}$",
+      "$"+fr(c)+"e^{"+fr(k)+"}$"]);
+    var bonne=choix.indexOf("$"+fr(rep)+"e^{"+terme(k,"x")+"}$");
+    return { type:"qcm", niveau:2, choix:choix, bonne:bonne,
+      enonce:"Dériver "+enonce+".",
+      diag:choix.map(function(s,i){
+        if(i===bonne) return "";
+        if(s.indexOf("x e^")>=0) return "Tu as fait sortir $"+terme(k,"x")+"$ au lieu de sa dérivée. La règle est $(e^{u})' = u' e^{u}$ : c'est $u' = "+fr(k)+"$ qui sort, pas $u$.";
+        if(s.indexOf("e^{"+fr(k)+"}")>=0) return "L'exposant ne devient pas une constante : il reste $"+terme(k,"x")+"$, avec le $x$.";
+        return "Il manque le facteur $"+fr(k)+"$. En dérivant $e^{"+terme(k,"x")+"}$, la dérivée de l'exposant sort devant.";
+      }),
+      corr:["**Repérer la forme.** C'est $"+(c===1?"":fr(c))+"e^{u}$ avec $u = "+terme(k,"x")+"$.",
+            "**Dériver l'exposant.** $u' = "+fr(k)+"$.",
+            "**Appliquer $(e^{u})' = u' e^{u}$.** On obtient $"+fr(k)+"e^{"+terme(k,"x")+"}$.",
+            "**Ne pas perdre le coefficient de départ.** $"+(c===1?"":fr(c)+" × ")+fr(k)+" = "+fr(rep)+"$, d'où $f'(x) = "+fr(rep)+"e^{"+terme(k,"x")+"}$."],
+      indice:"La dérivée de l'exposant vient se placer en facteur devant l'exponentielle." };
+  }},
+
+{ id:"ex-equation", chap:"expo", titre:"Résoudre une équation", niveau:2, gen:function(){
+    var a=pick([2,3,4,5]), b=nz(-8,8), c=nz(-9,9);
+    // a x + b = c  ->  x = (c-b)/a, on force un entier
+    var x=nz(-6,7); c = a*x + b;
+    return { type:"num", niveau:2, rep:x,
+      enonce:"Résoudre $e^{"+terme(a,"x")+sg(b)+"} = e^{"+fr(c)+"}$.",
+      diag:[{v:c, m:"Tu t'es arrêté trop tôt. Après avoir identifié les exposants, il reste l'équation $"+terme(a,"x")+sg(b)+" = "+fr(c)+"$ à résoudre."},
+            {v:arr((c+b)/a), m:"Erreur de signe : on retranche $"+fr(b)+"$ des deux côtés, on ne l'ajoute pas."},
+            {v:arr(c-b), m:"Tu as oublié de diviser par $"+fr(a)+"$, le coefficient devant $x$."}],
+      corr:["**Les deux membres sont des exponentielles.** Comme la fonction est strictement croissante, elle ne prend jamais deux fois la même valeur : on peut identifier les exposants.",
+            "**Écrire l'équation obtenue.** $"+terme(a,"x")+sg(b)+" = "+fr(c)+"$.",
+            "**Isoler le terme en $x$.** $"+terme(a,"x")+" = "+fr(c)+" - ("+fr(b)+") = "+fr(c-b)+"$.",
+            "**Diviser.** $x = @f{"+fr(c-b)+"}{"+fr(a)+"} = "+fr(x)+"$.",
+            "**Vérifier.** $"+fr(a)+" × "+fr(x)+sg(b)+" = "+fr(c)+"$ ✓ — les deux exposants coïncident."],
+      indice:"$e^{A} = e^{B}$ équivaut à $A = B$. Écris l'équation sur les exposants, puis résous-la." };
+  }}
+];
+
+/* ------------------------ TRIGONOMÉTRIE ------------------------ */
+var VALEURS = [
+  { a:"0",        cos:"1",            sin:"0" },
+  { a:"@f{π}{6}", cos:"@f{@r{3}}{2}", sin:"@f{1}{2}" },
+  { a:"@f{π}{4}", cos:"@f{@r{2}}{2}", sin:"@f{@r{2}}{2}" },
+  { a:"@f{π}{3}", cos:"@f{1}{2}",     sin:"@f{@r{3}}{2}" },
+  { a:"@f{π}{2}", cos:"0",            sin:"1" }
+];
+var G_TRIGO = [
+{ id:"tr-valeur", chap:"trigo", titre:"Valeur remarquable", niveau:1, gen:function(){
+    var v=pick(VALEURS.slice(1,4)), estCos=Math.random()<0.5;
+    var bon = estCos ? v.cos : v.sin, autre = estCos ? v.sin : v.cos;
+    var choix=H.shuffleUnique(["$"+bon+"$","$"+autre+"$","$-"+bon+"$","$@f{1}{@r{2}}$"]);
+    var bonne=choix.indexOf("$"+bon+"$");
+    var nom = estCos ? "cos" : "sin";
+    return { type:"qcm", niveau:1, choix:choix, bonne:bonne,
+      enonce:"Combien vaut $"+nom+" "+v.a+"$ ?",
+      diag:choix.map(function(s,i){
+        if(i===bonne) return "";
+        if(s==="$"+autre+"$") return "Tu as lu l'autre ligne du tableau : c'est la valeur de $"+(estCos?"sin":"cos")+" "+v.a+"$. Rappel : **cos** comme **c**ouché, il se lit horizontalement.";
+        if(s==="$-"+bon+"$") return "La valeur est bonne mais le signe est faux. L'angle $"+v.a+"$ est dans le **premier quart** du cercle : le cosinus et le sinus y sont tous deux positifs.";
+        return "Cette écriture ne figure pas dans le tableau des valeurs remarquables.";
+      }),
+      corr:["**Situer l'angle.** $"+v.a+"$ appartient au premier quart du cercle, entre 0 et $@f{π}{2}$. Les deux coordonnées y sont positives.",
+            "**Lire la bonne ligne.** Le "+nom+" se lit "+(estCos?"sur l'axe horizontal (abscisse)":"sur l'axe vertical (ordonnée)")+".",
+            "**Résultat.** $"+nom+" "+v.a+" = "+bon+"$.",
+            "**Repère de mémorisation.** Pour le sinus, les valeurs se suivent : $0$, $@f{1}{2}$, $@f{@r{2}}{2}$, $@f{@r{3}}{2}$, $1$. Pour le cosinus, c'est la même liste à l'envers."],
+      indice:"Place l'angle sur le cercle : dans le premier quart, tout est positif." };
+  }},
+
+{ id:"tr-associe", chap:"trigo", titre:"Angle associé", niveau:2, gen:function(){
+    var v=pick(VALEURS.slice(1,4)), estCos=Math.random()<0.5;
+    var forme=pick(["pi-moins","pi-plus","moins"]);
+    var base = estCos ? v.cos : v.sin;
+    var signe;   // le signe du résultat
+    if(forme==="moins")      signe = estCos ? 1 : -1;
+    else if(forme==="pi-moins") signe = estCos ? -1 : 1;
+    else                     signe = -1;
+    var ecrit = forme==="moins" ? "-"+v.a : (forme==="pi-moins" ? "π - "+v.a : "π + "+v.a);
+    var bon = (signe<0 ? "-" : "")+base;
+    var choix=H.shuffleUnique(["$"+bon+"$","$"+(signe<0?"":"-")+base+"$",
+      "$"+(estCos?v.sin:v.cos)+"$","$-"+(estCos?v.sin:v.cos)+"$"]);
+    var bonne=choix.indexOf("$"+bon+"$");
+    var nom = estCos?"cos":"sin";
+    var expl = forme==="moins"
+      ? "Le point $-x$ est le **reflet par rapport à l'axe horizontal** : l'abscisse (le cosinus) ne change pas, l'ordonnée (le sinus) change de signe."
+      : (forme==="pi-moins"
+        ? "Le point $π - x$ est le **reflet par rapport à l'axe vertical** : l'ordonnée (le sinus) ne change pas, l'abscisse (le cosinus) change de signe."
+        : "Le point $π + x$ est le **point diamétralement opposé** : les deux coordonnées changent de signe.");
+    return { type:"qcm", niveau:2, choix:choix, bonne:bonne,
+      enonce:"Combien vaut $"+nom+"("+ecrit+")$, sachant que $"+nom+" "+v.a+" = "+base+"$ ?",
+      diag:choix.map(function(s,i){
+        if(i===bonne) return "";
+        if(s==="$"+(signe<0?"":"-")+base+"$") return "La valeur est bonne, le signe est faux. "+expl;
+        return "Tu as changé de fonction en route : la question porte sur le "+nom+", pas sur "+(estCos?"le sinus":"le cosinus")+".";
+      }),
+      corr:["**Placer les deux points sur le cercle.** Celui d'angle $"+v.a+"$, et celui d'angle $"+ecrit+"$.",
+            "**Identifier la symétrie.** "+expl,
+            "**En déduire le signe.** Le "+nom+" "+(signe<0?"change de signe":"est conservé")+" par cette symétrie.",
+            "**Résultat.** $"+nom+"("+ecrit+") = "+bon+"$.",
+            "**Méthode fiable.** Plutôt que de retenir six formules, trace le cercle et regarde dans quel quart tombe l'angle : les signes se lisent directement."],
+      indice:"Dessine le cercle et place les deux points. La symétrie donne le signe." };
+  }},
+
+{ id:"tr-nbsol", chap:"trigo", titre:"Nombre de solutions", niveau:2, gen:function(){
+    var cas=pick(["deux","aucune","une"]);
+    var val = cas==="deux" ? pick(["@f{1}{2}","@f{@r{2}}{2}","-@f{1}{2}","0,8"])
+            : (cas==="aucune" ? pick(["2","-1,5","3"]) : pick(["1","-1"]));
+    var nom = pick(["cos","sin"]);
+    var bon = cas==="deux" ? "Deux solutions" : (cas==="aucune" ? "Aucune solution" : "Une seule solution");
+    var choix=["Deux solutions","Une seule solution","Aucune solution","Une infinité de solutions"];
+    return { type:"qcm", niveau:2, choix:choix, bonne:choix.indexOf(bon),
+      enonce:"Combien de solutions l'équation $"+nom+" x = "+val+"$ admet-elle sur $[0 ; 2π[$ ?",
+      diag:choix.map(function(c){
+        if(c===bon) return "";
+        if(c==="Une infinité de solutions") return "Sur **un seul tour**, il ne peut pas y en avoir une infinité. C'est sur ℝ entier qu'il y en aurait une infinité, en ajoutant des tours.";
+        if(cas==="aucune") return "Vérifie d'abord si la valeur est atteignable : le "+nom+" reste toujours entre $-1$ et $1$, et $"+val+"$ sort de cet intervalle.";
+        if(cas==="une") return "C'est un cas limite : la valeur $"+val+"$ est atteinte en un **seul** point du cercle, là où la droite est tangente au cercle au lieu de le traverser.";
+        return "Trace la droite correspondant à $"+val+"$ : elle traverse le cercle en deux points distincts, donc deux solutions.";
+      }),
+      corr:["**Vérifier que la valeur est atteignable.** Le "+nom+" est toujours compris entre $-1$ et $1$."+
+              (cas==="aucune" ? " Or $"+val+"$ est en dehors : c'est déjà terminé, il n'y a aucune solution." : " Ici $"+val+"$ convient."),
+            cas==="aucune" ? "**Conclusion.** $S = ∅$."
+              : "**Tracer la droite.** "+(nom==="cos"?"Une verticale d'abscisse":"Une horizontale d'ordonnée")+" $"+val+"$.",
+            cas==="aucune" ? "**À retenir.** Ce contrôle prend deux secondes et évite tout un calcul inutile."
+              : "**Compter les intersections avec le cercle.** "+(cas==="une"
+                  ? "La valeur est un extrême : la droite touche le cercle en un seul point, il y a une solution unique."
+                  : "La droite traverse le cercle en deux points, donc deux solutions."),
+            "**Le réflexe général.** Avant de chercher les valeurs, compte les points d'intersection sur un croquis. C'est ce qui évite l'oubli de la seconde solution."],
+      indice:"Commence par vérifier que la valeur est bien entre $-1$ et $1$, puis compte les intersections." };
+  }}
+];
+
+/* ------------------- PRODUIT SCALAIRE / REPÈRE ------------------- */
+var G_GEO = [
+{ id:"ps-calcul", chap:"scalaire", titre:"Produit scalaire en coordonnées", niveau:1, gen:function(){
+    var x=nz(-6,7), y=nz(-6,7), x2=nz(-6,7), y2=nz(-6,7);
+    var rep=x*x2+y*y2;
+    return { type:"num", niveau:1, rep:rep,
+      enonce:"Soit $@v{u}("+fr(x)+" ; "+fr(y)+")$ et $@v{v}("+fr(x2)+" ; "+fr(y2)+")$. Calculer $@v{u} · @v{v}$.",
+      diag:[{v:x*x2, m:"Tu n'as fait que le produit des abscisses. Il faut aussi celui des ordonnées, $"+fr(y)+" × "+fr(y2)+" = "+fr(y*y2)+"$, puis additionner."},
+            {v:x*x2-y*y2, m:"Tu as soustrait au lieu d'additionner. La formule est $x x' \\, + \\, y y'$ ; c'est le **déterminant** qui utilise une soustraction."},
+            {v:x*y2+y*x2, m:"Tu as croisé les coordonnées. Le produit scalaire multiplie les abscisses **entre elles**, puis les ordonnées entre elles."},
+            {v:x+y+x2+y2, m:"Tu as additionné les quatre nombres. La formule comporte deux multiplications avant l'addition."}],
+      corr:["**Écrire la formule.** $@v{u} · @v{v} = x x' + y y'$.",
+            "**Remplacer avec les parenthèses.** $("+fr(x)+") × ("+fr(x2)+") + ("+fr(y)+") × ("+fr(y2)+")$. Les parenthèses ne sont pas décoratives : elles protègent les signes.",
+            "**Les deux produits.** $"+fr(x*x2)+"$ et $"+fr(y*y2)+"$.",
+            "**Additionner.** $"+fr(x*x2)+sg(y*y2)+" = "+fr(rep)+"$.",
+            "**Interpréter.** Le résultat est "+(rep>0?"positif : l'angle entre les vecteurs est aigu.":(rep<0?"négatif : l'angle est obtus.":"nul : les vecteurs sont perpendiculaires."))],
+      indice:"Abscisses entre elles, ordonnées entre elles, puis on additionne les deux produits." };
+  }},
+
+{ id:"ps-ortho", chap:"scalaire", titre:"Trouver la valeur qui rend orthogonal", niveau:2, gen:function(){
+    var a=nz(-6,7), b=nz(-6,7), c=nz(-6,7);
+    // a*c + b*m = 0  ->  m = -a*c/b
+    var m = arr(-a*c/b);
+    return { type:"num", niveau:2, rep:m, tol:0.001,
+      enonce:"Pour quelle valeur de $m$ les vecteurs $@v{u}("+fr(a)+" ; "+fr(b)+")$ et $@v{v}("+fr(c)+" ; m)$ sont-ils orthogonaux ?",
+      diag:[{v:arr(a*c/b), m:"Erreur de signe. De $"+fr(a*c)+" + "+fr(b)+"m = 0$ on tire $"+fr(b)+"m = "+fr(-a*c)+"$, donc $m = "+fr(m)+"$."},
+            {v:arr(-a*c), m:"Tu as oublié de diviser par $"+fr(b)+"$, le coefficient qui multiplie $m$."},
+            {v:arr(-b/(a*c)), m:"Tu as divisé à l'envers. L'équation est $"+fr(b)+"m = "+fr(-a*c)+"$ : on divise le second membre par $"+fr(b)+"$."}],
+      corr:["**Traduire « orthogonaux ».** Deux vecteurs sont orthogonaux exactement quand leur produit scalaire est nul.",
+            "**Écrire le produit scalaire avec la lettre.** $("+fr(a)+") × ("+fr(c)+") + ("+fr(b)+") × m = "+fr(a*c)+sg(b)+"m$. La lettre se manipule comme un nombre.",
+            "**Poser l'équation.** $"+fr(a*c)+sg(b)+"m = 0$.",
+            "**Résoudre.** $"+fr(b)+"m = "+fr(-a*c)+"$, donc $m = @f{"+fr(-a*c)+"}{"+fr(b)+"} = "+fr(m)+"$.",
+            "**Vérifier — toujours.** $("+fr(a)+")("+fr(c)+") + ("+fr(b)+")("+fr(m)+") = "+fr(a*c)+" + "+fr(arr(b*m))+" = 0$ ✓"],
+      indice:"Écris le produit scalaire en laissant $m$, puis résous l'équation « = 0 »." };
+  }},
+
+{ id:"ps-longueur", chap:"scalaire", titre:"Longueur d'un segment", niveau:1, gen:function(){
+    var trio=pick([[3,4,5],[6,8,10],[5,12,13],[8,15,17],[9,12,15],[7,24,25]]);
+    var xa=ri(-4,4), ya=ri(-4,4);
+    var sx=pick([1,-1]), sy=pick([1,-1]);
+    var xb=xa+sx*trio[0], yb=ya+sy*trio[1];
+    return { type:"num", niveau:1, rep:trio[2],
+      enonce:"Soit $A("+fr(xa)+" ; "+fr(ya)+")$ et $B("+fr(xb)+" ; "+fr(yb)+")$. Calculer la longueur $AB$.",
+      diag:[{v:trio[0]+trio[1], m:"Tu as additionné les deux écarts. La longueur n'est pas la somme des déplacements : il faut Pythagore, car le trajet direct est plus court que le trajet en deux temps."},
+            {v:trio[2]*trio[2], m:"Tu t'es arrêté avant la racine carrée. $"+trio[0]+"^2 + "+trio[1]+"^2 = "+(trio[2]*trio[2])+"$, et $@r{"+(trio[2]*trio[2])+"} = "+trio[2]+"$."},
+            {v:trio[0]*trio[1], m:"Tu as multiplié les écarts. La formule additionne leurs **carrés**, sous une racine."}],
+      corr:["**Coordonnées du vecteur.** $@v{AB}("+fr(xb)+" - ("+fr(xa)+") ; "+fr(yb)+" - ("+fr(ya)+"))$, soit $("+fr(sx*trio[0])+" ; "+fr(sy*trio[1])+")$.",
+            "**Appliquer la formule.** $AB = @r{x^2 + y^2}$ — c'est Pythagore : le déplacement horizontal, le vertical et le trajet direct forment un triangle rectangle.",
+            "**Les carrés.** $("+fr(sx*trio[0])+")^2 = "+(trio[0]*trio[0])+"$ et $("+fr(sy*trio[1])+")^2 = "+(trio[1]*trio[1])+"$. Un carré est toujours positif, les signes disparaissent.",
+            "**Somme puis racine.** $"+(trio[0]*trio[0])+" + "+(trio[1]*trio[1])+" = "+(trio[2]*trio[2])+"$, donc $AB = @r{"+(trio[2]*trio[2])+"} = "+trio[2]+"$.",
+            "**Contrôle.** La longueur doit être plus grande que chaque écart pris seul ("+trio[0]+" et "+trio[1]+") et plus petite que leur somme ("+(trio[0]+trio[1])+"). ✓"],
+      indice:"Trouve d'abord les coordonnées du vecteur, puis applique $@r{x^2 + y^2}$." };
+  }},
+
+{ id:"gr-normal", chap:"repere", titre:"Vecteur normal et directeur", niveau:1, gen:function(){
+    var a=nz(-6,7), b=nz(-6,7), c=nz(-9,9);
+    var demandeNormal = Math.random()<0.5;
+    var bon = demandeNormal ? "$@v{n}("+fr(a)+" ; "+fr(b)+")$" : "$@v{u}("+fr(-b)+" ; "+fr(a)+")$";
+    var choix=H.shuffleUnique([bon,
+      demandeNormal ? "$@v{n}("+fr(-b)+" ; "+fr(a)+")$" : "$@v{u}("+fr(a)+" ; "+fr(b)+")$",
+      "$("+fr(b)+" ; "+fr(a)+")$", "$("+fr(a)+" ; "+fr(c)+")$"]);
+    var bonne=choix.indexOf(bon);
+    return { type:"qcm", niveau:1, choix:choix, bonne:bonne,
+      enonce:"Donner un vecteur "+(demandeNormal?"**normal**":"**directeur**")+" de la droite $"+terme(a,"x")+apres(b,"y")+sg(c)+" = 0$.",
+      diag:choix.map(function(s,i){
+        if(i===bonne) return "";
+        if(s.indexOf(fr(c))>=0) return "Le $"+fr(c)+"$ est la constante de l'équation : elle place la droite, elle ne décrit pas sa direction. Seuls les coefficients de $x$ et $y$ entrent en jeu.";
+        if(s==="$("+fr(b)+" ; "+fr(a)+")$") return "Tu as échangé les coefficients sans changer de signe. Il faut faire les deux : $(-b ; a)$.";
+        return demandeNormal
+          ? "C'est le vecteur **directeur**. Le normal, lui, se lit tel quel dans l'équation : $(a ; b)$, dans l'ordre."
+          : "C'est le vecteur **normal**, celui qui se lit tel quel. Le directeur demande d'échanger et de changer un signe.";
+      }),
+      corr:["**Lire l'équation.** Elle est de la forme $ax + by + c = 0$ avec $a = "+fr(a)+"$, $b = "+fr(b)+"$.",
+            "**Le vecteur normal se lit directement.** $@v{n}("+fr(a)+" ; "+fr(b)+")$ — les coefficients de $x$ et $y$, dans l'ordre. C'est le cadeau de l'équation cartésienne.",
+            "**Le directeur demande une manipulation.** On échange les deux coordonnées et on change un signe : $@v{u}("+fr(-b)+" ; "+fr(a)+")$.",
+            "**Vérifier qu'ils sont bien perpendiculaires.** $("+fr(a)+")("+fr(-b)+") + ("+fr(b)+")("+fr(a)+") = "+fr(-a*b)+" + "+fr(a*b)+" = 0$ ✓",
+            "**Réponse : "+bon+"**. N'importe quel vecteur proportionnel conviendrait aussi."],
+      indice:"Le normal se recopie tel quel. Le directeur : échange les deux nombres et change un signe." };
+  }},
+
+{ id:"gr-cercle", chap:"repere", titre:"Centre et rayon d'un cercle", niveau:2, gen:function(){
+    var a=nz(-6,6), b=nz(-6,6), R=pick([2,3,4,5,6,7]);
+    var demandeRayon = Math.random()<0.5;
+    var rep = demandeRayon ? R : a;
+    return { type:"num", niveau:2, rep:rep,
+      enonce:"Le cercle a pour équation $(x "+(a<0?"+ "+fr(-a):"- "+fr(a))+")^2 + (y "+(b<0?"+ "+fr(-b):"- "+fr(b))+")^2 = "+fr(R*R)+"$. "+
+             (demandeRayon ? "Quel est son **rayon** ?" : "Quelle est l'**abscisse de son centre** ?"),
+      diag: demandeRayon
+        ? [{v:R*R, m:"Tu as donné $R^2$. Le nombre à droite de l'égalité est le **carré** du rayon : il faut prendre la racine, $@r{"+fr(R*R)+"} = "+fr(R)+"$."},
+           {v:arr(R*R/2), m:"Tu as divisé par 2. On passe de $R^2$ à $R$ par une racine carrée, pas par une division."}]
+        : [{v:-a, m:"Erreur de signe. L'équation contient $(x "+(a<0?"+ "+fr(-a):"- "+fr(a))+")^2$, qu'on lit $(x - a)^2$ : le centre est ce qu'on **retranche**, donc $"+fr(a)+"$."},
+           {v:b, m:"Tu as donné l'ordonnée du centre. La question porte sur l'abscisse, qui se lit dans la première parenthèse."},
+           {v:R*R, m:"$"+fr(R*R)+"$ est le carré du rayon, pas une coordonnée du centre."}],
+      corr:["**Forme de référence.** $(x - a)^2 + (y - b)^2 = R^2$, avec centre $Ω(a ; b)$ et rayon $R$.",
+            "**Lire le centre.** On identifie ce qui est **retranché** : ici $(x "+(a<0?"+ "+fr(-a):"- "+fr(a))+")^2$ s'écrit $(x - ("+fr(a)+"))^2$, donc l'abscisse du centre vaut $"+fr(a)+"$. De même l'ordonnée vaut $"+fr(b)+"$.",
+            "**Lire le rayon.** Le membre de droite vaut $R^2 = "+fr(R*R)+"$, donc $R = @r{"+fr(R*R)+"} = "+fr(R)+"$.",
+            "**Réponse : "+fr(rep)+".**",
+            "**Le piège des signes.** Un $+$ dans la parenthèse signale une coordonnée **négative**, et inversement. C'est l'erreur la plus fréquente sur les cercles."],
+      indice: demandeRayon ? "Le nombre à droite est le carré du rayon." : "Le centre est ce qu'on retranche : attention aux signes." };
+  }}
+];
+
+/* --------------------- PROBABILITÉS / VARIABLES --------------------- */
+var G_PROBA = [
+{ id:"pr-cond", chap:"proba", titre:"Probabilité conditionnelle", niveau:1, gen:function(){
+    var pa=pick([0.2,0.25,0.4,0.5,0.6,0.8]);
+    var pab=arr(pa*pick([0.25,0.5,0.75]));
+    var rep=arr(pab/pa);
+    return { type:"num", niveau:1, rep:rep, tol:0.005,
+      enonce:"On donne $P(A) = "+fr(pa)+"$ et $P(A ∩ B) = "+fr(pab)+"$. Calculer $P_A(B)$.",
+      diag:[{v:arr(pa/pab), m:"Tu as divisé à l'envers. Ce qu'on **sait déjà** — ici $A$ — va toujours au dénominateur."},
+            {v:arr(pa*pab), m:"Tu as multiplié. La probabilité conditionnelle est un **quotient** : $@f{P(A ∩ B)}{P(A)}$."},
+            {v:arr(pa-pab), m:"Tu as soustrait. C'est un rapport, pas une différence."}],
+      corr:["**Écrire la formule.** $P_A(B) = @f{P(A ∩ B)}{P(A)}$.",
+            "**Comprendre les deux étages.** En haut, les cas où **les deux** se produisent. En bas, le nouvel univers : ce dont on est déjà sûr.",
+            "**Remplacer.** $@f{"+fr(pab)+"}{"+fr(pa)+"}$.",
+            "**Calculer.** $P_A(B) = "+fr(rep)+"$.",
+            "**Contrôle.** Le résultat doit être entre 0 et 1, et **plus grand** que $P(A ∩ B)$ — puisqu'on compte dans un univers plus petit. Ici "+fr(rep)+" > "+fr(pab)+" ✓"],
+      indice:"L'événement écrit en indice est celui qu'on sait déjà : il passe au dénominateur." };
+  }},
+
+{ id:"pr-totales", chap:"proba", titre:"Probabilités totales", niveau:2, gen:function(){
+    var pa=pick([0.3,0.4,0.6,0.7,0.75]);
+    var p1=pick([0.02,0.05,0.1,0.2]), p2=pick([0.01,0.03,0.08,0.15]);
+    var rep=arr(pa*p1+(1-pa)*p2);
+    return { type:"num", niveau:2, rep:rep, tol:0.002,
+      enonce:"Une usine fait fabriquer "+fr(pa*100)+" % de ses pièces par la machine A, le reste par B. "+
+             fr(p1*100)+" % des pièces de A sont défectueuses, contre "+fr(p2*100)+" % de celles de B. "+
+             "Quelle est la probabilité qu'une pièce prise au hasard soit défectueuse ?",
+      diag:[{v:p1, m:"Tu as donné $P_A(D)$, la probabilité qu'une pièce **de A** soit défectueuse. La question porte sur l'ensemble de la production, les deux machines confondues."},
+            {v:arr(pa*p1), m:"Tu n'as gardé que le chemin passant par A. Il faut aussi ajouter celui passant par B : $"+fr(arr(1-pa))+" × "+fr(p2)+"$."},
+            {v:arr(p1+p2), m:"Tu as additionné les deux taux sans les pondérer. Chaque chemin doit d'abord être multiplié par la probabilité de la machine dont il part."}],
+      corr:["**Nommer.** $A$ : la pièce vient de A. $B$ : elle vient de B. $D$ : elle est défectueuse.",
+            "**Traduire l'énoncé.** $P(A) = "+fr(pa)+"$ et $P(B) = "+fr(arr(1-pa))+"$ (le reste). Puis $P_A(D) = "+fr(p1)+"$ et $P_B(D) = "+fr(p2)+"$ — ce sont des conditionnelles, car elles portent sur les pièces **de** chaque machine.",
+            "**Premier chemin.** On multiplie le long de la branche : $"+fr(pa)+" × "+fr(p1)+" = "+fr(arr(pa*p1))+"$.",
+            "**Second chemin.** $"+fr(arr(1-pa))+" × "+fr(p2)+" = "+fr(arr((1-pa)*p2))+"$.",
+            "**Additionner les chemins.** Une pièce défectueuse vient soit de A, soit de B : $P(D) = "+fr(arr(pa*p1))+" + "+fr(arr((1-pa)*p2))+" = "+fr(rep)+"$.",
+            "**Contrôle de bon sens.** Le résultat doit tomber entre les deux taux ("+fr(p2)+" et "+fr(p1)+"), plus proche de celui de la machine majoritaire. ✓"],
+      indice:"Deux chemins mènent à une pièce défectueuse. Multiplie le long de chacun, puis additionne." };
+  }},
+
+{ id:"va-esperance", chap:"variable", titre:"Espérance", niveau:1, gen:function(){
+    var v1=nz(-10,12), v2=nz(-10,12);
+    while(v2===v1) v2=nz(-10,12);
+    var p=pick([0.2,0.25,0.3,0.4,0.5,0.6,0.75,0.8]);
+    var rep=arr(v1*p+v2*(1-p));
+    return { type:"num", niveau:1, rep:rep, tol:0.005,
+      enonce:"Une variable $X$ prend la valeur $"+fr(v1)+"$ avec une probabilité de $"+fr(p)+"$, et la valeur $"+fr(v2)+"$ avec une probabilité de $"+fr(arr(1-p))+"$. Calculer $E(X)$.",
+      diag:[{v:arr((v1+v2)/2), m:"Tu as fait la moyenne simple des deux valeurs. L'espérance **pondère** chaque valeur par sa probabilité : celle qui arrive le plus souvent pèse plus lourd."},
+            {v:v1+v2, m:"Tu as additionné les valeurs sans les pondérer. Chacune doit d'abord être multipliée par sa probabilité."},
+            {v:1, m:"Tu as additionné les probabilités. Leur somme vaut toujours 1 : c'est un contrôle, pas le résultat."}],
+      corr:["**Écrire la formule.** $E(X) = x_1 P(X = x_1) + x_2 P(X = x_2)$ : chaque valeur multipliée par son poids.",
+            "**Remplacer.** $E(X) = "+fr(v1)+" × "+fr(p)+" + "+fr(v2)+" × "+fr(arr(1-p))+"$.",
+            "**Les deux produits.** $"+fr(arr(v1*p))+"$ et $"+fr(arr(v2*(1-p)))+"$.",
+            "**Additionner.** $E(X) = "+fr(rep)+"$.",
+            "**Interpréter.** Sur un très grand nombre de répétitions, on obtient en moyenne $"+fr(rep)+"$ par tirage. Ce n'est pas une valeur atteignable — c'est un point d'équilibre."],
+      indice:"Multiplie chaque valeur par sa probabilité, puis additionne les résultats." };
+  }},
+
+{ id:"va-manquante", chap:"variable", titre:"Probabilité manquante", niveau:1, gen:function(){
+    var p1=pick([0.1,0.15,0.2,0.25,0.3]), p2=pick([0.2,0.3,0.35,0.4]);
+    var rep=arr(1-p1-p2);
+    return { type:"num", niveau:1, rep:rep, tol:0.005,
+      enonce:"Une variable prend trois valeurs, avec les probabilités $"+fr(p1)+"$, $"+fr(p2)+"$ et $p$. Que vaut $p$ ?",
+      diag:[{v:arr(1-p1), m:"Tu n'as retiré qu'une seule des deux probabilités connues. Il faut soustraire les deux."},
+            {v:arr(p1+p2), m:"Tu as additionné les deux probabilités connues. Il faut retirer cette somme de 1 : $1 - "+fr(arr(p1+p2))+"$."},
+            {v:1, m:"1 est la somme totale de toutes les probabilités, pas la valeur manquante."}],
+      corr:["**La règle.** Dans une loi de probabilité, la somme de **toutes** les probabilités vaut exactement 1. C'est la traduction de « il se passe forcément quelque chose ».",
+            "**Poser l'équation.** $"+fr(p1)+" + "+fr(p2)+" + p = 1$.",
+            "**Regrouper le connu.** $"+fr(arr(p1+p2))+" + p = 1$.",
+            "**Isoler.** $p = 1 - "+fr(arr(p1+p2))+" = "+fr(rep)+"$.",
+            "**Contrôle.** La probabilité trouvée doit être entre 0 et 1. Ici $"+fr(rep)+"$ ✓ — une valeur négative aurait signalé une erreur de lecture de l'énoncé."],
+      indice:"La somme de toute la ligne des probabilités vaut 1." };
+  }}
+];
+
+/* -------------------------- ALGORITHMIQUE -------------------------- */
+var G_ALGO = [
+{ id:"al-for", chap:"algo", titre:"Suivre une boucle for", niveau:1, gen:function(){
+    var u=ri(1,9), n=ri(2,5), op=pick(["+","*"]), k=op==="+" ? nz(-7,9) : pick([2,3]);
+    var v=u, suite=[u];
+    for(var i=0;i<n;i++){ v = op==="+" ? v+k : v*k; suite.push(v); }
+    return { type:"num", niveau:1, rep:v,
+      enonce:"Que vaut $u$ à la fin ?<br><b>u = "+u+"</b><br><b>for i in range("+n+"):</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>u = u "+op+" "+k+"</b>",
+      diag:[{v:suite[n-1], m:"Tu as fait "+(n-1)+" tours au lieu de "+n+". range("+n+") produit "+n+" valeurs : 0, 1, … , "+(n-1)+"."},
+            {v:op==="+" ? u+k : u*k, m:"Tu n'as fait qu'un seul tour. La boucle en fait "+n+" : il faut répéter l'opération autant de fois."},
+            {v:op==="+" ? u+k*(n+1) : u*Math.pow(k,n+1), m:"Tu as fait un tour de trop. range("+n+") s'arrête à "+(n-1)+", ce qui fait "+n+" passages."}],
+      corr:["**Compter les tours.** range("+n+") produit "+n+" valeurs (0 à "+(n-1)+"), donc la boucle s'exécute **"+n+" fois**.",
+            "**Dresser le tableau d'exécution.** C'est la méthode fiable : une ligne par tour."]
+        .concat(suite.slice(1).map(function(val,i){
+          return "Tour "+(i+1)+" : $u = "+fr(suite[i])+" "+(op==="+"?"+":"×")+" "+fr(k)+" = "+fr(val)+"$.";
+        }))
+        .concat(["**Résultat.** À la fin, $u$ vaut $"+fr(v)+"$.",
+                 "**Lien avec le cours.** Cette boucle construit une suite "+(op==="+"?"arithmétique de raison "+fr(k):"géométrique de raison "+fr(k))+" : on retrouve $u_{"+n+"} = "+
+                 (op==="+" ? fr(u)+" + "+n+" × "+fr(k) : fr(u)+" × "+fr(k)+"^{"+n+"}")+" = "+fr(v)+"$."]),
+      indice:"Compte d'abord le nombre de tours, puis déroule-les un par un dans un tableau." };
+  }},
+
+{ id:"al-while", chap:"algo", titre:"Recherche de seuil", niveau:2, gen:function(){
+    var u=pick([100,200,50,500,1000]), q=pick([2,3,1.5]), seuil=u*pick([5,8,10,20]);
+    var v=u, n=0;
+    while(v < seuil && n < 40){ v = v*q; n++; }
+    return { type:"num", niveau:2, rep:n,
+      enonce:"Que vaut $n$ à la fin ?<br><b>u = "+u+"</b><br><b>n = 0</b><br><b>while u &lt; "+seuil+":</b><br>"+
+             "&nbsp;&nbsp;&nbsp;&nbsp;<b>u = u * "+fr(q)+"</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>n = n + 1</b>",
+      diag:[{v:n-1, m:"Tu t'es arrêté un tour trop tôt. La boucle continue **tant que** $u$ est strictement inférieur à "+seuil+" : il faut un tour de plus pour franchir le seuil."},
+            {v:n+1, m:"Tu as fait un tour de trop. Dès que $u$ atteint ou dépasse "+seuil+", le test devient faux et on sort sans refaire de tour."},
+            {v:arr(u*Math.pow(q,n)), m:"Tu as donné la valeur finale de $u$, pas celle de $n$. Le compteur $n$ compte les tours."}],
+      corr:["**Comprendre ce que compte $n$.** Une seule ligne le modifie : $n = n + 1$, à l'intérieur de la boucle. Il compte donc les passages.",
+            "**Comprendre la condition.** On répète **tant que** $u$ est strictement inférieur à "+seuil+". On teste avant chaque tour.",
+            "**Dresser le tableau d'exécution.** Départ : $u = "+u+"$, $n = 0$."]
+        .concat((function(){
+          var l=[], vv=u, i;
+          for(i=1;i<=n;i++){ vv=arr(vv*q); l.push("Tour "+i+" : $u = "+fr(vv)+"$, $n = "+i+"$"+(vv<seuil ? " — encore inférieur à "+seuil+", on continue." : " — **atteint ou dépasse "+seuil+"**, on sort.")); }
+          return l;
+        })())
+        .concat(["**Résultat.** $n = "+n+"$.",
+                 "**Attention au dernier tour.** À la sortie, $u$ a **déjà dépassé** le seuil. C'est normal : la boucle teste avant, agit, puis re-teste. La réponse est le premier rang où le dépassement a lieu."]),
+      indice:"Fais un tableau à deux colonnes, $u$ et $n$, et arrête-toi dès que la condition devient fausse." };
+  }}
+];
+
+/* ---------------- enregistrement auprès du moteur ---------------- */
+window.GEN_SUP = G_EXPO.concat(G_TRIGO).concat(G_GEO).concat(G_PROBA).concat(G_ALGO);
 })();
 </script>
 <script>
