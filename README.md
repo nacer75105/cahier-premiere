@@ -153,9 +153,10 @@ progression va donc dans un entrepôt externe.
 ### 2. L'hébergement (Render)
 
 1. Créer un compte sur https://render.com et le connecter à GitHub
-2. **New → Web Service** → choisir le dépôt `cahier-premiere`
-3. Render lit `render.yaml` : ne rien changer aux réglages proposés
-4. Dans **Environment**, renseigner les quatre variables :
+2. **New → Blueprint** (et non « Web Service » : seul le Blueprint lit `render.yaml`)
+3. Choisir le dépôt `cahier-premiere` → **Connect**
+4. Render lit `render.yaml` et demande la valeur des variables marquées
+   `sync: false`. Renseigner les quatre :
 
 | Variable | Valeur |
 |---|---|
