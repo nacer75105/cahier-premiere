@@ -1982,7 +1982,10 @@ sections:[
  {titre:"Une information change tout", blocs:[
   {t:"idee", x:"Une probabilité conditionnelle répond à la question : **sachant que tel événement s'est produit, quelle est maintenant la probabilité de tel autre ?**"},
   {t:"p", x:"Exemple concret : la probabilité qu'une personne prise au hasard mesure plus d'1,80 m n'est pas la même si l'on sait déjà qu'il s'agit d'un joueur de basket professionnel. L'information reçue **rétrécit l'univers** dans lequel on compte."},
+  {t:"p", x:"Prenons un exemple chiffré pour voir l'effet. Dans un lycée de 1000 élèves, 100 font de l'allemand : la probabilité qu'un élève au hasard en fasse est donc $@f{100}{1000} = 0{,}1$. Maintenant on vous dit que l'élève tiré au sort est en série littéraire — et qu'il n'y a que 200 littéraires, dont 60 germanistes. La probabilité passe à $@f{60}{200} = 0{,}3$. **Le même événement, trois fois plus probable**, simplement parce qu'on a reçu une information."},
+  {t:"p", x:"Regarde ce qui a changé dans le calcul : le dénominateur. On est passé de 1000 (tous les élèves) à 200 (les littéraires seulement). L'information a **rétréci l'univers** dans lequel on compte. C'est toute l'idée, et c'est exactement ce que dit la formule."},
   {t:"formule", titre:"Définition", x:"$P_A(B) = @f{P(A ∩ B)}{P(A)}$ &nbsp;&nbsp;(avec $P(A) ≠ 0$)", note:"Se lit « probabilité de B sachant A ». Le dénominateur est la probabilité de ce qu'on sait déjà."},
+  {t:"p", x:"Relis la formule avec l'exemple en tête. En haut, $P(A ∩ B)$ : les élèves qui sont **à la fois** littéraires et germanistes — les 60. En bas, $P(A)$ : tous les littéraires — les 200. Le petit $A$ écrit en indice désigne toujours **le nouvel univers**, celui qui passe au dénominateur."},
   {t:"astuce", titre:"Comment lire cette formule", x:"En haut : les cas où **les deux** se réalisent. En bas : le nouvel univers, c'est-à-dire ce dont on est déjà sûr. On ne compte plus que dans la partie du monde où $A$ est vrai."},
   {t:"formule", titre:"La formule des probabilités composées", x:"$P(A ∩ B) = P(A) × P_A(B)$", note:"C'est la même relation, réécrite. C'est celle qu'on utilise sur un arbre."},
   {t:"piege", titre:"Deux notations à ne pas confondre", x:"$P(A ∩ B)$ : les deux se produisent, mesuré sur **tout** l'univers.<br>$P_A(B)$ : $B$ se produit, mesuré **uniquement** parmi les cas où $A$ est vrai.<br>La seconde est presque toujours plus grande que la première."}
@@ -1990,7 +1993,34 @@ sections:[
 
  {titre:"L'arbre pondéré : l'outil qui fait tout", blocs:[
   {t:"p", x:"Presque tous les exercices de ce chapitre se résolvent en dessinant un arbre. C'est un investissement de deux minutes qui évite dix minutes d'erreurs."},
+  {t:"p", x:"Pourquoi un arbre ? Parce qu'une situation à deux étapes se décrit mal par une phrase, mais très bien par un schéma qui **sépare les cas**. La première fourche représente le premier choix du hasard ; chaque branche se subdivise ensuite selon ce qui peut arriver **sachant** qu'on a pris ce chemin-là. L'arbre matérialise exactement ce que veut dire « conditionnel »."},
+  {t:"fig", titre:"L'arbre de l'usine à deux machines",
+   vue:[0,0,10,6], w:400, h:270, grille:false, axes:false, graduations:false,
+   objets:[
+    {t:"seg", de:[1,3], a:[4,4.6], couleur:"bleu"},
+    {t:"seg", de:[1,3], a:[4,1.4], couleur:"vert"},
+    {t:"seg", de:[4,4.6], a:[7.6,5.5], couleur:"rouge"},
+    {t:"seg", de:[4,4.6], a:[7.6,3.7], couleur:"ink3"},
+    {t:"seg", de:[4,1.4], a:[7.6,2.3], couleur:"rouge"},
+    {t:"seg", de:[4,1.4], a:[7.6,0.5], couleur:"ink3"},
+    {t:"texte", x:2.3, y:4.25, txt:"0,6", couleur:"bleu"},
+    {t:"texte", x:2.3, y:1.85, txt:"0,4", couleur:"vert"},
+    {t:"texte", x:5.7, y:5.4, txt:"0,05", couleur:"rouge"},
+    {t:"texte", x:5.7, y:3.9, txt:"0,95", couleur:"ink3"},
+    {t:"texte", x:5.7, y:2.2, txt:"0,02", couleur:"rouge"},
+    {t:"texte", x:5.7, y:0.7, txt:"0,98", couleur:"ink3"},
+    {t:"texte", x:4, y:4.95, txt:"A", couleur:"bleu", taille:15},
+    {t:"texte", x:4, y:1.0, txt:"B", couleur:"vert", taille:15},
+    {t:"texte", x:8.4, y:5.5, txt:"D", couleur:"rouge", taille:15},
+    {t:"texte", x:8.6, y:3.7, txt:"non D", couleur:"ink3"},
+    {t:"texte", x:8.4, y:2.3, txt:"D", couleur:"rouge", taille:15},
+    {t:"texte", x:8.6, y:0.5, txt:"non D", couleur:"ink3"}
+   ],
+   note:"Première fourche : de quelle machine vient la pièce. Seconde : est-elle défectueuse, **sachant** d'où elle vient."},
+  {t:"p", x:"Lis la figure de gauche à droite, comme un trajet. Une pièce part du tronc, choisit d'abord sa machine (60 % de chances d'être une pièce de A), puis se révèle défectueuse ou non — avec des probabilités **différentes selon la branche empruntée** : 5 % du côté de A, seulement 2 % du côté de B. Ce sont exactement les probabilités conditionnelles $P_A(D)$ et $P_B(D)$."},
+  {t:"p", x:"Remarque un détail qui compte : sur la seconde fourche du haut, $0{,}05$ et $0{,}95$ font 1. Sur celle du bas, $0{,}02$ et $0{,}98$ font 1 aussi. Chaque fourche est un petit monde complet où toutes les possibilités sont couvertes. C'est la première règle ci-dessous, et elle sert de contrôle permanent."},
   {t:"formule", titre:"Les trois règles de l'arbre", x:"1. La somme des probabilités partant d'un même nœud vaut **1**<br>2. Sur un chemin, on **multiplie** les probabilités<br>3. Pour un événement atteint par plusieurs chemins, on **additionne** les chemins", note:"Multiplier le long d'une branche, additionner entre les branches."},
+  {t:"p", x:"Ces trois règles se comprennent si on pense en termes de proportions. **Multiplier** le long d'un chemin : sur les 60 % de pièces venant de A, on ne garde que les 5 % défectueuses — soit 5 % de 60 %, donc $0{,}05 × 0{,}6$. « Un pourcentage d'un pourcentage » se calcule toujours par une multiplication.<br><br>**Additionner** entre les chemins : les pièces défectueuses viennent soit de A, soit de B, jamais des deux. Ce sont des cas séparés, donc on cumule leurs effectifs."},
   {t:"exemple", titre:"Exemple guidé — une usine à deux machines", enonce:"Une usine produit des pièces avec deux machines. La machine A fabrique 60 % des pièces, la machine B le reste. 5 % des pièces de A sont défectueuses, contre 2 % de celles de B. On prend une pièce au hasard : quelle est la probabilité qu'elle soit défectueuse ?", etapes:[
    {q:"Nommer les événements", r:"$A$ : « la pièce vient de A ». $B$ : « la pièce vient de B ». $D$ : « la pièce est défectueuse »."},
    {q:"Traduire l'énoncé", r:"$P(A) = 0{,}6$ et $P(B) = 0{,}4$ (le reste). Puis $P_A(D) = 0{,}05$ et $P_B(D) = 0{,}02$."},
@@ -2030,7 +2060,33 @@ sections:[
    {q:"Comparer", r:"On a bien $P(A ∩ B) = 0{,}2$, égal au produit."},
    {q:"Conclure", r:"Les événements sont indépendants."},
    {q:"Vérification par l'autre test", r:"$P_A(B) = @f{0,2}{0,4} = 0{,}5 = P(B)$. Savoir que $A$ s'est produit ne change effectivement rien. ✓"}
-  ]}
+  ]},
+  {t:"p", x:"Une confusion à dissiper, parce qu'elle revient sans cesse : **indépendants** et **incompatibles** ne veulent pas du tout dire la même chose, alors que les deux mots évoquent une idée de séparation."},
+  {t:"tbl", head:["","Incompatibles","Indépendants"], rows:[
+   ["Définition","ne peuvent pas arriver ensemble","l'un n'informe pas sur l'autre"],
+   ["Traduction","$P(A ∩ B) = 0$","$P(A ∩ B) = P(A) × P(B)$"],
+   ["Exemple","tirer un roi et tirer un as","tirer un roi et obtenir pile"],
+   ["Lien entre eux","savoir que $A$ arrive **exclut** $B$","savoir que $A$ arrive ne change rien"]
+  ]},
+  {t:"p", x:"La dernière ligne montre que ce sont presque des contraires. Si deux événements sont incompatibles, apprendre que l'un s'est produit est une information **énorme** : elle rend l'autre impossible. C'est le maximum de dépendance, pas l'indépendance."},
+  {t:"piege", titre:"Ne jamais supposer l'indépendance", x:"L'indépendance ne se devine pas, elle **se vérifie** ou elle est **annoncée par l'énoncé**. Beaucoup d'élèves multiplient $P(A) × P(B)$ par réflexe alors que rien ne l'autorise. Si l'énoncé ne dit pas « indépendants » et que tu n'as pas fait le test, passe par l'arbre."}
+ ]},
+
+ {titre:"Récapitulatif : lire l'énoncé, puis dessiner", blocs:[
+  {t:"idee", x:"Toute la difficulté de ce chapitre est de **traduire les phrases en notations**. Une fois l'arbre dessiné et les probabilités placées dessus, les calculs sont élémentaires."},
+  {t:"p", x:"Le point qui bloque le plus est de reconnaître si une phrase décrit une probabilité conditionnelle ou une intersection. Ce tableau donne les tournures les plus fréquentes et leur traduction."},
+  {t:"tbl", head:["Ce que dit l'énoncé","Ce que ça veut dire"], rows:[
+   ["« … sachant que … »","$P_A(B)$ — conditionnelle"],
+   ["« Parmi les A, la proportion de B »","$P_A(B)$ — conditionnelle"],
+   ["« 5 % des pièces de A sont défectueuses »","$P_A(D) = 0{,}05$ — conditionnelle"],
+   ["« et », « à la fois », « les deux »","$P(A ∩ B)$ — intersection"],
+   ["« 3 % des pièces sont de A et défectueuses »","$P(A ∩ D) = 0{,}03$ — intersection"],
+   ["« ou », « au moins un des deux »","une réunion, souvent par l'événement contraire"],
+   ["Une probabilité donnée sans condition","$P(A)$ — sur tout l'univers"]
+  ]},
+  {t:"astuce", titre:"La méthode en quatre temps", x:"1. **Nommer** les événements par une lettre, et l'écrire noir sur blanc.<br>2. **Traduire** chaque phrase de l'énoncé en une probabilité, en repérant les conditionnelles.<br>3. **Dessiner** l'arbre et y placer toutes les valeurs connues ; compléter par la règle « la somme fait 1 ».<br>4. **Répondre** : multiplier le long d'un chemin, additionner entre les chemins."},
+  {t:"piege", titre:"L'erreur qui coûte le plus : inverser le conditionnement", x:"$P_A(B)$ et $P_B(A)$ sont deux nombres différents, souvent très différents. Dans l'exemple de l'usine, l'un vaut 0,05 et l'autre 0,79.<br><br>C'est l'erreur de raisonnement la plus répandue, et pas seulement chez les élèves : « 99 % des malades ont un test positif » ne signifie **pas** « 99 % des tests positifs sont des malades ». Si la maladie est rare, les faux positifs peuvent être bien plus nombreux que les vrais. Avant tout calcul, demande-toi toujours : **qu'est-ce qu'on sait déjà ?** C'est ça qui va au dénominateur."},
+  {t:"p", x:"Pour réviser, refais deux exercices en dessinant l'arbre **avant** de lire les questions. Tu constateras que la plupart des questions se répondent alors en lisant simplement le schéma, sans réfléchir davantage."}
  ]}
 ],
 exos:[
@@ -2119,6 +2175,9 @@ sections:[
  {titre:"L'espérance : le gain moyen à long terme", blocs:[
   {t:"idee", x:"L'espérance répond à : **si je répétais l'expérience des milliers de fois, combien gagnerais-je en moyenne par partie ?**"},
   {t:"formule", titre:"Espérance", x:"$E(X) = x_1 P(X = x_1) + x_2 P(X = x_2) + … + x_n P(X = x_n)$", note:"Chaque valeur est pondérée par sa probabilité. C'est une moyenne, mais pondérée."},
+  {t:"p", x:"Le mot important est **pondérée**. Une moyenne ordinaire traite toutes les valeurs à égalité : la moyenne de 10 et 0 vaut 5. Mais si le 10 n'arrive qu'une fois sur dix et le 0 neuf fois sur dix, dire « en moyenne 5 » serait absurde — on obtient presque toujours 0. La bonne réponse est $10 × 0{,}1 + 0 × 0{,}9 = 1$."},
+  {t:"p", x:"D'où la formule : chaque valeur est multipliée par **son poids**, c'est-à-dire par la fréquence à laquelle elle apparaît. Les valeurs rares comptent peu, les valeurs fréquentes comptent beaucoup. Si tu comprends ça, tu n'auras jamais besoin de mémoriser la formule : elle se réécrit toute seule."},
+  {t:"astuce", titre:"L'espérance n'est pas une valeur possible", x:"Une espérance de $0{,}17$ € au jeu du dé ne veut pas dire qu'on gagne 17 centimes : on gagne 6 € ou on perd 1 €, jamais 17 centimes. C'est un **niveau moyen à long terme**, pas un résultat de partie.<br><br>C'est comme les « 1,8 enfant par famille » : aucune famille n'a 1,8 enfant. L'espérance est un indicateur, pas une prédiction."},
   {t:"exemple", titre:"Exemple guidé — ce jeu est-il rentable ?", enonce:"Une loterie coûte 2 € le ticket. On gagne 50 € avec une probabilité de 0,01, 5 € avec une probabilité de 0,1, et rien sinon. Le jeu est-il favorable au joueur ?", etapes:[
    {q:"Définir la variable", r:"Soit $X$ le gain **net**, c'est-à-dire après déduction des 2 € du ticket. Les valeurs possibles sont $48$, $3$ et $-2$."},
    {q:"Écrire la loi", r:"$P(X = 48) = 0{,}01$, $P(X = 3) = 0{,}1$, et $P(X = -2) = 1 - 0{,}01 - 0{,}1 = 0{,}89$."},
@@ -2164,6 +2223,23 @@ sections:[
   {t:"p", x:"C'est exactement ce que fait le programme de simulation du chapitre 10 : lancer un dé 6000 fois et compter les 6 donne une fréquence proche de $@f{1}{6}$. Sur 10 lancers seulement, la fréquence obtenue serait bien trop instable pour conclure quoi que ce soit."},
   {t:"piege", titre:"Ce que l'espérance ne promet pas", x:"Une espérance de gain de $-1$ € ne veut pas dire qu'on perdra 1 € à chaque partie. On peut gagner gros une fois. Elle dit qu'**à la longue**, la perte moyenne par partie s'approchera de 1 €. C'est précisément là-dessus que reposent les casinos et les assurances."},
   {t:"astuce", titre:"Comment lire un énoncé d'échantillonnage", x:"Repère toujours la taille $n$. Si $n$ est petit (moins de 30), méfie-toi des conclusions tirées de la moyenne observée. Si $n$ est grand (plusieurs milliers), la moyenne observée est un bon estimateur."}
+ ]},
+
+ {titre:"Récapitulatif : trois nombres pour résumer le hasard", blocs:[
+  {t:"idee", x:"Une variable aléatoire se résume par trois nombres : **l'espérance** dit où l'on se situe en moyenne, **la variance** et **l'écart-type** disent à quel point on s'en écarte."},
+  {t:"p", x:"Ces trois nombres répondent à deux questions différentes, et il faut bien les séparer. « Combien vais-je gagner en moyenne ? » — c'est l'espérance. « Est-ce que ça va être régulier ou plein de surprises ? » — c'est l'écart-type. Deux jeux peuvent avoir la même espérance et être radicalement différents à vivre."},
+  {t:"tbl", head:["Ce qu'on demande","Ce qu'il faut calculer"], rows:[
+   ["« Établir la loi de probabilité »","Le tableau valeurs / probabilités, dont la somme fait 1"],
+   ["« Gain moyen », « à long terme »","$E(X)$"],
+   ["« Le jeu est-il équitable ? »","$E(X)$, puis comparer à 0"],
+   ["« Dispersion », « régularité », « risque »","$V(X)$ puis $σ(X) = @r{V(X)}$"],
+   ["Une valeur manquante dans la loi","La somme des probabilités vaut 1"],
+   ["Un gain **net**","Retrancher la mise à **toutes** les valeurs, gains compris"]
+  ]},
+  {t:"formule", titre:"L'ordre des opérations, à ne pas inverser", x:"1. $E(X)$ &nbsp;→&nbsp; 2. moyenne des carrés &nbsp;→&nbsp; 3. $V(X)$ = (2) − $[E(X)]^2$ &nbsp;→&nbsp; 4. $σ = @r{V}$", note:"On retranche le carré de l'espérance **une seule fois**, à la fin."},
+  {t:"piege", titre:"Les trois erreurs les plus fréquentes", x:"**1. La moyenne simple au lieu de la moyenne pondérée.** Chaque valeur doit être multipliée par sa probabilité.<br>**2. La mise oubliée.** Si l'énoncé parle de gain net, un billet à 3 € qui rapporte 100 € donne un gain net de 97 €, pas 100 — et $-3$ € en cas de perte.<br>**3. La variance calculée dans le désordre.** On élève les **valeurs** au carré, pas les probabilités, et on retire $[E(X)]^2$ tout à la fin."},
+  {t:"astuce", titre:"Deux contrôles imparables", x:"**La somme des probabilités doit valoir exactement 1.** Si ce n'est pas le cas, inutile de continuer : la loi est fausse.<br><br>**La variance ne peut jamais être négative.** Un résultat négatif signale toujours une erreur — le plus souvent le carré de l'espérance soustrait trop tôt."},
+  {t:"p", x:"Un dernier mot sur le sens de tout ça. Ce chapitre est celui des assurances, des casinos et des paris. Tous reposent sur la même idée : à court terme, tout peut arriver ; à long terme, l'espérance finit par l'emporter. C'est pour cette raison qu'un casino avec une espérance légèrement défavorable au joueur gagne à coup sûr — non pas à chaque partie, mais sur des millions de parties."}
  ]}
 ],
 exos:[
@@ -2545,6 +2621,28 @@ sections:[
    {q:"À retenir", r:"Une fréquence observée s'approche de la probabilité théorique quand le nombre d'essais est grand. C'est ce qui justifie les simulations."}
   ]},
   {t:"piege", titre:"Un seul égal ou deux ?", x:"<b>=</b> range une valeur dans une variable. <b>==</b> pose une question : « est-ce égal ? ». Dans un test <b>if</b>, il en faut toujours **deux**."}
+ ]},
+
+ {titre:"Récapitulatif : lire un programme sans l'exécuter", blocs:[
+  {t:"idee", x:"En contrôle, on ne te demandera presque jamais d'écrire un programme entier. On te demandera de **prédire ce qu'il affiche**, ou de compléter une ligne manquante. C'est une compétence de lecture, pas d'écriture."},
+  {t:"p", x:"Et pour lire un programme, il n'existe qu'une méthode fiable : **le tableau d'exécution**. On dessine une colonne par variable, une ligne par passage, et on remplit à la main. C'est lent, un peu bête, et c'est exactement pour ça que ça marche : on ne peut pas se tromper si on ne saute aucune étape."},
+  {t:"tbl", head:["Tour","$u$","$n$","condition $u < 500$ ?"], rows:[
+   ["départ","100","0","vraie → on entre"],
+   ["1","200","1","vraie → on continue"],
+   ["2","400","2","vraie → on continue"],
+   ["3","800","3","**fausse** → on sort"]
+  ]},
+  {t:"p", x:"Voilà le tableau du programme de recherche de seuil vu plus haut. Trois colonnes, quatre lignes, et la réponse apparaît toute seule : à la sortie, $n$ vaut 3. Remarque bien la dernière ligne — **on effectue le tour, puis on teste**. C'est pour cela que $u$ finit à 800, au-delà du seuil : la boucle ne s'arrête pas au moment où la condition devient fausse, mais au test suivant."},
+  {t:"tbl", head:["Ce qu'on te demande","Comment s'y prendre"], rows:[
+   ["« Que vaut $u$ à la fin ? »","Tableau d'exécution, ligne par ligne"],
+   ["« Combien de fois la boucle tourne-t-elle ? »","Compter les valeurs de range, ou dérouler le while"],
+   ["« Que représente $n$ ? »","Repérer la seule ligne qui modifie $n$"],
+   ["« Compléter la ligne manquante »","Traduire la formule du cours en Python"],
+   ["« Que fait ce programme ? »","L'exécuter sur 2 ou 3 tours, puis généraliser"]
+  ]},
+  {t:"piege", titre:"Les trois pièges de lecture", x:"**1. range(n) s'arrête à n−1.** range(6) donne 0,1,2,3,4,5 : six valeurs, dont la dernière est 5.<br>**2. L'indentation décide de tout.** Une ligne décalée est **dans** la boucle et se répète ; une ligne alignée à gauche s'exécute une seule fois, après.<br>**3. La boucle while dépasse le seuil.** À la sortie, la valeur a déjà franchi la limite — c'est normal, et c'est souvent ce qu'on demande."},
+  {t:"astuce", titre:"Le lien avec le reste du programme", x:"Ce chapitre n'est pas une matière à part : c'est un **outil pour les autres chapitres**. Une boucle qui ajoute toujours la même chose, c'est une suite arithmétique. Une boucle qui multiplie, c'est une suite géométrique. Un while avec un seuil, c'est la question « à partir de quelle année dépasse-t-on… ». Et une simulation avec randint, c'est de l'estimation de probabilité.<br><br>Quand un programme te paraît obscur, demande-toi de quel chapitre il parle. La réponse éclaire presque toujours le code."},
+  {t:"p", x:"Enfin, ne cherche pas à retenir Python par cœur. Cinq mots suffisent pour tout le programme de Première : <b>for</b>, <b>while</b>, <b>if</b>, <b>def</b>, <b>return</b>. Ce qu'on évalue, c'est ta capacité à suivre une exécution pas à pas — la même rigueur que pour dérouler une suite à la main."}
  ]}
 ],
 exos:[
