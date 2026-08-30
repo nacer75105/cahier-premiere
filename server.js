@@ -36,7 +36,7 @@ if (!process.env.ANTHROPIC_API_KEY && !process.env.ANTHROPIC_AUTH_TOKEN) {
 
 // En ligne, le site est joignable par n'importe qui. Sans code d'accès,
 // la clé API serait consommée par des inconnus : on refuse de démarrer.
-const EN_LIGNE = !!(process.env.RENDER || process.env.PUBLIC);
+const EN_LIGNE = !!(process.env.RENDER || process.env.CAHIER_PUBLIC);
 if (EN_LIGNE && !CODE_ACCES) {
   console.error(
     "\n  CODE_ACCES est vide alors que le serveur est exposé publiquement.\n" +

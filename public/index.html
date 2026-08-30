@@ -763,7 +763,9 @@ sections:[
    "Si $a < 0$, la parabole est tournée vers le bas (comme une moue). Elle a un **maximum**.",
    "Plus $|a|$ est grand, plus la parabole est resserrée."
   ]},
-  {t:"plot", f:"x*x-2*x-3", xmin:-3, xmax:5, titre:"Courbe de $f(x) = x^2 - 2x - 3$", note:"Elle coupe l'axe des abscisses en $-1$ et $3$ : ce sont les racines."},
+  {t:"figi", nom:"parabole"},
+  {t:"p", x:"Prends le temps de bouger les trois curseurs, un à la fois — c'est le moyen le plus rapide de comprendre à quoi sert chaque coefficient. Fais d'abord varier **a** seul : la parabole se retourne quand il change de signe, et se resserre quand il grandit. Puis **c** seul : la courbe monte et descend en bloc, sans changer de forme, parce que $c$ est simplement la hauteur en $x = 0$. Puis **b** : c'est le plus déroutant, il déplace la parabole en biais."},
+  {t:"p", x:"Surveille aussi la ligne « Δ = … » sous la figure pendant que tu bouges les curseurs. Tu verras le nombre de racines changer exactement au moment où Δ passe par zéro — c'est-à-dire quand la parabole vient effleurer l'axe horizontal. C'est toute l'idée du discriminant, vue en direct."},
   {t:"p", x:"Le point le plus bas (ou le plus haut) s'appelle le **sommet**. La parabole est symétrique par rapport à la droite verticale qui passe par ce sommet."},
   {t:"formule", titre:"Coordonnées du sommet", x:"$α = -@f{b}{2a}$ &nbsp;&nbsp;et&nbsp;&nbsp; $β = f(α)$", note:"On calcule d'abord $α$, puis on remplace dans la fonction pour trouver $β$."}
  ]},
@@ -933,7 +935,11 @@ sections:[
   {t:"formule", titre:"Taux de variation entre deux points", x:"$@f{f(b) - f(a)}{b - a}$", note:"C'est la pente moyenne de la courbe entre $a$ et $b$."},
   {t:"p", x:"Le problème : cette pente est une **moyenne** sur un intervalle. Pour connaître la pente en un point précis, on rapproche $b$ de $a$ jusqu'à ce qu'ils se touchent presque. Le nombre vers lequel on tend s'appelle le **nombre dérivé**, noté $f'(a)$."},
   {t:"formule", titre:"Nombre dérivé", x:"$f'(a) = lim_{h → 0} @f{f(a + h) - f(a)}{h}$", note:"Autrement dit : la pente moyenne entre $a$ et un point tout proche, quand ce point se colle à $a$. En pratique on n'utilise presque jamais cette limite : on applique les formules du tableau plus bas."},
-  {t:"astuce", titre:"Traduction en français", x:"$f'(a)$ est un nombre. C'est la pente de la courbe au point d'abscisse $a$. Positif = ça monte. Négatif = ça descend. Nul = c'est plat (sommet ou creux)."}
+  {t:"astuce", titre:"Traduction en français", x:"$f'(a)$ est un nombre. C'est la pente de la courbe au point d'abscisse $a$. Positif = ça monte. Négatif = ça descend. Nul = c'est plat (sommet ou creux)."},
+  {t:"figi", nom:"tangente"},
+  {t:"p", x:"Déplace le point $A$ le long de la courbe et regarde la droite rouge : c'est la tangente. Elle change d'inclinaison à mesure que $A$ se déplace, et le nombre $f'(a)$ affiché en dessous suit exactement cette inclinaison."},
+  {t:"p", x:"Trois moments valent la peine d'être observés. Quand $A$ est **à gauche**, la courbe descend et la tangente penche vers le bas : $f'(a)$ est négatif. Quand $A$ est **à droite**, la courbe monte et $f'(a)$ devient positif. Et exactement **au creux**, la tangente devient horizontale : $f'(a) = 0$. C'est ce moment précis qu'on cherchera pour trouver un minimum ou un maximum — et c'est pour ça qu'on résoudra l'équation $f'(x) = 0$."},
+  {t:"piege", titre:"Deux nombres à ne pas mélanger", x:"Sur la figure, la ligne du bas affiche deux valeurs différentes pour le même point : la **hauteur** $f(a)$ et la **pente** $f'(a)$. Un point haut peut avoir une pente nulle, un point bas une pente énorme. Ces deux nombres ne se déduisent pas l'un de l'autre."}
  ]},
 
  {titre:"La tangente", blocs:[
@@ -1262,6 +1268,8 @@ sections:[
  {titre:"Le cercle trigonométrique", blocs:[
   {t:"p", x:"On trace un cercle de rayon 1 centré à l'origine. On part du point $(1 ; 0)$ et on tourne dans le sens inverse des aiguilles d'une montre : c'est le **sens direct**."},
   {t:"formule", titre:"Définition de cos et sin", x:"Si on tourne d'un angle $x$, on arrive au point de coordonnées $(cos x ; sin x)$", note:"Le cosinus est l'abscisse, le sinus est l'ordonnée. C'est tout."},
+  {t:"figi", nom:"cercle-trigo"},
+  {t:"p", x:"Fais tourner le point $M$ et observe les deux segments colorés. Le **bleu**, couché sur l'axe horizontal, c'est le cosinus. Le **vert**, dressé sur l'axe vertical, c'est le sinus. Tu vois immédiatement trois choses que les tableaux de valeurs cachent : aucun des deux ne dépasse jamais 1 ni ne descend sous $-1$ ; quand l'un est grand, l'autre est petit ; et quand $M$ passe à gauche de l'axe vertical, le cosinus devient négatif."},
   {t:"astuce", titre:"Ne plus jamais les confondre", x:"**Cos** comme **c**ouché → horizontal → abscisse. **Sin** monte vers le ciel → vertical → ordonnée."},
   {t:"tbl", head:["$x$","0","$@f{π}{6}$","$@f{π}{4}$","$@f{π}{3}$","$@f{π}{2}$","$π$"], rows:[
    ["$cos x$","1","$@f{@r{3}}{2}$","$@f{@r{2}}{2}$","$@f{1}{2}$","0","−1"],
@@ -1416,19 +1424,46 @@ sous:"Multiplier des vecteurs, mesurer des angles",
 desc:"Vecteurs en coordonnées, produit scalaire, orthogonalité et applications.",
 duree:40,
 sections:[
- {titre:"Rappels sur les vecteurs", blocs:[
-  {t:"p", x:"Un vecteur décrit un déplacement : combien à droite, combien vers le haut. Dans un repère, on l'écrit avec deux coordonnées."},
-  {t:"formule", titre:"Coordonnées d'un vecteur", x:"Si $A(x_A ; y_A)$ et $B(x_B ; y_B)$, alors $@v{AB}(x_B - x_A ; y_B - y_A)$", note:"Toujours l'arrivée moins le départ. C'est l'erreur de signe la plus fréquente du chapitre."},
-  {t:"formule", titre:"Norme (longueur) d'un vecteur", x:"Si $@v{u}(x ; y)$, alors $||@v{u}|| = @r{x^2 + y^2}$", note:"C'est le théorème de Pythagore : on parcourt $x$ horizontalement puis $y$ verticalement."},
+ {titre:"Un vecteur, c'est un déplacement", blocs:[
+  {t:"idee", x:"Un vecteur ne dit pas **où** on est, il dit **comment on se déplace** : de combien à droite, et de combien vers le haut."},
+  {t:"p", x:"C'est la différence essentielle avec un point. Un point $A(1 ; 2)$ est une adresse : il est quelque part et il y reste. Un vecteur $@v{AB}$ est un trajet : « avance de 3, monte de 4 ». Ce trajet, on peut le faire depuis n'importe où — c'est pour ça qu'on peut déplacer un vecteur sur une figure sans le changer, alors qu'on ne peut pas déplacer un point."},
+  {t:"fig", titre:"Le vecteur AB se lit sur le quadrillage",
+   vue:[-0.5,-0.5,6,7], w:380, h:340,
+   objets:[
+    {t:"point", x:1, y:2, nom:"A"},
+    {t:"point", x:4, y:6, nom:"B"},
+    {t:"vec", de:[1,2], a:[4,6], couleur:"bleu"},
+    {t:"seg", de:[1,2], a:[4,2], couleur:"vert", pointille:true},
+    {t:"seg", de:[4,2], a:[4,6], couleur:"ambre", pointille:true},
+    {t:"texte", x:2.5, y:1.5, txt:"+3 vers la droite", couleur:"vert"},
+    {t:"texte", x:5.1, y:4, txt:"+4 vers le haut", couleur:"ambre"},
+    {t:"angle", en:[4,2], de:[1,2], a:[4,6], droit:true}
+   ],
+   note:"Pour aller de $A$ à $B$ : 3 à droite, 4 en haut. D'où $@v{AB}(3 ; 4)$."},
+  {t:"formule", titre:"Coordonnées d'un vecteur", x:"Si $A(x_A ; y_A)$ et $B(x_B ; y_B)$, alors $@v{AB}(x_B - x_A ; y_B - y_A)$", note:"Toujours l'arrivée moins le départ."},
+  {t:"p", x:"Pourquoi une soustraction ? Parce qu'on cherche **l'écart** entre les deux positions. Sur la figure, l'abscisse passe de 1 à 4 : l'écart vaut $4 - 1 = 3$. L'ordonnée passe de 2 à 6 : l'écart vaut $6 - 2 = 4$. Une soustraction mesure toujours un écart, jamais une position."},
+  {t:"piege", titre:"L'erreur de sens", x:"$@v{AB}$ et $@v{BA}$ ne sont pas le même vecteur : ils ont la même longueur mais des sens opposés. $@v{AB}(3 ; 4)$ tandis que $@v{BA}(-3 ; -4)$. Réflexe : la **première lettre est le départ**. Si tu écris $@v{AB}$, tu pars de $A$, donc tu retranches les coordonnées de $A$."},
+  {t:"formule", titre:"Norme : la longueur du vecteur", x:"Si $@v{u}(x ; y)$, alors $||@v{u}|| = @r{x^2 + y^2}$", note:"Deux barres de chaque côté : c'est une longueur, donc un nombre positif."},
+  {t:"p", x:"Cette formule n'est pas à apprendre bêtement : **c'est Pythagore**. Regarde la figure : le déplacement horizontal (3), le déplacement vertical (4) et le vecteur lui-même forment un triangle rectangle. L'angle droit est marqué en rouge. Le vecteur est l'hypoténuse, donc son carré vaut la somme des carrés des deux côtés : $3^2 + 4^2 = 25$, et la longueur vaut $@r{25} = 5$."},
   {t:"exemple", titre:"Exemple guidé — coordonnées et longueur", enonce:"Soit $A(1 ; 2)$ et $B(4 ; 6)$. Calculer les coordonnées de $@v{AB}$ puis sa longueur.", etapes:[
-   {q:"Coordonnées", r:"$@v{AB}(4 - 1 ; 6 - 2)$, soit $@v{AB}(3 ; 4)$."},
+   {q:"Je repère le départ et l'arrivée", r:"On écrit $@v{AB}$ : le départ est $A$, l'arrivée est $B$. Je vais donc calculer « $B$ moins $A$ »."},
+   {q:"Coordonnées", r:"$@v{AB}(4 - 1 ; 6 - 2)$, soit $@v{AB}(3 ; 4)$. Je retrouve bien les deux déplacements lus sur la figure."},
    {q:"Longueur", r:"$||@v{AB}|| = @r{3^2 + 4^2} = @r{9 + 16} = @r{25} = 5$."},
-   {q:"Remarque", r:"On retrouve le triangle 3-4-5, le plus célèbre des triangles rectangles."}
-  ]}
+   {q:"Contrôle de bon sens", r:"La longueur doit être plus grande que chacun des deux déplacements (3 et 4) mais plus petite que leur somme (7). Ici 5 : c'est cohérent. Si tu trouves 25, tu as oublié la racine ; si tu trouves 7, tu as additionné au lieu d'appliquer Pythagore."}
+  ]},
+  {t:"check", q:"Soit $C(5 ; 1)$ et $D(2 ; 3)$. Quelles sont les coordonnées de $@v{CD}$ ?",
+   choix:["$(-3 ; 2)$","$(3 ; -2)$","$(7 ; 4)$","$(-3 ; -2)$"], bonne:0,
+   expl:["Exact : $2 - 5 = -3$ et $3 - 1 = 2$. On recule de 3 et on monte de 2.",
+         "C'est $@v{DC}$, le vecteur inverse. Tu as calculé « départ moins arrivée » au lieu de l'inverse.",
+         "Tu as additionné les coordonnées. Un vecteur mesure un écart : c'est une soustraction.",
+         "L'abscisse est juste, mais pour l'ordonnée : $3 - 1 = +2$, on monte. Attention au signe."]}
  ]},
 
  {titre:"Trois façons de calculer un produit scalaire", blocs:[
   {t:"idee", x:"Le produit scalaire de deux vecteurs est un **nombre** (pas un vecteur). Il mesure à quel point les deux vecteurs « vont dans le même sens »."},
+  {t:"p", x:"Avant les formules, comprenons ce que ce nombre raconte. Imagine que tu tires une luge avec une corde. Si tu tires bien dans l'axe de la marche, tout ton effort sert à avancer. Si tu tires en biais, une partie de l'effort est perdue à soulever la luge. Et si tu tirais perpendiculairement, à angle droit, tu ne la ferais pas avancer du tout."},
+  {t:"p", x:"Le produit scalaire mesure exactement ça : **la part d'un vecteur qui va dans la direction de l'autre**. Deux vecteurs alignés dans le même sens → grand nombre positif. Perpendiculaires → zéro. Sens opposés → nombre négatif. C'est pour cette raison qu'un produit scalaire nul signifie « angle droit » : c'est la situation où l'un n'apporte rien à l'autre."},
+  {t:"figi", nom:"produit-scalaire"},
   {t:"formule", titre:"Avec les coordonnées — la plus utilisée", x:"Si $@v{u}(x ; y)$ et $@v{v}(x' ; y')$, alors $@v{u} · @v{v} = x x' + y y'$", note:"On multiplie les abscisses entre elles, les ordonnées entre elles, et on additionne."},
   {t:"formule", titre:"Avec l'angle", x:"$@v{u} · @v{v} = ||@v{u}|| × ||@v{v}|| × cos θ$", note:"$θ$ est l'angle entre les deux vecteurs. Utile pour trouver un angle."},
   {t:"formule", titre:"Avec les normes", x:"$@v{u} · @v{v} = @f{1}{2}(||@v{u}||^2 + ||@v{v}||^2 - ||@v{u} - @v{v}||^2)$", note:"Réservée aux situations où on ne dispose que de longueurs."},
@@ -1456,6 +1491,18 @@ sections:[
    ["Nul","Droit — ils sont perpendiculaires"],
    ["Négatif","Obtus — ils pointent dans des directions opposées"]
   ]},
+  {t:"fig", titre:"Le triangle de l'exemple ci-dessous",
+   vue:[0,0,5.5,6], w:380, h:340,
+   objets:[
+    {t:"poly", pts:[[1,1],[4,2],[3,5]], couleur:"bleu", remplir:true},
+    {t:"vec", de:[4,2], a:[1,1], couleur:"vert", nom:"BA"},
+    {t:"vec", de:[4,2], a:[3,5], couleur:"ambre", nom:"BC"},
+    {t:"angle", en:[4,2], de:[1,1], a:[3,5], droit:true},
+    {t:"point", x:1, y:1, nom:"A", dessous:true},
+    {t:"point", x:4, y:2, nom:"B", dessous:true},
+    {t:"point", x:3, y:5, nom:"C"}
+   ],
+   note:"Pour tester l'angle en $B$, on part **de $B$** : les vecteurs utiles sont $@v{BA}$ et $@v{BC}$."},
   {t:"exemple", titre:"Exemple guidé — prouver un angle droit", enonce:"Les points $A(1 ; 1)$, $B(4 ; 2)$ et $C(3 ; 5)$ forment-ils un triangle rectangle en $B$ ?", etapes:[
    {q:"Choisir les bons vecteurs", r:"L'angle droit supposé est en $B$, donc on part de $B$ : il faut $@v{BA}$ et $@v{BC}$."},
    {q:"Calculer les coordonnées", r:"$@v{BA}(1 - 4 ; 1 - 2) = (-3 ; -1)$ et $@v{BC}(3 - 4 ; 5 - 2) = (-1 ; 3)$."},
@@ -1473,8 +1520,25 @@ sections:[
 
  {titre:"Projeté orthogonal et formule d'Al-Kashi", blocs:[
   {t:"idee", x:"Le produit scalaire a une lecture géométrique : il mesure **ce qui reste d'un vecteur quand on l'écrase sur la direction de l'autre**. C'est le projeté orthogonal."},
-  {t:"p", x:"Imagine le soleil exactement au-dessus de la droite $(AB)$. L'ombre du point $C$ sur cette droite s'appelle le **projeté orthogonal** de $C$ sur $(AB)$ : on le note souvent $H$. C'est le point de $(AB)$ le plus proche de $C$."},
+  {t:"p", x:"Imagine le soleil exactement au-dessus de la droite $(AB)$, à la verticale. L'ombre du point $C$ tombe sur cette droite en un point qu'on note $H$ : c'est le **projeté orthogonal** de $C$ sur $(AB)$. C'est aussi le point de la droite le plus proche de $C$."},
+  {t:"fig", titre:"L'ombre de C sur la droite (AB)",
+   vue:[-0.5,-0.5,6.5,5], w:400, h:300,
+   objets:[
+    {t:"droite", de:[0,1], a:[1,1], couleur:"line2"},
+    {t:"vec", de:[1,1], a:[5,1], couleur:"bleu", nom:"AB"},
+    {t:"vec", de:[1,1], a:[3.5,4], couleur:"vert", nom:"AC"},
+    {t:"seg", de:[3.5,4], a:[3.5,1], couleur:"rouge", pointille:true},
+    {t:"angle", en:[3.5,1], de:[1,1], a:[3.5,4], droit:true},
+    {t:"seg", de:[1,1], a:[3.5,1], couleur:"ambre", epais:5},
+    {t:"point", x:1, y:1, nom:"A", dessous:true},
+    {t:"point", x:5, y:1, nom:"B", dessous:true},
+    {t:"point", x:3.5, y:4, nom:"C"},
+    {t:"point", x:3.5, y:1, nom:"H", dessous:true},
+    {t:"texte", x:2.25, y:0.4, txt:"AH : la part utile", couleur:"ambre"}
+   ],
+   note:"Le segment orange $AH$ est **la part de $@v{AC}$ qui va dans la direction de $@v{AB}$**. Le trait rouge, perpendiculaire, ne compte pas."},
   {t:"formule", titre:"Produit scalaire et projeté", x:"Si $H$ est le projeté orthogonal de $C$ sur $(AB)$, alors $@v{AB} · @v{AC} = @v{AB} · @v{AH}$", note:"On peut remplacer un vecteur par son projeté sans changer le produit scalaire."},
+  {t:"p", x:"Cette formule dit quelque chose de simple sur la figure : pour calculer $@v{AB} · @v{AC}$, on a le droit de **remplacer $C$ par son ombre $H$**. Toute la partie verticale de $@v{AC}$ — le trait rouge — disparaît du calcul, parce qu'elle est perpendiculaire à $@v{AB}$ et n'apporte rien dans cette direction. C'est la traduction géométrique de l'histoire de la luge."},
   {t:"liste", items:[
    "Si $H$ est **du même côté** que $B$ : $@v{AB} · @v{AC} = AB × AH$, un nombre positif.",
    "Si $H$ est **de l'autre côté** de $A$ : $@v{AB} · @v{AC} = -AB × AH$, un nombre négatif.",
@@ -1482,7 +1546,22 @@ sections:[
   ]},
   {t:"astuce", titre:"Le projeté sert aussi à mesurer une distance", x:"La distance d'un point à une droite se mesure toujours **le long de la perpendiculaire**, c'est-à-dire jusqu'au projeté orthogonal. C'est le trajet le plus court, et c'est ce qu'on demande quand un énoncé dit « distance du point $C$ à la droite »."},
   {t:"formule", titre:"Formule d'Al-Kashi", x:"$a^2 = b^2 + c^2 - 2bc × cos Â$", note:"C'est Pythagore généralisé à un triangle quelconque. Si $Â = 90°$, alors $cos Â = 0$ et on retrouve $a^2 = b^2 + c^2$."},
-  {t:"p", x:"Convention de notation : $a$ est le côté **opposé** au sommet $A$, $b$ celui opposé à $B$, $c$ celui opposé à $C$. La formule relie donc un côté aux deux autres et à l'angle qui les sépare."},
+  {t:"fig", titre:"Les notations d'Al-Kashi",
+   vue:[-0.5,-0.5,6,4.5], w:400, h:290, grille:false, axes:false, graduations:false,
+   objets:[
+    {t:"poly", pts:[[0.6,0.6],[5.2,0.6],[2.2,3.6]], couleur:"bleu", remplir:true},
+    {t:"angle", en:[0.6,0.6], de:[5.2,0.6], a:[2.2,3.6]},
+    {t:"point", x:0.6, y:0.6, nom:"A", dessous:true},
+    {t:"point", x:5.2, y:0.6, nom:"B", dessous:true},
+    {t:"point", x:2.2, y:3.6, nom:"C"},
+    {t:"texte", x:3.8, y:2.5, txt:"a", couleur:"rouge", taille:16},
+    {t:"texte", x:1.1, y:2.3, txt:"b", couleur:"ink2", taille:16},
+    {t:"texte", x:2.9, y:0.25, txt:"c", couleur:"ink2", taille:16},
+    {t:"texte", x:1.35, y:0.95, txt:"Â", couleur:"ambre", taille:14}
+   ],
+   note:"Chaque côté porte la lettre **minuscule** du sommet qui lui fait face. Le côté cherché $a$ (en rouge) est opposé à l'angle $Â$ (en orange) qu'on connaît."},
+  {t:"p", x:"Cette convention n'est pas un caprice : elle rend la formule lisible. On cherche le côté $a$, celui qui est **en face** de l'angle connu $Â$. Les deux autres côtés, $b$ et $c$, sont ceux qui **encadrent** cet angle. La formule dit donc : « le carré du côté d'en face = la somme des carrés des deux côtés qui encadrent l'angle, moins un terme de correction qui dépend de cet angle »."},
+  {t:"p", x:"Ce terme de correction, $-2bc × cos Â$, est ce qui manquait à Pythagore. Quand l'angle est droit, $cos(90°) = 0$ : la correction disparaît et on retombe exactement sur $a^2 = b^2 + c^2$. Al-Kashi n'est donc pas une nouvelle formule à empiler, c'est **Pythagore avec un rattrapage** pour les triangles qui ne sont pas rectangles."},
   {t:"exemple", titre:"Exemple guidé — calculer un côté manquant", enonce:"Dans un triangle, $AB = 5$, $AC = 7$ et l'angle en $A$ mesure 60°. Calculer $BC$.", etapes:[
    {q:"Identifier ce qu'on cherche", r:"$BC$ est le côté opposé à $A$ : c'est le « $a$ » de la formule. Les deux côtés qui encadrent l'angle sont $AB = 5$ et $AC = 7$."},
    {q:"Écrire la formule", r:"$BC^2 = AB^2 + AC^2 - 2 × AB × AC × cos Â$."},
@@ -2124,6 +2203,482 @@ exos:[
 ]);
 </script>
 <script>
+/* =====================================================================
+   Moteur de figures géométriques
+   ---------------------------------------------------------------------
+   Deux types de blocs :
+     {t:"fig",  ...}  figure fixe, décrite en coordonnées mathématiques
+     {t:"figi", nom:"..."}  figure manipulable (le nom désigne un modèle)
+   Les couleurs viennent des jetons CSS : les figures suivent le thème.
+   ===================================================================== */
+(function(){
+"use strict";
+var A = window.APP, T = A.T, el = A.el;
+var NS = "http://www.w3.org/2000/svg";
+
+function n(tag, attrs){
+  var e = document.createElementNS(NS, tag);
+  for(var k in attrs) if(attrs[k]!=null) e.setAttribute(k, attrs[k]);
+  return e;
+}
+function coul(nom){
+  return "var(--"+(nom||"ink")+")";
+}
+
+/* ---- repère : coordonnées maths -> pixels ---- */
+function repere(vue, w, h, marge){
+  var m = marge==null ? 26 : marge;
+  var x0=vue[0], y0=vue[1], x1=vue[2], y1=vue[3];
+  var kx = (w-2*m)/(x1-x0), ky = (h-2*m)/(y1-y0);
+  var k = Math.min(kx, ky);                   // repère orthonormé
+  var cx = m + ((w-2*m) - k*(x1-x0))/2;
+  var cy = m + ((h-2*m) - k*(y1-y0))/2;
+  return {
+    X: function(x){ return cx + (x-x0)*k; },
+    Y: function(y){ return h - cy - (y-y0)*k; },
+    x: function(px){ return x0 + (px-cx)/k; },
+    y: function(py){ return y0 + (h-cy-py)/k; },
+    k: k, vue: vue
+  };
+}
+
+/* ---- fond : grille et axes ---- */
+function fond(svg, R, opts){
+  var v = R.vue, i;
+  if(opts.grille !== false){
+    var g = n("g", {"stroke":coul("line"), "stroke-width":1, "opacity":.75});
+    for(i=Math.ceil(v[0]); i<=v[2]; i++)
+      g.appendChild(n("line",{x1:R.X(i), y1:R.Y(v[1]), x2:R.X(i), y2:R.Y(v[3])}));
+    for(i=Math.ceil(v[1]); i<=v[3]; i++)
+      g.appendChild(n("line",{x1:R.X(v[0]), y1:R.Y(i), x2:R.X(v[2]), y2:R.Y(i)}));
+    svg.appendChild(g);
+  }
+  if(opts.axes !== false){
+    var a = n("g", {"stroke":coul("ink3"), "stroke-width":1.6});
+    if(v[1]<=0 && v[3]>=0) a.appendChild(n("line",{x1:R.X(v[0]),y1:R.Y(0),x2:R.X(v[2]),y2:R.Y(0)}));
+    if(v[0]<=0 && v[2]>=0) a.appendChild(n("line",{x1:R.X(0),y1:R.Y(v[1]),x2:R.X(0),y2:R.Y(v[3])}));
+    svg.appendChild(a);
+    if(opts.graduations !== false){
+      var t = n("g", {"fill":coul("ink3"), "font-size":10, "font-family":"system-ui"});
+      for(i=Math.ceil(v[0]); i<=v[2]; i++) if(i!==0 && v[1]<=0 && v[3]>=0)
+        t.appendChild(txt(R.X(i), R.Y(0)+13, String(i), "middle"));
+      for(i=Math.ceil(v[1]); i<=v[3]; i++) if(i!==0 && v[0]<=0 && v[2]>=0)
+        t.appendChild(txt(R.X(0)-7, R.Y(i)+4, String(i), "end"));
+      svg.appendChild(t);
+    }
+  }
+}
+function txt(x, y, s, ancre){
+  var e = n("text", {x:x, y:y, "text-anchor":ancre||"start"});
+  e.textContent = s;
+  return e;
+}
+
+/* ---- flèche de vecteur ---- */
+function fleche(svg, R, de, a, couleur, nom){
+  var x1=R.X(de[0]), y1=R.Y(de[1]), x2=R.X(a[0]), y2=R.Y(a[1]);
+  var dx=x2-x1, dy=y2-y1, L=Math.hypot(dx,dy) || 1;
+  var ux=dx/L, uy=dy/L, t=9;
+  var g = n("g", {stroke:coul(couleur), fill:coul(couleur), "stroke-width":2.4,
+                  "stroke-linecap":"round"});
+  g.appendChild(n("line",{x1:x1,y1:y1,x2:x2-ux*t*0.8,y2:y2-uy*t*0.8}));
+  g.appendChild(n("polygon",{ points:
+    (x2)+","+(y2)+" "+
+    (x2-ux*t-uy*t*0.45)+","+(y2-uy*t+ux*t*0.45)+" "+
+    (x2-ux*t+uy*t*0.45)+","+(y2-uy*t-ux*t*0.45), stroke:"none"}));
+  svg.appendChild(g);
+  if(nom){
+    var e = txt(x1+dx/2 - uy*14, y1+dy/2 + ux*14 + 4, nom, "middle");
+    e.setAttribute("fill", coul(couleur));
+    e.setAttribute("font-size", 14);
+    e.setAttribute("font-style", "italic");
+    e.setAttribute("font-family", "Source Serif 4, Georgia, serif");
+    svg.appendChild(e);
+  }
+}
+
+/* ---- angle droit / angle marqué ---- */
+function marqueAngle(svg, R, en, v1, v2, droit){
+  var a1 = Math.atan2(R.Y(en[1])-R.Y(v1[1]), R.X(v1[0])-R.X(en[0]));
+  var a2 = Math.atan2(R.Y(en[1])-R.Y(v2[1]), R.X(v2[0])-R.X(en[0]));
+  var px = R.X(en[0]), py = R.Y(en[1]);
+  if(droit){
+    var t = 13;
+    var c1x = px + Math.cos(a1)*t, c1y = py - Math.sin(a1)*t;
+    var c2x = px + Math.cos(a2)*t, c2y = py - Math.sin(a2)*t;
+    svg.appendChild(n("polyline", {
+      points: c1x+","+c1y+" "+(c1x+c2x-px)+","+(c1y+c2y-py)+" "+c2x+","+c2y,
+      fill:"none", stroke:coul("rouge"), "stroke-width":2 }));
+  } else {
+    var r = 22;
+    var d = "M "+(px+Math.cos(a1)*r)+" "+(py-Math.sin(a1)*r)+
+            " A "+r+" "+r+" 0 0 "+((a2-a1+2*Math.PI)%(2*Math.PI) > Math.PI ? 1 : 0)+
+            " "+(px+Math.cos(a2)*r)+" "+(py-Math.sin(a2)*r);
+    svg.appendChild(n("path",{d:d, fill:"none", stroke:coul("ambre"), "stroke-width":2}));
+  }
+}
+
+/* ---- point nommé ---- */
+function point(svg, R, x, y, nom, couleur, dessous){
+  var px=R.X(x), py=R.Y(y);
+  svg.appendChild(n("circle",{cx:px, cy:py, r:4.5, fill:coul(couleur||"ink")}));
+  if(nom){
+    var e = txt(px+8, py + (dessous ? 18 : -9), nom);
+    e.setAttribute("fill", coul(couleur||"ink"));
+    e.setAttribute("font-size", 15);
+    e.setAttribute("font-family", "Source Serif 4, Georgia, serif");
+    e.setAttribute("font-weight", 600);
+    svg.appendChild(e);
+  }
+}
+
+/* =====================================================================
+   Figure fixe
+   ===================================================================== */
+function figure(b){
+  var w = b.w || 380, h = b.h || 300;
+  var boite = el("div","figBoite");
+  if(b.titre) boite.appendChild(el("div","figTitre", T(b.titre)));
+  var svg = n("svg", {viewBox:"0 0 "+w+" "+h, class:"fig", role:"img"});
+  svg.setAttribute("aria-label", b.alt || b.titre || "figure géométrique");
+  var R = repere(b.vue || [-1,-1,6,5], w, h, b.marge);
+  fond(svg, R, b);
+  (b.objets||[]).forEach(function(o){ dessiner(svg, R, o); });
+  boite.appendChild(svg);
+  if(b.note) boite.appendChild(el("div","figNote", T(b.note)));
+  return boite;
+}
+
+function dessiner(svg, R, o){
+  switch(o.t){
+    case "point": point(svg,R,o.x,o.y,o.nom,o.couleur,o.dessous); break;
+    case "seg":
+      svg.appendChild(n("line",{x1:R.X(o.de[0]),y1:R.Y(o.de[1]),
+        x2:R.X(o.a[0]),y2:R.Y(o.a[1]), stroke:coul(o.couleur||"ink"),
+        "stroke-width":o.epais||2.2, "stroke-linecap":"round",
+        "stroke-dasharray": o.pointille ? "5 5" : null}));
+      break;
+    case "droite": {
+      var v=R.vue, dx=o.a[0]-o.de[0], dy=o.a[1]-o.de[1];
+      var t1=-50, t2=50;
+      svg.appendChild(n("line",{
+        x1:R.X(o.de[0]+dx*t1), y1:R.Y(o.de[1]+dy*t1),
+        x2:R.X(o.de[0]+dx*t2), y2:R.Y(o.de[1]+dy*t2),
+        stroke:coul(o.couleur||"bleu"), "stroke-width":o.epais||2.2,
+        "stroke-dasharray": o.pointille ? "5 5" : null}));
+      break;
+    }
+    case "vec": fleche(svg,R,o.de,o.a,o.couleur||"bleu",o.nom); break;
+    case "cercle":
+      svg.appendChild(n("circle",{cx:R.X(o.c[0]), cy:R.Y(o.c[1]), r:o.r*R.k,
+        fill: o.remplir ? coul(o.couleur||"bleu") : "none",
+        "fill-opacity": o.remplir ? .1 : null,
+        stroke:coul(o.couleur||"bleu"), "stroke-width":2.2,
+        "stroke-dasharray": o.pointille ? "5 5" : null}));
+      break;
+    case "poly":
+      svg.appendChild(n("polygon",{
+        points:o.pts.map(function(p){ return R.X(p[0])+","+R.Y(p[1]); }).join(" "),
+        fill: o.remplir ? coul(o.couleur||"bleu") : "none",
+        "fill-opacity": o.remplir ? .12 : null,
+        stroke:coul(o.couleur||"bleu"), "stroke-width":2.2}));
+      break;
+    case "angle": marqueAngle(svg,R,o.en,o.de,o.a,o.droit); break;
+    case "texte": {
+      var e = txt(R.X(o.x), R.Y(o.y), o.txt, o.ancre||"middle");
+      e.setAttribute("fill", coul(o.couleur||"ink2"));
+      e.setAttribute("font-size", o.taille||13);
+      e.setAttribute("font-family", "system-ui");
+      svg.appendChild(e);
+      break;
+    }
+    case "courbe": {
+      var f = window.COURBES && window.COURBES[o.f];
+      if(!f) break;
+      var d="", vv=R.vue, i;
+      for(i=0;i<=240;i++){
+        var x = vv[0] + (vv[2]-vv[0])*i/240, y = f(x);
+        if(!isFinite(y) || y<vv[1]-5 || y>vv[3]+5){ d += ""; continue; }
+        d += (d ? " L " : "M ") + R.X(x) + " " + R.Y(y);
+      }
+      svg.appendChild(n("path",{d:d, fill:"none", stroke:coul(o.couleur||"bleu"),
+        "stroke-width":2.6}));
+      break;
+    }
+  }
+}
+
+/* =====================================================================
+   Figures manipulables
+   ===================================================================== */
+var MODELES = {};
+
+/* -- cercle trigonométrique -- */
+MODELES["cercle-trigo"] = function(){
+  var w=360, h=340, ang = Math.PI/6;
+  var boite = el("div","figBoite");
+  var svg = n("svg",{viewBox:"0 0 "+w+" "+h, class:"fig figManip"});
+  var R = repere([-1.45,-1.45,1.45,1.45], w, h, 18);
+  var lecture = el("div","figLecture");
+  var aide = el("div","figNote","Fais glisser le point <b>M</b> sur le cercle.");
+  function redessine(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    fond(svg, R, {grille:false, graduations:false});
+    var c = Math.cos(ang), s = Math.sin(ang);
+    svg.appendChild(n("circle",{cx:R.X(0),cy:R.Y(0),r:R.k,fill:"none",
+      stroke:coul("line2"),"stroke-width":2}));
+    // projections
+    svg.appendChild(n("line",{x1:R.X(c),y1:R.Y(s),x2:R.X(c),y2:R.Y(0),
+      stroke:coul("bleu"),"stroke-width":1.8,"stroke-dasharray":"4 4"}));
+    svg.appendChild(n("line",{x1:R.X(c),y1:R.Y(s),x2:R.X(0),y2:R.Y(s),
+      stroke:coul("vert"),"stroke-width":1.8,"stroke-dasharray":"4 4"}));
+    // cosinus sur l'axe des abscisses, sinus sur celui des ordonnées
+    svg.appendChild(n("line",{x1:R.X(0),y1:R.Y(0),x2:R.X(c),y2:R.Y(0),
+      stroke:coul("bleu"),"stroke-width":4.5,"stroke-linecap":"round"}));
+    svg.appendChild(n("line",{x1:R.X(0),y1:R.Y(0),x2:R.X(0),y2:R.Y(s),
+      stroke:coul("vert"),"stroke-width":4.5,"stroke-linecap":"round"}));
+    marqueAngle(svg,R,[0,0],[1,0],[c,s],false);
+    svg.appendChild(n("line",{x1:R.X(0),y1:R.Y(0),x2:R.X(c),y2:R.Y(s),
+      stroke:coul("ink2"),"stroke-width":1.6}));
+    point(svg,R,c,s,"M","ink");
+    var t = Math.round(ang*180/Math.PI);
+    lecture.innerHTML =
+      '<span style="color:var(--ambre)">angle '+t+'° = '+fracPi(ang)+'</span> &nbsp; '+
+      '<span style="color:var(--bleu)">cos = '+c.toFixed(2).replace(".",",")+'</span> &nbsp; '+
+      '<span style="color:var(--vert)">sin = '+s.toFixed(2).replace(".",",")+'</span>';
+  }
+  function fracPi(a){
+    var v = a/Math.PI, den=[1,2,3,4,6,12], i;
+    for(i=0;i<den.length;i++){
+      var num = v*den[i];
+      if(Math.abs(num-Math.round(num))<0.02){
+        var nu=Math.round(num);
+        if(nu===0) return "0";
+        return (den[i]===1 ? (nu===1?"π":nu+"π") : (nu===1?"π":nu+"π")+"/"+den[i]);
+      }
+    }
+    return (Math.round(v*100)/100)+"π";
+  }
+  function local(ev){
+    var r = svg.getBoundingClientRect();
+    var p = ev.touches ? ev.touches[0] : ev;
+    return { x:(p.clientX-r.left)*w/r.width, y:(p.clientY-r.top)*h/r.height };
+  }
+  function pointe(ev){
+    var q = local(ev);
+    ang = Math.atan2(-(q.y-R.Y(0)), q.x-R.X(0));
+    if(ang<0) ang += 2*Math.PI;
+    redessine();
+  }
+  var actif = false;
+  svg.addEventListener("pointerdown", function(e){
+    // on ne prend la main que si le doigt part près du point M : ailleurs,
+    // le geste doit rester un défilement de page (indispensable sur mobile)
+    var q = local(e);
+    if(Math.hypot(q.x-R.X(Math.cos(ang)), q.y-R.Y(Math.sin(ang))) > 34) return;
+    actif = true; svg.setPointerCapture(e.pointerId); e.preventDefault(); pointe(e);
+  });
+  svg.addEventListener("pointermove", function(e){ if(actif){ e.preventDefault(); pointe(e); } });
+  svg.addEventListener("pointerup", function(){ actif = false; });
+  svg.addEventListener("pointercancel", function(){ actif = false; });
+  svg.style.touchAction = "pan-y";
+  redessine();
+  boite.appendChild(el("div","figTitre","Le cercle trigonométrique"));
+  boite.appendChild(svg);
+  boite.appendChild(lecture);
+  boite.appendChild(aide);
+  return boite;
+};
+
+/* -- produit scalaire de deux vecteurs -- */
+MODELES["produit-scalaire"] = function(){
+  var w=380, h=330;
+  var u=[3,1], v=[1,3], glisse=null;
+  var boite = el("div","figBoite");
+  var svg = n("svg",{viewBox:"0 0 "+w+" "+h, class:"fig figManip"});
+  var R = repere([-4,-4,4,4], w, h, 18);
+  var lecture = el("div","figLecture");
+  function redessine(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    fond(svg, R, {});
+    fleche(svg,R,[0,0],u,"bleu","u");
+    fleche(svg,R,[0,0],v,"vert","v");
+    var ps = u[0]*v[0]+u[1]*v[1];
+    marqueAngle(svg,R,[0,0],u,v,Math.abs(ps)<0.15);
+    point(svg,R,u[0],u[1],null,"bleu");
+    point(svg,R,v[0],v[1],null,"vert");
+    var mot = ps>0.15 ? "aigu" : (ps<-0.15 ? "obtus" : "droit");
+    var col = ps>0.15 ? "vert" : (ps<-0.15 ? "rouge" : "ambre");
+    lecture.innerHTML =
+      '<span style="color:var(--bleu)">u ('+u[0].toFixed(1).replace(".",",")+' ; '+u[1].toFixed(1).replace(".",",")+')</span> &nbsp;·&nbsp; '+
+      '<span style="color:var(--vert)">v ('+v[0].toFixed(1).replace(".",",")+' ; '+v[1].toFixed(1).replace(".",",")+')</span><br>'+
+      '<b>u · v = '+(u[0]*v[0]).toFixed(1).replace(".",",")+' + '+(u[1]*v[1]).toFixed(1).replace(".",",")+
+      ' = '+ps.toFixed(1).replace(".",",")+'</b> → angle <span style="color:var(--'+col+')">'+mot+'</span>';
+  }
+  function maths(ev){
+    var r = svg.getBoundingClientRect();
+    var p = ev.touches ? ev.touches[0] : ev;
+    return { x:R.x((p.clientX-r.left)*w/r.width), y:R.y((p.clientY-r.top)*h/r.height) };
+  }
+  function pointe(ev){
+    var q = maths(ev);
+    var cible = glisse==="u" ? u : v;
+    cible[0] = Math.max(-3.5, Math.min(3.5, Math.round(q.x*2)/2));
+    cible[1] = Math.max(-3.5, Math.min(3.5, Math.round(q.y*2)/2));
+    redessine();
+  }
+  svg.addEventListener("pointerdown", function(e){
+    // le glissement ne démarre qu'à proximité d'une des deux pointes ;
+    // partout ailleurs le geste reste un défilement de page
+    var q = maths(e);
+    var du = Math.hypot(q.x-u[0], q.y-u[1]), dv = Math.hypot(q.x-v[0], q.y-v[1]);
+    if(Math.min(du,dv) > 0.9){ glisse = null; return; }
+    glisse = du < dv ? "u" : "v";
+    svg.setPointerCapture(e.pointerId); e.preventDefault(); pointe(e);
+  });
+  svg.addEventListener("pointermove", function(e){ if(glisse){ e.preventDefault(); pointe(e); } });
+  svg.addEventListener("pointerup", function(){ glisse=null; });
+  svg.addEventListener("pointercancel", function(){ glisse=null; });
+  svg.style.touchAction = "pan-y";
+  redessine();
+  boite.appendChild(el("div","figTitre","Déplace les deux vecteurs"));
+  boite.appendChild(svg);
+  boite.appendChild(lecture);
+  boite.appendChild(el("div","figNote","Cherche la position où le produit scalaire s’annule : les vecteurs deviennent perpendiculaires."));
+  return boite;
+};
+
+/* -- parabole pilotée par ses coefficients -- */
+MODELES["parabole"] = function(){
+  var w=380, h=320, a=1, b=-2, c=-3;
+  var boite = el("div","figBoite");
+  var svg = n("svg",{viewBox:"0 0 "+w+" "+h, class:"fig"});
+  var R = repere([-4,-6,6,6], w, h, 18);
+  var lecture = el("div","figLecture");
+  function redessine(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    fond(svg, R, {});
+    var d="", i, vv=R.vue;
+    for(i=0;i<=300;i++){
+      var x = vv[0]+(vv[2]-vv[0])*i/300, y = a*x*x+b*x+c;
+      if(y<vv[1]-2||y>vv[3]+2){ continue; }
+      d += (d?" L ":"M ")+R.X(x)+" "+R.Y(y);
+    }
+    svg.appendChild(n("path",{d:d,fill:"none",stroke:coul("bleu"),"stroke-width":2.8}));
+    var D = b*b-4*a*c;
+    if(D>=0 && a!==0){
+      var r1=(-b-Math.sqrt(D))/(2*a), r2=(-b+Math.sqrt(D))/(2*a);
+      point(svg,R,r1,0,null,"rouge"); point(svg,R,r2,0,null,"rouge");
+    }
+    if(a!==0){
+      var al=-b/(2*a);
+      point(svg,R,al,a*al*al+b*al+c,"S","ambre");
+    }
+    lecture.innerHTML =
+      '<b>f(x) = '+a+'x² '+(b<0?"− ":"+ ")+Math.abs(b)+'x '+(c<0?"− ":"+ ")+Math.abs(c)+'</b><br>'+
+      'Δ = '+(b*b-4*a*c)+' → '+
+      (D>0 ? '<span style="color:var(--vert)">deux racines</span>'
+           : (D===0 ? '<span style="color:var(--ambre)">une racine double</span>'
+                    : '<span style="color:var(--rouge)">aucune racine</span>'));
+  }
+  var ctr = el("div","figCurseurs");
+  [["a",-3,3,1],["b",-6,6,1],["c",-6,6,1]].forEach(function(o){
+    var lig = el("label","figCurseur");
+    var val = el("span",null, o[0]+" = "+({a:a,b:b,c:c})[o[0]]);
+    var s = document.createElement("input");
+    s.type="range"; s.min=o[1]; s.max=o[2]; s.step=o[3];
+    s.value = ({a:a,b:b,c:c})[o[0]];
+    s.oninput=function(){
+      var x=parseFloat(s.value);
+      if(o[0]==="a"){ if(x===0) x = (a>0?-1:1); a=x; } else if(o[0]==="b") b=x; else c=x;
+      val.textContent = o[0]+" = "+x;
+      redessine();
+    };
+    lig.appendChild(val); lig.appendChild(s);
+    ctr.appendChild(lig);
+  });
+  redessine();
+  boite.appendChild(el("div","figTitre","Fais varier les coefficients"));
+  boite.appendChild(svg);
+  boite.appendChild(lecture);
+  boite.appendChild(ctr);
+  boite.appendChild(el("div","figNote","Regarde le signe de <b>a</b> : il décide du sens d’ouverture. Et le signe de Δ : il décide du nombre de racines."));
+  return boite;
+};
+
+/* -- tangente qui se déplace le long d'une courbe -- */
+MODELES["tangente"] = function(){
+  var w=380, h=320, a=1.5;
+  var f = function(x){ return 0.5*x*x - 1; }, fp = function(x){ return x; };
+  var boite = el("div","figBoite");
+  var svg = n("svg",{viewBox:"0 0 "+w+" "+h, class:"fig"});
+  var R = repere([-4,-3,4,5], w, h, 18);
+  var lecture = el("div","figLecture");
+  function redessine(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    fond(svg, R, {});
+    var d="", i, vv=R.vue;
+    for(i=0;i<=300;i++){
+      var x=vv[0]+(vv[2]-vv[0])*i/300, y=f(x);
+      if(y<vv[1]-2||y>vv[3]+2) continue;
+      d += (d?" L ":"M ")+R.X(x)+" "+R.Y(y);
+    }
+    svg.appendChild(n("path",{d:d,fill:"none",stroke:coul("bleu"),"stroke-width":2.8}));
+    var m=fp(a), p=f(a)-m*a;
+    svg.appendChild(n("line",{x1:R.X(vv[0]),y1:R.Y(m*vv[0]+p),
+      x2:R.X(vv[2]),y2:R.Y(m*vv[2]+p), stroke:coul("rouge"),"stroke-width":2.4}));
+    point(svg,R,a,f(a),"A","rouge");
+    lecture.innerHTML =
+      'point d’abscisse <b>a = '+a.toFixed(1).replace(".",",")+'</b> &nbsp;·&nbsp; '+
+      'hauteur <b>f(a) = '+f(a).toFixed(2).replace(".",",")+'</b> &nbsp;·&nbsp; '+
+      '<span style="color:var(--rouge)">pente f\'(a) = '+m.toFixed(2).replace(".",",")+'</span>';
+  }
+  var lig = el("label","figCurseur");
+  var s = document.createElement("input");
+  s.type="range"; s.min=-3.5; s.max=3.5; s.step=0.1; s.value=a;
+  s.oninput=function(){ a=parseFloat(s.value); redessine(); };
+  lig.appendChild(el("span",null,"déplacer A")); lig.appendChild(s);
+  redessine();
+  boite.appendChild(el("div","figTitre","La tangente suit la courbe"));
+  boite.appendChild(svg);
+  boite.appendChild(lecture);
+  boite.appendChild(lig);
+  boite.appendChild(el("div","figNote","Là où la courbe descend, la pente est négative. Au creux, elle vaut exactement 0 : c’est là que la dérivée s’annule."));
+  return boite;
+};
+
+window.FIGURE = figure;
+window.FIGURE_MANIP = function(b){
+  var m = MODELES[b.nom];
+  return m ? m() : el("div","figNote","(figure indisponible)");
+};
+window.COURBES = {};
+})();
+</script>
+<style>
+.figBoite{
+  background:var(--surface); border:1px solid var(--line); border-radius:var(--r);
+  padding:16px; display:grid; gap:10px; justify-items:center
+}
+.figTitre{
+  font-size:11.5px; letter-spacing:.1em; text-transform:uppercase;
+  color:var(--ink3); font-weight:700; justify-self:start
+}
+svg.fig{ width:100%; max-width:400px; height:auto; display:block; overflow:visible }
+svg.figManip{ cursor:grab }
+svg.figManip:active{ cursor:grabbing }
+.figNote{ font-size:13.5px; color:var(--ink2); line-height:1.5; text-align:center; max-width:46ch }
+.figLecture{
+  font-family:var(--f-math); font-size:15px; text-align:center; line-height:1.7;
+  background:var(--surface2); border-radius:var(--r2); padding:8px 14px; width:100%;
+  font-variant-numeric:tabular-nums
+}
+.figCurseurs{ display:grid; gap:8px; width:100%; max-width:340px }
+.figCurseur{ display:grid; grid-template-columns:78px 1fr; gap:10px; align-items:center;
+  font-family:var(--f-math); font-size:14px; color:var(--ink2) }
+.figCurseur input[type=range]{ width:100%; accent-color:var(--bleu) }
+</style>
+<script>
 (function(){
 "use strict";
 var A = window.APP, COURS = window.COURS || [];
@@ -2307,6 +2862,8 @@ function sectionNode(c, sec, idx){
     if(b.t==="exemple") body.appendChild(demoNode(b));
     else if(b.t==="check") body.appendChild(checkNode(b));
     else if(b.t==="plot") body.appendChild(plotNode(b));
+    else if(b.t==="fig" && window.FIGURE) body.appendChild(window.FIGURE(b));
+    else if(b.t==="figi" && window.FIGURE_MANIP) body.appendChild(window.FIGURE_MANIP(b));
     else { var d=el("div"); d.innerHTML=bloc(b); if(d.firstChild) body.appendChild(d.firstChild); }
   });
   wrap.appendChild(body);
@@ -2354,6 +2911,48 @@ function diagnostic(exo, saisie){
   return "";
 }
 
+/* Correction dévoilée étape par étape : on lit une ligne, on la comprend,
+   on demande la suivante. Tout afficher d'un coup ne se lit pas. */
+function correctionProgressive(exo){
+  var boite = el("div","corr");
+  boite.innerHTML = '<div class="ct">La méthode, étape par étape</div>';
+  var liste = el("ol","corrList");
+  boite.appendChild(liste);
+  var etapes = exo.corr || [], vues = 0;
+  var barre = el("div","row"); barre.style.marginTop="12px";
+  var suivante = el("button","btn sm pri","Première étape");
+  var tout = el("button","btn sm gho","Tout afficher");
+  barre.appendChild(suivante); barre.appendChild(tout);
+  boite.appendChild(barre);
+  var jauge = el("div","small muted"); jauge.style.marginLeft="auto";
+  barre.appendChild(jauge);
+
+  function montrer(n){
+    while(vues < n && vues < etapes.length){
+      var li = el("li",null,T(etapes[vues]));
+      li.style.animation = "pop .25s ease";
+      liste.appendChild(li);
+      vues++;
+    }
+    jauge.textContent = vues+" / "+etapes.length;
+    if(vues >= etapes.length){
+      suivante.remove(); tout.remove();
+      jauge.textContent = "";
+      var fin = el("div","small muted");
+      fin.style.marginTop="6px";
+      fin.textContent = "C’est toute la méthode. Reprends ton brouillon et compare ligne à ligne : "+
+                        "cherche la première où vous divergez.";
+      boite.appendChild(fin);
+    } else {
+      suivante.textContent = "Étape suivante";
+    }
+  }
+  suivante.onclick = function(){ montrer(vues+1); };
+  tout.onclick = function(){ montrer(etapes.length); };
+  jauge.textContent = "0 / "+etapes.length;
+  return boite;
+}
+
 function exoNode(c, exo, onDone, onResult){
   var box = el("div","card pad");
   var st = A.chapState(c.id);
@@ -2393,10 +2992,7 @@ function exoNode(c, exo, onDone, onResult){
     var fb = el("div","fb "+(ok?"good":"bad"));
     fb.innerHTML = '<div class="fbt">'+(ok ? "✓ Bonne réponse" : "✗ Ce n’est pas ça")+'</div><p>'+T(message)+'</p>';
     box.insertBefore(fb, actions);
-    var corr = el("div","corr");
-    corr.innerHTML = '<div class="ct">La méthode, étape par étape</div><ol>'+
-      exo.corr.map(function(s){ return '<li>'+T(s)+'</li>'; }).join("")+'</ol>';
-    box.insertBefore(corr, actions);
+    box.insertBefore(correctionProgressive(exo), actions);
     actions.innerHTML="";
     var bRe = el("button","btn sm","Refaire cet exercice");
     bRe.onclick=function(){ var p=box.parentNode, nb=exoNode(c,exo,onDone); p.replaceChild(nb,box); };
