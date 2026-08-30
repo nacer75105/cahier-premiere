@@ -1239,8 +1239,11 @@ duree:35,
 sections:[
  {titre:"D'où vient cette fonction ?", blocs:[
   {t:"idee", x:"L'exponentielle, c'est la fonction qui **grandit proportionnellement à ce qu'elle vaut déjà**. Plus elle est grande, plus elle grandit vite."},
-  {t:"p", x:"On la note $exp(x)$ ou, bien plus souvent, $e^{x}$. Le nombre $e$ vaut environ $2{,}718$. C'est une constante, comme $π$."},
-  {t:"p", x:"Elle sert à décrire tout ce qui croît (ou décroît) par multiplication : une population de bactéries, un capital placé, la radioactivité qui diminue, la propagation d'une rumeur."},
+  {t:"p", x:"Cette phrase mérite d'être creusée, parce qu'elle décrit un mode de croissance très différent de tout ce que tu as vu jusqu'ici. Une fonction affine grandit **d'une quantité fixe** : $+3$ à chaque pas, que la valeur soit 10 ou 10 000. L'exponentielle, elle, grandit **d'une fraction de ce qu'elle vaut** : $+10$ %, ce qui fait $+1$ quand on est à 10, et $+1000$ quand on est à 10 000."},
+  {t:"p", x:"C'est exactement la situation d'une population de bactéries : chaque bactérie se divise, donc plus il y en a, plus il en apparaît. Ou d'un capital placé : les intérêts produisent eux-mêmes des intérêts. Dans les deux cas, la croissance s'accélère toute seule, sans que rien ne change dans la règle. C'est ce qui rend l'exponentielle si brutale sur la durée — et si contre-intuitive."},
+  {t:"p", x:"Tu l'as déjà rencontrée sans le savoir, au chapitre des suites : une suite géométrique de raison $1{,}05$ fait exactement ça, par paliers annuels. **L'exponentielle est sa version continue** : au lieu de sauter d'année en année, elle décrit la croissance à chaque instant. Le lien entre les deux chapitres est direct, et il vaut la peine d'être vu."},
+  {t:"p", x:"On la note $exp(x)$ ou, bien plus souvent, $e^{x}$. Le nombre $e$ vaut environ $2{,}718$. C'est une constante, comme $π$ — et comme $π$, elle n'a pas été choisie : elle s'impose. $π$ apparaît dès qu'on parle de cercle ; $e$ apparaît dès qu'on parle de croissance proportionnelle."},
+  {t:"p", x:"Elle sert à décrire tout ce qui croît (ou décroît) par multiplication : une population de bactéries, un capital placé, la radioactivité qui diminue, la propagation d'une rumeur ou d'une épidémie."},
   {t:"formule", titre:"Les valeurs à connaître par cœur", x:"$e^{0} = 1$ &nbsp;&nbsp;·&nbsp;&nbsp; $e^{1} = e ≈ 2{,}718$ &nbsp;&nbsp;·&nbsp;&nbsp; $e^{x} > 0$ pour tout $x$", note:"Le dernier point est capital : l'exponentielle n'est JAMAIS négative ni nulle."},
   {t:"piege", titre:"Le piège du $e^0$", x:"Beaucoup écrivent $e^{0} = 0$. C'est faux : **tout nombre élevé à la puissance 0 vaut 1**. Donc $e^{0} = 1$."},
   {t:"plot", f:"Math.exp(x)", xmin:-3, xmax:3, titre:"Courbe de $f(x) = e^{x}$", note:"Elle reste toujours au-dessus de l'axe des abscisses et s'envole très vite vers la droite."}
@@ -1248,7 +1251,10 @@ sections:[
 
  {titre:"Les règles de calcul", blocs:[
   {t:"p", x:"L'exponentielle transforme les additions en multiplications. C'est sa propriété centrale, et toutes les autres en découlent."},
+  {t:"p", x:"Avant de lire les règles, comprends d'où elles viennent — elles ne s'apprennent pas, elles se déduisent. Souviens-toi de ce qu'est une puissance : $e^{3}$, c'est $e × e × e$, trois facteurs. Et $e^{2}$, c'est $e × e$, deux facteurs. Que vaut leur produit ? Cinq facteurs de $e$ mis bout à bout, c'est-à-dire $e^{5}$. **Les exposants s'additionnent parce qu'on compte des facteurs.**"},
+  {t:"p", x:"Toutes les autres règles suivent le même raisonnement. Diviser, c'est retirer des facteurs, donc soustraire les exposants. Élever une puissance à une puissance, c'est répéter une répétition, donc multiplier les exposants. Ces règles ne sont pas propres à l'exponentielle : ce sont celles des puissances, que tu connais depuis le collège, appliquées à la base $e$."},
   {t:"formule", titre:"Les quatre règles", x:"$e^{a} × e^{b} = e^{a+b}$<br>$@f{e^{a}}{e^{b}} = e^{a-b}$<br>$(e^{a})^{n} = e^{a n}$<br>$e^{-a} = @f{1}{e^{a}}$", note:"Somme en haut ↔ produit en bas. C'est le fil conducteur."},
+  {t:"p", x:"Retiens l'expression « somme en haut, produit en bas » : c'est le résumé de tout. Une **addition** dans les exposants correspond à une **multiplication** dans le résultat. Cette correspondance est ce qui rend l'exponentielle si utile — elle transforme les additions, faciles, en multiplications, difficiles. C'est d'ailleurs le principe des règles à calcul et des tables de logarithmes, qui ont servi aux ingénieurs pendant trois siècles."},
   {t:"exemple", titre:"Exemple guidé — simplifier", enonce:"Simplifier $A = @f{e^{5} × e^{-2}}{e^{4}}$.", etapes:[
    {q:"Traiter le numérateur", r:"Un produit d'exponentielles : on additionne les exposants. $e^{5} × e^{-2} = e^{5 + (-2)} = e^{3}$."},
    {q:"Traiter la division", r:"Un quotient : on soustrait les exposants. $@f{e^{3}}{e^{4}} = e^{3 - 4} = e^{-1}$."},
@@ -1266,6 +1272,8 @@ sections:[
 
  {titre:"Dérivée et variations", blocs:[
   {t:"idee", x:"L'exponentielle a une propriété unique : **elle est sa propre dérivée**. C'est même la définition qu'on en donne parfois."},
+  {t:"p", x:"Cette propriété paraît étrange, et pourtant c'est exactement la phrase du début, traduite en langage de dérivées. Relis : « elle grandit proportionnellement à ce qu'elle vaut déjà ». Or « à quelle vitesse elle grandit », c'est $f'(x)$. Et « ce qu'elle vaut déjà », c'est $f(x)$. Dire que les deux sont égaux, c'est écrire $f' = f$ — soit exactement $(e^{x})' = e^{x}$."},
+  {t:"p", x:"Autrement dit, ce n'est pas une coïncidence bizarre : **c'est la définition même de l'exponentielle**, vue sous un autre angle. C'est d'ailleurs comme ça qu'on la construit proprement en mathématiques : on cherche la fonction dont la dérivée est elle-même et qui vaut 1 en zéro. Il n'y en a qu'une, et c'est celle-là. Le nombre $e ≈ 2{,}718$ n'a pas été choisi : c'est la valeur qu'il **faut** pour que cette égalité fonctionne."},
   {t:"formule", titre:"Dérivées à connaître", x:"$(e^{x})' = e^{x}$<br>$(e^{kx})' = k e^{kx}$<br>$(e^{u})' = u' e^{u}$", note:"Le facteur qui sort devant est la dérivée de l'exposant."},
   {t:"p", x:"Comme $e^{x} > 0$ pour tout $x$, la dérivée de $e^{x}$ est toujours strictement positive. Conclusion : **la fonction exponentielle est strictement croissante sur ℝ**, sans aucune exception."},
   {t:"exemple", titre:"Exemple guidé — dériver un produit avec exponentielle", enonce:"Dériver $f(x) = 3e^{2x}$.", etapes:[
@@ -1286,7 +1294,26 @@ sections:[
    {q:"Conclure", r:"$S = {5}$."},
    {q:"Vérifier", r:"$2 × 5 - 1 = 9$ et $5 + 4 = 9$. Les deux exposants coïncident. ✓"}
   ]},
-  {t:"astuce", titre:"Un cas qui revient souvent", x:"Une équation comme $e^{x} = -3$ n'a **aucune solution** : l'exponentielle est toujours strictement positive, elle ne peut jamais valoir un nombre négatif. Repérer cela fait gagner du temps et des points."}
+  {t:"astuce", titre:"Un cas qui revient souvent", x:"Une équation comme $e^{x} = -3$ n'a **aucune solution** : l'exponentielle est toujours strictement positive, elle ne peut jamais valoir un nombre négatif. Repérer cela fait gagner du temps et des points."},
+  {t:"p", x:"Pourquoi a-t-on le droit de « retirer les exponentielles » des deux côtés ? Parce que la fonction est **strictement croissante** : elle ne prend jamais deux fois la même valeur. Si deux exponentielles sont égales, elles ne peuvent venir que du même exposant. Ce raisonnement n'est pas valable pour n'importe quelle fonction — avec des carrés, par exemple, $x^2 = 9$ a deux solutions, parce que la fonction carré repasse par les mêmes valeurs."},
+  {t:"p", x:"Retiens donc la différence : une équation en exponentielle a **au plus une solution**. Si tu en trouves deux, il y a une erreur."}
+ ]},
+
+ {titre:"Récapitulatif : manipuler les exposants, jamais les valeurs", blocs:[
+  {t:"idee", x:"Le réflexe central du chapitre : **on travaille sur les exposants, pas sur les nombres**. On ne calcule $e^{quelque chose}$ à la calculatrice qu'à la toute fin, s'il le faut."},
+  {t:"p", x:"C'est l'erreur de méthode la plus coûteuse : sortir la calculatrice trop tôt. Devant $@f{e^{5} × e^{-2}}{e^{4}}$, la tentation est de calculer chaque morceau. Mauvaise idée : on obtient des décimales interminables, on arrondit, et on perd la précision. En restant sur les exposants, tout se simplifie : $5 - 2 - 4 = -1$, réponse $e^{-1}$. Une ligne, exacte."},
+  {t:"tbl", head:["La question ressemble à…","Ce qu'il faut faire"], rows:[
+   ["« Simplifier une expression »","Additionner et soustraire les exposants, sans calculer"],
+   ["« Résoudre $e^{A} = e^{B}$ »","Identifier les exposants : $A = B$"],
+   ["« Résoudre $e^{A} = $ un nombre négatif »","Aucune solution — l'exponentielle est toujours positive"],
+   ["« Dériver $e^{u}$ »","$u' e^{u}$ : la dérivée de l'exposant sort en facteur"],
+   ["« Sens de variation »","Toujours croissante ; pour $e^{u}$, c'est le signe de $u'$ qui décide"],
+   ["Un problème de croissance","Modéliser par $N_0 e^{kt}$, puis remplacer"]
+  ]},
+  {t:"formule", titre:"Les valeurs et propriétés à ne jamais oublier", x:"$e^{0} = 1$ &nbsp;·&nbsp; $e^{1} = e ≈ 2{,}718$ &nbsp;·&nbsp; $e^{x} > 0$ **toujours**<br>$(e^{u})' = u' e^{u}$", note:"La troisième est celle qui répond au plus grand nombre de questions."},
+  {t:"piege", titre:"Les trois erreurs les plus fréquentes", x:"**1. $e^{0} = 0$.** Non : tout nombre à la puissance zéro vaut 1. C'est l'exposant qui est nul, pas le résultat.<br>**2. $e^{a} × e^{b} = e^{ab}$.** Non : on **additionne** les exposants. La multiplication des exposants correspond à $(e^{a})^{b}$, ce qui est autre chose.<br>**3. Le facteur oublié en dérivant.** $(e^{2x})'$ vaut $2e^{2x}$, pas $e^{2x}$. La dérivée de l'exposant sort toujours devant."},
+  {t:"astuce", titre:"Le contrôle qui rattrape tout", x:"L'exponentielle est **toujours strictement positive**. Si un calcul te donne une exponentielle négative ou nulle, il y a une erreur, sans exception. Et si tu obtiens une valeur numérique aberrante — une population de bactéries négative, un capital qui a fondu alors qu'il rapporte des intérêts — reprends le signe de l'exposant."},
+  {t:"p", x:"Enfin, garde le lien avec les suites en tête. Une suite géométrique de raison $q$ et une exponentielle décrivent le même phénomène : l'une par paliers, l'autre en continu. Quand un énoncé parle d'évolution par années entières, pense suite ; quand il parle d'évolution à tout instant, pense exponentielle. Les deux chapitres se répondent."}
  ]}
 ],
 exos:[
@@ -1369,7 +1396,10 @@ duree:35,
 sections:[
  {titre:"Une nouvelle unité d'angle : le radian", blocs:[
   {t:"idee", x:"Le radian mesure un angle par la **longueur d'arc** qu'il découpe sur un cercle de rayon 1. Un tour complet mesure $2π$ radians."},
-  {t:"p", x:"Pourquoi changer de degrés ? Parce qu'en radians, les formules de dérivation deviennent simples. C'est une convention de confort, pas une complication gratuite."},
+  {t:"p", x:"D'abord, à quoi sert toute la trigonométrie. Elle décrit **ce qui se répète**. Les marées qui montent et descendent deux fois par jour. Le courant alternatif de la prise électrique, qui change de sens cinquante fois par seconde. Un son, qui n'est qu'une vibration régulière de l'air. Le balancement d'une balançoire. Chaque fois qu'un phénomène revient au même état à intervalles réguliers, ce sont le cosinus et le sinus qui le décrivent."},
+  {t:"p", x:"Et pourquoi un **cercle** pour étudier ça ? Parce qu'un cercle est la forme du « ça recommence » : quand on a fait un tour, on est revenu au point de départ. Enrouler un phénomène périodique autour d'un cercle, c'est le moyen le plus naturel de le représenter."},
+  {t:"p", x:"Reste la question des degrés. Pourquoi 360 ? C'est un héritage des Babyloniens, un choix arbitraire — 360 se divise bien, voilà tout. Le radian, lui, n'est pas arbitraire : il mesure l'angle par **la longueur de l'arc parcouru sur un cercle de rayon 1**. Faire un tour complet, c'est parcourir la circonférence, soit $2π$. L'unité vient de la géométrie elle-même, pas d'une convention."},
+  {t:"p", x:"Ce n'est pas qu'une question d'élégance : en radians, les formules de dérivation des fonctions trigonométriques deviennent simples. En degrés, elles traîneraient un facteur $@f{π}{180}$ partout. C'est pour cette raison très pratique que les mathématiciens ont changé d'unité."},
   {t:"tbl", head:["Degrés","0°","30°","45°","60°","90°","180°","360°"], rows:[
    ["Radians","0","$@f{π}{6}$","$@f{π}{4}$","$@f{π}{3}$","$@f{π}{2}$","$π$","$2π$"]
   ]},
@@ -1394,7 +1424,24 @@ sections:[
 
  {titre:"Les angles associés", blocs:[
   {t:"idee", x:"Plutôt que d'apprendre des dizaines de valeurs, on utilise les **symétries du cercle** pour tout ramener aux angles connus du premier quart."},
+  {t:"p", x:"Voici l'économie que cela représente. Le tableau des valeurs remarquables ne contient que six angles, tous situés dans le premier quart du cercle. Mais un contrôle peut demander $cos@f{5π}{6}$, $sin@f{7π}{4}$, $cos@f{4π}{3}$… Faut-il apprendre les valeurs des quatre quarts ? Non : **les trois autres quarts sont les reflets du premier**. Une seule série de valeurs, plus trois symétries, suffit à tout couvrir."},
+  {t:"fig", titre:"Les quatre points sont des reflets du premier",
+   vue:[-1.5,-1.5,1.5,1.5], w:360, h:340, grille:false, graduations:false,
+   objets:[
+    {t:"cercle", c:[0,0], r:1, couleur:"line2"},
+    {t:"seg", de:[0,0], a:[0.71,0.71], couleur:"ink3"},
+    {t:"seg", de:[0,0], a:[-0.71,0.71], couleur:"ink3", pointille:true},
+    {t:"seg", de:[0,0], a:[-0.71,-0.71], couleur:"ink3", pointille:true},
+    {t:"seg", de:[0,0], a:[0.71,-0.71], couleur:"ink3", pointille:true},
+    {t:"point", x:0.71, y:0.71, nom:"x", couleur:"vert"},
+    {t:"point", x:-0.71, y:0.71, nom:"π−x", couleur:"bleu"},
+    {t:"point", x:-0.71, y:-0.71, nom:"π+x", couleur:"rouge", dessous:true},
+    {t:"point", x:0.71, y:-0.71, nom:"−x", couleur:"ambre", dessous:true}
+   ],
+   note:"Les quatre points ont les **mêmes coordonnées au signe près**. Il suffit de savoir dans quel quart on est pour retrouver les deux signes."},
+  {t:"p", x:"Regarde la figure et raisonne sur les coordonnées, pas sur les formules. Le point $-x$ est le reflet de $x$ **par rapport à l'axe horizontal** : il est à la même abscisse (le cosinus ne change pas) mais à l'ordonnée opposée (le sinus change de signe). Le point $π - x$ est le reflet **par rapport à l'axe vertical** : ordonnée conservée, abscisse opposée. Et $π + x$ est le point diamétralement opposé : les deux coordonnées changent de signe."},
   {t:"formule", titre:"Les quatre symétries utiles", x:"$cos(-x) = cos x$ &nbsp;·&nbsp; $sin(-x) = -sin x$<br>$cos(π - x) = -cos x$ &nbsp;·&nbsp; $sin(π - x) = sin x$<br>$cos(π + x) = -cos x$ &nbsp;·&nbsp; $sin(π + x) = -sin x$", note:"Le cosinus est pair, le sinus est impair."},
+  {t:"astuce", titre:"Ne pas apprendre ces six lignes par cœur", x:"Elles se retrouvent en dessinant le cercle et en plaçant le point — dix secondes, sans risque d'erreur de mémoire. La méthode fiable en contrôle : trace un cercle à main levée, place l'angle demandé, regarde **dans quel quart** il tombe, et lis les signes. En haut à gauche : cosinus négatif, sinus positif. En bas à droite : l'inverse. C'est tout."},
   {t:"exemple", titre:"Exemple guidé — ramener à un angle connu", enonce:"Calculer $cos@f{2π}{3}$.", etapes:[
    {q:"Repérer une forme connue", r:"$@f{2π}{3} = π - @f{π}{3}$, car $π = @f{3π}{3}$ et $@f{3π}{3} - @f{π}{3} = @f{2π}{3}$."},
    {q:"Appliquer la symétrie", r:"$cos(π - x) = -cos x$, avec $x = @f{π}{3}$."},
@@ -1441,6 +1488,24 @@ sections:[
    {q:"Conclusion", r:"Un maximum en $x = 0$ et en $x = 2π$ (valeur 1), un minimum en $x = π$ (valeur $-1$). Puis tout recommence."}
   ]},
   {t:"piege", titre:"Période ne veut pas dire amplitude", x:"La **période** ($2π$) est la largeur du motif horizontalement. Les **valeurs** restent entre $-1$ et $1$ verticalement. Ce sont deux informations différentes qu'on confond souvent."}
+ ]},
+
+ {titre:"Récapitulatif : tout ramener au cercle", blocs:[
+  {t:"idee", x:"Une seule habitude fait la différence dans ce chapitre : **dessiner le cercle**. Presque toutes les questions se résolvent en plaçant un point dessus, et presque toutes les erreurs viennent de l'avoir évité."},
+  {t:"p", x:"C'est contre-intuitif, parce qu'on a l'impression de perdre du temps. En réalité, le croquis remplace la mémoire. Tu n'as plus besoin de te rappeler si $sin(π - x)$ garde son signe : tu places les deux points, tu regardes leurs hauteurs, et tu vois qu'elles sont égales. Un cercle tracé à main levée, avec les deux axes, prend quinze secondes."},
+  {t:"tbl", head:["La question ressemble à…","Ce qu'il faut faire"], rows:[
+   ["« Convertir en radians »","Proportionnalité à partir de $180° = π$"],
+   ["« Calculer $cos$ ou $sin$ d'un angle du tableau »","Lire le tableau des valeurs remarquables"],
+   ["« … d'un angle hors du premier quart »","Écrire l'angle sous la forme $π - x$, $π + x$ ou $-x$"],
+   ["« On connaît $cos x$, trouver $sin x$ »","$cos^2 x + sin^2 x = 1$, puis choisir le signe"],
+   ["« Résoudre $cos x = $ une valeur »","Une solution évidente, puis sa symétrique. **Deux** réponses par tour"],
+   ["« Combien de solutions ? »","Vérifier d'abord si la valeur est entre $-1$ et $1$"],
+   ["« Période, parité »","Les propriétés des fonctions cosinus et sinus"]
+  ]},
+  {t:"formule", titre:"Les trois choses à connaître absolument", x:"$cos^2 x + sin^2 x = 1$<br>$-1 ≤ cos x ≤ 1$ et $-1 ≤ sin x ≤ 1$<br>Le tableau des six valeurs remarquables", note:"Le reste se reconstruit sur un croquis du cercle."},
+  {t:"piege", titre:"Les trois erreurs les plus fréquentes", x:"**1. Oublier la seconde solution.** $cos x = @f{1}{2}$ a **deux** réponses par tour, pas une. Réflexe : place la valeur sur l'axe et compte les points d'intersection avec le cercle.<br>**2. Se tromper de signe hors du premier quart.** Le croquis règle la question en une seconde.<br>**3. Confondre cosinus et sinus.** Cos comme **c**ouché : horizontal, abscisse. Sin monte : vertical, ordonnée."},
+  {t:"astuce", titre:"Le contrôle de plausibilité", x:"Avant d'écrire une réponse, demande-toi si le signe est cohérent avec la position du point. Un angle de 150° pointe en haut à gauche : son sinus **doit** être positif et son cosinus **doit** être négatif. Si ton calcul dit le contraire, il y a une erreur — inutile de chercher plus loin, reprends le signe."},
+  {t:"p", x:"Pour réviser, reviens sur la figure du cercle manipulable au début du chapitre. Fais tourner le point et, à chaque quart, annonce à voix haute les signes du cosinus et du sinus **avant** de lire les valeurs affichées. Quand tu ne te trompes plus, ce chapitre est acquis."}
  ]}
 ],
 exos:[
