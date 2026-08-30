@@ -422,6 +422,9 @@ function esc(s){
   return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
 }
 function mathCore(s){
+  // 3{,}5 : les accolades servent à coller la virgule au nombre pour qu'il ne
+  // soit pas coupé en fin de ligne ; elles ne doivent pas s'afficher.
+  s = String(s).replace(/\{,\}/g, ",");
   // fractions (deux passes pour tolérer une imbrication simple)
   for(var i=0;i<2;i++){
     s = s.replace(/@f\{([^{}]*)\}\{([^{}]*)\}/g,
