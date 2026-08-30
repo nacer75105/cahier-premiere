@@ -606,6 +606,21 @@ sections:[
   {t:"p", x:"On écrit $u_0$ pour le premier terme, $u_1$ pour le deuxième, $u_2$ pour le troisième… Le nombre $u_n$ se lit « u indice n ». Le petit $n$ en bas, c'est **la place** ; $u_n$, c'est **la valeur** qui se trouve à cette place. Ce sont deux choses différentes, et c'est là que naissent 80 % des erreurs."},
   {t:"p", x:"Une image qui aide : imagine une rangée de casiers numérotés. Le numéro écrit sur la porte, c'est $n$. Ce qu'il y a **à l'intérieur** du casier, c'est $u_n$. Le casier n° 3 peut très bien contenir le nombre 47 : on écrit alors $u_3 = 47$. Le numéro de la porte et le contenu n'ont aucune raison d'être égaux."},
   {t:"tbl", head:["Rang $n$","0","1","2","3","4"], rows:[["Terme $u_n$","3","5","7","9","11"]]},
+  {t:"fig", titre:"Une suite se représente par des points isolés",
+   vue:[-0.5,-0.5,5,13], w:390, h:280, graduations:false,
+   objets:[
+    {t:"seg", de:[0,3], a:[1,5], couleur:"line2", pointille:true},
+    {t:"seg", de:[1,5], a:[2,7], couleur:"line2", pointille:true},
+    {t:"seg", de:[2,7], a:[3,9], couleur:"line2", pointille:true},
+    {t:"seg", de:[3,9], a:[4,11], couleur:"line2", pointille:true},
+    {t:"point", x:0, y:3, nom:"u₀", couleur:"bleu"},
+    {t:"point", x:1, y:5, nom:"u₁", couleur:"bleu"},
+    {t:"point", x:2, y:7, nom:"u₂", couleur:"bleu"},
+    {t:"point", x:3, y:9, nom:"u₃", couleur:"bleu"},
+    {t:"point", x:4, y:11, nom:"u₄", couleur:"bleu"}
+   ],
+   note:"En abscisse le **rang**, en ordonnée la **valeur**. Les pointillés ne font que guider l'œil : il n'y a rien entre deux points."},
+  {t:"p", x:"Cette figure montre bien la différence avec une fonction. Il n'y a **que des points**, pas de trait continu. Entre le rang 2 et le rang 3, il n'y a rien du tout — pas de rang 2,5. Les pointillés gris sont là uniquement pour aider l'œil à suivre la progression ; ils ne font pas partie de la suite."},
   {t:"p", x:"Sur cet exemple : $u_0 = 3$ et $u_3 = 9$. Le terme $u_3$ n'est pas le nombre 3 : c'est le terme **de rang 3**, c'est-à-dire le quatrième de la liste puisqu'on a commencé à compter à 0."},
   {t:"piege", titre:"L'erreur classique", x:"Écrire « $u_3 = 3$ » parce que le 3 apparaît. Le 3 du bas est une adresse, pas une valeur. Pense à un immeuble : l'appartement n° 3 ne contient pas forcément 3 personnes."},
   {t:"formule", titre:"Deux façons de définir une suite", x:"Explicite : $u_n = f(n)$ &nbsp;&nbsp;·&nbsp;&nbsp; Par récurrence : $u_0$ donné et $u_{n+1} = g(u_n)$", note:"Explicite = calcul direct. Récurrence = de proche en proche."},
@@ -650,6 +665,31 @@ sections:[
   {t:"p", x:"Exemple : 2 ; 6 ; 18 ; 54… À chaque fois on multiplie par 3. Donc $q = 3$."},
   {t:"formule", titre:"Les deux formules à connaître", x:"$u_{n+1} = q × u_n$ &nbsp;&nbsp;(récurrence)<br>$u_n = u_0 × q^{n}$ &nbsp;&nbsp;(terme général)", note:"L'exposant, c'est le nombre de multiplications effectuées."},
   {t:"p", x:"Le raisonnement est exactement le même que pour l'arithmétique, avec une seule opération changée. Là-bas on ajoutait $r$ à chaque pas, donc après $n$ pas on avait ajouté $n × r$. Ici on **multiplie** par $q$ à chaque pas, donc après $n$ pas on a multiplié par $q × q × … × q$, soit $q^{n}$. Une puissance, c'est simplement une multiplication répétée — de la même façon qu'une multiplication est une addition répétée."},
+  {t:"fig", titre:"Deux suites qui partent du même point",
+   vue:[-0.4,-1,7.5,42], w:400, h:330, graduations:false,
+   objets:[
+    {t:"seg", de:[0,2], a:[1,7], couleur:"bleu"},
+    {t:"seg", de:[1,7], a:[2,12], couleur:"bleu"},
+    {t:"seg", de:[2,12], a:[3,17], couleur:"bleu"},
+    {t:"seg", de:[3,17], a:[4,22], couleur:"bleu"},
+    {t:"seg", de:[4,22], a:[5,27], couleur:"bleu"},
+    {t:"seg", de:[5,27], a:[6,32], couleur:"bleu"},
+    {t:"seg", de:[0,2], a:[1,3], couleur:"rouge"},
+    {t:"seg", de:[1,3], a:[2,4.5], couleur:"rouge"},
+    {t:"seg", de:[2,4.5], a:[3,6.75], couleur:"rouge"},
+    {t:"seg", de:[3,6.75], a:[4,10.1], couleur:"rouge"},
+    {t:"seg", de:[4,10.1], a:[5,15.2], couleur:"rouge"},
+    {t:"seg", de:[5,15.2], a:[6,22.8], couleur:"rouge"},
+    {t:"seg", de:[6,22.8], a:[7,34.2], couleur:"rouge"},
+    {t:"point", x:0, y:2, nom:null, couleur:"ink"},
+    {t:"point", x:6, y:32, nom:null, couleur:"bleu"},
+    {t:"point", x:7, y:34.2, nom:null, couleur:"rouge"},
+    {t:"texte", x:3.2, y:20.5, txt:"arithmétique  +5", couleur:"bleu"},
+    {t:"texte", x:4.4, y:8, txt:"géométrique  ×1,5", couleur:"rouge"}
+   ],
+   note:"Les deux partent de 2. L'arithmétique file droit ; la géométrique traîne longtemps, puis rattrape et dépasse."},
+  {t:"p", x:"Cette figure vaut tous les discours. Pendant les cinq premiers rangs, la suite arithmétique (bleue) écrase l'autre : elle est déjà à 27 quand la géométrique (rouge) n'est qu'à 15. On pourrait croire que le match est plié. Puis la rouge se redresse, rattrape, et passe devant."},
+  {t:"p", x:"C'est la propriété la plus contre-intuitive des suites géométriques : **elles démarrent lentement et finissent par tout dépasser**. Peu importe la raison de l'arithmétique, peu importe le retard initial — si $q > 1$, la géométrique finit toujours par gagner. C'est ce qui rend les intérêts composés si puissants sur vingt ans, et les épidémies si dangereuses quand on les regarde trop tôt."},
   {t:"tbl", head:["","Arithmétique","Géométrique"], rows:[
    ["À chaque pas, on…","ajoute $r$","multiplie par $q$"],
    ["Après $n$ pas","on a ajouté $n × r$","on a multiplié par $q^{n}$"],
@@ -1281,7 +1321,22 @@ sections:[
   {t:"p", x:"Elle sert à décrire tout ce qui croît (ou décroît) par multiplication : une population de bactéries, un capital placé, la radioactivité qui diminue, la propagation d'une rumeur ou d'une épidémie."},
   {t:"formule", titre:"Les valeurs à connaître par cœur", x:"$e^{0} = 1$ &nbsp;&nbsp;·&nbsp;&nbsp; $e^{1} = e ≈ 2{,}718$ &nbsp;&nbsp;·&nbsp;&nbsp; $e^{x} > 0$ pour tout $x$", note:"Le dernier point est capital : l'exponentielle n'est JAMAIS négative ni nulle."},
   {t:"piege", titre:"Le piège du $e^0$", x:"Beaucoup écrivent $e^{0} = 0$. C'est faux : **tout nombre élevé à la puissance 0 vaut 1**. Donc $e^{0} = 1$."},
-  {t:"plot", f:"Math.exp(x)", xmin:-3, xmax:3, titre:"Courbe de $f(x) = e^{x}$", note:"Elle reste toujours au-dessus de l'axe des abscisses et s'envole très vite vers la droite."}
+  {t:"plot", f:"Math.exp(x)", xmin:-3, xmax:3, titre:"Courbe de $f(x) = e^{x}$", note:"Elle reste toujours au-dessus de l'axe des abscisses et s'envole très vite vers la droite."},
+  {t:"p", x:"Deux choses à retenir de cette courbe. À **droite**, elle s'envole : elle monte de plus en plus raide, sans limite. À **gauche**, elle s'écrase contre l'axe horizontal sans jamais le toucher — elle devient minuscule, mais reste strictement positive. C'est la traduction graphique de $e^{x} > 0$ pour tout $x$."},
+  {t:"fig", titre:"Exponentielle contre ligne droite",
+   vue:[-0.3,-1,4.2,20], w:400, h:320, graduations:false,
+   objets:[
+    {t:"courbe", f:"droite-2x", couleur:"bleu"},
+    {t:"courbe", f:"expo", couleur:"rouge"},
+    {t:"point", x:1, y:2, nom:null, couleur:"bleu"},
+    {t:"point", x:1, y:2.72, nom:null, couleur:"rouge"},
+    {t:"texte", x:3.2, y:7.5, txt:"y = 2x", couleur:"bleu"},
+    {t:"texte", x:2.35, y:15, txt:"y = eˣ", couleur:"rouge"}
+   ],
+   note:"Au départ elles se tiennent. Puis l'exponentielle décroche et laisse la droite sur place."},
+  {t:"p", x:"Regarde le début : entre 0 et 1, les deux courbes sont presque confondues. Un observateur pressé conclurait qu'elles se valent. Puis, à partir de $x = 2$ environ, l'exponentielle décroche et la droite paraît immobile en comparaison."},
+  {t:"p", x:"C'est la raison pour laquelle la croissance exponentielle trompe si souvent le jugement. **On la remarque toujours trop tard.** Elle paraît anodine pendant longtemps, puis devient incontrôlable en peu de temps — sans qu'aucune règle n'ait changé en cours de route. Une épidémie, la propagation d'une rumeur, un compte qui capitalise : le mécanisme est identique."},
+  {t:"astuce", titre:"L'anecdote qui fait comprendre", x:"Un nénuphar double de surface chaque jour et couvre l'étang en 30 jours. Au bout de combien de jours en couvre-t-il la moitié ?<br><br>Réponse : **29 jours**. La veille du dernier. Pendant 28 jours, l'étang paraît presque vide — et tout bascule en 48 heures. C'est exactement le comportement de la courbe rouge ci-dessus."}
  ]},
 
  {titre:"Les règles de calcul", blocs:[
@@ -1317,7 +1372,16 @@ sections:[
    {q:"Appliquer la formule", r:"$(e^{u})' = u' e^{u} = 2e^{2x}$."},
    {q:"Ne pas oublier le coefficient", r:"$f'(x) = 3 × 2e^{2x} = 6e^{2x}$."}
   ]},
-  {t:"piege", titre:"L'oubli du facteur", x:"Écrire $(e^{2x})' = e^{2x}$ est l'erreur numéro un. Il manque le 2 : la dérivée de l'exposant sort toujours en facteur."}
+  {t:"piege", titre:"L'oubli du facteur", x:"Écrire $(e^{2x})' = e^{2x}$ est l'erreur numéro un. Il manque le 2 : la dérivée de l'exposant sort toujours en facteur."},
+  {t:"p", x:"Une conséquence utile de « toujours croissante » : pour étudier les variations de $e^{u(x)}$, **on n'a pas à s'occuper de l'exponentielle**. Puisque $(e^{u})' = u' e^{u}$ et que $e^{u}$ est toujours strictement positif, le signe de la dérivée est celui de $u'$ tout seul. Autrement dit : $e^{u}$ varie exactement comme $u$."},
+  {t:"exemple", titre:"Exemple guidé — variations d'une exponentielle composée", enonce:"Étudier les variations de $f(x) = e^{-x^2}$ sur ℝ.", etapes:[
+   {q:"Étape 1 — repérer la forme", r:"C'est $e^{u}$ avec $u(x) = -x^2$. On ne développe rien, on identifie."},
+   {q:"Étape 2 — dériver l'exposant", r:"$u'(x) = -2x$."},
+   {q:"Étape 3 — appliquer la formule", r:"$f'(x) = u' e^{u} = -2x e^{-x^2}$."},
+   {q:"Étape 4 — le raccourci", r:"$e^{-x^2}$ est **toujours strictement positif**, quel que soit $x$. Il ne peut donc jamais changer le signe du produit. Le signe de $f'$ est celui de $-2x$, et rien d'autre."},
+   {q:"Étape 5 — conclure", r:"$-2x$ est positif quand $x < 0$, négatif quand $x > 0$. Donc $f$ **croît** sur $]-∞ ; 0]$ puis **décroît** sur $[0 ; +∞[$, avec un maximum en $x = 0$ valant $f(0) = e^{0} = 1$."},
+   {q:"Ce qu'il faut retenir", r:"On n'a jamais eu besoin de calculer une seule valeur de l'exponentielle. Le fait qu'elle soit toujours positive suffit à l'écarter du raisonnement sur les signes — c'est un réflexe qui fait gagner beaucoup de temps."}
+  ]}
  ]},
 
  {titre:"Résoudre avec des exponentielles", blocs:[
@@ -2169,6 +2233,22 @@ sections:[
   {t:"p", x:"On note $P(X = 2)$ la probabilité que le gain vaille 2. Ici $P(X = 2) = @f{1}{2}$ et $P(X = -1) = @f{1}{2}$."},
   {t:"formule", titre:"Loi de probabilité", x:"C'est le tableau qui donne toutes les valeurs possibles de $X$ et leurs probabilités.", note:"Contrôle obligatoire : la somme de la ligne des probabilités doit valoir exactement 1."},
   {t:"tbl", head:["$x_i$","−1","2"], rows:[["$P(X = x_i)$","0,5","0,5"]]},
+  {t:"fig", titre:"Une loi de probabilité, vue de haut",
+   vue:[-1,-0.1,7,0.75], w:400, h:270, grille:false, graduations:false,
+   objets:[
+    {t:"seg", de:[-0.8,0], a:[6.6,0], couleur:"ink3"},
+    {t:"poly", pts:[[-0.25,0],[0.25,0],[0.25,0.5],[-0.25,0.5]], couleur:"bleu", remplir:true},
+    {t:"poly", pts:[[2.75,0],[3.25,0],[3.25,0.5],[2.75,0.5]], couleur:"bleu", remplir:true},
+    {t:"seg", de:[1.5,0], a:[1.5,0.62], couleur:"rouge", pointille:true},
+    {t:"texte", x:0, y:-0.09, txt:"−1", couleur:"ink2"},
+    {t:"texte", x:3, y:-0.09, txt:"2", couleur:"ink2"},
+    {t:"texte", x:0, y:0.56, txt:"0,5", couleur:"bleu"},
+    {t:"texte", x:3, y:0.56, txt:"0,5", couleur:"bleu"},
+    {t:"texte", x:1.5, y:0.69, txt:"E(X) = 0,5", couleur:"rouge"}
+   ],
+   note:"Deux barres de hauteur 0,5. L'espérance (trait rouge) est le **point d'équilibre** : elle tombe pile au milieu."},
+  {t:"p", x:"Cette image donne une intuition qu'aucune formule ne donne : **l'espérance est un point d'équilibre**. Imagine les deux barres comme deux poids posés sur une règle. L'endroit où la règle tient en équilibre, c'est $E(X)$. Ici les poids sont égaux, l'équilibre est au milieu ; si l'une des barres était plus haute, l'équilibre se déplacerait de son côté."},
+  {t:"p", x:"Cela explique du même coup pourquoi l'espérance n'est pas forcément une valeur atteignable. Ici elle vaut $0{,}5$, alors que le gain ne peut être que $-1$ ou $2$. Le point d'équilibre d'une balançoire n'est pas l'endroit où l'on s'assoit."},
   {t:"piege", titre:"Le contrôle qui sauve", x:"Si la somme des probabilités ne fait pas 1, il y a forcément une erreur quelque part. Prends dix secondes pour additionner la ligne du bas avant de continuer."}
  ]},
 
@@ -2197,6 +2277,22 @@ sections:[
 
  {titre:"Variance et écart-type : mesurer le risque", blocs:[
   {t:"idee", x:"Deux jeux peuvent avoir la même espérance mais être très différents : l'un régulier, l'autre très risqué. L'écart-type mesure cette **dispersion**."},
+  {t:"p", x:"Voici pourquoi l'espérance seule ne suffit pas. Deux jeux, même mise, même gain moyen de 0 € :<br>— **Jeu A** : on gagne ou on perd 1 € à chaque partie.<br>— **Jeu B** : une fois sur mille on gagne 1000 €, sinon on perd 1 €.<br>Les deux ont une espérance nulle, donc « équitables » au sens du cours. Mais les vivre n'a rien à voir : le premier est ennuyeux et sans danger, le second peut ruiner avant le premier gain."},
+  {t:"fig", titre:"Même espérance, dispersions opposées",
+   vue:[-1,-0.15,10,1.25], w:400, h:280, grille:false, graduations:false,
+   objets:[
+    {t:"seg", de:[-0.6,0], a:[9.6,0], couleur:"ink3"},
+    {t:"poly", pts:[[1.6,0],[2.4,0],[2.4,0.9],[1.6,0.9]], couleur:"vert", remplir:true},
+    {t:"poly", pts:[[2.6,0],[3.4,0],[3.4,0.9],[2.6,0.9]], couleur:"vert", remplir:true},
+    {t:"poly", pts:[[0.1,0],[0.5,0],[0.5,0.28],[0.1,0.28]], couleur:"rouge", remplir:true},
+    {t:"poly", pts:[[8.6,0],[9,0],[9,0.28],[8.6,0.28]], couleur:"rouge", remplir:true},
+    {t:"seg", de:[2.5,0], a:[2.5,1.08], couleur:"ink", pointille:true},
+    {t:"texte", x:2.5, y:1.16, txt:"même E(X)", couleur:"ink2"},
+    {t:"texte", x:2.5, y:-0.11, txt:"resserré : σ petit", couleur:"vert"},
+    {t:"texte", x:7.6, y:-0.11, txt:"étalé : σ grand", couleur:"rouge"}
+   ],
+   note:"Les barres vertes sont serrées autour de la moyenne ; les rouges sont loin de part et d'autre. Même centre, risques opposés."},
+  {t:"p", x:"L'écart-type met un nombre sur cet étalement. Petit écart-type : les résultats se serrent autour de la moyenne, on sait à peu près à quoi s'attendre. Grand écart-type : ils partent loin des deux côtés, la moyenne devient une information peu utile pour prévoir une partie."},
   {t:"formule", titre:"Variance", x:"$V(X) = x_1^2 P(X = x_1) + … + x_n^2 P(X = x_n) - [E(X)]^2$", note:"Traduction : moyenne des carrés, moins le carré de la moyenne."},
   {t:"formule", titre:"Écart-type", x:"$σ(X) = @r{V(X)}$", note:"On revient ainsi à l'unité de départ (des euros, des points…). C'est ce qu'on interprète."},
   {t:"exemple", titre:"Exemple guidé — calculer un écart-type", enonce:"Soit $X$ prenant la valeur 0 avec une probabilité de 0,5 et la valeur 4 avec une probabilité de 0,5. Calculer $E(X)$, $V(X)$ et $σ(X)$.", etapes:[
@@ -2585,6 +2681,38 @@ sections:[
   {t:"p", x:"Deux boucles suffisent pour tout le programme de Première. La première répète un nombre de fois **connu à l'avance**, la seconde répète **tant qu'une condition est vraie**."},
   {t:"formule", titre:"Boucle « pour » — nombre de tours connu", code:true, x:"<b>for i in range(5):</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>u = u + 3</b>", note:"range(5) donne 0, 1, 2, 3, 4 : cinq tours, mais le compteur s'arrête à 4."},
   {t:"formule", titre:"Boucle « tant que » — condition d'arrêt", code:true, x:"<b>while u &lt; 100:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>u = u * 2</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>n = n + 1</b>", note:"On répète tant que la condition est vraie. Elle doit finir par devenir fausse, sinon le programme tourne indéfiniment."},
+  {t:"p", x:"Comment choisir entre les deux ? Une seule question suffit : **est-ce que je sais à l'avance combien de fois répéter ?**"},
+  {t:"tbl", head:["La situation","La boucle à prendre"], rows:[
+   ["« Calculer les 20 premiers termes »","<b>for</b> — le nombre de tours est connu"],
+   ["« Calculer $u_{15}$ »","<b>for</b> — 15 tours, connus d'avance"],
+   ["« À partir de quelle année dépasse-t-on 5000 ? »","<b>while</b> — on ignore quand ça s'arrête"],
+   ["« Combien de fois faut-il doubler pour… »","<b>while</b> — c'est justement la question"],
+   ["« Répéter la simulation 10 000 fois »","<b>for</b> — le nombre est donné"]
+  ]},
+  {t:"p", x:"La règle se déduit toujours de la même chose : si le nombre de répétitions **figure dans l'énoncé**, c'est <b>for</b> ; s'il est **ce qu'on cherche**, c'est <b>while</b>. Les exercices de seuil sont donc systématiquement des <b>while</b>."},
+  {t:"fig", titre:"Ce que fait une boucle « tant que »",
+   vue:[0,0,10.5,6.5], w:400, h:265, grille:false, axes:false, graduations:false,
+   objets:[
+    {t:"poly", pts:[[0.3,4.6],[2.9,4.6],[2.9,5.8],[0.3,5.8]], couleur:"line2"},
+    {t:"poly", pts:[[3.8,3.2],[7.0,3.2],[7.0,4.4],[3.8,4.4]], couleur:"ambre", remplir:true},
+    {t:"poly", pts:[[3.8,1.0],[7.0,1.0],[7.0,2.2],[3.8,2.2]], couleur:"bleu", remplir:true},
+    {t:"poly", pts:[[8.2,3.2],[10.1,3.2],[10.1,4.4],[8.2,4.4]], couleur:"vert", remplir:true},
+    {t:"seg", de:[1.6,4.6], a:[1.6,3.8], couleur:"ink3"},
+    {t:"seg", de:[1.6,3.8], a:[3.8,3.8], couleur:"ink3"},
+    {t:"seg", de:[5.4,3.2], a:[5.4,2.2], couleur:"ink3"},
+    {t:"seg", de:[7.0,3.8], a:[8.2,3.8], couleur:"ink3"},
+    {t:"seg", de:[7.0,1.6], a:[7.6,1.6], couleur:"ink3"},
+    {t:"seg", de:[7.6,1.6], a:[7.6,3.55], couleur:"ink3"},
+    {t:"seg", de:[7.6,3.55], a:[3.8,3.55], couleur:"ink3", pointille:true},
+    {t:"texte", x:1.6, y:5.1, txt:"départ", couleur:"ink2", taille:14},
+    {t:"texte", x:5.4, y:3.7, txt:"condition vraie ?", couleur:"ambre", taille:13},
+    {t:"texte", x:5.4, y:1.5, txt:"faire un tour", couleur:"bleu", taille:13},
+    {t:"texte", x:9.15, y:3.7, txt:"sortie", couleur:"vert", taille:14},
+    {t:"texte", x:7.6, y:4.6, txt:"non", couleur:"ink3", taille:12},
+    {t:"texte", x:5.95, y:2.6, txt:"oui", couleur:"ink3", taille:12}
+   ],
+   note:"On teste **avant** chaque tour, et on revient tester après. Dès que la condition devient fausse, on sort."},
+  {t:"p", x:"Ce schéma explique ce qui déroute le plus : **à la sortie, la valeur a déjà dépassé le seuil**. La boucle teste, entre, fait son tour, revient tester — et le dernier tour effectué est justement celui qui fait franchir la limite. Quand la question est « à partir de quelle année dépasse-t-on 5000 € ? », c'est bien la valeur de $n$ à la sortie qu'il faut donner : c'est le premier moment où le dépassement a lieu."},
   {t:"piege", titre:"range(5) ne va pas jusqu'à 5", x:"<b>range(5)</b> produit 0, 1, 2, 3, 4 : cinq valeurs, mais la dernière est 4. Pour aller de 1 à 5 inclus, il faut écrire <b>range(1, 6)</b>. C'est la source d'erreur numéro un en lecture de code."},
   {t:"piege", titre:"L'indentation fait partie du code", x:"Les lignes décalées vers la droite sont **à l'intérieur** de la boucle : elles se répètent. Une ligne revenue à gauche s'exécute une seule fois, après la boucle. En Python, ce décalage n'est pas de la décoration."},
   {t:"exemple", titre:"Exemple guidé — une suite arithmétique en Python", enonce:"Que vaut $u$ après ce programme ?<br><b>u = 7</b><br><b>for i in range(4):</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>u = u + 3</b>", etapes:[
@@ -3232,7 +3360,11 @@ window.COURBES = {
   "trinome-neg":    function(x){ return -x*x + 2*x + 3; },     // même chose, retournée
   "parabole-min":   function(x){ return x*x - 6*x + 5; },      // sommet en 3
   "carre":          function(x){ return x*x; },
-  "cubique":        function(x){ return 0.25*x*x*x - x; }
+  "cubique":        function(x){ return 0.25*x*x*x - x; },
+  "expo":           function(x){ return Math.exp(x); },
+  "expo-lente":     function(x){ return Math.pow(1.5, x); },
+  "droite-2x":      function(x){ return 2*x; },
+  "inverse":        function(x){ return x===0 ? NaN : 1/x; }
 };
 })();
 </script>
