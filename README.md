@@ -1,5 +1,21 @@
 # Cahier de Première — version connectée
 
+## Nouveautés
+
+- **Une zone vidéo par chapitre.** Un bouton ouvre la recherche YouTube déjà
+  remplie avec le titre du chapitre ; on copie l'adresse de la vidéo choisie et
+  on la colle. Elle est rangée avec la progression et suit d'un appareil à
+  l'autre. YouTube (par son domaine sans cookie), Vimeo, Dailymotion et les
+  fichiers `.mp4` sont acceptés, le reste est refusé avec une explication.
+  Aucun lien n'est fourni d'avance : une adresse inventée mène à une page morte,
+  ce qui serait pire que pas de vidéo du tout.
+- **Vingt fiches « la méthode, pas à pas »**, deux par chapitre, chacune suivie
+  de son application sur un exemple chiffré. L'aide-mémoire a désormais deux
+  onglets : les formules pour réviser, les méthodes pour savoir par où commencer.
+- **Deux défauts d'affichage corrigés** : les nombres décimaux montraient leurs
+  accolades (« 1{,}05 »), et les formules à exposant comme la somme d'une suite
+  géométrique ne s'affichaient pas du tout — seulement leur code.
+
 L'application de maths, servie depuis ton PC, avec trois fonctions qui appellent Claude :
 
 - **Expliquer autrement** — sous chaque exercice corrigé, un bouton qui reprend l'explication différemment
