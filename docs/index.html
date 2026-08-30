@@ -3293,7 +3293,10 @@ window.VUE_IMPORT = function(){
   /* --- sauvegarde --- */
   var c5 = el("div","card pad"); c5.style.marginTop="14px";
   c5.innerHTML='<div class="eyebrow" style="margin-bottom:8px">Sauvegarde</div>'+
-    '<p class="small muted">Ta progression et tes fiches sont enregistrées dans ce navigateur uniquement. Exporte-les si tu changes d’appareil ou vides ton historique.</p>';
+    (window.IA_ACTIVE
+      ? '<p class="small" id="etatStockage">'+(window.texteStockage?window.texteStockage():'vérification…')+'</p>'+
+        '<p class="small muted" style="margin-top:8px">Un export reste utile comme copie de secours.</p>'
+      : '<p class="small muted">Ta progression et tes fiches sont enregistrées dans ce navigateur uniquement. Exporte-les si tu changes d’appareil ou vides ton historique.</p>');
   var r5=el("div","row"); r5.style.marginTop="12px";
   var be=el("button","btn","Exporter mon cahier");
   be.onclick=exporter;
@@ -4273,11 +4276,46 @@ function sonder(){
       }
       window.IA_ACTIVE = true;
       if(window.RENDER) window.RENDER();
+      verifierStockage();           // prévient si la progression n'est pas durable
       return charger();             // le serveur détient la progression de référence
     })
     .catch(function(){ /* mode hors-ligne : rien à faire */ });
 }
 sonder();
+
+/* Auto-vérification du stockage : l'élève doit savoir si son travail est
+   réellement conservé. Le résultat est affiché dans « Mes cours ». */
+window.IA_STOCKAGE = null;
+function verifierStockage(){
+  return fetch("/api/diag", { headers:{ "X-Code": code() } })
+    .then(function(r){ return r.json(); })
+    .then(function(j){
+      window.IA_STOCKAGE = j;
+      if(j && j.erreur){
+        A.toast("Attention : ta progression n’est pas enregistrée sur le serveur.");
+      } else if(j && /fichier/.test(j.stockage||"")){
+        A.toast("Attention : progression en fichier local, elle peut être perdue.");
+      }
+      var z = document.getElementById("etatStockage");
+      if(z) z.innerHTML = texteStockage();
+      return j;
+    })
+    .catch(function(){ window.IA_STOCKAGE = { erreur:"vérification impossible" }; });
+}
+window.texteStockage = texteStockage;
+function texteStockage(){
+  var j = window.IA_STOCKAGE;
+  if(!j) return '<span class="muted">vérification en cours…</span>';
+  if(j.erreur)
+    return '<span style="color:var(--rouge)">✗ La progression n’est pas enregistrée sur le serveur — '+
+           A.esc(j.erreur)+'</span>';
+  if(/fichier/.test(j.stockage||""))
+    return '<span style="color:var(--ambre)">⚠ Progression dans un fichier sur le serveur : '+
+           'elle sera perdue si l’hébergeur redémarre. Renseigne les deux variables Upstash.</span>';
+  return '<span style="color:var(--vert)">✓ Progression conservée dans l’entrepôt, '+
+         'synchronisée entre tes appareils.</span>';
+}
+window.IA_DIAG = verifierStockage;
 
 /* Écran de saisie du code, affiché seulement si le serveur en exige un */
 function demanderCode(refuse){
@@ -4319,6 +4357,7 @@ function demanderCode(refuse){
           volet.remove();
           window.IA_ACTIVE = true;
           if(window.RENDER) window.RENDER();
+          verifierStockage();
           charger();
           A.toast("Aide de Claude activée.");
         } else {
