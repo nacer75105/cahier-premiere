@@ -1020,7 +1020,22 @@ sections:[
   {t:"p", x:"C'est exactement le problème que la dérivée résout. L'idée : au lieu de mesurer sur deux heures, mesure sur une minute. Puis sur une seconde. Puis sur un centième de seconde. La valeur trouvée se stabilise autour d'un nombre — et **ce nombre-là est la vitesse instantanée**. La dérivée, c'est ce procédé appliqué à n'importe quelle courbe : on regarde ce qui se passe sur un intervalle qu'on rétrécit jusqu'à le rendre presque nul."},
   {t:"p", x:"Sur une route, une pente de 10 % veut dire : quand j'avance de 100 m, je monte de 10 m. En maths, c'est pareil : on compare ce que $f(x)$ gagne en hauteur à ce que $x$ parcourt en largeur."},
   {t:"formule", titre:"Taux de variation entre deux points", x:"$@f{f(b) - f(a)}{b - a}$", note:"C'est la pente moyenne de la courbe entre $a$ et $b$."},
+  {t:"p", x:"Lis cette fraction comme une division très concrète : **ce qu'on a gagné en hauteur, divisé par ce qu'on a parcouru en largeur**. En haut, $f(b) - f(a)$ : la différence d'altitude entre les deux points. En bas, $b - a$ : la distance horizontale franchie. Le résultat est une pente, exactement comme les 10 % d'un panneau routier."},
   {t:"p", x:"Le problème : cette pente est une **moyenne** sur un intervalle. Pour connaître la pente en un point précis, on rapproche $b$ de $a$ jusqu'à ce qu'ils se touchent presque. Le nombre vers lequel on tend s'appelle le **nombre dérivé**, noté $f'(a)$."},
+  {t:"figi", nom:"secante"},
+  {t:"p", x:"Manipule le curseur avant de continuer, c'est le passage le plus important du chapitre. Tant que $B$ est loin de $A$, la droite rouge traverse la courbe en deux points : c'est une **sécante**, et sa pente n'est qu'une moyenne grossière. À mesure que $B$ se rapproche, la droite bascule et finit par épouser la courbe. Elle devient la **tangente**."},
+  {t:"p", x:"Ce basculement est toute l'idée de la dérivation. On ne peut pas calculer directement une pente en un seul point — il faudrait diviser par zéro. Alors on calcule une pente sur un petit intervalle, puis on rétrécit l'intervalle et on regarde vers quel nombre le résultat **se stabilise**. Ce nombre-là existe, même si le calcul direct est impossible."},
+  {t:"p", x:"Mettons des chiffres dessus, avec $f(x) = x^2$ au point $a = 1$. On calcule la pente entre $1$ et $1 + h$, pour des $h$ de plus en plus petits :"},
+  {t:"tbl", head:["écart $h$","de $1$ à $1+h$","pente obtenue"], rows:[
+   ["1","de 1 à 2","3"],
+   ["0,5","de 1 à 1,5","2,5"],
+   ["0,1","de 1 à 1,1","2,1"],
+   ["0,01","de 1 à 1,01","2,01"],
+   ["0,001","de 1 à 1,001","2,001"],
+   ["→ 0","→ en 1 seul point","**2**"]
+  ]},
+  {t:"p", x:"Regarde la dernière colonne descendre : 3, puis 2,5, puis 2,1, puis 2,01… Les valeurs se resserrent autour de **2**, sans jamais tout à fait l'atteindre. On dit que la pente **tend vers 2**, et on écrit $f'(1) = 2$. C'est ce que la formule de dérivation $(x^2)' = 2x$ donnera en une seconde — mais tu sais maintenant ce que ce 2 signifie et d'où il sort."},
+  {t:"astuce", titre:"Pourquoi on n'écrit jamais $h = 0$", x:"Avec $h = 0$, la fraction devient $@f{0}{0}$ : elle n'a aucun sens. C'est précisément pour contourner cet obstacle qu'on a inventé la notion de limite. On ne pose jamais $h = 0$ ; on regarde ce qui se passe **quand $h$ s'en approche**. La nuance paraît subtile, mais c'est elle qui rend tout le calcul différentiel possible."},
   {t:"formule", titre:"Nombre dérivé", x:"$f'(a) = lim_{h → 0} @f{f(a + h) - f(a)}{h}$", note:"Autrement dit : la pente moyenne entre $a$ et un point tout proche, quand ce point se colle à $a$. En pratique on n'utilise presque jamais cette limite : on applique les formules du tableau plus bas."},
   {t:"astuce", titre:"Traduction en français", x:"$f'(a)$ est un nombre. C'est la pente de la courbe au point d'abscisse $a$. Positif = ça monte. Négatif = ça descend. Nul = c'est plat (sommet ou creux)."},
   {t:"figi", nom:"tangente"},
@@ -1053,6 +1068,8 @@ sections:[
    ["$@r{x}$","$@f{1}{2@r{x}}$","défini pour $x > 0$"]
   ]},
   {t:"astuce", titre:"La règle de la puissance en une phrase", x:"L'exposant descend en facteur devant, et il diminue de 1. Exemple : $x^7$ → $7x^6$."},
+  {t:"p", x:"Vérifions cette règle sur le cas qu'on vient de calculer à la main. Pour $f(x) = x^2$, elle annonce $f'(x) = 2x$, donc $f'(1) = 2$. C'est exactement le nombre vers lequel le tableau des pentes convergeait. **La formule n'est qu'un raccourci** : elle donne d'un coup ce qu'on obtenait péniblement en rétrécissant l'intervalle."},
+  {t:"p", x:"C'est important de le voir une fois, sinon les formules de dérivation ressemblent à des règles arbitraires tombées du ciel. Elles ont toutes été établies de cette façon, par le calcul de la limite, une bonne fois pour toutes. On les utilise ensuite sans les redémontrer — comme on utilise une table de multiplication sans recompter."},
   {t:"formule", titre:"Les opérations", x:"$(u + v)' = u' + v'$<br>$(k u)' = k u'$<br>$(uv)' = u'v + uv'$<br>$(@f{u}{v})' = @f{u'v - uv'}{v^2}$", note:"Le produit et le quotient sont au programme ; leur forme se retient par répétition."},
   {t:"exemple", titre:"Exemple guidé — dériver un polynôme", enonce:"Dériver $f(x) = 3x^3 - 5x^2 + 4x - 7$.", etapes:[
    {q:"Traiter chaque morceau séparément", r:"La dérivée d'une somme est la somme des dérivées : je dérive terme par terme."},
@@ -1086,6 +1103,24 @@ sections:[
   ]},
   {t:"astuce", titre:"Méthode en 4 temps, toujours la même", x:"1. Je dérive. 2. Je résous $f'(x) = 0$. 3. J'étudie le signe de $f'$. 4. J'en déduis le tableau de variations. Cette suite d'étapes marche pour n'importe quelle fonction du programme."},
   {t:"plot", f:"x*x-6*x+5", xmin:-1, xmax:7, titre:"Courbe de $f(x) = x^2 - 6x + 5$", note:"Le creux se situe bien en $x = 3$, là où la dérivée s'annule."}
+ ]},
+
+ {titre:"Construire un tableau de variations", blocs:[
+  {t:"idee", x:"Le tableau de variations est le **résumé complet** d'une fonction : en trois lignes, il dit tout ce qu'il faut savoir de son allure, sans avoir tracé la courbe."},
+  {t:"p", x:"C'est l'aboutissement du chapitre, et l'exercice le plus fréquent en contrôle. Beaucoup d'élèves savent dériver mais butent au moment de présenter le résultat — non par manque de compréhension, mais parce que personne ne leur a montré **la structure du tableau**. La voici."},
+  {t:"formule", titre:"Les trois lignes, toujours les mêmes", x:"Ligne 1 : les valeurs de $x$, dans l'ordre croissant<br>Ligne 2 : le signe de $f'(x)$ sur chaque morceau<br>Ligne 3 : les flèches de $f$, montantes ou descendantes", note:"La ligne 2 commande la ligne 3 : un « + » donne une flèche qui monte, un « − » une flèche qui descend."},
+  {t:"p", x:"Le point à comprendre, c'est que **les deux dernières lignes disent la même chose de deux façons**. La ligne du signe est le résultat d'un calcul ; la ligne des flèches en est la traduction visuelle. Si tu écris un « + » et une flèche descendante juste en dessous, c'est nécessairement une erreur."},
+  {t:"exemple", titre:"Exemple guidé — le tableau complet, étape par étape", enonce:"Dresser le tableau de variations de $f(x) = x^2 - 6x + 5$ sur ℝ.", etapes:[
+   {q:"Étape 1 — dériver", r:"$f'(x) = 2x - 6$. C'est une fonction affine, donc son signe sera simple à étudier."},
+   {q:"Étape 2 — chercher où la dérivée s'annule", r:"$2x - 6 = 0$ donne $2x = 6$, donc $x = 3$. C'est **la valeur charnière** : c'est là que la fonction va changer de sens. Elle servira de colonne centrale au tableau."},
+   {q:"Étape 3 — déterminer le signe de $f'$ de part et d'autre", r:"$f'$ est affine avec un coefficient directeur positif ($+2$) : elle monte, donc elle est négative avant 3 et positive après. En cas de doute, teste une valeur : $f'(0) = -6 < 0$ ✓ et $f'(5) = 4 > 0$ ✓."},
+   {q:"Étape 4 — dessiner le tableau", r:"Colonnes : $-∞$, puis 3, puis $+∞$. Ligne du signe de $f'$ : « − » à gauche de 3, un zéro en dessous de 3, « + » à droite. Ligne de $f$ : une flèche qui descend, puis une flèche qui monte."},
+   {q:"Étape 5 — calculer la valeur au point charnière", r:"Le tableau doit indiquer la hauteur du creux : $f(3) = 9 - 18 + 5 = -4$. C'est cette valeur qu'on écrit au bas du « V » formé par les deux flèches. **Ne l'oublie pas** : un tableau sans elle est incomplet."},
+   {q:"Lecture finale", r:"$f$ décroît sur $]-∞ ; 3]$, croît sur $[3 ; +∞[$, et admet un **minimum** valant $-4$, atteint en $x = 3$. Compare avec la courbe juste au-dessus : le creux est bien à cet endroit et à cette hauteur."}
+  ]},
+  {t:"astuce", titre:"Le sens de la flèche se lit sur le signe", x:"Un doute permanent chez les élèves : « la flèche monte ou descend ? » La règle ne varie jamais — **le signe de $f'$ commande**. « + » sous la colonne, flèche montante. « − », flèche descendante. Le zéro de $f'$ marque le sommet ou le creux, là où les deux flèches se rejoignent."},
+  {t:"piege", titre:"Deux oublis classiques", x:"**Les bornes.** Si l'énoncé demande le tableau sur $[0 ; 10]$ et non sur ℝ, les colonnes extrêmes sont 0 et 10, pas $-∞$ et $+∞$. Et il faut alors calculer $f(0)$ et $f(10)$ pour compléter les extrémités des flèches.<br><br>**Les valeurs aux extrémités.** Un tableau où les flèches ne portent aucun nombre ne vaut presque rien : c'est justement ces valeurs qui permettent de répondre à « quel est le maximum ? »."},
+  {t:"p", x:"Une dernière remarque de méthode. Quand la dérivée est un trinôme du second degré — ce qui arrive dès que $f$ est de degré 3 — son signe s'étudie avec le chapitre du second degré : discriminant, racines, puis la règle « du signe de $a$ sauf entre les racines ». Les deux chapitres se combinent constamment, et c'est ce qui rend les exercices de fin d'année plus longs, mais pas plus difficiles."}
  ]},
 
  {titre:"Produits, quotients, inverses et racines", blocs:[
@@ -1419,6 +1454,22 @@ sections:[
   ]},
   {t:"astuce", titre:"Astuce pour retenir ce tableau", x:"Écris sous la racine : 0, 1, 2, 3, 4 pour le sinus (dans l'ordre croissant), et divise par 2. Cela donne $@f{@r{0}}{2}, @f{@r{1}}{2}, @f{@r{2}}{2}, @f{@r{3}}{2}, @f{@r{4}}{2}$, soit $0, @f{1}{2}, @f{@r{2}}{2}, @f{@r{3}}{2}, 1$. Pour le cosinus, c'est la même chose à l'envers."},
   {t:"formule", titre:"La relation fondamentale", x:"$cos^2 x + sin^2 x = 1$", note:"C'est le théorème de Pythagore appliqué au cercle de rayon 1. Elle sert à retrouver l'un connaissant l'autre."},
+  {t:"fig", titre:"Cette relation, c'est Pythagore",
+   vue:[-1.35,-0.5,1.35,1.35], w:370, h:270, grille:false, graduations:false,
+   objets:[
+    {t:"cercle", c:[0,0], r:1, couleur:"line2"},
+    {t:"seg", de:[0,0], a:[0.8,0.6], couleur:"rouge", epais:2.8},
+    {t:"seg", de:[0,0], a:[0.8,0], couleur:"bleu", epais:4},
+    {t:"seg", de:[0.8,0], a:[0.8,0.6], couleur:"vert", epais:4},
+    {t:"angle", en:[0.8,0], de:[0,0], a:[0.8,0.6], droit:true},
+    {t:"point", x:0.8, y:0.6, nom:"M"},
+    {t:"texte", x:0.4, y:-0.22, txt:"cos x", couleur:"bleu"},
+    {t:"texte", x:1.08, y:0.3, txt:"sin x", couleur:"vert"},
+    {t:"texte", x:0.3, y:0.45, txt:"1", couleur:"rouge", taille:15}
+   ],
+   note:"Le rayon vaut 1. Les deux autres côtés valent $cos x$ et $sin x$. Pythagore donne directement $cos^2 x + sin^2 x = 1$."},
+  {t:"p", x:"Voilà pourquoi cette relation est vraie, et pourquoi elle n'est pas à apprendre par cœur. Le point $M$, son projeté sur l'axe horizontal et le centre forment un **triangle rectangle**. Ses deux côtés de l'angle droit mesurent $cos x$ et $sin x$ ; son hypoténuse est le rayon, qui vaut 1. Pythagore s'écrit alors $cos^2 x + sin^2 x = 1^2$."},
+  {t:"p", x:"À quoi sert-elle concrètement ? À **retrouver l'un des deux quand on connaît l'autre**. C'est une question classique : « on sait que $cos x = 0{,}6$, combien vaut $sin x$ ? » On isole : $sin^2 x = 1 - 0{,}36 = 0{,}64$, donc $sin x = ±0{,}8$. Attention au **±** : la relation donne le carré, donc deux possibilités. Il faut une information supplémentaire — le quart où se trouve l'angle — pour choisir le signe."},
   {t:"formule", titre:"Encadrement à connaître", x:"$-1 ≤ cos x ≤ 1$ &nbsp;&nbsp;et&nbsp;&nbsp; $-1 ≤ sin x ≤ 1$", note:"Une équation comme $cos x = 2$ n'a donc aucune solution."}
  ]},
 
@@ -1454,6 +1505,21 @@ sections:[
 
  {titre:"Résoudre des équations trigonométriques", blocs:[
   {t:"p", x:"Une équation comme $cos x = @f{1}{2}$ n'a pas une seule solution : le cercle repasse indéfiniment par le même point."},
+  {t:"p", x:"C'est la grande différence avec les équations que tu connais. $2x + 3 = 7$ a une réponse, une seule. Ici, la question « pour quel angle le cosinus vaut-il $@f{1}{2}$ ? » en a une **infinité**, parce qu'on peut toujours ajouter un tour complet et retomber au même endroit. C'est pour cela que les énoncés précisent presque toujours un intervalle : « sur $[0 ; 2π[$ », c'est-à-dire sur un seul tour."},
+  {t:"fig", titre:"Pourquoi il y a deux solutions par tour",
+   vue:[-1.4,-1.4,1.4,1.4], w:360, h:330, grille:false, graduations:false,
+   objets:[
+    {t:"cercle", c:[0,0], r:1, couleur:"line2"},
+    {t:"seg", de:[0.5,-1.3], a:[0.5,1.3], couleur:"ambre", pointille:true},
+    {t:"seg", de:[0,0], a:[0.5,0.866], couleur:"ink3"},
+    {t:"seg", de:[0,0], a:[0.5,-0.866], couleur:"ink3"},
+    {t:"point", x:0.5, y:0.866, nom:"π/3", couleur:"vert"},
+    {t:"point", x:0.5, y:-0.866, nom:"5π/3", couleur:"rouge", dessous:true},
+    {t:"texte", x:0.5, y:1.22, txt:"cos x = 1/2", couleur:"ambre"}
+   ],
+   note:"La verticale d'abscisse $@f{1}{2}$ coupe le cercle en **deux** points : un au-dessus, un en dessous. D'où deux solutions."},
+  {t:"p", x:"Cette figure explique tout. Chercher les $x$ tels que $cos x = @f{1}{2}$, c'est chercher les points du cercle dont **l'abscisse vaut $@f{1}{2}$** — donc les points situés sur la verticale orange. Elle traverse le cercle en deux endroits, symétriques par rapport à l'axe horizontal. Voilà pourquoi la réponse comporte deux angles, et pas un."},
+  {t:"astuce", titre:"Le réflexe qui évite l'oubli", x:"Avant de répondre, **trace la droite** : verticale pour une équation en cosinus, horizontale pour une équation en sinus. Compte les points d'intersection avec le cercle. Deux points → deux solutions. Un seul point (aux extrêmes $1$ ou $-1$) → une solution. Aucun point (valeur hors de $[-1 ; 1]$) → aucune solution. Cette vérification prend cinq secondes et supprime l'erreur la plus fréquente du chapitre."},
   {t:"formule", titre:"Solutions sur un tour", x:"$cos x = cos a$ &nbsp;⇔&nbsp; $x = a$ ou $x = -a$ (modulo $2π$)<br>$sin x = sin a$ &nbsp;⇔&nbsp; $x = a$ ou $x = π - a$ (modulo $2π$)"},
   {t:"exemple", titre:"Exemple guidé — résoudre sur $[0 ; 2π[$", enonce:"Résoudre $cos x = @f{1}{2}$ sur l'intervalle $[0 ; 2π[$.", etapes:[
    {q:"Trouver une solution évidente", r:"D'après le tableau, $cos@f{π}{3} = @f{1}{2}$. Donc $a = @f{π}{3}$ convient."},
@@ -1462,7 +1528,17 @@ sections:[
    {q:"Conclure", r:"$S = @f{π}{3}$ et $@f{5π}{3}$."},
    {q:"Vérification géométrique", r:"Deux points du cercle ont pour abscisse $@f{1}{2}$ : un au-dessus, un en dessous de l'axe horizontal. On en attend bien deux. ✓"}
   ]},
-  {t:"piege", titre:"L'oubli de la seconde solution", x:"Donner une seule solution est l'erreur la plus courante. Réflexe : dessine le cercle, place la valeur sur l'axe concerné, et compte les points d'intersection. Il y en a presque toujours deux par tour."}
+  {t:"piege", titre:"L'oubli de la seconde solution", x:"Donner une seule solution est l'erreur la plus courante. Réflexe : dessine le cercle, place la valeur sur l'axe concerné, et compte les points d'intersection. Il y en a presque toujours deux par tour."},
+  {t:"p", x:"Une équation en **sinus** se traite exactement de la même façon, à un détail près : c'est une droite **horizontale** qu'on trace, puisque le sinus se lit sur l'axe vertical. Les deux solutions sont alors symétriques par rapport à l'axe vertical, ce qui correspond à la formule $x = a$ ou $x = π - a$."},
+  {t:"exemple", titre:"Exemple guidé — une équation en sinus", enonce:"Résoudre $sin x = @f{@r{2}}{2}$ sur l'intervalle $[0 ; 2π[$.", etapes:[
+   {q:"Étape 1 — vérifier que c'est possible", r:"$@f{@r{2}}{2} ≈ 0{,}707$, donc bien entre $-1$ et $1$. Il y aura des solutions. (Si la valeur avait été 1,5, on se serait arrêté là.)"},
+   {q:"Étape 2 — trouver l'angle évident du tableau", r:"$sin@f{π}{4} = @f{@r{2}}{2}$. Donc $a = @f{π}{4}$ est une première solution. C'est le rôle du tableau des valeurs remarquables : fournir cet angle de départ."},
+   {q:"Étape 3 — placer la droite horizontale", r:"Je trace la horizontale à la hauteur $0{,}707$. Elle coupe le cercle en deux points : un dans le premier quart (en haut à droite), un dans le deuxième (en haut à gauche). Les deux ont bien la même hauteur."},
+   {q:"Étape 4 — trouver le second angle", r:"Le point de gauche est le symétrique du premier par rapport à l'axe vertical, ce qui correspond à $π - a = π - @f{π}{4} = @f{4π}{4} - @f{π}{4} = @f{3π}{4}$."},
+   {q:"Étape 5 — vérifier qu'ils sont dans l'intervalle", r:"$@f{π}{4}$ et $@f{3π}{4}$ sont tous deux entre $0$ et $2π$. ✓ Rien à ajouter ni à retirer un tour."},
+   {q:"Conclusion", r:"$S = @f{π}{4}$ et $@f{3π}{4}$. Contrôle visuel : les deux points sont dans la moitié haute du cercle, ce qui est cohérent avec un sinus positif."}
+  ]},
+  {t:"piege", titre:"Cosinus et sinus n'ont pas la même seconde solution", x:"Pour le **cosinus**, la seconde solution est $-a$ (ou $2π - a$) : symétrie par rapport à l'axe **horizontal**.<br>Pour le **sinus**, c'est $π - a$ : symétrie par rapport à l'axe **vertical**.<br><br>Inutile de retenir laquelle va avec laquelle : trace la droite sur le cercle, la bonne symétrie apparaît d'elle-même."}
  ]},
 
  {titre:"Les fonctions cosinus et sinus", blocs:[
@@ -2948,6 +3024,61 @@ MODELES["parabole"] = function(){
   boite.appendChild(lecture);
   boite.appendChild(ctr);
   boite.appendChild(el("div","figNote","Regarde le signe de <b>a</b> : il décide du sens d’ouverture. Et le signe de Δ : il décide du nombre de racines."));
+  return boite;
+};
+
+/* -- la sécante qui devient tangente : le cœur de la dérivation -- */
+MODELES["secante"] = function(){
+  var w=380, h=330, hh=1.5;                 // hh = écart entre A et B
+  var f = function(x){ return x*x; }, a = 1;
+  var boite = el("div","figBoite");
+  var svg = n("svg",{viewBox:"0 0 "+w+" "+h, class:"fig"});
+  var R = repere([-0.6,-0.6,3.4,6.4], w, h, 20);
+  var lecture = el("div","figLecture");
+  function redessine(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    fond(svg, R, {});
+    var d="", i, vv=R.vue;
+    for(i=0;i<=240;i++){
+      var x=vv[0]+(vv[2]-vv[0])*i/240, y=f(x);
+      if(y<vv[1]-1||y>vv[3]+1) continue;
+      d += (d?" L ":"M ")+R.X(x)+" "+R.Y(y);
+    }
+    svg.appendChild(n("path",{d:d,fill:"none",stroke:coul("bleu"),"stroke-width":2.8}));
+    var b = a + hh;
+    var pente = (f(b)-f(a))/(b-a);
+    // la sécante, prolongée
+    var p0 = f(a) - pente*(a-vv[0]), p1 = f(a) + pente*(vv[2]-a);
+    svg.appendChild(n("line",{x1:R.X(vv[0]),y1:R.Y(p0),x2:R.X(vv[2]),y2:R.Y(p1),
+      stroke:coul("rouge"),"stroke-width":2.4}));
+    // le triangle des accroissements
+    svg.appendChild(n("line",{x1:R.X(a),y1:R.Y(f(a)),x2:R.X(b),y2:R.Y(f(a)),
+      stroke:coul("vert"),"stroke-width":2,"stroke-dasharray":"4 4"}));
+    svg.appendChild(n("line",{x1:R.X(b),y1:R.Y(f(a)),x2:R.X(b),y2:R.Y(f(b)),
+      stroke:coul("ambre"),"stroke-width":2,"stroke-dasharray":"4 4"}));
+    point(svg,R,a,f(a),"A","ink");
+    point(svg,R,b,f(b),"B","rouge");
+    lecture.innerHTML =
+      'écart <b>h = '+hh.toFixed(2).replace(".",",")+'</b><br>'+
+      'pente de la sécante (AB) = <b>'+pente.toFixed(3).replace(".",",")+'</b>'+
+      (hh<0.12 ? ' &nbsp;→&nbsp; <span style="color:var(--vert)">on tend vers f\'(1) = 2</span>' : '');
+  }
+  var lig = el("label","figCurseur");
+  var s = document.createElement("input");
+  s.type="range"; s.min=0.02; s.max=1.6; s.step=0.02; s.value=hh;
+  // on inverse la lecture : pousser vers la droite rapproche B de A
+  s.oninput=function(){ hh = 1.62 - parseFloat(s.value); redessine(); };
+  hh = 1.62 - parseFloat(s.value);
+  lig.appendChild(el("span",null,"rapprocher B")); lig.appendChild(s);
+  redessine();
+  boite.appendChild(el("div","figTitre","Rapproche B de A et regarde la pente"));
+  boite.appendChild(svg);
+  boite.appendChild(lecture);
+  boite.appendChild(lig);
+  boite.appendChild(el("div","figNote", T(
+    "Tant que $B$ est loin, la droite rouge est une **sécante** : elle coupe la courbe en deux points, "+
+    "et sa pente n’est qu’une moyenne. Quand $B$ se colle à $A$, elle devient la **tangente**, "+
+    "et sa pente est le nombre dérivé.")));
   return boite;
 };
 
