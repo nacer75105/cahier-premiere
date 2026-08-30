@@ -2047,26 +2047,87 @@ sous:"Traduire des figures en équations",
 desc:"Vecteur directeur, équation cartésienne de droite, parallélisme, perpendicularité et cercles.",
 duree:40,
 sections:[
+ {titre:"Pourquoi mettre la géométrie dans un repère", blocs:[
+  {t:"idee", x:"Poser un repère sur une figure, c'est **remplacer le dessin par des nombres** — et donc remplacer le raisonnement géométrique par du calcul."},
+  {t:"p", x:"Au collège, pour montrer que deux droites sont perpendiculaires, il fallait un raisonnement : des angles alternes-internes, des propriétés du triangle, parfois une construction. Ça marche, mais il faut avoir l'idée. Dans un repère, la même question devient une multiplication et une addition. On n'a plus besoin d'avoir l'idée : on applique."},
+  {t:"p", x:"C'est le grand basculement de ce chapitre, et il vaut la peine d'être compris pour ce qu'il est. Descartes, au XVIIᵉ siècle, s'est aperçu qu'en numérotant les points du plan, **tout problème de géométrie devient un problème d'algèbre**. Une droite n'est plus un trait, c'est une équation. Un cercle n'est plus une forme, c'est une égalité. Se couper en un point, c'est résoudre un système."},
+  {t:"tbl", head:["Objet géométrique","Sa traduction en nombres"], rows:[
+   ["Un point","un couple $(x ; y)$"],
+   ["Un déplacement","un vecteur $(x ; y)$"],
+   ["Une droite","une équation $ax + by + c = 0$"],
+   ["Un cercle","une équation $(x-a)^2 + (y-b)^2 = R^2$"],
+   ["« Ce point est sur cette droite »","ses coordonnées vérifient l'équation"],
+   ["« Ces deux droites se coupent »","le système a une solution"]
+  ]},
+  {t:"p", x:"Garde cette table en tête pendant tout le chapitre : chaque fois qu'un énoncé parle en géométrie, ton travail consiste d'abord à **traduire** dans la colonne de droite. Une fois la traduction faite, le reste n'est que du calcul."}
+ ]},
+
  {titre:"Deux façons de décrire une droite", blocs:[
   {t:"idee", x:"Une droite peut se décrire de deux manières : par **la direction qu'elle suit** (vecteur directeur) ou par **la direction qu'elle fuit** (vecteur normal, perpendiculaire à elle)."},
+  {t:"p", x:"Pourquoi deux descriptions ? Parce qu'elles répondent à deux questions différentes. Le **directeur** dit « dans quel sens la droite s'en va » : si tu marches sur la droite, c'est la direction de tes pas. Le **normal** dit « de quel côté on sort de la droite » : c'est la direction perpendiculaire, celle qui t'en éloigne le plus vite. Les deux décrivent la même droite, comme on peut décrire une route soit par son axe, soit par le sens qui la traverse."},
+  {t:"fig", titre:"Les deux vecteurs d'une même droite",
+   vue:[-1,-1,6,5], w:400, h:320,
+   objets:[
+    {t:"droite", de:[0.5,0.7], a:[3,2.3], couleur:"line2"},
+    {t:"vec", de:[2,1.6], a:[4.5,3.2], couleur:"bleu", nom:"u"},
+    {t:"vec", de:[2,1.6], a:[0.4,4.1], couleur:"rouge", nom:"n"},
+    {t:"angle", en:[2,1.6], de:[4.5,3.2], a:[0.4,4.1], droit:true},
+    {t:"texte", x:4.6, y:1.1, txt:"la droite", couleur:"ink3"}
+   ],
+   note:"Le vecteur **directeur** (bleu) glisse le long de la droite. Le vecteur **normal** (rouge) en sort perpendiculairement."},
   {t:"formule", titre:"Équation cartésienne", x:"Toute droite s'écrit $ax + by + c = 0$, avec $a$ et $b$ non tous les deux nuls.", note:"Un point appartient à la droite si et seulement si ses coordonnées vérifient l'égalité."},
+  {t:"p", x:"Que dit vraiment cette équation ? Elle joue le rôle d'un **filtre**. Tu lui présentes un point : si le calcul donne 0, il est sur la droite ; sinon, il est ailleurs. La droite n'est rien d'autre que l'ensemble des points qui passent ce test. C'est pour ça qu'on écrit « $= 0$ » : le zéro est la condition d'appartenance."},
   {t:"formule", titre:"Lire les deux vecteurs sur l'équation", x:"Pour $ax + by + c = 0$ :<br>vecteur **normal** $@v{n}(a ; b)$ &nbsp;&nbsp;·&nbsp;&nbsp; vecteur **directeur** $@v{u}(-b ; a)$", note:"Le directeur s'obtient en échangeant les deux coefficients et en changeant un signe."},
-  {t:"p", x:"Exemple : la droite $2x - 5y + 7 = 0$ a pour vecteur normal $@v{n}(2 ; -5)$ et pour vecteur directeur $@v{u}(5 ; 2)$. On vérifie qu'ils sont bien perpendiculaires : $2 × 5 + (-5) × 2 = 10 - 10 = 0$. ✓"},
+  {t:"p", x:"Le normal se lit **tel quel** : les coefficients de $x$ et $y$, dans l'ordre. C'est le cadeau de l'équation cartésienne, et la raison pour laquelle on l'utilise autant. Le directeur, lui, demande une petite manipulation : échanger les deux nombres et changer un signe."},
+  {t:"p", x:"Pourquoi cette manipulation donne-t-elle bien un vecteur perpendiculaire ? Fais le produit scalaire de $@v{n}(a ; b)$ et $@v{u}(-b ; a)$ : $a × (-b) + b × a = -ab + ab = 0$. Nul, donc perpendiculaires. Ce n'est pas une recette magique, c'est le critère d'orthogonalité du chapitre précédent qui fonctionne pour n'importe quels $a$ et $b$."},
+  {t:"p", x:"Exemple : la droite $2x - 5y + 7 = 0$ a pour vecteur normal $@v{n}(2 ; -5)$ et pour vecteur directeur $@v{u}(5 ; 2)$. On vérifie : $2 × 5 + (-5) × 2 = 10 - 10 = 0$. ✓"},
   {t:"astuce", titre:"Comment ne plus les confondre", x:"Le **normal** se lit tel quel dans l'équation : $(a ; b)$, dans l'ordre. Le **directeur** demande une manipulation : on échange et on change un signe. Si tu n'as rien manipulé, tu tiens le normal."},
+  {t:"piege", titre:"Un directeur, pas le directeur", x:"$@v{u}(5 ; 2)$ est **un** vecteur directeur, pas le seul. $(10 ; 4)$, $(-5 ; -2)$ ou $(2{,}5 ; 1)$ conviennent tout aussi bien : ils pointent tous dans la même direction. Deux réponses différentes peuvent donc être justes toutes les deux, du moment qu'elles sont proportionnelles. Même remarque pour le normal."},
+  {t:"p", x:"Le cas le plus fréquent en contrôle : on te donne deux points et on demande l'équation de la droite qui les relie. La démarche est toujours la même, quatre étapes, et elle mérite d'être apprise comme une recette."},
+  {t:"fig", titre:"La droite passant par A et B",
+   vue:[-0.5,-0.5,5.5,9], w:380, h:340,
+   objets:[
+    {t:"droite", de:[1,2], a:[4,8], couleur:"bleu"},
+    {t:"vec", de:[1,2], a:[4,8], couleur:"vert", nom:"AB"},
+    {t:"point", x:1, y:2, nom:"A", dessous:true},
+    {t:"point", x:4, y:8, nom:"B"}
+   ],
+   note:"Le vecteur $@v{AB}$ donne la **direction** de la droite. Il ne reste qu'à traduire cette direction en équation."},
   {t:"exemple", titre:"Exemple guidé — droite passant par deux points", enonce:"Déterminer une équation cartésienne de la droite passant par $A(1 ; 2)$ et $B(4 ; 8)$.", etapes:[
-   {q:"Trouver un vecteur directeur", r:"$@v{AB}(4 - 1 ; 8 - 2) = (3 ; 6)$. On peut le simplifier en $(1 ; 2)$, ce qui allègera les calculs."},
-   {q:"En déduire un vecteur normal", r:"Si $@v{u}(1 ; 2)$ est directeur, alors $@v{n}(-2 ; 1)$ est normal (on échange et on change un signe)."},
-   {q:"Écrire l'équation", r:"Le normal donne les coefficients : $-2x + y + c = 0$."},
-   {q:"Trouver $c$ avec un point", r:"$A(1 ; 2)$ est sur la droite : $-2 × 1 + 2 + c = 0$, donc $c = 0$."},
-   {q:"Conclure et vérifier", r:"L'équation est $-2x + y = 0$, ou encore $y = 2x$. Test avec $B$ : $-8 + 8 = 0$ ✓."}
+   {q:"Étape 1 — un vecteur directeur", r:"Deux points sur la droite donnent immédiatement sa direction : $@v{AB}(4 - 1 ; 8 - 2) = (3 ; 6)$. Je peux le simplifier en $(1 ; 2)$ — diviser par 3 ne change pas la direction, et allège tous les calculs suivants. Prends ce réflexe : simplifier tôt évite les gros nombres."},
+   {q:"Étape 2 — le vecteur normal", r:"L'équation cartésienne se construit sur le **normal**, pas sur le directeur. J'échange les deux coordonnées et je change un signe : de $@v{u}(1 ; 2)$ je passe à $@v{n}(-2 ; 1)$. Contrôle immédiat : $1 × (-2) + 2 × 1 = 0$ ✓."},
+   {q:"Étape 3 — la forme de l'équation", r:"Le normal fournit directement les coefficients de $x$ et $y$ : l'équation est $-2x + 1y + c = 0$, soit $-2x + y + c = 0$. À ce stade, la **direction** est bonne mais la droite peut encore être n'importe où : $c$ est ce qui va la placer."},
+   {q:"Étape 4 — placer la droite avec un point", r:"$A(1 ; 2)$ est dessus, donc ses coordonnées doivent vérifier l'équation : $-2 × 1 + 2 + c = 0$, soit $c = 0$. J'aurais pu prendre $B$ à la place, le résultat serait le même."},
+   {q:"Conclure", r:"L'équation est $-2x + y = 0$. On peut aussi l'écrire $y = 2x$, ce qui se lit plus facilement : une droite qui passe par l'origine avec un coefficient directeur de 2."},
+   {q:"Vérifier — avec l'autre point", r:"Le point qui n'a pas servi au calcul est le meilleur vérificateur. $B(4 ; 8)$ : $-2 × 4 + 8 = -8 + 8 = 0$ ✓. Si ça ne tombait pas sur 0, il y aurait une erreur quelque part."}
   ]},
-  {t:"piege", titre:"Une équation, plusieurs écritures", x:"$-2x + y = 0$, $2x - y = 0$ et $-4x + 2y = 0$ décrivent **la même droite**. Multiplier toute l'équation par un nombre non nul ne change rien. Deux réponses d'aspect différent peuvent donc être toutes les deux justes."}
+  {t:"astuce", titre:"La recette en quatre lignes", x:"1. Vecteur directeur $@v{AB}$ (arrivée moins départ), simplifié si possible.<br>2. Vecteur normal : échanger, changer un signe.<br>3. Écrire $ax + by + c = 0$ avec les coordonnées du normal.<br>4. Remplacer par un point connu pour trouver $c$, puis vérifier avec l'autre.<br><br>Ces quatre lignes couvrent tous les exercices « droite passant par deux points » du programme."},
+  {t:"piege", titre:"Une équation, plusieurs écritures", x:"$-2x + y = 0$, $2x - y = 0$ et $-4x + 2y = 0$ décrivent **la même droite**. Multiplier toute l'équation par un nombre non nul ne change rien : le filtre reste le même, les points qui donnaient 0 continuent de donner 0. Deux réponses d'aspect différent peuvent donc être toutes les deux justes — vérifie en divisant l'une par l'autre plutôt qu'en les comparant terme à terme."},
+  {t:"check", q:"Quelle est l'équation d'une droite de vecteur normal $@v{n}(3 ; -1)$ passant par l'origine ?",
+   choix:["$3x - y = 0$","$-x + 3y = 0$","$3x - y + 1 = 0$","$x + 3y = 0$"], bonne:0,
+   expl:["Exact : le normal donne les coefficients, et passer par $(0 ; 0)$ impose $c = 0$.",
+         "Tu as utilisé le vecteur **directeur** comme s'il était normal. Le normal se recopie tel quel dans l'équation.",
+         "Les coefficients sont bons, mais avec $c = 1$ la droite ne passe pas par l'origine : $3×0 - 0 + 1 = 1 ≠ 0$.",
+         "Les coefficients ne correspondent pas au normal donné. Il faut $3$ devant $x$ et $-1$ devant $y$."]}
  ]},
 
  {titre:"Parallèles ou perpendiculaires ?", blocs:[
-  {t:"p", x:"Deux questions reviennent sans arrêt : ces droites se coupent-elles, et si oui à angle droit ? Les deux se tranchent avec les vecteurs."},
+  {t:"p", x:"Deux questions reviennent sans arrêt : ces droites se coupent-elles, et si oui à angle droit ? Les deux se tranchent avec les vecteurs, et il n'y a que deux calculs possibles — mais il faut savoir lequel appliquer."},
   {t:"formule", titre:"Les deux critères", x:"**Parallèles** : leurs vecteurs directeurs sont colinéaires, soit $x y' - y x' = 0$<br>**Perpendiculaires** : leurs vecteurs directeurs sont orthogonaux, soit $x x' + y y' = 0$", note:"Le premier test est un déterminant (produit en croix), le second un produit scalaire. Ne les mélange pas."},
-  {t:"astuce", titre:"Retenir lequel est lequel", x:"Le produit **en croix** teste le parallélisme (les vecteurs pointent dans la même direction). Le produit **scalaire** teste la perpendicularité (il vaut zéro quand l'angle est droit)."},
+  {t:"fig", titre:"Deux droites perpendiculaires et leurs directeurs",
+   vue:[-3.5,-3.5,3.5,3.5], w:360, h:330,
+   objets:[
+    {t:"droite", de:[0,0], a:[3,2], couleur:"bleu"},
+    {t:"droite", de:[0,0], a:[-2,3], couleur:"vert"},
+    {t:"vec", de:[0,0], a:[3,2], couleur:"bleu", nom:"u"},
+    {t:"vec", de:[0,0], a:[-2,3], couleur:"vert", nom:"u'"},
+    {t:"angle", en:[0,0], de:[3,2], a:[-2,3], droit:true}
+   ],
+   note:"$@v{u}(3 ; 2)$ et $@v{u'}(-2 ; 3)$ : produit scalaire $3×(-2) + 2×3 = 0$. Les droites se coupent à angle droit."},
+  {t:"p", x:"Prends le temps de distinguer les deux calculs, parce qu'ils se ressemblent dangereusement — mêmes nombres, opérations différentes. Le **produit en croix** $x y' - y x'$ fait intervenir une soustraction et croise les indices. Le **produit scalaire** $x x' + y y'$ additionne et garde les indices alignés. Un signe et un croisement les séparent."},
+  {t:"p", x:"Pourquoi le produit en croix détecte-t-il le parallélisme ? Deux vecteurs sont parallèles quand l'un est un multiple de l'autre : $(2 ; 3)$ et $(4 ; 6)$, par exemple, où tout a été doublé. Dans ce cas les deux « pentes » $@f{y}{x}$ et $@f{y'}{x'}$ sont égales, et en chassant les dénominateurs on obtient exactement $x y' - y x' = 0$. Le test n'est qu'une façon de comparer deux pentes sans risquer de diviser par zéro."},
+  {t:"astuce", titre:"Retenir lequel est lequel", x:"Le produit **en croix** teste le parallélisme (les vecteurs pointent dans la même direction). Le produit **scalaire** teste la perpendicularité (il vaut zéro quand l'angle est droit).<br><br>Moyen mnémotechnique : perpendi<b>c</b>ulaire et s<b>c</b>alaire vont ensemble ; parallèle et produit en croix, qui « croise » comme deux rails qu'on compare."},
+  {t:"piege", titre:"Parallèles ne veut pas dire confondues", x:"Le test des directeurs ne distingue pas deux droites parallèles distinctes d'une droite avec elle-même. Après avoir trouvé « parallèles », il reste une question : sont-elles **confondues** ? Réponse : oui si l'une des équations est un multiple exact de l'autre, constante comprise. $x - 2y + 3 = 0$ et $2x - 4y + 6 = 0$ sont la même droite ; $2x - 4y - 1 = 0$ en est une autre, parallèle."},
   {t:"exemple", titre:"Exemple guidé — position relative de deux droites", enonce:"Les droites $d : 2x - 3y + 1 = 0$ et $d' : 3x + 2y - 5 = 0$ sont-elles parallèles, perpendiculaires, ou ni l'un ni l'autre ?", etapes:[
    {q:"Vecteurs directeurs", r:"Pour $d$ : $@v{u}(3 ; 2)$. Pour $d'$ : $@v{u'}(-2 ; 3)$."},
    {q:"Test du parallélisme", r:"$3 × 3 - 2 × (-2) = 9 + 4 = 13 ≠ 0$. Elles ne sont pas parallèles : elles se coupent."},
@@ -2078,8 +2139,26 @@ sections:[
  ]},
 
  {titre:"Les cercles", blocs:[
+  {t:"idee", x:"Un cercle, c'est **l'ensemble des points situés à une distance fixe d'un centre**. Toute son équation découle de cette seule phrase."},
   {t:"formule", titre:"Équation d'un cercle", x:"Centre $Ω(a ; b)$, rayon $R$ : $(x - a)^2 + (y - b)^2 = R^2$", note:"Cette équation dit simplement : « la distance de $M(x ; y)$ au centre vaut $R$ »."},
-  {t:"p", x:"C'est le théorème de Pythagore déguisé. La distance de $M$ à $Ω$ vaut $@r{(x-a)^2 + (y-b)^2}$ ; écrire qu'elle vaut $R$ revient à élever les deux membres au carré."},
+  {t:"fig", titre:"D'où vient l'équation du cercle",
+   vue:[-0.5,-0.5,7,6], w:390, h:330,
+   objets:[
+    {t:"cercle", c:[3,2.5], r:2, couleur:"bleu"},
+    {t:"seg", de:[3,2.5], a:[4.7,3.55], couleur:"rouge", epais:2.6},
+    {t:"seg", de:[3,2.5], a:[4.7,2.5], couleur:"vert", pointille:true},
+    {t:"seg", de:[4.7,2.5], a:[4.7,3.55], couleur:"ambre", pointille:true},
+    {t:"angle", en:[4.7,2.5], de:[3,2.5], a:[4.7,3.55], droit:true},
+    {t:"point", x:3, y:2.5, nom:"Ω", dessous:true},
+    {t:"point", x:4.7, y:3.55, nom:"M"},
+    {t:"texte", x:3.85, y:2.15, txt:"x − a", couleur:"vert"},
+    {t:"texte", x:5.6, y:3.05, txt:"y − b", couleur:"ambre"},
+    {t:"texte", x:3.5, y:3.35, txt:"R", couleur:"rouge", taille:15}
+   ],
+   note:"Le rayon est l'hypoténuse d'un triangle rectangle dont les côtés valent $x - a$ et $y - b$. Pythagore donne l'équation."},
+  {t:"p", x:"Regarde la figure : c'est du **Pythagore déguisé**, rien de plus. Le point $M$ est sur le cercle. Pour aller du centre $Ω$ jusqu'à $M$, on se déplace horizontalement de $x - a$ (en vert), puis verticalement de $y - b$ (en orange). Ces deux déplacements et le rayon forment un triangle rectangle, dont l'angle droit est marqué."},
+  {t:"p", x:"Pythagore dit alors : $(x-a)^2 + (y-b)^2 = R^2$. C'est exactement l'équation du cercle. Elle n'est donc pas à apprendre comme une formule tombée du ciel — elle se **retrouve** en trente secondes si on se souvient du triangle rectangle."},
+  {t:"p", x:"Et pourquoi écrit-on $R^2$ à droite plutôt que $R$ ? Parce que le carré évite la racine carrée. La distance vaut $@r{(x-a)^2 + (y-b)^2}$ ; plutôt que de traîner ce radical, on élève les deux membres au carré une bonne fois pour toutes. C'est du confort de calcul, mais c'est la source d'une erreur classique : le nombre écrit à droite est le **carré** du rayon."},
   {t:"piege", titre:"Les deux signes à surveiller", x:"Le centre est ce qu'on **retranche** : $(x + 3)^2$ correspond à une abscisse de centre égale à $-3$. Et le membre de droite est $R^2$, pas $R$ : si l'équation finit par $= 16$, le rayon vaut 4."},
   {t:"exemple", titre:"Exemple guidé — cercle de diamètre donné", enonce:"Déterminer l'équation du cercle de diamètre $[AB]$ avec $A(1 ; 3)$ et $B(5 ; 1)$.", etapes:[
    {q:"Le centre est le milieu", r:"$Ω(@f{1+5}{2} ; @f{3+1}{2}) = (3 ; 2)$."},
@@ -2088,7 +2167,24 @@ sections:[
    {q:"Écrire l'équation", r:"$(x - 3)^2 + (y - 2)^2 = 5$."},
    {q:"Vérifier avec $A$", r:"$(1-3)^2 + (3-2)^2 = 4 + 1 = 5$ ✓. Le point $A$ est bien sur le cercle."}
   ]},
-  {t:"astuce", titre:"Tester si un point est sur un cercle", x:"Remplace $x$ et $y$ par les coordonnées du point. Si tu obtiens exactement $R^2$, il est sur le cercle ; si tu obtiens moins, il est à l'intérieur ; si tu obtiens plus, il est à l'extérieur."}
+  {t:"astuce", titre:"Tester si un point est sur un cercle", x:"Remplace $x$ et $y$ par les coordonnées du point. Si tu obtiens exactement $R^2$, il est sur le cercle ; si tu obtiens moins, il est à l'intérieur ; si tu obtiens plus, il est à l'extérieur.<br><br>Là encore, l'équation joue le rôle de **filtre** : elle mesure le carré de la distance au centre, et il ne reste qu'à le comparer à $R^2$."}
+ ]},
+
+ {titre:"Récapitulatif : traduire, puis calculer", blocs:[
+  {t:"idee", x:"Dans ce chapitre, la difficulté n'est jamais le calcul — c'est la **traduction**. Une fois l'énoncé transformé en équations et en vecteurs, tout devient mécanique."},
+  {t:"tbl", head:["La question ressemble à…","Ce qu'il faut faire"], rows:[
+   ["« Le point $A$ est-il sur la droite ? »","Remplacer $x$ et $y$ dans l'équation, comparer à 0"],
+   ["« Équation de la droite $(AB)$ »","$@v{AB}$ → normal → $ax+by+c=0$ → placer avec un point"],
+   ["« Droite passant par $A$, perpendiculaire à $d$ »","Le **directeur** de $d$ devient le **normal** de la nouvelle"],
+   ["« Droite passant par $A$, parallèle à $d$ »","Mêmes coefficients $a$ et $b$, seul $c$ change"],
+   ["« Ces droites sont-elles parallèles ? »","Produit en croix des directeurs : $xy' - yx'$"],
+   ["« … perpendiculaires ? »","Produit scalaire des directeurs : $xx' + yy'$"],
+   ["« Point d'intersection »","Résoudre le système des deux équations"],
+   ["« Centre et rayon du cercle »","Lire $(x-a)^2+(y-b)^2=R^2$ : signes inversés, et $@r{}$ à droite"]
+  ]},
+  {t:"astuce", titre:"Les deux réflexes qui font gagner le plus", x:"**Fais un croquis, même approximatif.** Deux minutes de dessin à main levée révèlent immédiatement une réponse absurde : une droite du mauvais côté, un rayon trop grand, un point qui devrait être à l'intérieur.<br><br>**Vérifie toujours avec un point.** Une équation de droite se contrôle en y remplaçant un point connu : si tu ne trouves pas 0, l'erreur est en amont. Ce contrôle prend dix secondes et rattrape presque toutes les fautes de signe."},
+  {t:"piege", titre:"Les trois pièges de ce chapitre", x:"**1. Le normal et le directeur inversés.** Le normal se recopie tel quel depuis l'équation ; le directeur demande d'échanger et de changer un signe.<br>**2. Le signe du centre.** $(x + 3)^2$ correspond à une abscisse de centre égale à $-3$, pas $+3$. On lit ce qu'on **retranche**.<br>**3. Le rayon confondu avec son carré.** Une équation qui finit par $= 25$ décrit un cercle de rayon 5."},
+  {t:"p", x:"Un mot sur la façon de réviser ce chapitre. Il ne se retient pas en relisant : il se retient en **refaisant deux exercices complets** avec la figure tracée à côté. C'est en voyant la droite et son vecteur normal côte à côte que le lien entre l'équation et le dessin finit par devenir automatique."}
  ]}
 ],
 exos:[
@@ -2097,7 +2193,11 @@ exos:[
   diag:["", "$(3 ; 4)$ est le vecteur **normal** : il se lit tel quel dans l'équation, mais il est perpendiculaire à la droite, pas parallèle.",
         "Tu as échangé les coefficients sans changer de signe. Il faut faire les deux : $(-b ; a)$, soit $(-4 ; 3)$.",
         "Tu as changé un signe sans échanger les coefficients. Vérifie : $3 × 3 + 4 × (-4) = 9 - 16 = -7 ≠ 0$, donc ce vecteur n'est pas orthogonal au normal."],
-  corr:["Pour $ax + by + c = 0$, le normal est $@v{n}(a ; b) = (3 ; 4)$.","Le directeur s'obtient par $@v{u}(-b ; a) = (-4 ; 3)$.","Contrôle : $@v{n} · @v{u} = 3 × (-4) + 4 × 3 = 0$ ✓ — ils sont bien perpendiculaires."],
+  corr:["**Ce qu'on cherche.** Un vecteur **directeur** : il indique la direction que suit la droite. À ne pas confondre avec le normal, qui lui est perpendiculaire.",
+        "**Ce que l'équation donne directement.** Dans $ax + by + c = 0$, les coefficients de $x$ et $y$ forment le vecteur **normal** : ici $@v{n}(3 ; 4)$. C'est cadeau, mais ce n'est pas ce qu'on demande.",
+        "**Passer du normal au directeur.** On échange les deux coordonnées, et on change le signe de l'une : $@v{u}(-b ; a) = (-4 ; 3)$.",
+        "**Vérifier que c'est bien perpendiculaire au normal.** $@v{n} · @v{u} = 3 × (-4) + 4 × 3 = -12 + 12 = 0$ ✓. Un directeur est toujours orthogonal au normal : ce contrôle prend cinq secondes et confirme la manipulation.",
+        "**Remarque.** $(4 ; -3)$, $(-8 ; 6)$ ou $(8 ; -6)$ auraient aussi été acceptés : tous ces vecteurs sont proportionnels et pointent dans la même direction."],
   indice:"Le normal se lit tel quel. Pour le directeur : échange les coefficients **et** change un signe."},
 
  {id:"gr2", niveau:1, type:"qcm", enonce:"Le point $A(2 ; -1)$ appartient-il à la droite $x + 3y + 1 = 0$ ?",
@@ -2113,7 +2213,12 @@ exos:[
   diag:["", "Teste le produit scalaire des directeurs : $@v{u}(2 ; 1)$ et $@v{u'}(4 ; 2)$ donnent $8 + 2 = 10 ≠ 0$. Elles ne sont pas perpendiculaires.",
         "Les coefficients de $d'$ sont bien le double de ceux de $d$… sauf la constante : $2 × 3 = 6 ≠ -1$. Les droites sont donc parallèles mais distinctes.",
         "Leurs directions sont identiques : $@v{u}(2 ; 1)$ et $@v{u'}(4 ; 2)$ sont colinéaires. Elles ne peuvent pas se couper."],
-  corr:["Directeurs : $@v{u}(2 ; 1)$ pour $d$, $@v{u'}(4 ; 2)$ pour $d'$.","Produit en croix : $2 × 2 - 1 × 4 = 0$ → les vecteurs sont colinéaires, donc les droites sont parallèles.","Sont-elles confondues ? En multipliant $d$ par 2 : $2x - 4y + 6 = 0$, alors que $d'$ finit par $-1$.","Les constantes diffèrent : les droites sont strictement parallèles."],
+  corr:["**Première question : même direction ?** Je lis les vecteurs directeurs. Pour $d : x - 2y + 3 = 0$, le normal est $(1 ; -2)$, donc le directeur est $@v{u}(2 ; 1)$. Pour $d' : 2x - 4y - 1 = 0$, le normal est $(2 ; -4)$, donc le directeur est $@v{u'}(4 ; 2)$.",
+        "**Test du parallélisme — produit en croix.** $2 × 2 - 1 × 4 = 4 - 4 = 0$. Nul, donc les deux directeurs sont colinéaires : les droites ont bien la même direction. (On le voyait déjà : $(4 ; 2)$ est le double de $(2 ; 1)$.)",
+        "**Seconde question : parallèles ou confondues ?** Avoir la même direction ne suffit pas — deux droites confondues ont aussi la même direction. Il faut trancher.",
+        "**Le test des multiples.** Si les deux équations décrivent la même droite, l'une doit être un multiple exact de l'autre, **constante comprise**. Je multiplie $d$ par 2 : $2x - 4y + 6 = 0$.",
+        "**Comparaison.** Les termes en $x$ et $y$ coïncident bien avec $d'$, mais la constante vaut $+6$ d'un côté et $-1$ de l'autre. Elles ne sont donc pas confondues.",
+        "**Conclusion.** Même direction, mais positions différentes : les droites sont **strictement parallèles**. Elles ne se coupent jamais."],
   indice:"Compare d'abord les directions, puis regarde si l'une des équations est un multiple exact de l'autre."},
 
  {id:"gr4", niveau:2, type:"num", enonce:"La droite $d$ passe par $A(0 ; 3)$ et $B(2 ; 7)$. Son équation réduite s'écrit $y = mx + p$. Que vaut $m$ ?",
@@ -2146,7 +2251,12 @@ exos:[
   diag:["", "Cette droite est **parallèle** à $d$ (mêmes coefficients devant $x$ et $y$), pas perpendiculaire.",
         "Vérifie avec les directeurs : $d$ a pour directeur $(-1 ; 2)$, et $x + 2y = 0$ a pour directeur $(-2 ; 1)$. Leur produit scalaire vaut $2 + 2 = 4 ≠ 0$.",
         "Directeur de cette droite : $(1 ; 2)$. Produit scalaire avec $(-1 ; 2)$ : $-1 + 4 = 3 ≠ 0$. Pas perpendiculaire."],
-  corr:["Directeur de $d$ : $@v{u}(-1 ; 2)$.","Une droite perpendiculaire à $d$ a pour directeur un vecteur orthogonal à $@v{u}$, par exemple $(2 ; 1)$.","Son équation est alors de la forme $x - 2y + c = 0$ (dont le directeur est bien $(2 ; 1)$).","Elle passe par l'origine $(0 ; 0)$ : $0 - 0 + c = 0$, donc $c = 0$. Réponse : $x - 2y = 0$."],
+  corr:["**Traduire la contrainte de perpendicularité.** Il y a un raccourci qui évite tout calcul : si une droite doit être perpendiculaire à $d$, alors **le directeur de $d$ devient le normal de la nouvelle droite**. Les deux notions échangent leur rôle.",
+        "**Lire les vecteurs de $d : 2x + y - 3 = 0$.** Son normal est $(2 ; 1)$, donc son directeur est $@v{u}(-1 ; 2)$.",
+        "**Construire la nouvelle équation.** Ce directeur $(-1 ; 2)$ devient le normal cherché, ce qui donne la forme $-x + 2y + c = 0$. On peut multiplier toute l'équation par $-1$ pour rendre les signes plus agréables : $x - 2y - c = 0$, qu'on réécrit $x - 2y + c' = 0$.",
+        "**Placer la droite avec le point donné.** Elle passe par l'origine $(0 ; 0)$ : $0 - 2×0 + c' = 0$, donc $c' = 0$.",
+        "**Conclusion.** L'équation est $x - 2y = 0$.",
+        "**Vérification.** Directeur de cette droite : normal $(1 ; -2)$ → directeur $(2 ; 1)$. Produit scalaire avec le directeur de $d$, $(-1 ; 2)$ : $2×(-1) + 1×2 = 0$ ✓. Et l'origine vérifie bien $0 - 0 = 0$ ✓."],
   indice:"Cherche la droite dont le vecteur directeur est orthogonal à celui de $d$, puis impose le passage par $(0 ; 0)$."},
 
  {id:"gr8", niveau:3, type:"qcm", enonce:"Le point $B(1 ; 1)$ et le cercle d'équation $(x - 2)^2 + (y - 3)^2 = 16$. Où se situe $B$ ?",
