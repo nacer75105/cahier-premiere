@@ -2379,7 +2379,7 @@ exos:[
 {
 id:"variable", n:9, titre:"Variables aléatoires",
 sous:"Ce qu'on gagne en moyenne, et à quel point ça varie",
-desc:"Loi de probabilité, espérance, variance et écart-type.",
+desc:"Loi de probabilité, espérance, variance, écart-type et loi binomiale.",
 duree:35,
 sections:[
  {titre:"Mettre un nombre sur le hasard", blocs:[
@@ -2492,6 +2492,32 @@ sections:[
   {t:"astuce", titre:"Deux contrôles imparables", x:"**La somme des probabilités doit valoir exactement 1.** Si ce n'est pas le cas, inutile de continuer : la loi est fausse.<br><br>**La variance ne peut jamais être négative.** Un résultat négatif signale toujours une erreur — le plus souvent le carré de l'espérance soustrait trop tôt."},
   {t:"p", x:"Un dernier mot sur le sens de tout ça. Ce chapitre est celui des assurances, des casinos et des paris. Tous reposent sur la même idée : à court terme, tout peut arriver ; à long terme, l'espérance finit par l'emporter. C'est pour cette raison qu'un casino avec une espérance légèrement défavorable au joueur gagne à coup sûr — non pas à chaque partie, mais sur des millions de parties."}
  ]},
+
+ {titre:"La loi binomiale : répéter la même épreuve", blocs:[
+  {t:"idee", x:"Beaucoup de situations reviennent à répéter **la même expérience à deux issues** plusieurs fois de suite, de façon indépendante : c'est ce que décrit la **loi binomiale**."},
+  {t:"p", x:"Une **épreuve de Bernoulli** est une expérience qui n'a que deux issues possibles : un « succès » (probabilité $p$) et un « échec » (probabilité $1-p$). Lancer une pièce et regarder si c'est pile, tirer une carte et regarder si c'est un roi, tester une pièce industrielle et voir si elle est défectueuse : à chaque fois, deux issues, une probabilité de succès fixée."},
+  {t:"p", x:"Un **schéma de Bernoulli** consiste à répéter $n$ fois la même épreuve de Bernoulli, de façon indépendante : le résultat d'un essai ne change rien à la probabilité des essais suivants, et $p$ reste le même à chaque fois."},
+  {t:"formule", titre:"Loi binomiale", x:"Si $X$ compte le nombre de succès obtenus sur $n$ répétitions indépendantes d'une épreuve de Bernoulli de paramètre $p$, on dit que $X$ suit la loi binomiale de paramètres $n$ et $p$, notée $X \\sim \\mathcal{B}(n\\, ;\\, p)$.", note:"Deux nombres suffisent à la décrire entièrement : $n$ (le nombre de répétitions) et $p$ (la probabilité de succès à chaque répétition)."},
+  {t:"p", x:"La question typique est : « quelle est la probabilité d'obtenir exactement $k$ succès sur les $n$ répétitions ? » Il y a deux choses à combiner. D'abord, la probabilité d'une suite précise de $k$ succès et $n-k$ échecs, dans un ordre donné : c'est $p^k (1-p)^{n-k}$, parce que les répétitions sont indépendantes. Ensuite, il faut compter **de combien de façons** ces $k$ succès peuvent se placer parmi les $n$ répétitions — c'est ce que compte le coefficient binomial $\\binom{n}{k}$, qui se lit « $k$ parmi $n$ »."},
+  {t:"formule", titre:"Probabilité d'exactement $k$ succès", x:"$P(X = k) = \\binom{n}{k} \\, p^k \\, (1-p)^{n-k}$", note:"$\\binom{n}{k}$ compte le nombre de façons de placer $k$ succès parmi $n$ essais ; la calculatrice le donne directement (touche « nCr » ou « Combinaison »)."},
+  {t:"exemple", titre:"Exemple guidé — combien de six en cinq lancers ?", enonce:"On lance un dé équilibré 5 fois. On appelle succès l'obtention d'un 6. Quelle est la probabilité d'obtenir exactement 2 six ?", etapes:[
+   {q:"Reconnaître le schéma", r:"5 lancers indépendants, deux issues à chaque fois (6 ou pas 6) : c'est un schéma de Bernoulli répété. $X$ = nombre de six suit $\\mathcal{B}(n\\, ;\\, p)$ avec $n = 5$ et $p = @f{1}{6}$."},
+   {q:"Écrire ce qu'on cherche", r:"On cherche $P(X = 2)$, avec $k = 2$."},
+   {q:"Appliquer la formule", r:"$P(X = 2) = \\binom{5}{2} × @f{1}{6}^2 × @f{5}{6}^3$."},
+   {q:"Calculer le coefficient binomial", r:"$\\binom{5}{2} = 10$ (10 façons de choisir lesquels des 5 lancers sont les deux six)."},
+   {q:"Terminer le calcul", r:"$P(X = 2) = 10 × @f{1}{36} × @f{125}{216} ≈ 0{,}1608$."},
+   {q:"Conclure", r:"Il y a environ 16 % de chances d'obtenir exactement 2 six sur 5 lancers."}
+  ]},
+  {t:"formule", titre:"Espérance et écart-type d'une loi binomiale", x:"$E(X) = np$ &nbsp;&nbsp; et &nbsp;&nbsp; $V(X) = np(1-p)$, donc $σ(X) = @r{np(1-p)}$", note:"Pas besoin de repasser par le tableau valeurs/probabilités : ces deux formules donnent directement l'espérance et la variance dès qu'on a reconnu une loi binomiale."},
+  {t:"piege", titre:"$p$ est la probabilité de succès, jamais d'échec", x:"Si l'énoncé dit « la pièce a 5 % de chances d'être défectueuse » et que le succès qu'on compte est justement « être défectueuse », alors $p = 0{,}05$ — pas $0{,}95$. Relis toujours l'énoncé pour savoir ce que tu appelles « succès »."},
+  {t:"piege", titre:"Ne pas confondre avec les probabilités conditionnelles", x:"Dans un schéma de Bernoulli, les répétitions sont **indépendantes** : le résultat d'un essai ne change rien à la probabilité des suivants. C'est très différent du chapitre précédent, où l'on pouvait tirer des boules **sans remise** — là, chaque tirage change les probabilités du suivant, et la loi binomiale ne s'applique plus."},
+  {t:"check", q:"Un examinateur teste 8 étudiants pris au hasard ; chacun a une probabilité de 0,7 de réussir, indépendamment des autres. On note $X$ le nombre d'étudiants qui réussissent. Quelle est la loi de $X$ ?",
+   choix:["$\\mathcal{B}(8\\, ;\\, 0{,}7)$", "$\\mathcal{B}(0{,}7\\, ;\\, 8)$", "$\\mathcal{B}(8\\, ;\\, 0{,}3)$", "Ce n'est pas une loi binomiale"], bonne:0,
+   expl:["Exact : $n = 8$ répétitions, $p = 0{,}7$ la probabilité de succès (réussir) à chaque fois.",
+         "L'ordre des paramètres est toujours $n$ (le nombre de répétitions) puis $p$ (la probabilité de succès) — jamais l'inverse.",
+         "0,3 serait la probabilité d'échec (ne pas réussir), pas de succès.",
+         "C'est bien un schéma de Bernoulli répété 8 fois de façon indépendante : la loi binomiale s'applique."]}
+ ]},
 {titre:"Les méthodes du chapitre", blocs:[
   {t:"methode", titre:"Dresser une loi de probabilité", etapes:[
    "**Lister toutes les valeurs possibles** de la variable aléatoire, sans en oublier.",
@@ -2505,7 +2531,14 @@ sections:[
    "**Additionner tous ces produits** : c'est $E(X)$.",
    "**Interpréter en français** : c'est le gain moyen qu'on obtiendrait en répétant l'expérience un très grand nombre de fois.",
    "**Conclure sur l'équité si on le demande** : le jeu est équitable si $E(X) = 0$, favorable au joueur si $E(X) > 0$."
-  ], exemple:"$E(X) = 5 × 0{,}2 + (-1) × 0{,}8 = 1 - 0{,}8 = 0{,}2$ €. En moyenne, le joueur gagne 20 centimes par partie : le jeu lui est favorable."}
+  ], exemple:"$E(X) = 5 × 0{,}2 + (-1) × 0{,}8 = 1 - 0{,}8 = 0{,}2$ €. En moyenne, le joueur gagne 20 centimes par partie : le jeu lui est favorable."},
+  {t:"methode", titre:"Reconnaître et utiliser une loi binomiale", etapes:[
+   "**Vérifier les conditions du schéma de Bernoulli répété** : une expérience à deux issues (succès/échec), répétée un nombre fixe $n$ de fois, de façon indépendante, avec la même probabilité de succès $p$ à chaque fois.",
+   "**Identifier $n$ et $p$** à partir de l'énoncé, en repérant précisément ce qui compte comme « succès ».",
+   "**Écrire $X \\sim \\mathcal{B}(n\\, ;\\, p)$.**",
+   "**Pour une probabilité ponctuelle $P(X=k)$** : appliquer $\\binom{n}{k} \\, p^k \\, (1-p)^{n-k}$.",
+   "**Pour l'espérance ou la variance** : utiliser directement $E(X) = np$ et $V(X) = np(1-p)$, sans repasser par le tableau."
+  ], exemple:"On lance une pièce 6 fois et on compte les piles. $n=6$, $p=0{,}5$. $E(X) = 6 × 0{,}5 = 3$ : en moyenne, 3 piles sur 6 lancers."}
  ]}
 ],
 exos:[
@@ -2590,7 +2623,50 @@ exos:[
         "60 lancers, c'est déjà mieux que 6, mais la fréquence fluctuera encore sensiblement autour de $0{,}167$.",
         "C'est justement le point central du chapitre : plus l'échantillon est grand, plus la fréquence observée se rapproche de la probabilité théorique et se stabilise."],
   corr:["La fréquence observée s'approche de la probabilité théorique quand la taille de l'échantillon augmente.","Avec $n = 6$, la fluctuation est énorme.","Avec $n = 100000$, la fréquence sera presque toujours très proche de $0{,}167$.","C'est ce qui rend les simulations informatiques utiles : on peut prendre $n$ très grand."],
-  indice:"Repense au programme du chapitre 10 : pourquoi lançait-il le dé 6000 fois plutôt que 10 ?"}
+  indice:"Repense au programme du chapitre 10 : pourquoi lançait-il le dé 6000 fois plutôt que 10 ?"},
+
+ {id:"va11", niveau:2, type:"num", enonce:"On lance une pièce équilibrée 4 fois. Quelle est la probabilité d'obtenir exactement 3 piles ?",
+  rep:0.25, tol:0.001,
+  diag:[{v:0.0625, m:"Tu as oublié de multiplier par le coefficient binomial $\\binom{4}{3} = 4$ : il y a 4 façons de placer les 3 piles parmi les 4 lancers."},
+        {v:0.125, m:"Tu as calculé $0{,}5^3$ seul, sans le facteur du 4ᵉ lancer (l'échec) ni le coefficient binomial."},
+        {v:4, m:"4 est le coefficient binomial $\\binom{4}{3}$, pas la probabilité : il faut encore le multiplier par $p^k(1-p)^{n-k}$."}],
+  corr:["Schéma de Bernoulli : $n=4$, $p=0{,}5$ (pile), on cherche $k=3$.","$P(X=3) = \\binom{4}{3} × 0{,}5^3 × 0{,}5^1$.","$\\binom{4}{3} = 4$.","$P(X=3) = 4 × 0{,}125 × 0{,}5 = 0{,}25$."],
+  indice:"N'oublie ni le coefficient binomial, ni le facteur pour le lancer qui n'est pas un succès."},
+
+ {id:"va12", niveau:1, type:"num", enonce:"Une usine sait que 20 % des pièces produites présentent un petit défaut esthétique. On prélève 10 pièces au hasard, de façon indépendante. On note $X$ le nombre de pièces défectueuses. Quelle est l'espérance $E(X)$ ?",
+  rep:2, tol:0.001,
+  diag:[{v:0.2, m:"0,2 est la probabilité $p$, pas l'espérance. Il faut la multiplier par $n$."},
+        {v:10, m:"10 est le nombre de pièces $n$, pas l'espérance. Applique la formule $E(X)=np$."},
+        {v:8, m:"Tu as peut-être calculé $n(1-p) = 10 × 0{,}8$, qui correspond au nombre moyen de pièces **non** défectueuses."}],
+  corr:["$X$ suit $\\mathcal{B}(n\\, ;\\, p)$ avec $n=10$ et $p=0{,}2$.","$E(X) = np$.","$E(X) = 10 × 0{,}2 = 2$."],
+  indice:"Pas besoin de repasser par le tableau : la formule directe est $E(X) = np$."},
+
+ {id:"va13", niveau:1, type:"num", enonce:"Dans un schéma de Bernoulli répété 6 fois, de combien de façons différentes peut-on placer exactement 2 succès parmi les 6 répétitions ?",
+  rep:15, tol:0.001,
+  diag:[{v:12, m:"Ce n'est pas le bon calcul du coefficient binomial. $\\binom{6}{2} = @f{6×5}{2×1} = 15$."},
+        {v:30, m:"Tu as oublié de diviser par $2! = 2$. $\\binom{6}{2} = @f{6×5}{2×1}$, pas $6×5$ seul."},
+        {v:6, m:"6 serait le nombre de façons de placer un seul succès parmi 6, pas deux."}],
+  corr:["C'est exactement ce que compte le coefficient binomial $\\binom{6}{2}$.","$\\binom{6}{2} = @f{6×5}{2×1} = @f{30}{2} = 15$.","Il y a 15 façons de placer les 2 succès parmi les 6 répétitions."],
+  indice:"C'est la définition même du coefficient binomial $\\binom{n}{k}$ : le nombre de façons de choisir $k$ éléments parmi $n$."},
+
+ {id:"va14", niveau:2, type:"num", enonce:"Une expérience suit une loi binomiale de paramètres $n=8$ et $p=0{,}25$. Calculer la variance $V(X)$.",
+  rep:1.5, tol:0.001,
+  diag:[{v:2, m:"2 est $E(X) = np = 8 × 0{,}25$, pas la variance. Il manque le facteur $(1-p)$."},
+        {v:0.1875, m:"Tu as calculé $p(1-p)$ seul, sans le multiplier par $n$."},
+        {v:6, m:"6 correspondrait à $n(1-p) = 8 × 0{,}75$, ce n'est pas la formule de la variance."}],
+  corr:["Pour une loi binomiale, $V(X) = np(1-p)$.","$V(X) = 8 × 0{,}25 × 0{,}75$.","$V(X) = 8 × 0{,}1875 = 1{,}5$."],
+  indice:"La formule directe est $V(X) = np(1-p)$, sans repasser par le tableau."},
+
+ {id:"va15", niveau:3, type:"qcm", enonce:"Dans quelle situation $X$ suit-elle une loi binomiale ?",
+  choix:["On tire une carte, on la remet dans le jeu, et on répète 5 fois en comptant les rois obtenus",
+         "On tire 5 cartes d'un jeu, sans les remettre, en comptant les rois obtenus",
+         "On interroge 5 élèves l'un après l'autre, chaque réponse dépendant de la précédente",
+         "On lance un dé une seule fois"], bonne:0,
+  diag:["", "Sans remise, chaque tirage change la composition du jeu : la probabilité n'est plus la même à chaque tirage, l'indépendance est cassée — ce n'est plus une loi binomiale.",
+        "Si chaque réponse dépend de la précédente, les répétitions ne sont pas indépendantes : condition indispensable à la loi binomiale.",
+        "Un seul lancer n'est pas une répétition : il faut plusieurs essais pour parler de loi binomiale."],
+  corr:["Une loi binomiale demande des répétitions **indépendantes** de la même épreuve à deux issues, avec une probabilité de succès qui ne change pas.","Tirer avec remise garantit cette indépendance et cette probabilité constante — contrairement au tirage sans remise ou aux réponses corrélées.","C'est donc la première situation qui suit une loi binomiale."],
+  indice:"Cherche laquelle des quatre situations garde exactement la même probabilité de succès à chaque répétition, indépendamment des précédentes."}
 ]
 }
 ]);
