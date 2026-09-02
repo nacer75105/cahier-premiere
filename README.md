@@ -228,6 +228,21 @@ Trois protections se cumulent :
 
 Une requête mal formée ne consomme aucun quota : la validation passe avant.
 
+## Où se trouve le code de l'application
+
+`public/index.html` est **le fichier source**, pas un fichier généré. Toute
+modification du cours, des exercices ou de l'interface se fait dedans.
+
+`docs/index.html` en est une **copie** publiée par GitHub Pages. Après chaque
+modification de `public/index.html`, il faut la refaire :
+
+```bash
+npm run pages
+```
+
+Sans ça, la version GitHub Pages reste en retard — c'est arrivé une fois, la
+page publique tournait sur une version antérieure à la loi binomiale.
+
 ## Notes techniques
 
 - **Zod 4 est obligatoire.** Le helper de sortie structurée du SDK appelle

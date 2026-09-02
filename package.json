@@ -6,7 +6,7 @@
   "description": "Cahier de Première — application de maths avec couche IA",
   "scripts": {
     "start": "node --env-file=.env server.js",
-    "pages": "node -e \"require('fs').copyFileSync('public/index.html','docs/index.html')\""
+    "pages": "node -e \"const f=require('fs');f.copyFileSync('public/index.html','docs/index.html');f.copyFileSync('public/sw.js','docs/sw.js');console.log('docs/ synchronise')\""
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.71.0",
