@@ -169,6 +169,9 @@ hr.sep{border:0;border-top:1px solid var(--line);margin:26px 0}
 .rad{display:inline-flex;align-items:stretch}
 .rad>i{font-style:normal}
 .rad>span{border-top:1.4px solid currentColor;padding:0 .18em;margin-left:-.04em}
+.binom{display:inline-flex;align-items:center;vertical-align:-.45em;margin:0 .12em}
+.binom>i{font-style:normal;font-size:1.9em;line-height:.8;font-weight:300}
+.binom>span{display:inline-flex;flex-direction:column;text-align:center;padding:0 .14em;line-height:1.12}
 .vec{position:relative;display:inline-block;font-style:italic;padding-top:.1em}
 .vec::after{content:"\2192";position:absolute;left:0;right:0;top:-.72em;font-size:.66em;text-align:center;font-style:normal}
 .mblock{
@@ -459,6 +462,11 @@ function mathCore(s){
     s = s.replace(FRAC, '<span class="frac"><span>$1</span><span>$2</span></span>');
   }
   s = s.replace(/@r\{([^{}]*)\}/g,'<span class="rad"><i>√</i><span>$1</span></span>');
+  /* Coefficient binomial : les deux nombres empilés entre parenthèses.
+     Sans lui, la formule centrale de la loi binomiale affichait sa
+     commande LaTeX en clair, antislash compris. */
+  s = s.replace(/@b\{([^{}]*)\}\{([^{}]*)\}/g,
+    '<span class="binom"><i>(</i><span><span>$1</span><span>$2</span></span><i>)</i></span>');
   s = s.replace(/@v\{([^{}]*)\}/g,'<span class="vec">$1</span>');
   s = s.replace(/\^\{([^{}]*)\}/g,'<sup>$1</sup>');
   s = s.replace(/_\{([^{}]*)\}/g,'<sub>$1</sub>');
@@ -2497,14 +2505,14 @@ sections:[
   {t:"idee", x:"Beaucoup de situations reviennent à répéter **la même expérience à deux issues** plusieurs fois de suite, de façon indépendante : c'est ce que décrit la **loi binomiale**."},
   {t:"p", x:"Une **épreuve de Bernoulli** est une expérience qui n'a que deux issues possibles : un « succès » (probabilité $p$) et un « échec » (probabilité $1-p$). Lancer une pièce et regarder si c'est pile, tirer une carte et regarder si c'est un roi, tester une pièce industrielle et voir si elle est défectueuse : à chaque fois, deux issues, une probabilité de succès fixée."},
   {t:"p", x:"Un **schéma de Bernoulli** consiste à répéter $n$ fois la même épreuve de Bernoulli, de façon indépendante : le résultat d'un essai ne change rien à la probabilité des essais suivants, et $p$ reste le même à chaque fois."},
-  {t:"formule", titre:"Loi binomiale", x:"Si $X$ compte le nombre de succès obtenus sur $n$ répétitions indépendantes d'une épreuve de Bernoulli de paramètre $p$, on dit que $X$ suit la loi binomiale de paramètres $n$ et $p$, notée $X \\sim \\mathcal{B}(n\\, ;\\, p)$.", note:"Deux nombres suffisent à la décrire entièrement : $n$ (le nombre de répétitions) et $p$ (la probabilité de succès à chaque répétition)."},
-  {t:"p", x:"La question typique est : « quelle est la probabilité d'obtenir exactement $k$ succès sur les $n$ répétitions ? » Il y a deux choses à combiner. D'abord, la probabilité d'une suite précise de $k$ succès et $n-k$ échecs, dans un ordre donné : c'est $p^k (1-p)^{n-k}$, parce que les répétitions sont indépendantes. Ensuite, il faut compter **de combien de façons** ces $k$ succès peuvent se placer parmi les $n$ répétitions — c'est ce que compte le coefficient binomial $\\binom{n}{k}$, qui se lit « $k$ parmi $n$ »."},
-  {t:"formule", titre:"Probabilité d'exactement $k$ succès", x:"$P(X = k) = \\binom{n}{k} \\, p^k \\, (1-p)^{n-k}$", note:"$\\binom{n}{k}$ compte le nombre de façons de placer $k$ succès parmi $n$ essais ; la calculatrice le donne directement (touche « nCr » ou « Combinaison »)."},
+  {t:"formule", titre:"Loi binomiale", x:"Si $X$ compte le nombre de succès obtenus sur $n$ répétitions indépendantes d'une épreuve de Bernoulli de paramètre $p$, on dit que $X$ suit la loi binomiale de paramètres $n$ et $p$, notée $X ∼ ℬ(n ; p)$.", note:"Deux nombres suffisent à la décrire entièrement : $n$ (le nombre de répétitions) et $p$ (la probabilité de succès à chaque répétition)."},
+  {t:"p", x:"La question typique est : « quelle est la probabilité d'obtenir exactement $k$ succès sur les $n$ répétitions ? » Il y a deux choses à combiner. D'abord, la probabilité d'une suite précise de $k$ succès et $n-k$ échecs, dans un ordre donné : c'est $p^k (1-p)^{n-k}$, parce que les répétitions sont indépendantes. Ensuite, il faut compter **de combien de façons** ces $k$ succès peuvent se placer parmi les $n$ répétitions — c'est ce que compte le coefficient binomial $@b{n}{k}$, qui se lit « $k$ parmi $n$ »."},
+  {t:"formule", titre:"Probabilité d'exactement $k$ succès", x:"$P(X = k) = @b{n}{k} p^k (1-p)^{n-k}$", note:"$@b{n}{k}$ compte le nombre de façons de placer $k$ succès parmi $n$ essais ; la calculatrice le donne directement (touche « nCr » ou « Combinaison »)."},
   {t:"exemple", titre:"Exemple guidé — combien de six en cinq lancers ?", enonce:"On lance un dé équilibré 5 fois. On appelle succès l'obtention d'un 6. Quelle est la probabilité d'obtenir exactement 2 six ?", etapes:[
-   {q:"Reconnaître le schéma", r:"5 lancers indépendants, deux issues à chaque fois (6 ou pas 6) : c'est un schéma de Bernoulli répété. $X$ = nombre de six suit $\\mathcal{B}(n\\, ;\\, p)$ avec $n = 5$ et $p = @f{1}{6}$."},
+   {q:"Reconnaître le schéma", r:"5 lancers indépendants, deux issues à chaque fois (6 ou pas 6) : c'est un schéma de Bernoulli répété. $X$ = nombre de six suit $ℬ(n ; p)$ avec $n = 5$ et $p = @f{1}{6}$."},
    {q:"Écrire ce qu'on cherche", r:"On cherche $P(X = 2)$, avec $k = 2$."},
-   {q:"Appliquer la formule", r:"$P(X = 2) = \\binom{5}{2} × @f{1}{6}^2 × @f{5}{6}^3$."},
-   {q:"Calculer le coefficient binomial", r:"$\\binom{5}{2} = 10$ (10 façons de choisir lesquels des 5 lancers sont les deux six)."},
+   {q:"Appliquer la formule", r:"$P(X = 2) = @b{5}{2} × @f{1}{6}^2 × @f{5}{6}^3$."},
+   {q:"Calculer le coefficient binomial", r:"$@b{5}{2} = 10$ (10 façons de choisir lesquels des 5 lancers sont les deux six)."},
    {q:"Terminer le calcul", r:"$P(X = 2) = 10 × @f{1}{36} × @f{125}{216} ≈ 0{,}1608$."},
    {q:"Conclure", r:"Il y a environ 16 % de chances d'obtenir exactement 2 six sur 5 lancers."}
   ]},
@@ -2512,7 +2520,7 @@ sections:[
   {t:"piege", titre:"$p$ est la probabilité de succès, jamais d'échec", x:"Si l'énoncé dit « la pièce a 5 % de chances d'être défectueuse » et que le succès qu'on compte est justement « être défectueuse », alors $p = 0{,}05$ — pas $0{,}95$. Relis toujours l'énoncé pour savoir ce que tu appelles « succès »."},
   {t:"piege", titre:"Ne pas confondre avec les probabilités conditionnelles", x:"Dans un schéma de Bernoulli, les répétitions sont **indépendantes** : le résultat d'un essai ne change rien à la probabilité des suivants. C'est très différent du chapitre précédent, où l'on pouvait tirer des boules **sans remise** — là, chaque tirage change les probabilités du suivant, et la loi binomiale ne s'applique plus."},
   {t:"check", q:"Un examinateur teste 8 étudiants pris au hasard ; chacun a une probabilité de 0,7 de réussir, indépendamment des autres. On note $X$ le nombre d'étudiants qui réussissent. Quelle est la loi de $X$ ?",
-   choix:["$\\mathcal{B}(8\\, ;\\, 0{,}7)$", "$\\mathcal{B}(0{,}7\\, ;\\, 8)$", "$\\mathcal{B}(8\\, ;\\, 0{,}3)$", "Ce n'est pas une loi binomiale"], bonne:0,
+   choix:["$ℬ(8 ; 0{,}7)$", "$ℬ(0{,}7 ; 8)$", "$ℬ(8 ; 0{,}3)$", "Ce n'est pas une loi binomiale"], bonne:0,
    expl:["Exact : $n = 8$ répétitions, $p = 0{,}7$ la probabilité de succès (réussir) à chaque fois.",
          "L'ordre des paramètres est toujours $n$ (le nombre de répétitions) puis $p$ (la probabilité de succès) — jamais l'inverse.",
          "0,3 serait la probabilité d'échec (ne pas réussir), pas de succès.",
@@ -2535,8 +2543,8 @@ sections:[
   {t:"methode", titre:"Reconnaître et utiliser une loi binomiale", etapes:[
    "**Vérifier les conditions du schéma de Bernoulli répété** : une expérience à deux issues (succès/échec), répétée un nombre fixe $n$ de fois, de façon indépendante, avec la même probabilité de succès $p$ à chaque fois.",
    "**Identifier $n$ et $p$** à partir de l'énoncé, en repérant précisément ce qui compte comme « succès ».",
-   "**Écrire $X \\sim \\mathcal{B}(n\\, ;\\, p)$.**",
-   "**Pour une probabilité ponctuelle $P(X=k)$** : appliquer $\\binom{n}{k} \\, p^k \\, (1-p)^{n-k}$.",
+   "**Écrire $X ∼ ℬ(n ; p)$.**",
+   "**Pour une probabilité ponctuelle $P(X=k)$** : appliquer $@b{n}{k} p^k (1-p)^{n-k}$.",
    "**Pour l'espérance ou la variance** : utiliser directement $E(X) = np$ et $V(X) = np(1-p)$, sans repasser par le tableau."
   ], exemple:"On lance une pièce 6 fois et on compte les piles. $n=6$, $p=0{,}5$. $E(X) = 6 × 0{,}5 = 3$ : en moyenne, 3 piles sur 6 lancers."}
  ]}
@@ -2627,10 +2635,10 @@ exos:[
 
  {id:"va11", niveau:2, type:"num", enonce:"On lance une pièce équilibrée 4 fois. Quelle est la probabilité d'obtenir exactement 3 piles ?",
   rep:0.25, tol:0.001,
-  diag:[{v:0.0625, m:"Tu as oublié de multiplier par le coefficient binomial $\\binom{4}{3} = 4$ : il y a 4 façons de placer les 3 piles parmi les 4 lancers."},
+  diag:[{v:0.0625, m:"Tu as oublié de multiplier par le coefficient binomial $@b{4}{3} = 4$ : il y a 4 façons de placer les 3 piles parmi les 4 lancers."},
         {v:0.125, m:"Tu as calculé $0{,}5^3$ seul, sans le facteur du 4ᵉ lancer (l'échec) ni le coefficient binomial."},
-        {v:4, m:"4 est le coefficient binomial $\\binom{4}{3}$, pas la probabilité : il faut encore le multiplier par $p^k(1-p)^{n-k}$."}],
-  corr:["Schéma de Bernoulli : $n=4$, $p=0{,}5$ (pile), on cherche $k=3$.","$P(X=3) = \\binom{4}{3} × 0{,}5^3 × 0{,}5^1$.","$\\binom{4}{3} = 4$.","$P(X=3) = 4 × 0{,}125 × 0{,}5 = 0{,}25$."],
+        {v:4, m:"4 est le coefficient binomial $@b{4}{3}$, pas la probabilité : il faut encore le multiplier par $p^k(1-p)^{n-k}$."}],
+  corr:["Schéma de Bernoulli : $n=4$, $p=0{,}5$ (pile), on cherche $k=3$.","$P(X=3) = @b{4}{3} × 0{,}5^3 × 0{,}5^1$.","$@b{4}{3} = 4$.","$P(X=3) = 4 × 0{,}125 × 0{,}5 = 0{,}25$."],
   indice:"N'oublie ni le coefficient binomial, ni le facteur pour le lancer qui n'est pas un succès."},
 
  {id:"va12", niveau:1, type:"num", enonce:"Une usine sait que 20 % des pièces produites présentent un petit défaut esthétique. On prélève 10 pièces au hasard, de façon indépendante. On note $X$ le nombre de pièces défectueuses. Quelle est l'espérance $E(X)$ ?",
@@ -2638,16 +2646,16 @@ exos:[
   diag:[{v:0.2, m:"0,2 est la probabilité $p$, pas l'espérance. Il faut la multiplier par $n$."},
         {v:10, m:"10 est le nombre de pièces $n$, pas l'espérance. Applique la formule $E(X)=np$."},
         {v:8, m:"Tu as peut-être calculé $n(1-p) = 10 × 0{,}8$, qui correspond au nombre moyen de pièces **non** défectueuses."}],
-  corr:["$X$ suit $\\mathcal{B}(n\\, ;\\, p)$ avec $n=10$ et $p=0{,}2$.","$E(X) = np$.","$E(X) = 10 × 0{,}2 = 2$."],
+  corr:["$X$ suit $ℬ(n ; p)$ avec $n=10$ et $p=0{,}2$.","$E(X) = np$.","$E(X) = 10 × 0{,}2 = 2$."],
   indice:"Pas besoin de repasser par le tableau : la formule directe est $E(X) = np$."},
 
  {id:"va13", niveau:1, type:"num", enonce:"Dans un schéma de Bernoulli répété 6 fois, de combien de façons différentes peut-on placer exactement 2 succès parmi les 6 répétitions ?",
   rep:15, tol:0.001,
-  diag:[{v:12, m:"Ce n'est pas le bon calcul du coefficient binomial. $\\binom{6}{2} = @f{6×5}{2×1} = 15$."},
-        {v:30, m:"Tu as oublié de diviser par $2! = 2$. $\\binom{6}{2} = @f{6×5}{2×1}$, pas $6×5$ seul."},
+  diag:[{v:12, m:"Ce n'est pas le bon calcul du coefficient binomial. $@b{6}{2} = @f{6×5}{2×1} = 15$."},
+        {v:30, m:"Tu as oublié de diviser par $2! = 2$. $@b{6}{2} = @f{6×5}{2×1}$, pas $6×5$ seul."},
         {v:6, m:"6 serait le nombre de façons de placer un seul succès parmi 6, pas deux."}],
-  corr:["C'est exactement ce que compte le coefficient binomial $\\binom{6}{2}$.","$\\binom{6}{2} = @f{6×5}{2×1} = @f{30}{2} = 15$.","Il y a 15 façons de placer les 2 succès parmi les 6 répétitions."],
-  indice:"C'est la définition même du coefficient binomial $\\binom{n}{k}$ : le nombre de façons de choisir $k$ éléments parmi $n$."},
+  corr:["C'est exactement ce que compte le coefficient binomial $@b{6}{2}$.","$@b{6}{2} = @f{6×5}{2×1} = @f{30}{2} = 15$.","Il y a 15 façons de placer les 2 succès parmi les 6 répétitions."],
+  indice:"C'est la définition même du coefficient binomial $@b{n}{k}$ : le nombre de façons de choisir $k$ éléments parmi $n$."},
 
  {id:"va14", niveau:2, type:"num", enonce:"Une expérience suit une loi binomiale de paramètres $n=8$ et $p=0{,}25$. Calculer la variance $V(X)$.",
   rep:1.5, tol:0.001,
@@ -5756,7 +5764,7 @@ var G_GEO = [
     return { type:"num", niveau:1, rep:rep,
       enonce:"Soit $@v{u}("+fr(x)+" ; "+fr(y)+")$ et $@v{v}("+fr(x2)+" ; "+fr(y2)+")$. Calculer $@v{u} · @v{v}$.",
       diag:[{v:x*x2, m:"Tu n'as fait que le produit des abscisses. Il faut aussi celui des ordonnées, $"+fr(y)+" × "+fr(y2)+" = "+fr(y*y2)+"$, puis additionner."},
-            {v:x*x2-y*y2, m:"Tu as soustrait au lieu d'additionner. La formule est $x x' \\, + \\, y y'$ ; c'est le **déterminant** qui utilise une soustraction."},
+            {v:x*x2-y*y2, m:"Tu as soustrait au lieu d'additionner. La formule est $x x' + y y'$ ; c'est le **déterminant** qui utilise une soustraction."},
             {v:x*y2+y*x2, m:"Tu as croisé les coordonnées. Le produit scalaire multiplie les abscisses **entre elles**, puis les ordonnées entre elles."},
             {v:x+y+x2+y2, m:"Tu as additionné les quatre nombres. La formule comporte deux multiplications avant l'addition."}],
       corr:["**Écrire la formule.** $@v{u} · @v{v} = x x' + y y'$.",
@@ -5924,6 +5932,182 @@ var G_PROBA = [
   }}
 ];
 
+/* --------------------------- LOI BINOMIALE --------------------------- */
+/* Le coefficient binomial est calculé par produits successifs plutôt que
+   par des factorielles : les factorielles de 9 ou 10 sont déjà énormes,
+   alors que le résultat, lui, reste petit. */
+function coefBin(n,k){
+  if(k<0 || k>n) return 0;
+  if(k > n-k) k = n-k;
+  var r = 1;
+  for(var i=1;i<=k;i++) r = r*(n-k+i)/i;
+  return Math.round(r);
+}
+function fact(k){ var r=1; for(var i=2;i<=k;i++) r*=i; return r; }
+function arrang(n,k){ var r=1; for(var i=0;i<k;i++) r*=(n-i); return r; }
+function mil(x){ return Math.round(x*1000)/1000; }   /* arrondi au millième */
+
+var G_BINOMIALE = [
+
+{ id:"bi-coef", chap:"variable", titre:"Coefficient binomial", niveau:1, gen:function(){
+    /* On écarte le tirage n=5, k=2 : il donne 5 × 2 = 10, exactement la bonne
+       réponse, ce qui rendrait le distracteur « tu as multiplié » inutilisable. */
+    var n,k,rep;
+    do{ n=ri(5,9); k=ri(2,n-2); rep=coefBin(n,k); }while(n*k===rep);
+    var A=arrang(n,k), kf=fact(k), deux=Math.pow(2,n);
+    var haut=[], bas=[];
+    for(var i=0;i<k;i++) haut.push(n-i);
+    for(var j=k;j>=1;j--) bas.push(j);
+    return { type:"num", niveau:1, rep:rep, tol:0.001,
+      enonce:"Calculer $@b{"+n+"}{"+k+"}$, le nombre de façons de choisir "+k+" éléments parmi "+n+" — l'ordre n'ayant aucune importance.",
+      diag:[{v:n*k, m:"Tu as multiplié "+n+" par "+k+". Un coefficient binomial n'est jamais le produit des deux nombres : c'est un **comptage de choix**, et il passe toujours par un quotient."},
+            {v:A, m:"Tu as trouvé "+A+" = "+haut.join(" × ")+", qui compte les tirages **ordonnés**. Mais les mêmes "+k+" éléments pris dans un autre ordre forment le même choix : il reste à diviser par "+k+"! = "+kf+"."},
+            {v:deux, m:"$2^{"+n+"} = "+deux+"$ compte **toutes** les issues des "+n+" répétitions, quel que soit le nombre de succès. On ne veut ici que celles qui en comptent exactement "+k+"."},
+            {v:kf, m:"Tu as calculé "+k+"! = "+kf+". C'est le dénominateur du calcul, pas le résultat : il manque tout le numérateur."}],
+      corr:["**Ce que compte ce nombre.** $@b{"+n+"}{"+k+"}$ répond à une seule question : de combien de façons peut-on placer "+k+" succès parmi "+n+" essais ? Deux placements qui utilisent les mêmes essais sont **le même** choix.",
+            "**D'abord en tenant compte de l'ordre.** Pour le premier succès, "+n+" places possibles ; pour le deuxième, "+(n-1)+" ; et ainsi de suite sur "+k+" facteurs : $"+haut.join(" × ")+" = "+A+"$.",
+            "**Puis on corrige l'ordre.** Ces "+A+" listes contiennent chaque choix plusieurs fois — exactement "+k+"! = "+bas.join(" × ")+" = "+kf+" fois, car c'est le nombre de façons de ranger les mêmes "+k+" éléments.",
+            "**Le quotient.** $@b{"+n+"}{"+k+"} = @f{"+haut.join(" × ")+"}{"+bas.join(" × ")+"} = @f{"+A+"}{"+kf+"} = "+rep+"$.",
+            "**Contrôle par symétrie.** Choisir les "+k+" qui réussissent revient à choisir les "+(n-k)+" qui échouent : $@b{"+n+"}{"+k+"} = @b{"+n+"}{"+(n-k)+"}$. Les deux calculs doivent donner "+rep+" — c'est une vérification gratuite.",
+            "**Sur la calculatrice.** La touche s'appelle « nCr » ou « Combinaison » : on tape "+n+", puis nCr, puis "+k+"."],
+      indice:"Écris "+k+" facteurs qui descendent depuis "+n+" au numérateur, et "+k+"! au dénominateur." };
+  }},
+
+{ id:"bi-pk", chap:"variable", titre:"Probabilité d'exactement k succès", niveau:2, gen:function(){
+    /* Deux tirages sont écartés : ceux dont la réponse est trop petite pour
+       rester lisible au millième, et ceux où n(1-p) vaut 1 — car alors
+       $p^k$ seul égale la bonne réponse et ce distracteur perdrait son sens. */
+    var n,p,k,C,rep,essais=0;
+    do{
+      n=ri(4,6);
+      p=pick([0.2,0.25,0.3,0.4,0.5,0.6,0.7,0.75,0.8]);
+      k=ri(1,n-1);
+      C=coefBin(n,k);
+      rep=mil(C*Math.pow(p,k)*Math.pow(1-p,n-k));
+      essais++;
+    }while((rep<0.02 || mil(Math.pow(p,k))===rep) && essais<40);
+    var q=arr(1-p);
+    var sansC=mil(Math.pow(p,k)*Math.pow(1-p,n-k));
+    var sansQ=mil(C*Math.pow(p,k));
+    var ctx=pick([
+      {a:"Une urne contient des jetons, dont une proportion de "+fr(p)+" sont gagnants. On tire un jeton, on note le résultat, **on le remet**, et on recommence — "+n+" fois en tout.", s:"jetons gagnants"},
+      {a:"Une roue de loterie donne un lot avec une probabilité de "+fr(p)+" à chaque tour. On la fait tourner "+n+" fois, chaque tour étant indépendant des autres.", s:"tours gagnants"},
+      {a:"Une machine produit une pièce conforme avec une probabilité de "+fr(p)+". On en prélève "+n+" au hasard dans une production très nombreuse, ce qui rend les prélèvements indépendants.", s:"pièces conformes"}
+    ]);
+    return { type:"num", niveau:2, rep:rep, tol:0.0015,
+      enonce:ctx.a+" On note $X$ le nombre de "+ctx.s+". Calculer $P(X = "+k+")$, arrondi au millième.",
+      diag:[{v:sansC, m:"Tu as calculé la probabilité d'**une seule** suite précise : "+k+" succès d'abord, puis "+(n-k)+" échecs. Mais les "+k+" succès peuvent tomber à d'autres places : il y en a $@b{"+n+"}{"+k+"} = "+C+"$ arrangements possibles, et il faut multiplier par ce nombre."},
+            {v:sansQ, m:"Tu as bien mis le coefficient "+C+" et le facteur $"+fr(p)+"^{"+k+"}$, mais tu as oublié les "+(n-k)+" répétitions **ratées**. Chacune a une probabilité de "+fr(q)+" : il manque le facteur $"+fr(q)+"^{"+(n-k)+"}$."},
+            {v:C, m:"$"+C+"$ est le coefficient binomial $@b{"+n+"}{"+k+"}$ : il compte des façons de faire, ce n'est pas une probabilité. Une probabilité est toujours comprise entre 0 et 1."},
+            {v:mil(Math.pow(p,k)), m:"Tu n'as gardé que $"+fr(p)+"^{"+k+"}$. Il manque deux choses : le coefficient binomial devant, et le sort des "+(n-k)+" autres répétitions."}
+           ].filter(function(d){ return Math.abs(d.v-rep) > 0.0015; }),   /* jamais un « faux » égal au vrai */
+      corr:["**Vérifier que c'est bien une loi binomiale.** Une même épreuve à deux issues (succès / échec), répétée "+n+" fois, de façon **indépendante**, avec la même probabilité "+fr(p)+" à chaque fois. Les trois conditions sont réunies : $X$ suit $ℬ("+n+" ; "+fr(p)+")$.",
+            "**Écrire la formule.** $P(X = k) = @b{"+n+"}{k} p^k (1-p)^{"+n+"-k}$. Elle se lit en trois morceaux : combien de façons, puis les succès, puis les échecs.",
+            "**Le nombre de façons.** $@b{"+n+"}{"+k+"} = "+C+"$ : il y a "+C+" manières de choisir lesquelles des "+n+" répétitions sont les "+k+" réussies.",
+            "**Les succès.** Chacun a une probabilité "+fr(p)+", et ils sont indépendants : $"+fr(p)+"^{"+k+"} = "+mil(Math.pow(p,k))+"$.",
+            "**Les échecs.** Il en reste "+(n-k)+", chacun de probabilité $1 - "+fr(p)+" = "+fr(q)+"$ : $"+fr(q)+"^{"+(n-k)+"} = "+mil(Math.pow(1-p,n-k))+"$.",
+            "**Tout multiplier.** $P(X = "+k+") = "+C+" × "+mil(Math.pow(p,k))+" × "+mil(Math.pow(1-p,n-k))+" ≈ "+fr(rep)+"$.",
+            "**Contrôle.** Le résultat est entre 0 et 1 ✓. Et il est plus grand que la probabilité d'une seule suite ("+fr(sansC)+"), ce qui est logique puisqu'on additionne "+C+" suites également probables."],
+      indice:"Trois facteurs : le coefficient $@b{"+n+"}{"+k+"}$, puis $p$ élevé au nombre de succès, puis $1-p$ élevé au nombre d'échecs." };
+  }},
+
+{ id:"bi-esp-var", chap:"variable", titre:"Espérance et variance", niveau:2, gen:function(){
+    var n=ri(20,80);
+    var p=pick([0.1,0.15,0.2,0.25,0.3,0.4,0.6,0.75,0.8]);
+    var q=arr(1-p), E=mil(n*p), V=mil(n*p*(1-p)), sd=mil(Math.sqrt(n*p*(1-p)));
+    var mode=pick(["E","V"]);
+    var ctx="Une variable aléatoire $X$ suit la loi binomiale $ℬ("+n+" ; "+fr(p)+")$.";
+    if(mode==="E"){
+      return { type:"num", niveau:2, rep:E, tol:0.0015,
+        enonce:ctx+" Calculer son espérance $E(X)$.",
+        diag:[{v:V, m:"Tu as calculé $np(1-p) = "+fr(V)+"$, qui est la **variance**. L'espérance est plus simple : $E(X) = np$, sans le facteur $(1-p)$."},
+              {v:mil(n/p), m:"Tu as divisé par "+fr(p)+" au lieu de multiplier. Multiplier par une probabilité **diminue** le résultat ; diviser l'aurait fait exploser au-delà de "+n+", ce qui est impossible pour un nombre de succès sur "+n+" essais."},
+              {v:p, m:"Tu as donné la probabilité de succès d'une seule répétition. L'espérance porte sur les "+n+" répétitions réunies : il faut la multiplier par "+n+"."},
+              {v:sd, m:"Tu as calculé l'**écart-type** $@r{np(1-p)}$. Ce n'est pas ce qui est demandé : l'espérance, c'est $np$."}],
+        corr:["**Ce que veut dire l'espérance.** C'est le nombre de succès qu'on obtiendrait en moyenne si on répétait l'expérience entière un très grand nombre de fois.",
+              "**Pourquoi la formule est si simple.** Chaque répétition rapporte 1 succès avec une probabilité de "+fr(p)+", donc "+fr(p)+" succès « en moyenne ». Il y en a "+n+", et les espérances s'additionnent : $E(X) = "+n+" × "+fr(p)+"$.",
+              "**Calculer.** $E(X) = "+n+" × "+fr(p)+" = "+fr(E)+"$.",
+              "**Interpréter.** Sur "+n+" répétitions, on obtient en moyenne "+fr(E)+" succès. Ce n'est pas forcément un nombre entier — c'est une moyenne, pas une valeur atteignable.",
+              "**Contrôle.** L'espérance doit toujours tomber entre 0 et "+n+", et du même côté que "+fr(p)+" : ici "+fr(p)+" est "+(p<0.5?"inférieur":"supérieur")+" à 0,5, et "+fr(E)+" est bien "+(p<0.5?"inférieur":"supérieur")+" à la moitié de "+n+". ✓"],
+        indice:"Pour une loi binomiale, il n'y a aucun tableau à construire : $E(X) = np$." };
+    }
+    return { type:"num", niveau:2, rep:V, tol:0.0015,
+      enonce:ctx+" Calculer sa variance $V(X)$.",
+      diag:[{v:E, m:"Tu as calculé $np = "+fr(E)+"$, qui est l'**espérance**. La variance ajoute un facteur : $V(X) = np(1-p)$."},
+            {v:sd, m:"Tu as poussé jusqu'à l'**écart-type** $σ(X) = @r{np(1-p)} ≈ "+fr(sd)+"$. La variance, c'est l'étape juste avant, sans la racine."},
+            {v:mil(n*p*p), m:"Tu as multiplié par "+fr(p)+" une seconde fois au lieu de $1 - "+fr(p)+"$. Le second facteur est la probabilité d'**échec**, soit "+fr(q)+"."},
+            {v:mil(n*(1-p)), m:"Tu as calculé $n(1-p) = "+fr(mil(n*(1-p)))+"$, c'est-à-dire le nombre moyen d'échecs. La variance fait intervenir les deux probabilités **en même temps** : $np(1-p)$."}],
+      corr:["**Ce que mesure la variance.** Elle dit à quel point les résultats s'écartent de l'espérance : petite variance, des résultats très groupés autour de "+fr(E)+" ; grande variance, des résultats dispersés.",
+            "**Écrire la formule.** $V(X) = np(1-p)$ — trois facteurs seulement, à condition d'avoir bien reconnu une loi binomiale.",
+            "**Repérer chaque nombre.** $n = "+n+"$, $p = "+fr(p)+"$, et $1 - p = "+fr(q)+"$.",
+            "**Calculer.** $V(X) = "+n+" × "+fr(p)+" × "+fr(q)+" = "+fr(V)+"$.",
+            "**Et l'écart-type, si on le demande.** $σ(X) = @r{V(X)} = @r{"+fr(V)+"} ≈ "+fr(sd)+"$. C'est lui qui se compare directement à l'espérance, car il s'exprime dans la même unité.",
+            "**Contrôle.** La variance est toujours positive, et toujours **plus petite que l'espérance** dans une loi binomiale, puisqu'on multiplie $np$ par $1-p$, un nombre inférieur à 1. Ici "+fr(V)+" < "+fr(E)+" ✓"],
+      indice:"$V(X) = np(1-p)$ : l'espérance $np$, multipliée par la probabilité d'échec." };
+  }},
+
+{ id:"bi-situation", chap:"variable", titre:"Reconnaître une loi binomiale", niveau:1, gen:function(){
+    var n=ri(5,12);
+    var p=pick([0.1,0.2,0.25,0.3,0.4,0.6,0.7,0.75,0.8]);
+    var q=arr(1-p);
+    var binom = Math.random() < 0.65;
+    var enonce, pourquoi;
+    if(binom){
+      var s1=pick([
+        {a:"On lance "+n+" fois une pièce truquée qui tombe sur pile avec une probabilité de "+fr(p)+". On note $X$ le nombre de piles obtenus.",
+         b:"Chaque lancer est une épreuve à deux issues (pile ou face), la probabilité de pile ne change jamais, et un lancer n'influence pas les suivants."},
+        {a:"Un joueur tente "+n+" tirs indépendants, qu'il réussit chacun avec une probabilité de "+fr(p)+". On note $X$ le nombre de tirs réussis.",
+         b:"Même épreuve à deux issues (réussi ou manqué), répétée "+n+" fois de façon indépendante, avec la même probabilité "+fr(p)+" à chaque tir."},
+        {a:"Une urne contient une proportion de "+fr(p)+" de boules rouges. On en tire une, on note sa couleur, **on la remet**, et on recommence "+n+" fois. On note $X$ le nombre de boules rouges obtenues.",
+         b:"La remise est décisive : elle remet l'urne dans son état initial, donc la probabilité reste "+fr(p)+" à chaque tirage et les tirages sont indépendants."}
+      ]);
+      enonce=s1.a; pourquoi=s1.b;
+    }else{
+      var s2=pick([
+        {a:"Une urne contient 20 boules, dont une proportion de "+fr(p)+" sont rouges. On en tire "+n+" **sans les remettre**. On note $X$ le nombre de boules rouges tirées.",
+         b:"Sans remise, chaque tirage modifie le contenu de l'urne : la probabilité de tirer une rouge change à chaque fois, et les tirages ne sont plus indépendants."},
+        {a:"Dans une classe de 20 élèves dont une proportion de "+fr(p)+" font de l'allemand, on désigne "+n+" élèves **différents** au hasard. On note $X$ le nombre d'élèves germanistes désignés.",
+         b:"On ne peut pas désigner deux fois le même élève : c'est un tirage sans remise. La composition du groupe restant change après chaque désignation, donc les épreuves ne sont pas indépendantes."}
+      ]);
+      enonce=s2.a; pourquoi=s2.b;
+    }
+    var bon = binom ? "$ℬ("+n+" ; "+fr(p)+")$" : "Ce n'est pas une loi binomiale";
+    var choix = H.shuffleUnique([
+      "$ℬ("+n+" ; "+fr(p)+")$",
+      "$ℬ("+fr(p)+" ; "+n+")$",
+      "$ℬ("+n+" ; "+fr(q)+")$",
+      "Ce n'est pas une loi binomiale"
+    ]);
+    var bonne = choix.indexOf(bon);
+    return { type:"qcm", niveau:1, choix:choix, bonne:bonne,
+      enonce:enonce+" Quelle est la loi de $X$ ?",
+      diag:choix.map(function(s,i){
+        if(i===bonne) return "";
+        if(s==="Ce n'est pas une loi binomiale")
+          return "Les trois conditions sont pourtant réunies. "+pourquoi+" C'est donc bien une loi binomiale.";
+        if(s==="$ℬ("+fr(p)+" ; "+n+")$")
+          return "Les deux paramètres sont inversés. Dans $ℬ(n ; p)$, le **premier** est toujours le nombre de répétitions (un entier, ici "+n+") et le **second** la probabilité de succès (entre 0 et 1). Une probabilité ne peut pas valoir "+n+".";
+        if(s==="$ℬ("+n+" ; "+fr(q)+")$")
+          return "Tu as pris "+fr(q)+", la probabilité d'**échec**. Le paramètre $p$ est celui du **succès**, c'est-à-dire de l'événement que compte $X$ — ici "+fr(p)+".";
+        return "Attention : "+pourquoi;
+      }),
+      corr: binom
+        ? ["**Chercher l'épreuve de base.** Elle n'a que deux issues : succès ou échec. C'est le point de départ obligatoire.",
+           "**Vérifier la répétition à l'identique.** L'épreuve est refaite "+n+" fois, et la probabilité de succès reste "+fr(p)+" du début à la fin.",
+           "**Vérifier l'indépendance.** "+pourquoi,
+           "**Nommer les paramètres, dans le bon ordre.** $n = "+n+"$ (le nombre de répétitions) et $p = "+fr(p)+"$ (la probabilité de succès).",
+           "**Conclure.** $X$ suit la loi binomiale $ℬ("+n+" ; "+fr(p)+")$, ce qui s'écrit aussi $X ∼ ℬ("+n+" ; "+fr(p)+")$.",
+           "**Ce que ça débloque.** Dès que la loi est reconnue, tout devient direct : $P(X=k) = @b{"+n+"}{k} p^k (1-p)^{"+n+"-k}$, $E(X) = "+fr(mil(n*p))+"$ et $V(X) = "+fr(mil(n*p*(1-p)))+"$."]
+        : ["**Chercher l'épreuve de base.** Elle a bien deux issues, et elle est bien répétée "+n+" fois : les deux premières conditions sont remplies.",
+           "**Tester l'indépendance — c'est là que ça bloque.** "+pourquoi,
+           "**Le détail qui décide.** Une seule expression change tout : « sans remise » (ou « différents »). Avec remise, c'est binomial ; sans remise, ça ne l'est plus.",
+           "**Pourquoi la formule serait fausse.** Elle suppose la même probabilité $p$ à chaque répétition. Ici, tirer une rouge au deuxième tirage n'a plus la même probabilité qu'au premier — le calcul serait faux.",
+           "**Conclure.** $X$ ne suit pas une loi binomiale. En Première, une situation sans remise se traite avec un arbre pondéré et les probabilités conditionnelles.",
+           "**Le réflexe à garder.** Avant d'appliquer la formule, cherche toujours le mot « remise » ou « indépendants » dans l'énoncé."],
+      indice: "Trois conditions : deux issues, "+n+" répétitions identiques, et surtout **l'indépendance**. Relis l'énoncé en cherchant si un tirage change les suivants." };
+  }}
+];
+
 /* -------------------------- ALGORITHMIQUE -------------------------- */
 var G_ALGO = [
 { id:"al-for", chap:"algo", titre:"Suivre une boucle for", niveau:1, gen:function(){
@@ -5971,7 +6155,8 @@ var G_ALGO = [
 ];
 
 /* ---------------- enregistrement auprès du moteur ---------------- */
-window.GEN_SUP = G_EXPO.concat(G_TRIGO).concat(G_GEO).concat(G_PROBA).concat(G_ALGO);
+window.GEN_SUP = G_EXPO.concat(G_TRIGO).concat(G_GEO)
+                  .concat(G_PROBA).concat(G_BINOMIALE).concat(G_ALGO);
 })();
 </script>
 <script>
