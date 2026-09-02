@@ -9,7 +9,8 @@
   fichiers `.mp4` sont acceptés, le reste est refusé avec une explication.
   Aucun lien n'est fourni d'avance : une adresse inventée mène à une page morte,
   ce qui serait pire que pas de vidéo du tout.
-- **Vingt fiches « la méthode, pas à pas »**, deux par chapitre, chacune suivie
+- **Vingt-et-une fiches « la méthode, pas à pas »** (deux par chapitre, trois pour
+  les variables aléatoires depuis l'ajout de la loi binomiale), chacune suivie
   de son application sur un exemple chiffré. L'aide-mémoire a désormais deux
   onglets : les formules pour réviser, les méthodes pour savoir par où commencer.
 - **Deux défauts d'affichage corrigés** : les nombres décimaux montraient leurs
@@ -104,7 +105,7 @@ l'autorisation au premier lancement : il faut l'accorder pour le réseau privé.
 
 Un modèle de langage peut se tromper sur un calcul. Trois garde-fous :
 
-1. **Les 91 exercices des chapitres ne passent jamais par l'IA.** Leurs corrections
+1. **Les 96 exercices des chapitres ne passent jamais par l'IA.** Leurs corrections
    et leurs diagnostics d'erreur sont écrits et vérifiés. L'IA ne peut que les
    reformuler, jamais les remplacer — le serveur le lui dit explicitement.
 
@@ -252,5 +253,5 @@ cahier-premiere/
 
 L'application dans `public/` **fonctionne aussi sans serveur** : ouverte
 directement, elle détecte l'absence de `/api/ping` et masque les fonctions IA.
-Les 10 chapitres, les 91 exercices, l'entraînement généré, le mode contrôle et
+Les 10 chapitres, les 96 exercices, l'entraînement généré, le mode contrôle et
 la révision espacée fonctionnent hors ligne, sans rien coûter.
