@@ -779,6 +779,33 @@ sections:[
   {t:"piege", titre:"À ne pas oublier", x:"Pour une suite géométrique, le sens de variation dépend **aussi du signe de $u_0$**. Si $u_0 < 0$ et $q > 1$, la suite devient de plus en plus négative : elle est décroissante."}
  ]},
 
+ {titre:"Modéliser une situation concrète", blocs:[
+  {t:"idee", x:"En contrôle, la suite n'est presque jamais donnée. C'est à toi de la fabriquer à partir d'un énoncé en français — et **tout se joue sur un seul mot**."},
+  {t:"p", x:"Ce mot, c'est celui qui décrit l'évolution. « Augmente de 30 € par an » et « augmente de 3 % par an » se ressemblent, mais conduisent à deux suites totalement différentes. Le premier ajoute toujours la même somme : c'est arithmétique. Le second multiplie toujours par le même nombre : c'est géométrique."},
+  {t:"p", x:"Pourquoi un pourcentage donne-t-il une multiplication ? Parce qu'il ne porte pas sur une valeur fixe, mais sur la valeur **du moment**. Augmenter de 3 %, c'est passer de $u_n$ à $u_n + 0{,}03 × u_n$, c'est-à-dire $u_n × (1 + 0{,}03) = 1{,}03 × u_n$. La somme ajoutée grandit avec la valeur : elle n'est pas constante, le coefficient l'est."},
+  {t:"tbl", head:["Ce que dit l'énoncé","Le modèle","La raison"],
+   rows:[["« augmente de 30 € par an »","arithmétique","$r = 30$"],
+         ["« diminue de 12 unités par mois »","arithmétique","$r = -12$"],
+         ["« augmente de 3 % par an »","géométrique","$q = 1{,}03$"],
+         ["« diminue de 5 % par an »","géométrique","$q = 0{,}95$"],
+         ["« double chaque heure »","géométrique","$q = 2$"],
+         ["« perd un quart de sa valeur »","géométrique","$q = 0{,}75$"]]},
+  {t:"astuce", titre:"Passer d'un pourcentage à la raison, sans se tromper", x:"**Augmentation de $t$ %** : $q = 1 + @f{t}{100}$. Une hausse de 7 % donne $q = 1{,}07$.<br>**Baisse de $t$ %** : $q = 1 - @f{t}{100}$. Une baisse de 7 % donne $q = 0{,}93$.<br><br>Le contrôle instantané : une raison **supérieure à 1** fait monter, une raison **entre 0 et 1** fait descendre. Si tu trouves $q = 0{,}93$ pour une hausse, il y a une erreur de signe."},
+  {t:"exemple", titre:"Exemple guidé — un loyer qui augmente", enonce:"Un studio est loué 500 € par mois. Le loyer augmente de 2 % chaque année. On note $u_n$ le loyer après $n$ années, avec $u_0 = 500$.<br>1. Exprimer $u_n$ en fonction de $n$. 2. Quel sera le loyer au bout de 10 ans ? 3. Au bout de combien d'années dépassera-t-il 700 € ?", etapes:[
+   {q:"Reconnaître le modèle", r:"L'énoncé dit « 2 % », un pourcentage : c'est donc **géométrique**. La raison vaut $q = 1 + @f{2}{100} = 1{,}02$."},
+   {q:"Écrire la formule explicite", r:"Pour une suite géométrique, $u_n = u_0 × q^n$, donc $u_n = 500 × 1{,}02^n$."},
+   {q:"Le loyer au bout de 10 ans", r:"$u_{10} = 500 × 1{,}02^{10} ≈ 500 × 1{,}219 ≈ 609{,}50$ €."},
+   {q:"Une remarque qui compte", r:"$2$ % pendant 10 ans ne fait pas $+20$ %, mais $+21{,}9$ %. Chaque hausse s'applique à un loyer déjà augmenté : les hausses se cumulent en se multipliant, jamais en s'additionnant."},
+   {q:"Chercher le seuil : traduire", r:"On cherche le premier $n$ tel que $500 × 1{,}02^n > 700$."},
+   {q:"Chercher le seuil : essayer", r:"En Première, on teste à la calculatrice ou par un petit programme. $n = 16$ : $500 × 1{,}02^{16} ≈ 686{,}4$ € — pas encore. $n = 17$ : $500 × 1{,}02^{17} ≈ 700{,}2$ € — c'est dépassé."},
+   {q:"Conclure proprement", r:"C'est au bout de **17 ans** que le loyer dépasse 700 €. Il faut toujours donner l'encadrement dans la copie : $u_{16} < 700 < u_{17}$. Cela prouve que 17 est bien le **premier** rang qui convient."},
+   {q:"Le lien avec le programme Python", r:"C'est exactement le squelette du chapitre d'algorithmique : <b>u = 500</b> / <b>n = 0</b> / <b>while u &lt;= 700:</b> / &nbsp;&nbsp;<b>u = u * 1.02</b> / &nbsp;&nbsp;<b>n = n + 1</b>. La réponse cherchée est dans $n$."}
+  ]},
+  {t:"piege", titre:"Additionner les pourcentages", x:"Une hausse de 10 % suivie d'une baisse de 10 % ne ramène **pas** au point de départ. Sur 100 € : $100 → 110 → 99$. On a perdu 1 €.<br><br>La raison est simple : la baisse de 10 % ne s'applique pas aux 100 € de départ mais aux 110 € du moment. Les pourcentages ne s'additionnent jamais — ce sont leurs **coefficients multiplicateurs** qui se multiplient : $1{,}10 × 0{,}90 = 0{,}99$, soit une baisse de 1 %."},
+  {t:"check", q:"Une population diminue de 5 % par an. Quelle est la raison de la suite ?",
+   choix:["$q = 0{,}95$","$q = -0{,}05$","$q = 1{,}05$"], bonne:0,
+   expl:["","Une raison négative ferait alterner le signe des termes, ce qui n'a aucun sens pour une population. Une baisse de 5 % laisse 95 % de la valeur : $q = 1 - 0{,}05 = 0{,}95$.","C'est la raison d'une **hausse** de 5 %. Pour une baisse, on retranche : $1 - 0{,}05$."]}
+ ]},
  {titre:"Additionner beaucoup de termes d'un coup", blocs:[
   {t:"p", x:"Il arrive qu'on doive additionner tous les termes d'une suite. Le faire à la main est impossible dès que les termes sont nombreux. Il existe des formules."},
   {t:"formule", titre:"Somme des entiers de 1 à n", x:"$1 + 2 + 3 + … + n = @f{n(n+1)}{2}$", note:"Exemple : $1+2+…+100 = @f{100 × 101}{2} = 5050$."},
@@ -793,6 +820,7 @@ sections:[
  ]},
 
  {titre:"Récapitulatif : reconnaître, puis appliquer", blocs:[
+ {t:"figi", nom:"suite-croissance"},
   {t:"idee", x:"Tout ce chapitre tient en deux gestes : **d'abord reconnaître** de quel type de suite il s'agit, **ensuite seulement** appliquer la formule correspondante. Se tromper de type rend tout le reste faux, même si les calculs sont impeccables."},
   {t:"p", x:"C'est pour ça que la première chose à faire devant un énoncé n'est jamais de calculer, mais de **tester**. Deux tests, dans cet ordre :"},
   {t:"liste", items:[
@@ -893,6 +921,79 @@ exos:[
         {v:1275, m:"Tu as pris $u_0 = 5$ et $q = 2$ mais avec un terme de trop. Vérifie l'exposant : il vaut 7, pas 8."}],
   corr:["Formule : $u_0 + … + u_n = u_0 × @f{1 - q^{n+1}}{1 - q}$ avec $n = 6$.","$= 5 × @f{1 - 2^{7}}{1 - 2}$.","$2^{7} = 128$, donc $@f{1 - 128}{-1} = @f{-127}{-1} = 127$.","$5 × 127 = 635$."],
   indice:"De $u_0$ à $u_6$, compte bien : il y a 7 termes. L'exposant de la formule vaut donc 7."}
+,
+
+ {id:"su9", niveau:1, type:"qcm", enonce:"Un abonnement coûte 20 € le premier mois, puis augmente de 1,50 € chaque mois. Quelle suite modélise le prix ?",
+  choix:["Arithmétique de raison $1{,}5$","Géométrique de raison $1{,}5$","Arithmétique de raison $20$","Géométrique de raison $1{,}075$"], bonne:0,
+  diag:["","Une suite géométrique de raison 1,5 multiplierait le prix par 1,5 chaque mois : 20, puis 30, puis 45… L'énoncé dit qu'on **ajoute** 1,50 €, pas qu'on multiplie.",
+        "20 € est le **premier terme**, pas la raison. La raison décrit ce qui se répète d'un mois au suivant, ici l'ajout de 1,50 €.",
+        "Ce serait le modèle si l'énoncé disait « augmente de 7,5 % par mois ». Mais 1,50 € est une somme fixe, la même chaque mois quel que soit le prix atteint — c'est le signe d'une suite arithmétique."],
+  corr:["**Repérer le mot décisif.** L'énoncé donne une somme en euros, la même chaque mois : 1,50 €. Ce n'est pas un pourcentage.",
+        "**En déduire le modèle.** Ajouter toujours la même chose, c'est la définition d'une suite **arithmétique**, de raison $r = 1{,}5$.",
+        "**Écrire la suite.** $u_0 = 20$ et $u_{n+1} = u_n + 1{,}5$, ou directement $u_n = 20 + 1{,}5n$.",
+        "**Vérifier sur les premiers termes.** $u_0 = 20$, $u_1 = 21{,}50$, $u_2 = 23$. Les écarts sont constants ✓",
+        "**Le test qui départage à coup sûr.** Somme fixe → arithmétique. Pourcentage → géométrique. C'est le seul critère à retenir, et il suffit dans tous les énoncés."],
+  indice:"Une somme en euros toujours identique, ou un pourcentage ? De la réponse dépend le type de suite."},
+
+ {id:"su10", niveau:2, type:"num", enonce:"Un ordinateur vaut 800 € et perd 5 % de sa valeur chaque année. Combien vaut-il au bout de 5 ans ? (arrondir au centime)",
+  rep:619.02, tol:0.6,
+  diag:[{v:600, m:"Tu as retiré $5 × 5 = 25$ % de 800 €, en additionnant les pourcentages. Ils ne s'additionnent pas : chaque baisse porte sur la valeur **de l'année en cours**, déjà réduite."},
+        {v:760, m:"Tu n'as appliqué la baisse qu'une seule fois ($800 × 0{,}95$). Il faut la répéter cinq fois, donc élever $0{,}95$ à la puissance 5."},
+        {v:200, m:"Tu as calculé $800 × 0{,}05^5$ ou quelque chose d'approchant. Le coefficient multiplicateur d'une baisse de 5 % n'est pas $0{,}05$ mais $0{,}95$ : il reste 95 % de la valeur."},
+        {v:1021, m:"Tu as utilisé $1{,}05$ au lieu de $0{,}95$ : c'est le coefficient d'une **hausse**. Ici la valeur diminue, donc la raison doit être inférieure à 1."}],
+  corr:["**Reconnaître le modèle.** Un pourcentage qui se répète : c'est une suite **géométrique**.",
+        "**Trouver la raison.** Perdre 5 %, c'est garder 95 % : $q = 1 - 0{,}05 = 0{,}95$.",
+        "**Écrire la formule.** $u_n = 800 × 0{,}95^n$, avec $u_0 = 800$ la valeur d'achat.",
+        "**Remplacer.** $u_5 = 800 × 0{,}95^5$.",
+        "**Calculer.** $0{,}95^5 ≈ 0{,}7738$, donc $u_5 ≈ 800 × 0{,}7738 ≈ 619{,}02$ €.",
+        "**Contrôle de bon sens.** La valeur doit être inférieure à 800 € mais rester du même ordre de grandeur : environ 619 €, c'est cohérent. Une baisse de 5 % par an pendant 5 ans fait perdre 22,6 % au total — plus que 5 × 5 = 25 % ? Non, moins : chaque baisse porte sur une somme plus petite que la précédente.",
+        "**À retenir.** Cinq baisses de 5 % ne font pas $-25$ % mais $-22{,}6$ %. Les pourcentages successifs se multiplient : $0{,}95^5 ≈ 0{,}774$."],
+  indice:"Perdre 5 %, c'est multiplier par 0,95. Répète l'opération cinq fois avec une puissance."},
+
+ {id:"su11", niveau:2, type:"num", enonce:"Calculer la somme $3 + 7 + 11 + … $ des 20 premiers termes de la suite arithmétique de premier terme 3 et de raison 4.",
+  rep:820, tol:0.5,
+  diag:[{v:790, m:"Tu as utilisé $u_{20} = 3 + 20 × 4 = 83$ comme dernier terme. Mais en partant de $u_1 = 3$, le vingtième terme est $u_{20} = 3 + 19 × 4 = 79$ : entre le premier et le vingtième, il n'y a que **19** pas."},
+        {v:82, m:"Tu as calculé $u_1 + u_{20} = 3 + 79 = 82$, la somme des deux extrêmes. C'est le bon ingrédient, mais il reste à le multiplier par le nombre de termes et à diviser par 2."},
+        {v:1640, m:"Tu as oublié de diviser par 2. La formule est $@f{n × (premier + dernier)}{2}$ : on additionne deux fois la somme, il faut donc la moitié."},
+        {v:79, m:"Tu as donné le vingtième terme, pas la somme. La question porte sur le total des vingt termes."}],
+  corr:["**Trouver le dernier terme.** $u_1 = 3$, et pour arriver à $u_{20}$ il faut ajouter 19 fois la raison — pas 20 fois : $u_{20} = 3 + 19 × 4 = 3 + 76 = 79$.",
+        "**Se rappeler d'où vient la formule.** On écrit la somme à l'endroit, puis à l'envers, et on additionne les deux lignes terme à terme : chaque paire donne $3 + 79 = 82$, et il y a 20 paires. On obtient $20 × 82 = 1640$, soit **deux fois** la somme cherchée.",
+        "**La formule.** $S = @f{n × (u_1 + u_n)}{2}$ : le nombre de termes, multiplié par la moyenne du premier et du dernier.",
+        "**Remplacer.** $S = @f{20 × (3 + 79)}{2} = @f{20 × 82}{2}$.",
+        "**Calculer.** $S = @f{1640}{2} = 820$.",
+        "**Contrôle par la moyenne.** Les termes vont de 3 à 79, leur moyenne vaut $@f{3 + 79}{2} = 41$. Vingt termes de moyenne 41 donnent $20 × 41 = 820$ ✓ C'est exactement la même formule, lue autrement.",
+        "**Le piège permanent.** Compte toujours les **pas**, pas les termes : de $u_1$ à $u_{20}$, il y a 20 termes mais 19 additions de la raison."],
+  indice:"Trouve d'abord $u_{20}$ — attention, 19 pas et non 20 —, puis applique la formule de la somme."},
+
+ {id:"su12", niveau:3, type:"num", enonce:"Une ville compte 1500 habitants et sa population augmente de 4 % par an. Au bout de combien d'années complètes la population dépasse-t-elle 2000 habitants ?",
+  rep:8, tol:0.5,
+  diag:[{v:7, m:"Tu t'es arrêté un an trop tôt : $1500 × 1{,}04^{7} ≈ 1974$ habitants, ce qui ne dépasse pas encore 2000. Il faut la première année où le seuil est **franchi**."},
+        {v:9, m:"Tu as pris un an de trop. Vérifie l'année précédente : $1500 × 1{,}04^{8} ≈ 2053 > 2000$, donc 8 suffit déjà."},
+        {v:33, m:"Tu as raisonné en pourcentages additionnés : il faut gagner 500 habitants, soit 33 % de 1500, donc 33 ans à 1 %… mais la croissance est de 4 % par an et elle se cumule en se multipliant. Elle va beaucoup plus vite."},
+        {v:500, m:"Tu as donné le nombre d'habitants à gagner, pas le nombre d'années. La question porte sur la durée."}],
+  corr:["**Modéliser.** Un pourcentage annuel : suite géométrique de raison $q = 1{,}04$, avec $u_0 = 1500$. Donc $u_n = 1500 × 1{,}04^n$.",
+        "**Traduire la question.** On cherche le plus petit entier $n$ tel que $1500 × 1{,}04^n > 2000$.",
+        "**Tester à la calculatrice.** $n = 6$ : $1500 × 1{,}04^{6} ≈ 1898$ — non. $n = 7$ : $≈ 1974$ — non, on s'en approche. $n = 8$ : $≈ 2053$ — oui, c'est dépassé.",
+        "**Répondre avec l'encadrement.** $u_7 ≈ 1974 < 2000 < u_8 ≈ 2053$. C'est donc au bout de **8 années** que la population dépasse 2000 habitants.",
+        "**Pourquoi écrire l'encadrement.** Il ne suffit pas de montrer que $u_8$ dépasse le seuil : il faut prouver qu'aucun rang plus petit ne convient. Les deux inégalités le démontrent d'un coup, et c'est ce que le correcteur attend.",
+        "**Le vérifier par programme.** <b>u = 1500</b> / <b>n = 0</b> / <b>while u &lt;= 2000:</b> / &nbsp;&nbsp;<b>u = u * 1.04</b> / &nbsp;&nbsp;<b>n = n + 1</b> / <b>print(n)</b> affiche 8.",
+        "**L'ordre de grandeur à retenir.** À 4 % par an, une population gagne un tiers en huit ans. Une croissance qui paraît faible produit des effets rapides dès qu'on lui laisse le temps."],
+  indice:"Écris $1500 × 1{,}04^n > 2000$ et teste les valeurs de $n$ une à une. Donne l'encadrement des deux rangs voisins."},
+
+ {id:"su13", niveau:3, type:"num", enonce:"Calculer la somme $2 + 6 + 18 + 54 + …$ des 8 premiers termes de la suite géométrique de premier terme 2 et de raison 3.",
+  rep:6560, tol:0.5,
+  diag:[{v:4374, m:"Tu as donné le huitième terme, $u_8 = 2 × 3^{7} = 4374$, et non la somme des huit. Le dernier terme n'est qu'une partie du total."},
+        {v:13120, m:"Tu as oublié de diviser par $q - 1 = 2$. La formule complète est $u_1 × @f{1 - q^{n}}{1 - q}$."},
+        {v:6562, m:"Tu as calculé $3^{8} + 1 = 6562$. Vérifie le numérateur : c'est $1 - 3^{8}$, donc $1 - 6561 = -6560$, et le signe se compense avec celui du dénominateur."},
+        {v:2186, m:"Tu as appliqué la formule avec 7 termes au lieu de 8. L'exposant de la formule est le **nombre de termes**, ici 8, à ne pas confondre avec le rang du dernier."}],
+  corr:["**La formule.** Pour une suite géométrique de raison $q ≠ 1$, la somme de $n$ termes vaut $S = u_1 × @f{1 - q^{n}}{1 - q}$.",
+        "**Identifier chaque ingrédient.** $u_1 = 2$, $q = 3$, et $n = 8$ termes.",
+        "**Remplacer.** $S = 2 × @f{1 - 3^{8}}{1 - 3}$.",
+        "**Calculer la puissance.** $3^{8} = 6561$.",
+        "**Terminer.** $S = 2 × @f{1 - 6561}{-2} = 2 × @f{-6560}{-2} = 2 × 3280 = 6560$.",
+        "**Le contrôle qui prend dix secondes.** Écris les huit termes : $2, 6, 18, 54, 162, 486, 1458, 4374$. Leur somme vaut bien 6560 ✓",
+        "**Ce que révèle ce contrôle.** Le dernier terme (4374) pèse à lui seul les deux tiers du total. C'est la marque d'une croissance géométrique : les derniers termes écrasent tous les précédents réunis — rien à voir avec une suite arithmétique, où le poids est réparti."],
+  indice:"$S = u_1 × @f{1 - q^{n}}{1 - q}$, avec $n$ le **nombre de termes**, ici 8."}
 ]
 },
 
@@ -1004,6 +1105,50 @@ sections:[
   {t:"piege", titre:"Le signe de la somme", x:"C'est $-@f{b}{a}$, avec un moins. Pour $x^2 - 5x + 6$, la somme des racines vaut $+5$ et non $-5$ : les racines sont 2 et 3."}
  ]},
 
+ {titre:"Chercher un maximum ou un minimum", blocs:[
+  {t:"idee", x:"Voici la question qui tombe le plus souvent en problème : **quelle est l'aire la plus grande possible ?** ou **à quel moment la hauteur est-elle maximale ?** Derrière ces phrases se cache presque toujours un trinôme, et la réponse est toujours au même endroit : son **sommet**."},
+  {t:"p", x:"C'est la grande force du second degré. Une parabole n'a qu'un seul point extrême — un creux si $a > 0$, une bosse si $a < 0$ — et sa position se calcule directement, sans tâtonner et sans dérivée."},
+  {t:"formule", titre:"Le sommet, et ce qu'il vaut", x:"Abscisse du sommet : $α = -@f{b}{2a}$<br>Valeur extrême : $β = f(α)$, obtenue en remplaçant<br>Si $a > 0$ : c'est un **minimum**. Si $a < 0$ : c'est un **maximum**.", note:"Le signe de $a$ décide seul de la nature de l'extremum. Repère-le avant tout calcul : c'est lui qui dit si tu cherches une bosse ou un creux."},
+  {t:"fig", titre:"Une parabole tournée vers le bas : son sommet est un maximum",
+   vue:[-1,-1,11,10], w:400, h:280, grille:true, graduations:true,
+   objets:[
+    {t:"courbe", f:"aire-enclos", couleur:"bleu"},
+    {t:"seg", de:[5,0], a:[5,8], couleur:"ambre", pointille:true},
+    {t:"seg", de:[0,8], a:[5,8], couleur:"ambre", pointille:true},
+    {t:"point", x:5, y:8, nom:"S", couleur:"rouge"},
+    {t:"point", x:0, y:0, nom:"", couleur:"vert"},
+    {t:"point", x:10, y:0, nom:"", couleur:"vert"},
+    {t:"texte", x:5, y:9.2, txt:"maximum", couleur:"rouge", taille:13},
+    {t:"texte", x:5.5, y:-0.6, txt:"α", couleur:"ambre", taille:13},
+    {t:"texte", x:-0.5, y:8, txt:"β", couleur:"ambre", taille:13}
+   ],
+   note:"Le sommet se lit en deux temps : $α$ sur l'axe horizontal donne **où** l'extremum se produit, $β$ sur l'axe vertical donne **combien** il vaut. Les questions d'énoncé portent tantôt sur l'un, tantôt sur l'autre — lis bien laquelle est demandée."},
+  {t:"astuce", titre:"Pourquoi le sommet est au milieu des racines", x:"Une parabole est **symétrique** par rapport à la verticale qui passe par son sommet. Quand elle coupe l'axe des abscisses en deux racines $x_1$ et $x_2$, celles-ci sont donc placées symétriquement, et le sommet est exactement à mi-chemin : $α = @f{x_1 + x_2}{2}$.<br><br>C'est souvent le chemin le plus rapide. Sur la figure ci-dessus, les racines sont 0 et 10, donc $α = 5$ — sans calculer $-@f{b}{2a}$."},
+  {t:"exemple", titre:"Exemple guidé — l'enclos le plus grand possible", enonce:"On dispose de 40 m de grillage pour clôturer un enclos rectangulaire adossé à un mur — le mur fait un des quatre côtés, il n'y a donc que trois côtés à grillager. Quelle est l'aire maximale de l'enclos, et pour quelles dimensions ?", etapes:[
+   {q:"Nommer l'inconnue", r:"Appelons $x$ la longueur d'un des deux côtés perpendiculaires au mur. Il y en a deux, donc ils consomment $2x$ mètres de grillage."},
+   {q:"Exprimer l'autre dimension", r:"Il reste $40 - 2x$ mètres pour le côté parallèle au mur. C'est donc sa longueur."},
+   {q:"Écrire l'aire", r:"$A(x) = x × (40 - 2x) = -2x^{2} + 40x$. C'est bien un trinôme, avec $a = -2$, $b = 40$, $c = 0$."},
+   {q:"Ne pas oublier le domaine", r:"$x$ est une longueur, donc $x > 0$. Et $40 - 2x$ doit aussi être positif, donc $x < 20$. On cherche le maximum pour $x$ dans $]0 ; 20[$."},
+   {q:"Bosse ou creux ?", r:"$a = -2 < 0$ : la parabole est tournée vers le bas, elle admet donc bien un **maximum**. Si on avait trouvé $a > 0$, la question n'aurait pas eu de réponse."},
+   {q:"Trouver où", r:"$α = -@f{b}{2a} = -@f{40}{2 × (-2)} = -@f{40}{-4} = 10$. Le maximum est atteint pour $x = 10$ m — et cette valeur est bien dans l'intervalle autorisé ✓"},
+   {q:"Trouver combien", r:"$A(10) = -2 × 100 + 40 × 10 = -200 + 400 = 200$. L'aire maximale vaut **200 m²**."},
+   {q:"Donner les dimensions", r:"Les deux côtés perpendiculaires mesurent 10 m, et le côté le long du mur $40 - 20 = 20$ m. On vérifie : $10 × 20 = 200$ m² ✓ et $10 + 10 + 20 = 40$ m de grillage ✓"},
+   {q:"Contrôler que c'est bien le maximum", r:"Essayons de part et d'autre : $A(8) = 8 × 24 = 192$, $A(12) = 12 × 16 = 192$. Les deux sont inférieurs à 200, et **égaux entre eux** — c'est la symétrie de la parabole autour de $x = 10$."}
+  ]},
+  {t:"tbl", head:["$x$ (m)","5","8","10","12","15"],
+   rows:[["aire $A(x)$ (m²)","150","192","**200**","192","150"]]},
+  {t:"p", x:"Ce tableau mérite un regard. Les valeurs montent, atteignent 200, puis redescendent — et surtout, elles sont **symétriques** : 8 et 12 donnent la même aire, 5 et 15 aussi. Chaque paire est à égale distance de 10. C'est la signature d'une parabole, et un excellent moyen de vérifier un sommet sans refaire le calcul."},
+  {t:"piege", titre:"Oublier les contraintes du problème", x:"Le sommet mathématique n'est pas toujours la réponse au problème. Si l'énoncé impose par exemple que $x$ soit un nombre entier de mètres, ou que $x ≥ 12$ pour laisser passer un tracteur, le maximum se trouve **au bord** de l'intervalle autorisé, pas au sommet.<br><br>Le réflexe : après avoir calculé $α$, vérifie toujours qu'il appartient bien au domaine. Sinon, l'extremum est atteint à la borne la plus proche."},
+  {t:"exemple", titre:"Exemple guidé — la hauteur d'un ballon", enonce:"Un ballon est lancé et sa hauteur, en mètres, est donnée par $h(t) = -5t^{2} + 20t + 1$, où $t$ est le temps en secondes. Quelle hauteur maximale atteint-il, et au bout de combien de temps ?", etapes:[
+   {q:"Lire les coefficients", r:"$a = -5$, $b = 20$, $c = 1$. Comme $a < 0$, il y a bien un maximum."},
+   {q:"Ce que représente $c$", r:"$h(0) = 1$ : le ballon part d'une hauteur de 1 mètre. C'est la hauteur de la main qui lance — le terme constant a toujours un sens concret."},
+   {q:"L'instant du maximum", r:"$α = -@f{20}{2 × (-5)} = -@f{20}{-10} = 2$. Le sommet est atteint au bout de **2 secondes**."},
+   {q:"La hauteur atteinte", r:"$h(2) = -5 × 4 + 20 × 2 + 1 = -20 + 40 + 1 = 21$. Le ballon monte à **21 mètres**."},
+   {q:"Bien lire la question", r:"« Quelle hauteur » demande $β = 21$ m. « Au bout de combien de temps » demande $α = 2$ s. Ce sont deux réponses différentes qu'on confond facilement : l'une se lit en vertical, l'autre en horizontal."},
+   {q:"Contrôle par la symétrie", r:"$h(1) = -5 + 20 + 1 = 16$ et $h(3) = -45 + 60 + 1 = 16$. Mêmes hauteurs à 1 s et 3 s, toutes deux à une seconde du sommet ✓ Le ballon monte puis redescend en repassant par les mêmes hauteurs."}
+  ]},
+  {t:"astuce", titre:"La méthode en quatre gestes, pour tout problème d'optimisation", x:"1. **Nommer** l'inconnue et l'appeler $x$.<br>2. **Exprimer** la quantité à optimiser en fonction de $x$ — c'est l'étape qui demande de la réflexion, le reste est mécanique.<br>3. **Préciser le domaine** : entre quelles valeurs $x$ peut-il varier ?<br>4. **Calculer $α$**, vérifier qu'il est dans le domaine, puis calculer $β$.", note:"L'étape 2 est celle où l'on perd le plus de points. Prends le temps de faire un schéma : il rend l'expression presque évidente."}
+ ]},
  {titre:"Récapitulatif : un seul réflexe, calculer Δ", blocs:[
   {t:"idee", x:"Presque tout ce chapitre part du même geste : **identifier $a$, $b$, $c$, puis calculer le discriminant**. Ce qui vient ensuite dépend de la question, mais le point de départ ne change jamais."},
   {t:"p", x:"La première erreur, avant tout calcul, c'est de mal lire les coefficients. Rappelle-toi que **le signe fait partie du coefficient** : dans $2x^2 - 7x + 3$, on a $b = -7$, pas 7. Et quand un terme manque, son coefficient vaut zéro : dans $x^2 - 4$, on a $b = 0$ et $c = -4$. Écris les trois valeurs sur une ligne à part avant de te lancer — dix secondes qui évitent la moitié des erreurs."},
@@ -1127,6 +1272,80 @@ exos:[
         {v:-6, m:"Tu as sans doute divisé $-12$ par 2. Il faut d'abord ramener le produit à $@f{c}{a} = @f{-12}{3} = -4$."}],
   corr:["Relation du produit : $x_1 × x_2 = @f{c}{a} = @f{-12}{3} = -4$.","On sait que $x_1 = 2$.","$2 × x_2 = -4$.","$x_2 = -2$."],
   indice:"Le produit des racines vaut $@f{c}{a}$. Une des deux racines est connue."}
+,
+
+ {id:"sd11", niveau:2, type:"num", enonce:"Quelle est l'abscisse du sommet de la parabole $f(x) = 2x^{2} - 12x + 7$ ?",
+  rep:3, tol:0.01,
+  diag:[{v:-3, m:"Erreur de signe. La formule est $α = -@f{b}{2a}$, et ici $b = -12$ : le moins de la formule et le moins de $b$ se compensent, donc $α = -@f{-12}{4} = +3$."},
+        {v:6, m:"Tu as calculé $@f{12}{2}$ en oubliant le $a$ au dénominateur. La formule porte sur $2a$, c'est-à-dire $2 × 2 = 4$, pas sur 2."},
+        {v:12, m:"Tu as donné $b$ (au signe près), sans appliquer la formule. Il reste à diviser par $2a$ et à changer le signe."},
+        {v:-11, m:"C'est la valeur $f(3) = 18 - 36 + 7 = -11$, c'est-à-dire l'**ordonnée** du sommet, $β$. La question porte sur l'abscisse."}],
+  corr:["**Lire les coefficients.** $a = 2$, $b = -12$, $c = 7$. Note bien que $b$ est **négatif** : le signe fait partie du coefficient.",
+        "**Écrire la formule avant de remplacer.** $α = -@f{b}{2a}$.",
+        "**Remplacer avec soin.** $α = -@f{-12}{2 × 2} = -@f{-12}{4}$.",
+        "**Calculer.** $-@f{-12}{4} = -(-3) = 3$. Deux signes moins se compensent.",
+        "**Contrôle par symétrie.** $f(2) = 8 - 24 + 7 = -9$ et $f(4) = 32 - 48 + 7 = -9$. Mêmes valeurs de part et d'autre de 3 : le sommet est bien là ✓",
+        "**Nature de l'extremum.** $a = 2 > 0$, la parabole est tournée vers le haut : c'est un **minimum**, et il vaut $f(3) = -11$."],
+  indice:"$α = -@f{b}{2a}$. Fais attention : ici $b$ est déjà négatif, et le moins de la formule s'y ajoute."},
+
+ {id:"sd12", niveau:3, type:"num", enonce:"Un rectangle a un périmètre de 24 cm. Quelle est son aire maximale, en cm² ?",
+  rep:36, tol:0.5,
+  diag:[{v:6, m:"Tu as donné la longueur du côté qui réalise le maximum, pas l'aire. Le carré optimal a bien 6 cm de côté — il reste à calculer $6 × 6$."},
+        {v:144, m:"Tu as calculé $12^{2}$, en confondant le demi-périmètre avec un côté. Si un côté mesure 12, l'autre mesure 0 et l'aire est nulle."},
+        {v:72, m:"Tu as pris $24 × 3$ ou l'aire d'un rectangle $12 × 6$, qui n'est pas de périmètre 24 : $2 × (12 + 6) = 36$ cm, pas 24."},
+        {v:24, m:"Tu as recopié le périmètre. Un périmètre est une longueur, une aire est une surface : ce sont deux grandeurs différentes."}],
+  corr:["**Nommer.** Appelons $x$ la largeur du rectangle, en cm.",
+        "**Exprimer l'autre côté.** Le périmètre vaut $2 × (largeur + longueur) = 24$, donc largeur + longueur $= 12$, et la longueur vaut $12 - x$.",
+        "**Écrire l'aire.** $A(x) = x(12 - x) = -x^{2} + 12x$. C'est un trinôme avec $a = -1$, $b = 12$, $c = 0$.",
+        "**Le domaine.** $x > 0$ et $12 - x > 0$, donc $x$ varie dans $]0 ; 12[$.",
+        "**Bosse ou creux ?** $a = -1 < 0$ : il y a bien un maximum.",
+        "**Où.** $α = -@f{12}{2 × (-1)} = 6$. Cette valeur est bien dans l'intervalle ✓",
+        "**Combien.** $A(6) = 6 × (12 - 6) = 6 × 6 = 36$ cm².",
+        "**Le résultat à retenir.** Le rectangle d'aire maximale à périmètre donné est toujours le **carré**. Ce n'est pas un hasard du calcul : c'est vrai pour tout périmètre, et cela vaut la peine d'être mémorisé.",
+        "**Contrôle.** $5 × 7 = 35$ et $4 × 8 = 32$ : ces rectangles ont bien le périmètre 24, et une aire plus petite que 36 ✓"],
+  indice:"Appelle $x$ un côté, exprime l'autre à l'aide du périmètre, puis cherche le sommet du trinôme obtenu."},
+
+ {id:"sd13", niveau:2, type:"qcm", enonce:"Pour quelles valeurs de $x$ a-t-on $x^{2} - 5x + 6 ≤ 0$ ?",
+  choix:["$x ∈ [2 ; 3]$","$x ∈ ]-∞ ; 2] ∪ [3 ; +∞[$","$x ∈ [-3 ; -2]$","Aucune valeur : le trinôme est toujours positif"], bonne:0,
+  diag:["","Tu as pris l'extérieur des racines, là où le trinôme est **positif**. Comme $a = 1 > 0$, la parabole est tournée vers le haut : elle passe **sous** l'axe entre les racines, donc c'est là qu'elle est négative.",
+        "Erreur de signe sur les racines. $x^{2} - 5x + 6 = 0$ donne $x = 2$ et $x = 3$, deux nombres positifs. Vérifie : $(-2)^{2} - 5(-2) + 6 = 4 + 10 + 6 = 20 ≠ 0$.",
+        "Le discriminant vaut $Δ = 25 - 24 = 1 > 0$ : il y a bien deux racines, donc le trinôme change de signe. Il n'est pas toujours positif."],
+  corr:["**Trouver les racines.** $Δ = (-5)^{2} - 4 × 1 × 6 = 25 - 24 = 1$, donc $@r{Δ} = 1$. Les racines sont $x_1 = @f{5 - 1}{2} = 2$ et $x_2 = @f{5 + 1}{2} = 3$.",
+        "**Regarder le signe de $a$.** $a = 1 > 0$ : la parabole est tournée vers le haut. Elle plonge sous l'axe entre les racines et remonte de part et d'autre.",
+        "**La règle générale.** Un trinôme est **du signe de $a$ à l'extérieur des racines**, et du signe contraire entre elles. Ici : positif à l'extérieur, négatif entre 2 et 3.",
+        "**Répondre à la question posée.** On cherche où il est négatif **ou nul** : $x ∈ [2 ; 3]$. Les crochets sont fermés car l'inégalité est large et que les racines annulent le trinôme.",
+        "**Vérifier avec une valeur au milieu.** $x = 2{,}5$ : $6{,}25 - 12{,}5 + 6 = -0{,}25 < 0$ ✓ Un seul essai bien choisi confirme tout le tableau de signes.",
+        "**Vérifier à l'extérieur.** $x = 0$ : $0 - 0 + 6 = 6 > 0$ ✓ La valeur 0 est bien hors de l'intervalle solution."],
+  indice:"Calcule les racines, puis rappelle-toi : le trinôme est du signe de $a$ **à l'extérieur** des racines."},
+
+ {id:"sd14", niveau:3, type:"num", enonce:"Deux nombres ont pour somme 12 et pour produit 35. Quel est le plus grand des deux ?",
+  rep:7, tol:0.01,
+  diag:[{v:5, m:"Tu as trouvé les deux bons nombres, 5 et 7, mais donné le plus petit. La question demande le plus grand."},
+        {v:12, m:"Tu as recopié la somme. Il s'agit de retrouver les deux nombres qui la composent."},
+        {v:35, m:"Tu as recopié le produit. C'est une donnée de l'énoncé, pas la réponse."},
+        {v:6, m:"Tu as pris la moitié de 12, ce qui donnerait deux nombres égaux à 6 — mais alors le produit serait 36, pas 35. Le produit imposé oblige les deux nombres à s'écarter légèrement de 6."}],
+  corr:["**Le lien à connaître.** Si deux nombres ont pour somme $S$ et pour produit $P$, ils sont les racines de $x^{2} - Sx + P = 0$. Attention au signe : c'est **moins** $S$ et **plus** $P$.",
+        "**Écrire l'équation.** $x^{2} - 12x + 35 = 0$.",
+        "**Calculer le discriminant.** $Δ = 144 - 140 = 4$, donc $@r{Δ} = 2$.",
+        "**Les racines.** $x_1 = @f{12 - 2}{2} = 5$ et $x_2 = @f{12 + 2}{2} = 7$.",
+        "**Vérifier avec l'énoncé.** $5 + 7 = 12$ ✓ et $5 × 7 = 35$ ✓ Les deux conditions sont satisfaites.",
+        "**Répondre.** Le plus grand des deux est **7**.",
+        "**Le raccourci mental.** Avec des nombres simples, on peut chercher directement : quels entiers font 35 en produit ? $1 × 35$, $5 × 7$. Lequel donne 12 en somme ? $5 + 7 = 12$. Trouvé en cinq secondes, sans discriminant — mais la méthode complète reste indispensable dès que les nombres ne sont plus entiers."],
+  indice:"Somme $S$ et produit $P$ : les deux nombres sont racines de $x^{2} - Sx + P = 0$."},
+
+ {id:"sd15", niveau:3, type:"qcm", enonce:"Pour quelles valeurs de $m$ l'équation $x^{2} + 4x + m = 0$ admet-elle deux solutions distinctes ?",
+  choix:["$m < 4$","$m > 4$","$m < 0$","$m ≠ 0$"], bonne:0,
+  diag:["","Tu as inversé le sens. $Δ = 16 - 4m$, et il faut $Δ > 0$, donc $16 > 4m$, donc $m < 4$. Le $m$ apparaît avec un signe moins dans $Δ$ : plus $m$ grandit, plus $Δ$ diminue.",
+        "Trop restrictif. Pour $m = 2$ par exemple, $Δ = 16 - 8 = 8 > 0$ : il y a bien deux solutions, alors que $m$ est positif. La condition est $m < 4$, ce qui inclut aussi des valeurs positives.",
+        "Le cas $m = 0$ n'a rien de particulier ici : l'équation devient $x^{2} + 4x = 0$, dont les solutions sont 0 et $-4$ — deux solutions distinctes, tout va bien. C'est le signe de $Δ$ qui décide, pas la nullité de $m$."],
+  corr:["**Le critère.** Une équation du second degré a deux solutions distinctes si et seulement si son discriminant est **strictement positif**.",
+        "**Calculer $Δ$ en gardant le paramètre.** $a = 1$, $b = 4$, $c = m$, donc $Δ = 4^{2} - 4 × 1 × m = 16 - 4m$.",
+        "**Poser la condition.** $16 - 4m > 0$.",
+        "**Résoudre en $m$.** $16 > 4m$, donc $4 > m$, c'est-à-dire $m < 4$.",
+        "**Vérifier sur un cas favorable.** $m = 3$ : $Δ = 16 - 12 = 4 > 0$ ✓ Les solutions sont $-1$ et $-3$, bien distinctes.",
+        "**Vérifier sur un cas défavorable.** $m = 5$ : $Δ = 16 - 20 = -4 < 0$ ✓ Aucune solution réelle, comme prévu.",
+        "**Le cas frontière.** $m = 4$ donne $Δ = 0$ : une racine **double**, $x = -2$. C'est une seule solution, donc 4 est exclu — d'où l'inégalité stricte."],
+  indice:"Calcule $Δ$ en laissant $m$ dedans, puis résous l'inéquation $Δ > 0$ d'inconnue $m$."}
 ]
 }
 ]);
@@ -1216,6 +1435,23 @@ sections:[
  ]},
 
  {titre:"Du signe de la dérivée aux variations", blocs:[
+  {t:"fig", titre:"Le signe de la dérivée, lu sur trois tangentes",
+   vue:[-0.5,-5.5,6.5,5.5], w:410, h:300, grille:true, graduations:true,
+   objets:[
+    {t:"courbe", f:"parabole-min", couleur:"bleu"},
+    {t:"seg", de:[0,4], a:[2,-4], couleur:"rouge"},
+    {t:"seg", de:[1.7,-4], a:[4.3,-4], couleur:"ambre"},
+    {t:"seg", de:[4,-4], a:[6,4], couleur:"vert"},
+    {t:"point", x:1, y:0, nom:"", couleur:"rouge"},
+    {t:"point", x:3, y:-4, nom:"S", couleur:"ambre", dessous:true},
+    {t:"point", x:5, y:0, nom:"", couleur:"vert"},
+    {t:"texte", x:0.7, y:4.6, txt:"f '(1) = −4", couleur:"rouge", taille:12},
+    {t:"texte", x:3, y:-5.1, txt:"f '(3) = 0", couleur:"ambre", taille:12},
+    {t:"texte", x:5.4, y:4.6, txt:"f '(5) = +4", couleur:"vert", taille:12}
+   ],
+   note:"Une seule courbe, trois tangentes. À gauche elle **descend** et sa tangente penche vers le bas : $f'$ est négative. Au creux, la tangente est **horizontale** : $f'$ s'annule. À droite elle **monte** : $f'$ est positive. Tout le chapitre tient dans cette image — le signe de la dérivée est la pente de la tangente, et la pente donne le sens de variation."},
+  {t:"p", x:"Regarde bien le point $S$. C'est le seul endroit où la tangente est horizontale, donc le seul où $f'$ s'annule — et c'est exactement là que la fonction cesse de descendre pour se mettre à monter. **Un extremum se trouve toujours là où la dérivée s'annule en changeant de signe.**"},
+  {t:"piege", titre:"Dérivée nulle ne veut pas dire extremum", x:"La réciproque est fausse, et c'est une erreur fréquente. Pour $f(x) = x^{3}$, la dérivée $f'(x) = 3x^{2}$ s'annule en 0 — pourtant la fonction continue de monter sans faire ni creux ni bosse, parce que $3x^{2}$ reste **positive** des deux côtés.<br><br>Ce qui crée un extremum, ce n'est pas que la dérivée s'annule : c'est qu'elle **change de signe**. Un tableau de signes bien fait le montre d'un coup d'œil."},
   {t:"idee", x:"C'est ici que la dérivée devient vraiment utile : **le signe de $f'$ donne les variations de $f$**, sans avoir besoin de tracer la courbe."},
   {t:"formule", titre:"Le lien fondamental", x:"$f' > 0$ sur un intervalle → $f$ est **croissante**<br>$f' < 0$ sur un intervalle → $f$ est **décroissante**<br>$f'$ s'annule en changeant de signe → **extremum** (max ou min)"},
   {t:"p", x:"Ce lien mérite qu'on s'y arrête, parce que c'est lui qui rend la dérivée utile. Relis les trois lignes : à gauche, on parle du **signe** d'une expression — un simple calcul. À droite, on parle de la **forme** d'une courbe — quelque chose de visuel. La dérivée fait le pont entre les deux. Elle permet de décrire l'allure d'une courbe qu'on n'a jamais tracée."},
@@ -1405,6 +1641,65 @@ exos:[
         {v:8, m:"Tu as oublié un des deux termes. $f'(x) = 2(x+3) + (2x-1) × 1$, donc $f'(1) = 8 + 1 = 9$."}],
   corr:["$u = 2x - 1$, $v = x + 3$, donc $u' = 2$ et $v' = 1$.","$f'(x) = 2(x + 3) + (2x - 1) × 1 = 2x + 6 + 2x - 1 = 4x + 5$.","$f'(1) = 4 + 5 = 9$.","(En développant d'abord : $f(x) = 2x^2 + 5x - 3$, donc $f'(x) = 4x + 5$. Même résultat.)"],
   indice:"Deux voies : développer puis dériver, ou appliquer $(uv)' = u'v + uv'$. Les deux doivent donner la même chose."}
+,
+
+ {id:"de12", niveau:2, type:"num", enonce:"Soit $f(x) = 3x^{2} - 5x + 2$. Calculer $f'(2)$.",
+  rep:7, tol:0.01,
+  diag:[{v:12, m:"Tu as dérivé $3x^{2}$ en $6x$ puis remplacé, mais tu as oublié le terme $-5x$, dont la dérivée est $-5$. Il faut dériver **tous** les termes."},
+        {v:4, m:"Tu as calculé $f(2) = 12 - 10 + 2 = 4$, la valeur de la fonction. La question porte sur la dérivée : il faut dériver **avant** de remplacer."},
+        {v:-5, m:"Tu n'as gardé que la dérivée du terme en $x$. Le terme $3x^{2}$ donne $6x$, qui dépend de $x$ et vaut 12 en 2."},
+        {v:1, m:"Tu as sans doute dérivé le 2 en 1. La dérivée d'une constante est **zéro** : une constante ne varie pas, sa pente est nulle."}],
+  corr:["**Dériver d'abord, remplacer ensuite.** C'est l'ordre à respecter absolument : remplacer avant de dériver donne un nombre, et la dérivée d'un nombre vaut 0.",
+        "**Terme par terme.** $(3x^{2})' = 6x$ — on multiplie par l'exposant et on le diminue de 1. $(-5x)' = -5$. $(2)' = 0$, car une constante ne varie pas.",
+        "**Rassembler.** $f'(x) = 6x - 5$.",
+        "**Remplacer par 2.** $f'(2) = 6 × 2 - 5 = 12 - 5 = 7$.",
+        "**Ce que signifie ce 7.** La tangente à la courbe au point d'abscisse 2 a pour coefficient directeur 7 : en ce point, la courbe monte fortement.",
+        "**Contrôle par le sens.** $f$ est une parabole tournée vers le haut, de sommet en $x = @f{5}{6} ≈ 0{,}83$. Le point $x = 2$ est à droite du sommet, donc dans la partie croissante : la dérivée doit y être positive ✓"],
+  indice:"Dérive l'expression complète, puis remplace $x$ par 2. Jamais l'inverse."},
+
+ {id:"de13", niveau:3, type:"qcm", enonce:"Soit $f(x) = x^{3} - 3x$. Sur quel intervalle $f$ est-elle décroissante ?",
+  choix:["$]-1 ; 1[$","$]-∞ ; -1[$","$]1 ; +∞[$","$f$ est croissante partout"], bonne:0,
+  diag:["","C'est un intervalle où $f'$ est **positive** : pour $x = -2$, $f'(-2) = 12 - 3 = 9 > 0$. La fonction y est croissante.",
+        "Même chose de l'autre côté : $f'(2) = 12 - 3 = 9 > 0$. À droite de 1, la fonction remonte.",
+        "$f'(0) = -3 < 0$ : la fonction décroît bel et bien autour de 0. Elle n'est donc pas croissante partout."],
+  corr:["**Dériver.** $f'(x) = 3x^{2} - 3$.",
+        "**Chercher où la dérivée s'annule.** $3x^{2} - 3 = 0$ donne $x^{2} = 1$, donc $x = -1$ ou $x = 1$. Attention à ne pas oublier la solution négative.",
+        "**Étudier le signe.** $f'(x) = 3(x^{2} - 1)$ est un trinôme de coefficient dominant positif : il est donc **négatif entre ses racines**, positif à l'extérieur.",
+        "**Traduire en variations.** $f'$ négative sur $]-1 ; 1[$ signifie que $f$ y est décroissante. Ailleurs, $f$ est croissante.",
+        "**Vérifier avec trois valeurs.** $f'(-2) = 9 > 0$, $f'(0) = -3 < 0$, $f'(2) = 9 > 0$. Le signe change bien deux fois ✓",
+        "**Lire les extremums.** En $x = -1$ la dérivée passe du positif au négatif : c'est un **maximum local**, $f(-1) = 2$. En $x = 1$ elle passe du négatif au positif : c'est un **minimum local**, $f(1) = -2$.",
+        "**Le réflexe du chapitre.** Dériver, annuler, étudier le signe, conclure. Quatre gestes, toujours dans cet ordre."],
+  indice:"Dérive, résous $f'(x) = 0$, puis rappelle-toi qu'un trinôme est du signe de $a$ à l'extérieur de ses racines."},
+
+ {id:"de14", niveau:3, type:"num", enonce:"Soit $f(x) = x^{2} - 4x + 1$. La tangente à la courbe au point d'abscisse 3 a pour équation $y = mx + p$. Que vaut $p$ ?",
+  rep:-8, tol:0.01,
+  diag:[{v:-2, m:"Tu as donné $f(3) = 9 - 12 + 1 = -2$, l'ordonnée du point de contact. Ce n'est pas l'ordonnée à l'origine : la tangente doit encore être prolongée jusqu'à l'axe vertical."},
+        {v:2, m:"Tu as donné $m = f'(3) = 2$, le coefficient directeur. La question porte sur $p$, le second coefficient."},
+        {v:-6, m:"Erreur de calcul dans le développement. $y = 2(x - 3) - 2 = 2x - 6 - 2 = 2x - 8$ : il ne faut pas oublier le $-2$ final."},
+        {v:8, m:"Erreur de signe. En développant $2(x - 3) - 2$, on obtient $-6 - 2 = -8$, un nombre négatif."}],
+  corr:["**La formule de la tangente.** $y = f'(a)(x - a) + f(a)$, avec ici $a = 3$. Écris-la toujours avant de remplacer quoi que ce soit.",
+        "**Calculer $f(3)$.** $f(3) = 9 - 12 + 1 = -2$. C'est l'ordonnée du point de contact.",
+        "**Calculer $f'(3)$.** $f'(x) = 2x - 4$, donc $f'(3) = 6 - 4 = 2$. C'est la pente.",
+        "**Écrire la tangente.** $y = 2(x - 3) + (-2)$.",
+        "**Développer, car la question demande la forme $mx + p$.** $y = 2x - 6 - 2 = 2x - 8$.",
+        "**Lire la réponse.** $m = 2$ et $p = -8$. La question porte sur $p$, donc **$-8$**.",
+        "**Contrôle.** La tangente doit passer par le point de contact : pour $x = 3$, $y = 2 × 3 - 8 = -2$ ✓ C'est bien $f(3)$. Ce test attrape presque toutes les erreurs de développement."],
+  indice:"Écris $y = f'(3)(x - 3) + f(3)$, puis développe complètement pour lire le terme constant."},
+
+ {id:"de15", niveau:3, type:"qcm", enonce:"Quelle est la dérivée de $f(x) = (3x - 1)(x^{2} + 2)$ ?",
+  choix:["$9x^{2} - 2x + 6$","$6x$","$3x^{2} + 6$","$9x^{2} + 6$"], bonne:0,
+  diag:["","C'est le produit des deux dérivées, $3 × 2x$. La dérivée d'un produit n'est **jamais** le produit des dérivées : il faut la formule $(uv)' = u'v + uv'$.",
+        "Tu n'as gardé que le premier morceau, $u'v = 3(x^{2} + 2)$. Il manque le second, $uv' = (3x - 1) × 2x$.",
+        "Il manque le terme en $x$. En développant $u'v + uv' = 3x^{2} + 6 + 6x^{2} - 2x$, le $-2x$ vient du produit $(-1) × 2x$ — c'est lui qu'on oublie le plus souvent."],
+  corr:["**Repérer les deux facteurs.** $u = 3x - 1$ et $v = x^{2} + 2$.",
+        "**Leurs dérivées.** $u' = 3$ et $v' = 2x$.",
+        "**La formule.** $(uv)' = u'v + uv'$ — deux termes, jamais un seul.",
+        "**Premier terme.** $u'v = 3(x^{2} + 2) = 3x^{2} + 6$.",
+        "**Second terme.** $uv' = (3x - 1) × 2x = 6x^{2} - 2x$.",
+        "**Additionner et réduire.** $f'(x) = 3x^{2} + 6 + 6x^{2} - 2x = 9x^{2} - 2x + 6$.",
+        "**Le contrôle qui vaut la peine.** Développe d'abord $f$ : $f(x) = 3x^{3} + 6x - x^{2} - 2 = 3x^{3} - x^{2} + 6x - 2$. En dérivant terme à terme : $9x^{2} - 2x + 6$ ✓ Les deux chemins donnent le même résultat.",
+        "**Quand choisir l'un ou l'autre.** Avec deux facteurs simples comme ici, développer d'abord est souvent plus sûr. La formule du produit devient indispensable dès qu'un facteur est une racine, un quotient ou une exponentielle."],
+  indice:"$(uv)' = u'v + uv'$ : deux termes à écrire, et un signe moins qui se cache dans le second."}
 ]
 },
 
@@ -1468,6 +1763,7 @@ sections:[
   {t:"p", x:"Cette propriété paraît étrange, et pourtant c'est exactement la phrase du début, traduite en langage de dérivées. Relis : « elle grandit proportionnellement à ce qu'elle vaut déjà ». Or « à quelle vitesse elle grandit », c'est $f'(x)$. Et « ce qu'elle vaut déjà », c'est $f(x)$. Dire que les deux sont égaux, c'est écrire $f' = f$ — soit exactement $(e^{x})' = e^{x}$."},
   {t:"p", x:"Autrement dit, ce n'est pas une coïncidence bizarre : **c'est la définition même de l'exponentielle**, vue sous un autre angle. C'est d'ailleurs comme ça qu'on la construit proprement en mathématiques : on cherche la fonction dont la dérivée est elle-même et qui vaut 1 en zéro. Il n'y en a qu'une, et c'est celle-là. Le nombre $e ≈ 2{,}718$ n'a pas été choisi : c'est la valeur qu'il **faut** pour que cette égalité fonctionne."},
   {t:"formule", titre:"Dérivées à connaître", x:"$(e^{x})' = e^{x}$<br>$(e^{kx})' = k e^{kx}$<br>$(e^{u})' = u' e^{u}$", note:"Le facteur qui sort devant est la dérivée de l'exposant."},
+  {t:"figi", nom:"expo-k"},
   {t:"p", x:"Comme $e^{x} > 0$ pour tout $x$, la dérivée de $e^{x}$ est toujours strictement positive. Conclusion : **la fonction exponentielle est strictement croissante sur ℝ**, sans aucune exception."},
   {t:"exemple", titre:"Exemple guidé — dériver un produit avec exponentielle", enonce:"Dériver $f(x) = 3e^{2x}$.", etapes:[
    {q:"Repérer la forme", r:"C'est $3 × e^{u}$ avec $u = 2x$."},
@@ -1496,11 +1792,58 @@ sections:[
    {q:"Conclure", r:"$S = {5}$."},
    {q:"Vérifier", r:"$2 × 5 - 1 = 9$ et $5 + 4 = 9$. Les deux exposants coïncident. ✓"}
   ]},
+  {t:"exemple", titre:"Exemple guidé — une inéquation", enonce:"Résoudre $e^{3x - 1} ≤ e^{x + 5}$, puis $e^{-2x} > e^{6}$.", etapes:[
+   {q:"La règle qui autorise le passage", r:"L'exponentielle est **strictement croissante** : elle range les nombres dans le même ordre que ses exposants. Donc $e^{A} ≤ e^{B}$ équivaut à $A ≤ B$, et le sens de l'inégalité est **conservé** en passant aux exposants."},
+   {q:"Première inéquation", r:"$e^{3x-1} ≤ e^{x+5}$ donne $3x - 1 ≤ x + 5$."},
+   {q:"Résoudre", r:"$3x - x ≤ 5 + 1$, donc $2x ≤ 6$, donc $x ≤ 3$. L'ensemble des solutions est $]-∞ ; 3]$."},
+   {q:"Deuxième inéquation : attention ici", r:"$e^{-2x} > e^{6}$ donne $-2x > 6$. On passe aux exposants **sans toucher au sens** : jusque-là tout va bien."},
+   {q:"Le retournement", r:"C'est en divisant par $-2$ que le sens change : diviser une inégalité par un nombre **négatif** la retourne. On obtient $x < -3$, et l'ensemble des solutions est $]-∞ ; -3[$."},
+   {q:"Ne pas confondre les deux étapes", r:"Le passage aux exposants ne retourne **jamais** l'inégalité, puisque l'exponentielle est croissante. Ce qui la retourne, c'est la division par un négatif — une règle de troisième, qui n'a rien à voir avec l'exponentielle."},
+   {q:"Contrôler avec une valeur", r:"Prenons $x = -4$, censé être solution : $e^{-2 × (-4)} = e^{8}$, et $e^{8} > e^{6}$ ✓. Prenons $x = 0$, censé ne pas l'être : $e^{0} = 1$, or $e^{6} ≈ 403$, donc $1 > 403$ est faux ✓. Deux essais suffisent à écarter une erreur de sens."}
+  ]},
+  {t:"piege", titre:"Retourner l'inégalité au mauvais moment", x:"Dans $e^{-2x} > e^{6}$, l'erreur classique consiste à retourner le sens **en passant aux exposants**, à cause du signe moins qu'on voit dans l'écriture. C'est faux : l'exponentielle conserve toujours l'ordre.<br><br>La bonne question à se poser est : **par quoi est-ce que je divise ?** Si c'est un nombre négatif, alors — et seulement alors — le sens change."},
   {t:"astuce", titre:"Un cas qui revient souvent", x:"Une équation comme $e^{x} = -3$ n'a **aucune solution** : l'exponentielle est toujours strictement positive, elle ne peut jamais valoir un nombre négatif. Repérer cela fait gagner du temps et des points."},
   {t:"p", x:"Pourquoi a-t-on le droit de « retirer les exponentielles » des deux côtés ? Parce que la fonction est **strictement croissante** : elle ne prend jamais deux fois la même valeur. Si deux exponentielles sont égales, elles ne peuvent venir que du même exposant. Ce raisonnement n'est pas valable pour n'importe quelle fonction — avec des carrés, par exemple, $x^2 = 9$ a deux solutions, parce que la fonction carré repasse par les mêmes valeurs."},
   {t:"p", x:"Retiens donc la différence : une équation en exponentielle a **au plus une solution**. Si tu en trouves deux, il y a une erreur."}
  ]},
 
+ {titre:"Modéliser une évolution", blocs:[
+  {t:"idee", x:"Voilà ce qui rend l'exponentielle si utile en dehors des maths : **elle décrit tout ce qui grandit ou diminue d'un pourcentage constant**. Une population, un capital placé, un médicament qui s'élimine, une quantité radioactive."},
+  {t:"p", x:"Repartons du connu. Une somme placée à 5 % par an est multipliée par $1{,}05$ chaque année : c'est une suite géométrique de raison $1{,}05$. Au bout de $n$ années, le capital vaut $C_0 × 1{,}05^n$. Rien de neuf jusqu'ici."},
+  {t:"p", x:"Le problème, c'est que cette formule ne parle **qu'aux années entières**. Elle ne dit rien au bout de six mois, ni de deux ans et trois mois. Or les phénomènes réels, eux, ne s'arrêtent pas de vivre entre deux dates : une population de bactéries ne double pas d'un coup à minuit."},
+  {t:"p", x:"L'exponentielle règle exactement ce problème. Elle prend un exposant **quelconque** — $t = 0{,}5$, $t = 2{,}25$, n'importe quel réel — là où une suite ne prend que des rangs entiers. C'est la version **continue** de la suite géométrique."},
+  {t:"formule", titre:"Le modèle et son lien avec les suites", x:"$N(t) = N_0 e^{kt}$<br>D'une unité de temps à la suivante, on multiplie toujours par le même nombre : $q = e^{k}$", note:"Les valeurs de $N(t)$ aux instants $t = 0, 1, 2, 3…$ forment exactement une suite géométrique de raison $q = e^{k}$ et de premier terme $N_0$."},
+  {t:"p", x:"Cette dernière phrase mérite d'être vérifiée, parce qu'elle explique tout le reste. Calculons le rapport entre deux instants séparés d'une unité de temps : $@f{N(t+1)}{N(t)} = @f{N_0 e^{k(t+1)}}{N_0 e^{kt}} = e^{k(t+1) - kt} = e^{k}$.<br><br>Le résultat ne dépend plus de $t$ : **quel que soit le moment**, passer une unité de temps de plus multiplie toujours par $e^{k}$. C'est précisément la définition d'une croissance à taux constant."},
+  {t:"tbl", head:["$k$","$q = e^{k}$","Évolution par unité de temps","Le sens"],
+   rows:[["$0{,}05$","≈ 1,051","**+ 5,1 %**","croissance lente"],
+         ["$0{,}1$","≈ 1,105","**+ 10,5 %**","croissance modérée"],
+         ["$0{,}2$","≈ 1,221","**+ 22,1 %**","croissance rapide"],
+         ["$1$","≈ 2,718","**+ 171,8 %**","presque un triplement"],
+         ["$0$","$1$","**0 %**","rien ne bouge"],
+         ["$-0{,}1$","≈ 0,905","**− 9,5 %**","décroissance lente"],
+         ["$-0{,}3$","≈ 0,741","**− 25,9 %**","décroissance rapide"]]},
+  {t:"astuce", titre:"Ce que le tableau apprend d'un coup d'œil", x:"**Le signe de $k$ décide du sens** : positif ça monte, négatif ça descend, nul c'est plat. **La valeur de $k$ décide de la vitesse** : plus $k$ est loin de 0, plus ça va vite.<br><br>Et pour comparer deux modèles, inutile de calculer quoi que ce soit : $e^{0{,}3t}$ croît plus vite que $e^{0{,}2t}$, tout simplement parce que $0{,}3 > 0{,}2$."},
+  {t:"exemple", titre:"Exemple guidé — une culture de bactéries", enonce:"Une culture compte 500 bactéries à l'instant $t = 0$ et suit le modèle $N(t) = 500 e^{0,2t}$, où $t$ est en heures. Combien y en a-t-il au bout de 5 heures ? De quel pourcentage la population augmente-t-elle chaque heure ?", etapes:[
+   {q:"Lire les deux nombres du modèle", r:"$N_0 = 500$ est l'effectif de départ — c'est bien ce que donne $N(0) = 500 × e^{0} = 500 × 1 = 500$. Et $k = 0{,}2$ commande la vitesse."},
+   {q:"Au bout de 5 heures", r:"On remplace $t$ par 5 : $N(5) = 500 × e^{0,2 × 5} = 500 × e^{1} ≈ 500 × 2{,}718 ≈ 1359$ bactéries."},
+   {q:"L'erreur à ne pas faire ici", r:"Il faut d'abord calculer l'exposant **en entier**, $0{,}2 × 5 = 1$, avant d'appliquer l'exponentielle. Écrire $500 × e^{0,2} × 5$ donnerait 3053 : un résultat plus de deux fois trop grand."},
+   {q:"Le pourcentage par heure", r:"C'est le rapport $@f{N(t+1)}{N(t)} = e^{0,2} ≈ 1{,}221$. Multiplier par $1{,}221$, c'est augmenter de **22,1 %** par heure."},
+   {q:"Pourquoi pas 20 % ?", r:"Parce que la croissance est **continue** : elle agit sans arrêt, et les petits gains produisent eux-mêmes des gains. C'est le même phénomène que les intérêts composés, poussé à l'extrême. Le coefficient $k = 0{,}2$ et le taux de $22{,}1$ % sont deux façons différentes de décrire la même chose."},
+   {q:"Contrôle par les suites", r:"$N(0) = 500$, $N(1) ≈ 611$, $N(2) ≈ 746$, $N(3) ≈ 911$. Les quotients : $@f{611}{500} ≈ 1{,}22$, $@f{746}{611} ≈ 1{,}22$, $@f{911}{746} ≈ 1{,}22$. Toujours le même — c'est bien une suite géométrique."}
+  ]},
+  {t:"piege", titre:"Confondre le coefficient $k$ et le pourcentage", x:"$N(t) = N_0 e^{0,2t}$ ne veut **pas** dire « + 20 % par unité de temps », mais + 22,1 %. Le pourcentage se lit dans $e^{k}$, jamais dans $k$ tout seul.<br><br>L'écart reste petit tant que $k$ est petit — $k = 0{,}05$ donne + 5,1 %, on peut presque confondre. Mais il explose quand $k$ grandit : $k = 1$ ne donne pas + 100 % mais + 171,8 %."},
+  {t:"exemple", titre:"Exemple guidé — une décroissance", enonce:"Un médicament s'élimine du sang selon $Q(t) = 40 e^{-0,3t}$, où $Q$ est en milligrammes et $t$ en heures. Que reste-t-il au bout de 4 heures ? Le sang sera-t-il un jour totalement propre ?", etapes:[
+   {q:"Le sens de l'évolution", r:"$k = -0{,}3$ est négatif : la quantité **diminue**. On s'attend à un résultat inférieur à 40."},
+   {q:"Calculer", r:"$Q(4) = 40 × e^{-0,3 × 4} = 40 × e^{-1,2} ≈ 40 × 0{,}301 ≈ 12{,}0$ mg."},
+   {q:"Le rythme de disparition", r:"Chaque heure, on multiplie par $e^{-0,3} ≈ 0{,}741$ : il reste 74,1 % de ce qu'il y avait, donc la quantité baisse de **25,9 %** par heure."},
+   {q:"Vérifier que c'est cohérent", r:"$40 × 0{,}741^4 ≈ 40 × 0{,}301 ≈ 12{,}0$ ✓ On retrouve bien le même résultat par la suite géométrique."},
+   {q:"Le sang sera-t-il propre ?", r:"Non, jamais complètement — du moins dans le modèle. Une exponentielle est **toujours strictement positive** : $e^{-0,3t}$ se rapproche de 0 autant qu'on veut, mais ne l'atteint jamais. En pratique, on fixe un seuil en dessous duquel on considère la dose négligeable."},
+   {q:"Ce que ça enseigne sur les modèles", r:"Un modèle mathématique décrit bien une tendance, sans être la réalité exacte. Ici il est parfait pour prévoir la dose à 4 heures, et inutile pour répondre à « quand n'y en aura-t-il plus du tout ? » — cette question-là n'a pas de réponse dans ce modèle."}
+  ]},
+  {t:"check", q:"Une grandeur suit $N(t) = N_0 e^{0,1t}$. Que peut-on dire de son évolution par unité de temps ?",
+   choix:["Elle augmente d'environ 10,5 %","Elle augmente d'exactement 10 %","Elle augmente de 0,1 %"], bonne:0,
+   expl:["","Presque : c'est la confusion la plus fréquente du chapitre. Le pourcentage vaut $e^{0,1} ≈ 1{,}105$, soit + 10,5 % et non + 10 %.","Le coefficient $k = 0{,}1$ n'est pas un pourcentage. Il faut d'abord calculer $e^{0,1} ≈ 1{,}105$ pour lire l'évolution."]}
+ ]},
  {titre:"Récapitulatif : manipuler les exposants, jamais les valeurs", blocs:[
   {t:"idee", x:"Le réflexe central du chapitre : **on travaille sur les exposants, pas sur les nombres**. On ne calcule $e^{quelque chose}$ à la calculatrice qu'à la toute fin, s'il le faut."},
   {t:"p", x:"C'est l'erreur de méthode la plus coûteuse : sortir la calculatrice trop tôt. Devant $@f{e^{5} × e^{-2}}{e^{4}}$, la tentation est de calculer chaque morceau. Mauvaise idée : on obtient des décimales interminables, on arrondit, et on perd la précision. En restant sur les exposants, tout se simplifie : $5 - 2 - 4 = -1$, réponse $e^{-1}$. Une ligne, exacte."},
@@ -1539,7 +1882,7 @@ exos:[
   diag:["", "Attention : c'est l'**exposant** qui vaut 0, pas le résultat. Tout nombre non nul élevé à la puissance 0 donne 1.",
         "$e$ correspond à $e^{1}$, pas à $e^{0}$.",
         "C'est parfaitement calculable, et c'est une valeur de référence à connaître : $e^{0} = 1$."],
-  corr:["Règle des puissances : $a^{0} = 1$ pour tout $a ≠ 0$.","Donc $e^{0} = 1$."],
+  corr:["**La règle.** Pour tout nombre $a ≠ 0$, on a $a^{0} = 1$. L'exponentielle ne fait pas exception : $e^{0} = 1$.","**D'où vient cette règle ?** Elle n'est pas arbitraire. On sait que $@f{a^{n}}{a^{n}} = 1$, puisqu'on divise un nombre par lui-même. Mais la règle du quotient dit aussi que $@f{a^{n}}{a^{n}} = a^{n-n} = a^{0}$. Les deux calculs portent sur la même chose, donc $a^{0} = 1$.","**Ce que ça veut dire sur la courbe.** La courbe de $x ↦ e^{x}$ passe par le point $(0 ; 1)$. C'est son point de repère : quel que soit le coefficient devant le $x$, elle passe toujours par là.","**Le piège à éviter.** Ne confonds pas $e^{0} = 1$ avec $0^{e}$ ou avec $e × 0 = 0$. L'exposant 0 ne rend pas le résultat nul — au contraire, il le ramène à 1.","**À retenir pour la suite.** Une exponentielle n'est jamais nulle : $e^{x} > 0$ pour tout $x$. Le cas $x = 0$ en est le point de passage."],
   indice:"Rappelle-toi ce que vaut n'importe quel nombre à la puissance 0."},
 
  {id:"ex2", niveau:1, type:"qcm", enonce:"Simplifier $e^{4} × e^{3}$.",
@@ -1597,6 +1940,75 @@ exos:[
         {v:2, m:"Tu as peut-être divisé quelque part. Ici il n'y a rien à diviser : après regroupement il reste un seul $x$."}],
   corr:["Les deux membres sont des exponentielles : j'identifie les exposants.","$2x + 1 = x - 3$.","Je regroupe : $2x - x = -3 - 1$.","$x = -4$."],
   indice:"Égalise les exposants, puis résous l'équation du premier degré obtenue."}
+,
+
+ {id:"ex9", niveau:2, type:"num", enonce:"Résoudre $e^{5x} = e^{2x + 9}$. Quelle est la valeur de $x$ ?",
+  rep:3, tol:0.01,
+  diag:[{v:9, m:"Tu as bien obtenu $3x = 9$, mais tu t'es arrêté là. Il reste à diviser les deux côtés par 3 pour isoler $x$."},
+        {v:1.286, m:"Tu as calculé $@f{9}{7}$, en additionnant $5 + 2$. Les deux $x$ sont des deux côtés de l'égalité : il faut les **soustraire** pour les rassembler, pas les additionner."},
+        {v:-3, m:"Erreur de signe en rassemblant les $x$. En retirant $2x$ des deux côtés de $5x = 2x + 9$, il reste $3x = 9$, donc $x$ est positif."},
+        {v:4.5, m:"Tu as divisé 9 par 2 au lieu de 3. Le coefficient devant $x$ après regroupement est $5 - 2 = 3$."}],
+  corr:["**La règle qui débloque tout.** L'exponentielle est strictement croissante : elle ne prend jamais deux fois la même valeur. Donc $e^{A} = e^{B}$ équivaut à $A = B$, et on peut « retirer les exponentielles » des deux côtés.",
+        "**Passer aux exposants.** $5x = 2x + 9$.",
+        "**Rassembler les $x$.** On retire $2x$ des deux côtés : $3x = 9$.",
+        "**Isoler.** $x = @f{9}{3} = 3$.",
+        "**Vérifier.** À gauche $e^{5 × 3} = e^{15}$. À droite $e^{2 × 3 + 9} = e^{15}$. Les deux côtés coïncident ✓",
+        "**Ce qu'il faut retenir.** On ne calcule jamais la valeur numérique de $e^{15}$ — un nombre à sept chiffres, parfaitement inutile ici. Tout le travail se fait sur les exposants."],
+  indice:"Une équation entre deux exponentielles devient une équation entre les exposants. Ensuite, c'est du premier degré."},
+
+ {id:"ex10", niveau:2, type:"qcm", enonce:"Résoudre l'inéquation $e^{-2x} > e^{6}$.",
+  choix:["$x < -3$","$x > -3$","$x < 3$","$x > 3$"], bonne:0,
+  diag:["","Le sens de l'inégalité doit changer, mais pas à l'étape que tu crois. Le passage aux exposants donne $-2x > 6$ sans rien retourner ; c'est la division par $-2$, un nombre **négatif**, qui retourne le sens et donne $x < -3$.",
+        "Tu as oublié le signe moins. En divisant $-2x > 6$ par $-2$, on obtient $x < -3$, et non $x < 3$ : le signe du résultat change aussi.",
+        "Deux erreurs cumulées : le signe et le sens. Reprends dans l'ordre — passage aux exposants d'abord, division ensuite."],
+  corr:["**Passer aux exposants.** L'exponentielle est strictement croissante, donc elle conserve l'ordre : $e^{-2x} > e^{6}$ équivaut à $-2x > 6$. À cette étape, **rien n'est retourné**.",
+        "**Diviser par $-2$.** C'est ici que tout se joue : diviser une inégalité par un nombre négatif **retourne** le sens. On obtient $x < -3$.",
+        "**Écrire l'ensemble des solutions.** $S = ]-∞ ; -3[$. La borne est ouverte, car l'inégalité de départ était stricte.",
+        "**Contrôler avec deux valeurs.** $x = -4$ devrait convenir : $e^{-2 × (-4)} = e^{8} > e^{6}$ ✓. $x = 0$ ne devrait pas : $e^{0} = 1$, or $e^{6} ≈ 403$, donc $1 > 403$ est faux ✓.",
+        "**La confusion à éviter définitivement.** Le passage aux exposants ne retourne jamais l'inégalité. Seule la division (ou la multiplication) par un nombre négatif le fait — une règle de troisième, sans rapport avec l'exponentielle."],
+  indice:"Deux étapes bien distinctes : d'abord passer aux exposants (le sens ne bouge pas), ensuite diviser. Regarde le signe du diviseur."},
+
+ {id:"ex11", niveau:3, type:"num", enonce:"Une population de bactéries suit $N(t) = 200 e^{0,15t}$, où $t$ est en heures. Combien y en a-t-il au bout de 10 heures ? (arrondir à l'unité)",
+  rep:896, tol:2,
+  diag:[{v:300, m:"Tu as calculé $200 × 1{,}5$, comme si $e^{0,15t}$ était une simple multiplication. L'exposant $0{,}15 × 10 = 1{,}5$ doit passer **dans** l'exponentielle : c'est $e^{1,5} ≈ 4{,}48$ qu'il faut utiliser."},
+        {v:2000, m:"Tu as multiplié l'effectif de départ par le temps. Le temps n'agit pas directement sur l'effectif : il agit sur l'exposant."},
+        {v:230, m:"Tu as appliqué une seule augmentation de 15 % ($200 × 1{,}15$). Mais la croissance dure 10 heures, et elle s'accumule à chaque instant."},
+        {v:930, m:"Tu as calculé $200 × 1{,}15^{10}$, comme une suite géométrique de raison $1{,}15$. La raison n'est pas $1{,}15$ mais $e^{0,15} ≈ 1{,}162$ : c'est là toute la différence entre le coefficient $k$ et le pourcentage."}],
+  corr:["**Repérer les deux nombres du modèle.** $N_0 = 200$ est l'effectif de départ, $k = 0{,}15$ commande la vitesse de croissance.",
+        "**Calculer l'exposant en entier, d'abord.** $0{,}15 × 10 = 1{,}5$. C'est l'étape que l'on saute le plus souvent, et celle qui fausse tout.",
+        "**Appliquer l'exponentielle.** $e^{1,5} ≈ 4{,}4817$.",
+        "**Multiplier par l'effectif initial.** $N(10) = 200 × 4{,}4817 ≈ 896{,}3$, soit environ **896 bactéries**.",
+        "**Contrôle de bon sens.** La population a été multipliée par près de 4,5 en 10 heures. Comme $k > 0$, on attendait bien une augmentation — et un ordre de grandeur autour du millier est cohérent.",
+        "**Le lien avec les suites.** Chaque heure, la population est multipliée par $e^{0,15} ≈ 1{,}162$, soit **+ 16,2 %** par heure. On peut vérifier : $200 × 1{,}162^{10} ≈ 896$ ✓ — la même réponse par l'autre chemin."],
+  indice:"Calcule d'abord le produit $0{,}15 × 10$ dans l'exposant, et seulement après applique la touche exponentielle de la calculatrice."},
+
+ {id:"ex12", niveau:3, type:"qcm", enonce:"Une grandeur suit $N(t) = N_0 e^{0,1t}$. De quel pourcentage augmente-t-elle à chaque unité de temps ?",
+  choix:["Environ + 10,5 %","Exactement + 10 %","+ 0,1 %","On ne peut pas le savoir sans connaître $N_0$"], bonne:0,
+  diag:["","C'est le piège central du chapitre. Le coefficient $k = 0{,}1$ n'est pas le pourcentage : le vrai facteur multiplicatif est $e^{0,1} ≈ 1{,}105$, soit + 10,5 %. L'écart vient de ce que la croissance agit en continu, et que les gains produisent eux-mêmes des gains.",
+        "Tu as lu $0{,}1$ comme un pourcentage déjà écrit. Il faut d'abord calculer $e^{0,1}$ pour obtenir le facteur multiplicatif, puis le traduire en pourcentage.",
+        "$N_0$ n'intervient pas. Le rapport $@f{N(t+1)}{N(t)} = e^{k}$ simplifie $N_0$ : le pourcentage d'évolution est le même quelle que soit la valeur de départ."],
+  corr:["**Ce qu'on cherche.** Le facteur par lequel on multiplie quand le temps avance d'une unité, c'est-à-dire le rapport $@f{N(t+1)}{N(t)}$.",
+        "**Le calculer.** $@f{N_0 e^{0,1(t+1)}}{N_0 e^{0,1t}} = e^{0,1(t+1) - 0,1t} = e^{0,1}$.",
+        "**Deux choses à remarquer dans ce résultat.** $N_0$ a disparu — le pourcentage ne dépend pas de la valeur de départ. Et $t$ a disparu aussi — le pourcentage est le même à tout moment. C'est la définition d'une croissance à taux constant.",
+        "**Traduire en pourcentage.** $e^{0,1} ≈ 1{,}1052$. Multiplier par $1{,}1052$, c'est augmenter d'environ **10,5 %**.",
+        "**Pourquoi pas 10 % ?** Parce que la croissance est continue : elle ne s'applique pas une fois en fin de période, mais sans arrêt, et chaque petit gain se met lui-même à croître. C'est le mécanisme des intérêts composés, poussé jusqu'au continu.",
+        "**L'ordre de grandeur à garder en tête.** Tant que $k$ reste petit, $e^{k}$ est proche de $1 + k$ et l'écart est faible. Mais pour $k = 1$, $e^{1} ≈ 2{,}718$ : ce n'est pas + 100 % mais + 171,8 %."],
+  indice:"Calcule le rapport $@f{N(t+1)}{N(t)}$ en simplifiant les exponentielles. Le résultat ne dépend ni de $N_0$ ni de $t$."},
+
+ {id:"ex13", niveau:2, type:"num", enonce:"Soit $f(x) = 3e^{-2x}$. Calculer $f'(1)$. (arrondir au millième)",
+  rep:-0.812, tol:0.002,
+  diag:[{v:0.812, m:"La valeur absolue est bonne, mais le signe est faux. La dérivée de l'exposant, $-2$, sort en facteur avec **son signe** : le résultat est négatif, ce qui est logique puisque la fonction décroît."},
+        {v:-0.271, m:"Tu as oublié le facteur 3 qui était devant. Un coefficient constant se conserve tout au long de la dérivation : $(3u)' = 3u'$."},
+        {v:-6, m:"Tu t'es arrêté au facteur $3 × (-2) = -6$, sans le multiplier par $e^{-2 × 1} = e^{-2}$. La dérivée est $-6e^{-2x}$, il reste à y remplacer $x$ par 1."},
+        {v:0.406, m:"Tu as calculé $f(1) = 3e^{-2} ≈ 0{,}406$, la valeur de la fonction, pas celle de sa dérivée. Il manque le facteur $-2$ qui sort en dérivant."}],
+  corr:["**La règle à appliquer.** $(e^{u})' = u' e^{u}$ : la dérivée de l'exposant sort en facteur devant, et l'exponentielle reste inchangée.",
+        "**Identifier $u$.** Ici $u(x) = -2x$, donc $u'(x) = -2$.",
+        "**Dériver.** $f'(x) = 3 × (-2) × e^{-2x} = -6e^{-2x}$. Le 3 est un coefficient constant : il traverse la dérivation sans changer.",
+        "**Remplacer $x$ par 1.** $f'(1) = -6 × e^{-2}$.",
+        "**Calculer.** $e^{-2} ≈ 0{,}1353$, donc $f'(1) ≈ -6 × 0{,}1353 ≈ -0{,}812$.",
+        "**Contrôle de signe.** $e^{-2x}$ est toujours strictement positif, et le facteur $-6$ est négatif : $f'$ est donc négative **partout**. La fonction est décroissante sur $ℝ$ tout entier, et trouver un résultat positif aurait signalé une erreur.",
+        "**Le rapport remarquable.** $f'(x) = -2 × f(x)$ : la dérivée est proportionnelle à la fonction elle-même. C'est la propriété qui définit l'exponentielle, et ce qui la rend si utile pour modéliser."],
+  indice:"$(e^{u})' = u' e^{u}$. Ici $u = -2x$, donc c'est $-2$ qui sort — sans oublier le 3 déjà présent."}
 ]
 }
 ]);
@@ -1795,7 +2207,7 @@ exos:[
   diag:["", "C'est le sinus qui donne l'ordonnée. Le cosinus est « couché » : il se lit horizontalement.",
         "La longueur de l'arc, c'est la mesure de l'angle en radians, pas son cosinus.",
         "Le rayon vaut toujours 1 sur le cercle trigonométrique, quel que soit l'angle."],
-  corr:["Sur le cercle de rayon 1, l'angle $x$ mène au point de coordonnées $(cos x ; sin x)$.","Le cosinus est donc la première coordonnée : l'abscisse."],
+  corr:["**Le point de départ.** On part de $(1 ; 0)$ et on tourne d'un angle $x$ sur le cercle de rayon 1. On arrive en un point $M$, et c'est ce point qui définit tout.","**La définition.** Par convention, $M$ a pour coordonnées $(cos x ; sin x)$. Le cosinus est donc la **première** coordonnée : l'abscisse. Le sinus est la seconde : l'ordonnée.","**Comment ne plus se tromper.** Les coordonnées s'écrivent toujours dans l'ordre (abscisse ; ordonnée), et **cos** vient avant **sin** dans l'alphabet. Les deux ordres coïncident : c'est le moyen le plus sûr de retenir lequel est lequel.","**Le vérifier sur un cas simple.** Pour $x = 0$, on n'a pas tourné : le point est encore en $(1 ; 0)$. Donc $cos 0 = 1$ et $sin 0 = 0$. Pour $x = @f{π}{2}$, on est monté au sommet, en $(0 ; 1)$ : $cos @f{π}{2} = 0$ et $sin @f{π}{2} = 1$.","**La conséquence la plus utile.** Le point est sur le cercle de rayon 1, donc ses coordonnées vérifient $x^{2} + y^{2} = 1$. C'est exactement d'où vient la formule $cos^{2} x + sin^{2} x = 1$ : ce n'est rien d'autre que Pythagore."],
   indice:"Coordonnées d'un point : (abscisse ; ordonnée). Dans quel ordre viennent cos et sin ?"},
 
  {id:"tr3", niveau:2, type:"qcm", enonce:"Combien vaut $sin(-x)$ ?",
@@ -1864,6 +2276,63 @@ exos:[
         "Une courbe symétrique par rapport à l'axe des abscisses ne serait pas une fonction : chaque $x$ aurait deux images."],
   corr:["Une fonction est paire quand $f(-x) = f(x)$ pour tout $x$.","Ici $cos(-x) = cos x$ : le point d'abscisse $-x$ a la même hauteur que celui d'abscisse $x$.","La courbe se réfléchit donc dans l'axe des ordonnées."],
   indice:"Traduis $f(-x) = f(x)$ : deux points opposés en abscisse ont la même hauteur. Quel miroir cela donne-t-il ?"}
+,
+
+ {id:"tr11", niveau:1, type:"qcm", enonce:"À combien de radians correspond un angle de 150° ?",
+  choix:["$@f{5π}{6}$","$@f{3π}{4}$","$@f{2π}{3}$","$@f{5π}{3}$"], bonne:0,
+  diag:["","C'est la mesure de 135°, pas de 150°. Vérifie : $@f{3π}{4} = @f{3}{4} × 180 = 135$°.",
+        "C'est la mesure de 120°. Tu as peut-être simplifié trop vite : $@f{150}{180} = @f{5}{6}$, et non $@f{2}{3}$.",
+        "C'est la mesure de 300°, soit le double. Tu as sans doute divisé par 6 au lieu de 12, ou oublié de simplifier la fraction jusqu'au bout."],
+  corr:["**La correspondance de base.** $180° = π$ radians. C'est la seule chose à retenir : tout le reste s'en déduit par proportionnalité.",
+        "**Écrire la proportion.** $@f{mesure en radians}{π} = @f{mesure en degrés}{180}$.",
+        "**Remplacer.** $@f{x}{π} = @f{150}{180}$.",
+        "**Simplifier la fraction.** $@f{150}{180} = @f{15}{18} = @f{5}{6}$ — on divise en haut et en bas par 10, puis par 3.",
+        "**Conclure.** $x = @f{5π}{6}$ radians.",
+        "**Le contrôle mental.** $@f{5π}{6}$ est un peu moins que $π$, donc un peu moins que 180°. Cohérent avec 150° ✓ Prends l'habitude de situer le résultat entre 0 et $2π$ : cela élimine tout de suite les réponses aberrantes.",
+        "**Les repères à mémoriser.** $30° = @f{π}{6}$, $45° = @f{π}{4}$, $60° = @f{π}{3}$, $90° = @f{π}{2}$, $180° = π$. Avec ces cinq-là, on retrouve presque tout."],
+  indice:"$180° = π$ radians. Écris la proportion, puis simplifie $@f{150}{180}$ jusqu'au bout."},
+
+ {id:"tr12", niveau:2, type:"qcm", enonce:"Sur l'intervalle $[0 ; 2π[$, quelles sont les solutions de $sin x = @f{1}{2}$ ?",
+  choix:["$@f{π}{6}$ et $@f{5π}{6}$","$@f{π}{6}$ seulement","$@f{π}{6}$ et $@f{7π}{6}$","$@f{π}{3}$ et $@f{2π}{3}$"], bonne:0,
+  diag:["","Il manque une solution. Sur le cercle, la droite horizontale d'ordonnée $@f{1}{2}$ coupe le cercle en **deux** points, pas un seul. La calculatrice n'en donne qu'un : c'est à toi de trouver l'autre.",
+        "$@f{7π}{6}$ est dans le demi-cercle du **bas**, où le sinus est négatif : $sin@f{7π}{6} = -@f{1}{2}$. Le symétrique cherché est par rapport à l'axe **vertical**, pas par rapport au centre.",
+        "Ces deux angles ont pour sinus $@f{@r{3}}{2} ≈ 0{,}87$, pas $@f{1}{2}$. Tu as confondu les valeurs remarquables de $@f{π}{6}$ et de $@f{π}{3}$."],
+  corr:["**Se placer sur le cercle.** Le sinus est l'**ordonnée** du point. Chercher $sin x = @f{1}{2}$, c'est chercher les points du cercle situés à la hauteur $@f{1}{2}$.",
+        "**Combien y en a-t-il ?** La droite horizontale d'ordonnée $@f{1}{2}$ coupe le cercle en **deux** points, tous les deux dans la moitié haute. Il y a donc deux solutions.",
+        "**La solution évidente.** $sin@f{π}{6} = @f{1}{2}$ : c'est une valeur remarquable à connaître par cœur.",
+        "**Trouver la seconde.** Les deux points sont symétriques par rapport à l'axe **vertical**. Le symétrique de $@f{π}{6}$ par rapport à cet axe est $π - @f{π}{6} = @f{6π - π}{6} = @f{5π}{6}$.",
+        "**Écrire l'ensemble des solutions.** $S = {@f{π}{6} ; @f{5π}{6}}$.",
+        "**Vérifier.** $@f{5π}{6}$ correspond à 150°, et $sin(150°) = 0{,}5$ ✓",
+        "**La règle qui évite l'oubli.** Pour le **sinus**, les deux solutions sont $x$ et $π - x$ (symétrie verticale). Pour le **cosinus**, ce sont $x$ et $-x$ (symétrie horizontale). Confondre les deux est l'erreur la plus courante du chapitre — dessine le cercle à chaque fois, cela prend dix secondes."],
+  indice:"Le sinus est l'ordonnée. Une droite horizontale coupe le cercle en deux points, symétriques par rapport à l'axe vertical."},
+
+ {id:"tr13", niveau:2, type:"num", enonce:"Combien vaut $cos@f{2π}{3}$ ?",
+  rep:-0.5, tol:0.01,
+  diag:[{v:0.5, m:"C'est $cos@f{π}{3}$. L'angle $@f{2π}{3}$ vaut 120° : il est dans le deuxième quadrant, à **gauche** de l'axe vertical, donc son abscisse — le cosinus — est négative."},
+        {v:0.866, m:"C'est $sin@f{2π}{3}$, l'ordonnée. Le cosinus est l'abscisse : c'est la première coordonnée du point."},
+        {v:-0.866, m:"Tu as le bon signe mais la mauvaise valeur : $-@f{@r{3}}{2}$ correspondrait à $cos@f{5π}{6}$. Pour $@f{2π}{3}$, la valeur absolue du cosinus est $@f{1}{2}$."},
+        {v:0.667, m:"Tu as calculé $@f{2}{3}$ en oubliant le $π$. L'angle est $@f{2π}{3}$ radians, soit 120°, et il faut lire son cosinus sur le cercle."}],
+  corr:["**Convertir pour visualiser.** $@f{2π}{3} = @f{2}{3} × 180° = 120°$. C'est un angle obtus, situé dans le deuxième quadrant — en haut à gauche du cercle.",
+        "**En déduire les signes tout de suite.** Dans ce quadrant, l'abscisse est **négative** et l'ordonnée positive. Donc $cos@f{2π}{3} < 0$ : la moitié des réponses possibles est déjà éliminée.",
+        "**Utiliser l'angle associé.** $@f{2π}{3} = π - @f{π}{3}$, et la formule du cours donne $cos(π - x) = -cos x$.",
+        "**Appliquer.** $cos@f{2π}{3} = -cos@f{π}{3} = -@f{1}{2} = -0{,}5$.",
+        "**Contrôle sur le cercle.** Le point d'angle 120° a pour coordonnées $(-@f{1}{2} ; @f{@r{3}}{2})$, soit environ $(-0{,}5 ; 0{,}87)$. L'abscisse est bien $-0{,}5$ ✓",
+        "**La méthode générale.** Pour tout angle remarquable hors du premier quadrant : d'abord le quadrant (il donne les signes), ensuite l'angle associé (il donne la valeur). Dans cet ordre, on ne se trompe jamais de signe."],
+  indice:"$@f{2π}{3}$ vaut 120°. Dans quel quadrant ? Quel est le signe de l'abscisse là-bas ?"},
+
+ {id:"tr14", niveau:3, type:"qcm", enonce:"Que vaut $cos(π + x)$ ?",
+  choix:["$-cos x$","$cos x$","$-sin x$","$sin x$"], bonne:0,
+  diag:["","Ajouter $π$, c'est faire un demi-tour complet sur le cercle : le point arrive à l'opposé du centre. Ses **deux** coordonnées changent de signe, donc le cosinus aussi.",
+        "Le sinus et le cosinus ne s'échangent que pour les angles associés à $@f{π}{2}$, comme $cos(@f{π}{2} - x) = sin x$. Ajouter $π$ ne mélange pas les deux coordonnées, il les inverse toutes les deux.",
+        "Même remarque : il n'y a aucun échange entre sinus et cosinus ici, et le signe n'est pas le bon non plus."],
+  corr:["**Traduire géométriquement.** Passer de l'angle $x$ à l'angle $π + x$, c'est tourner d'un demi-tour supplémentaire. Le point $M$ devient son **symétrique par rapport au centre** du cercle.",
+        "**Ce que fait cette symétrie.** Elle change le signe des deux coordonnées : $(cos x ; sin x)$ devient $(-cos x ; -sin x)$.",
+        "**Lire les deux formules d'un coup.** $cos(π + x) = -cos x$ et $sin(π + x) = -sin x$.",
+        "**Vérifier sur un cas connu.** Prenons $x = 0$ : $cos(π) = -1$ et $cos 0 = 1$. On a bien $-1 = -(1)$ ✓",
+        "**Un second essai, pour être sûr.** $x = @f{π}{3}$ : $cos@f{4π}{3} = -0{,}5$ et $cos@f{π}{3} = 0{,}5$ ✓",
+        "**Ne pas apprendre par cœur, mais retrouver.** Les huit formules d'angles associés se déduisent toutes du même dessin. Trace le cercle, place $x$, place l'angle demandé, et compare les coordonnées : c'est plus rapide et plus sûr que de réciter une liste.",
+        "**Les trois symétries à distinguer.** $-x$ : symétrie par rapport à l'axe **horizontal**. $π - x$ : par rapport à l'axe **vertical**. $π + x$ : par rapport au **centre**."],
+  indice:"Ajouter $π$, c'est un demi-tour. Où arrive le point, et que deviennent ses deux coordonnées ?"}
 ]
 },
 
@@ -2109,7 +2578,7 @@ exos:[
   diag:["", "Des vecteurs égaux auraient un produit scalaire égal au carré de leur norme, donc strictement positif.",
         "Des vecteurs colinéaires de même sens donnent un produit scalaire positif, de sens opposé un produit négatif — jamais nul s'ils sont non nuls.",
         "L'énoncé précise justement qu'ils sont non nuls."],
-  corr:["Le critère du cours : $@v{u} · @v{v} = 0$ équivaut à $@v{u} ⊥ @v{v}$ (pour des vecteurs non nuls).","Les deux vecteurs sont donc perpendiculaires."],
+  corr:["**Le critère.** Pour deux vecteurs **non nuls**, $@v{u} · @v{v} = 0$ équivaut à $@v{u} ⊥ @v{v}$. Ils sont donc perpendiculaires.","**Pourquoi.** Le produit scalaire vaut $@v{u} · @v{v} = ‖@v{u}‖ × ‖@v{v}‖ × cos θ$, où $θ$ est l'angle entre eux. Les deux longueurs ne sont pas nulles, puisque les vecteurs ne le sont pas. Pour que le produit soit nul, il faut donc que $cos θ = 0$ — c'est-à-dire $θ = 90°$.","**Pourquoi la précision « non nuls » compte.** Le vecteur nul a un produit scalaire nul avec absolument tout. On ne pourrait alors rien conclure sur un angle, puisqu'un vecteur nul n'a pas de direction. C'est pour écarter ce cas que l'énoncé le précise.","**Le vérifier en coordonnées.** Avec $@v{u}(3 ; 2)$ et $@v{v}(-2 ; 3)$ : $3 × (-2) + 2 × 3 = -6 + 6 = 0$. Dessine-les : ils forment bien un angle droit.","**À quoi ça sert vraiment.** C'est l'outil qui permet de démontrer une perpendicularité **par le calcul**, sans rapporteur : hauteur d'un triangle, tangente à un cercle, diagonales d'un losange. On calcule un produit scalaire, on trouve 0, c'est démontré."],
   indice:"Un produit scalaire nul correspond à un angle bien particulier. Lequel ?"},
 
  {id:"ps3", niveau:2, type:"num", enonce:"Soit $A(1 ; 2)$ et $B(5 ; 5)$. Quelle est la longueur $AB$ ?",
@@ -2176,6 +2645,65 @@ exos:[
         "Le produit scalaire ne serait nul que si $H$ était confondu avec $A$, c'est-à-dire si l'angle en $A$ était droit. Ici $H$ est strictement entre $A$ et $B$."],
   corr:["On peut remplacer $@v{AC}$ par son projeté : $@v{AB} · @v{AC} = @v{AB} · @v{AH}$.","$@v{AB}$ et $@v{AH}$ sont portés par la même droite et de même sens (car $H$ est entre $A$ et $B$).","Le produit scalaire vaut donc le produit des longueurs : $AB × AH$, et il est positif."],
   indice:"Projette $C$ sur la droite : que reste-t-il du vecteur $@v{AC}$ dans la direction de $@v{AB}$ ?"}
+,
+
+ {id:"ps11", niveau:1, type:"num", enonce:"Soit $@v{u}(3 ; -1)$ et $@v{v}(2 ; 5)$. Calculer $@v{u} · @v{v}$.",
+  rep:1, tol:0.01,
+  diag:[{v:11, m:"Tu as calculé $6 + 5$ en oubliant le signe moins de la seconde coordonnée de $@v{u}$. Le second produit vaut $(-1) × 5 = -5$, pas $+5$."},
+        {v:13, m:"Tu as multiplié les coordonnées en les croisant ($3 × 5$ et $-1 × 2$, ou l'inverse). Le produit scalaire associe les abscisses entre elles, puis les ordonnées entre elles — jamais en croix."},
+        {v:6, m:"Tu n'as gardé que le produit des abscisses. Il faut ajouter celui des ordonnées."},
+        {v:-5, m:"Tu n'as gardé que le produit des ordonnées. Il manque celui des abscisses, $3 × 2 = 6$."}],
+  corr:["**La formule en coordonnées.** $@v{u} · @v{v} = x_u x_v + y_u y_v$ : les abscisses ensemble, les ordonnées ensemble, puis on additionne.",
+        "**Premier produit.** $3 × 2 = 6$.",
+        "**Second produit.** $(-1) × 5 = -5$. Le signe moins fait partie de la coordonnée, il ne se perd pas en route.",
+        "**Additionner.** $@v{u} · @v{v} = 6 + (-5) = 1$.",
+        "**Ce que dit le résultat.** Il est positif mais très petit devant les longueurs des vecteurs : l'angle entre eux est proche de 90° sans l'être tout à fait. S'il avait valu exactement 0, ils auraient été perpendiculaires.",
+        "**Une remarque utile.** Le produit scalaire est un **nombre**, jamais un vecteur. Si tu obtiens un couple de coordonnées, c'est que tu as confondu avec une autre opération."],
+  indice:"Abscisse × abscisse, plus ordonnée × ordonnée. Fais bien attention au signe moins."},
+
+ {id:"ps12", niveau:3, type:"num", enonce:"Dans un triangle $ABC$, on a $AB = 5$, $AC = 7$ et l'angle en $A$ mesure 60°. Calculer $BC$. (arrondir au millième)",
+  rep:6.245, tol:0.005,
+  diag:[{v:39, m:"Tu as trouvé $BC^{2} = 39$ et tu t'es arrêté là. Il reste à prendre la racine carrée : $@r{39} ≈ 6{,}245$."},
+        {v:8.602, m:"Tu as appliqué Pythagore, $@r{25 + 49}$, comme si le triangle était rectangle en $A$. Il ne l'est pas : l'angle vaut 60°. C'est justement le terme correctif d'Al-Kashi qui règle ce cas."},
+        {v:12, m:"Tu as additionné les deux côtés, $5 + 7$. C'est l'inégalité triangulaire : $BC$ est forcément **plus petit** que cette somme."},
+        {v:10.677, m:"Tu as ajouté le terme correctif au lieu de le soustraire. La formule est $BC^{2} = AB^{2} + AC^{2} - 2 × AB × AC × cos A$ : le signe est un **moins**."}],
+  corr:["**Reconnaître le cas.** On connaît deux côtés et l'angle **entre** les deux. C'est exactement la situation d'Al-Kashi — Pythagore ne s'applique pas, faute d'angle droit.",
+        "**Écrire la formule.** $BC^{2} = AB^{2} + AC^{2} - 2 × AB × AC × cos A$.",
+        "**Les deux carrés.** $5^{2} + 7^{2} = 25 + 49 = 74$.",
+        "**Le terme correctif.** $2 × 5 × 7 × cos(60°) = 70 × 0{,}5 = 35$. La valeur $cos(60°) = @f{1}{2}$ est à connaître par cœur.",
+        "**Soustraire.** $BC^{2} = 74 - 35 = 39$.",
+        "**Extraire la racine.** $BC = @r{39} ≈ 6{,}245$.",
+        "**Comprendre le rôle du terme correctif.** Si l'angle valait 90°, $cos(90°) = 0$ ferait disparaître le terme et on retrouverait Pythagore exactement. Al-Kashi n'est rien d'autre que Pythagore corrigé pour un angle quelconque.",
+        "**Contrôle par l'inégalité triangulaire.** $BC$ doit être compris entre $7 - 5 = 2$ et $7 + 5 = 12$. Ici $6{,}245$ est bien dans cet intervalle ✓ Et comme l'angle est aigu, $BC$ doit être plus petit que la valeur donnée par Pythagore ($8{,}6$) : c'est le cas ✓"],
+  indice:"Deux côtés et l'angle entre eux : c'est Al-Kashi. Attention au signe moins devant le terme en cosinus."},
+
+ {id:"ps13", niveau:2, type:"num", enonce:"Soit $@v{u}(2 ; -3)$ et $@v{v}(k ; 4)$. Pour quelle valeur de $k$ ces deux vecteurs sont-ils orthogonaux ?",
+  rep:6, tol:0.01,
+  diag:[{v:-6, m:"Erreur de signe. L'équation est $2k - 12 = 0$, donc $2k = +12$ et $k = +6$. Le $-12$ passe de l'autre côté en changeant de signe."},
+        {v:12, m:"Tu as résolu $2k = 12$ mais tu as oublié de diviser par 2."},
+        {v:-1.5, m:"Tu as cherché la **colinéarité** au lieu de l'orthogonalité, avec le déterminant $2 × 4 - (-3) × k = 0$. Ce sont deux conditions opposées : la colinéarité annule le déterminant, l'orthogonalité annule le produit scalaire."},
+        {v:0, m:"$k = 0$ donnerait $@v{v}(0 ; 4)$, un vecteur vertical. Son produit scalaire avec $@v{u}$ vaut $0 - 12 = -12 ≠ 0$ : ils ne sont pas orthogonaux."}],
+  corr:["**Le critère.** Deux vecteurs non nuls sont orthogonaux si et seulement si leur produit scalaire est **nul**.",
+        "**Écrire le produit scalaire en gardant $k$.** $@v{u} · @v{v} = 2 × k + (-3) × 4 = 2k - 12$.",
+        "**Poser l'équation.** $2k - 12 = 0$.",
+        "**Résoudre.** $2k = 12$, donc $k = 6$.",
+        "**Vérifier.** Avec $@v{v}(6 ; 4)$ : $2 × 6 + (-3) × 4 = 12 - 12 = 0$ ✓",
+        "**Ne pas confondre les deux critères.** Produit scalaire nul → **orthogonaux**. Déterminant nul ($x_u y_v - y_u x_v = 0$) → **colinéaires**. Ils portent sur les mêmes nombres mais avec une opération différente, et donnent des réponses opposées : ici la colinéarité donnerait $k = -@f{8}{3}$.",
+        "**Le contrôle par le dessin.** $@v{u}(2 ; -3)$ descend vers la droite, $@v{v}(6 ; 4)$ monte vers la droite. Un croquis rapide montre qu'ils forment bien un angle droit."],
+  indice:"Écris le produit scalaire en laissant $k$ dedans, puis résous l'équation « produit scalaire = 0 »."},
+
+ {id:"ps14", niveau:2, type:"qcm", enonce:"Que vaut $@v{u} · @v{u}$, le produit scalaire d'un vecteur par lui-même ?",
+  choix:["La norme au carré, $‖@v{u}‖^{2}$","La norme, $‖@v{u}‖$","Toujours 0","Le double de la norme"], bonne:0,
+  diag:["","Il manque le carré. Pour $@v{u}(3 ; 4)$ : $@v{u} · @v{u} = 9 + 16 = 25$, alors que la norme vaut 5. Le produit scalaire donne 25, c'est-à-dire $5^{2}$.",
+        "Un produit scalaire nul signifie que les deux vecteurs sont orthogonaux. Un vecteur non nul n'est jamais perpendiculaire à lui-même : l'angle vaut 0°, pas 90°.",
+        "Ce serait $2‖@v{u}‖$, qui ne correspond à rien ici. Reprends le calcul en coordonnées sur un exemple : $@v{u}(3 ; 4)$ donne 25, alors que le double de la norme vaut 10."],
+  corr:["**Le calcul en coordonnées.** $@v{u} · @v{u} = x_u × x_u + y_u × y_u = x_u^{2} + y_u^{2}$.",
+        "**Reconnaître cette expression.** C'est exactement ce qui se trouve sous la racine dans la formule de la norme : $‖@v{u}‖ = @r{x_u² + y_u²}$. Donc $@v{u} · @v{u} = ‖@v{u}‖^{2}$.",
+        "**Le retrouver avec l'angle.** $@v{u} · @v{v} = ‖@v{u}‖ × ‖@v{v}‖ × cos θ$. Ici les deux vecteurs sont identiques, donc l'angle est nul et $cos 0 = 1$ : il reste $‖@v{u}‖ × ‖@v{u}‖ = ‖@v{u}‖^{2}$. Les deux chemins concordent.",
+        "**Vérifier sur un exemple.** $@v{u}(3 ; 4)$ : $@v{u} · @v{u} = 9 + 16 = 25$, et $‖@v{u}‖ = 5$. On a bien $25 = 5^{2}$ ✓",
+        "**Une notation à connaître.** On écrit souvent $@v{u}^{2}$ pour $@v{u} · @v{u}$. C'est le **carré scalaire**, et il vaut toujours la norme au carré — donc toujours un nombre positif ou nul.",
+        "**À quoi ça sert vraiment.** C'est ce qui permet de développer des expressions vectorielles comme $(@v{u} + @v{v})^{2} = @v{u}^{2} + 2@v{u} · @v{v} + @v{v}^{2}$, exactement comme une identité remarquable. De là se déduit la formule d'Al-Kashi."],
+  indice:"Écris le produit scalaire en coordonnées, et compare le résultat à la formule de la norme."}
 ]
 }
 ]);
@@ -2231,6 +2759,7 @@ sections:[
   {t:"p", x:"Lis la figure de gauche à droite, comme un trajet. Une pièce part du tronc, choisit d'abord sa machine (60 % de chances d'être une pièce de A), puis se révèle défectueuse ou non — avec des probabilités **différentes selon la branche empruntée** : 5 % du côté de A, seulement 2 % du côté de B. Ce sont exactement les probabilités conditionnelles $P_A(D)$ et $P_B(D)$."},
   {t:"p", x:"Remarque un détail qui compte : sur la seconde fourche du haut, $0{,}05$ et $0{,}95$ font 1. Sur celle du bas, $0{,}02$ et $0{,}98$ font 1 aussi. Chaque fourche est un petit monde complet où toutes les possibilités sont couvertes. C'est la première règle ci-dessous, et elle sert de contrôle permanent."},
   {t:"formule", titre:"Les trois règles de l'arbre", x:"1. La somme des probabilités partant d'un même nœud vaut **1**<br>2. Sur un chemin, on **multiplie** les probabilités<br>3. Pour un événement atteint par plusieurs chemins, on **additionne** les chemins", note:"Multiplier le long d'une branche, additionner entre les branches."},
+  {t:"figi", nom:"arbre-proba"},
   {t:"p", x:"Ces trois règles se comprennent si on pense en termes de proportions. **Multiplier** le long d'un chemin : sur les 60 % de pièces venant de A, on ne garde que les 5 % défectueuses — soit 5 % de 60 %, donc $0{,}05 × 0{,}6$. « Un pourcentage d'un pourcentage » se calcule toujours par une multiplication.<br><br>**Additionner** entre les chemins : les pièces défectueuses viennent soit de A, soit de B, jamais des deux. Ce sont des cas séparés, donc on cumule leurs effectifs."},
   {t:"exemple", titre:"Exemple guidé — une usine à deux machines", enonce:"Une usine produit des pièces avec deux machines. La machine A fabrique 60 % des pièces, la machine B le reste. 5 % des pièces de A sont défectueuses, contre 2 % de celles de B. On prend une pièce au hasard : quelle est la probabilité qu'elle soit défectueuse ?", etapes:[
    {q:"Nommer les événements", r:"$A$ : « la pièce vient de A ». $B$ : « la pièce vient de B ». $D$ : « la pièce est défectueuse »."},
@@ -2249,6 +2778,48 @@ sections:[
          "On peut tout à fait le savoir : c'est la première règle de l'arbre."]}
  ]},
 
+ {titre:"Le tableau à double entrée", blocs:[
+  {t:"idee", x:"Quand l'énoncé donne des **effectifs** — des nombres de personnes, de pièces, d'objets — le tableau à double entrée est presque toujours plus rapide que l'arbre. Et il a un avantage énorme : **toutes les probabilités du chapitre se lisent dedans**, sans aucune formule à retenir."},
+  {t:"p", x:"Le principe tient en une phrase : on croise les deux critères. Un critère donne les lignes, l'autre donne les colonnes, et chaque case compte les individus qui vérifient les deux à la fois. On ajoute une ligne et une colonne de **totaux** — ce sont elles qui font tout le travail."},
+  {t:"p", x:"Prenons un exemple qu'on va garder tout le long. Dans un lycée de 200 élèves, on croise deux informations : est-il **demi-pensionnaire** ou externe, et **fait-il du sport** en club ou non."},
+  {t:"tbl", head:["", "Fait du sport", "N'en fait pas", "**Total**"],
+   rows:[["Demi-pensionnaire", "90", "30", "**120**"],
+         ["Externe", "40", "40", "**80**"],
+         ["**Total**", "**130**", "**70**", "**200**"]]},
+  {t:"astuce", titre:"Le réflexe de contrôle, avant tout calcul", x:"Chaque ligne doit se refermer sur son total : $90 + 30 = 120$ ✓ et $40 + 40 = 80$ ✓. Chaque colonne aussi : $90 + 40 = 130$ ✓ et $30 + 40 = 70$ ✓. Et les deux totaux se rejoignent dans le coin : $120 + 80 = 200 = 130 + 70$ ✓.", note:"Fais ce contrôle **avant** de calculer quoi que ce soit. Un tableau qui ne se referme pas signale une erreur de lecture de l'énoncé, et tout ce qui suivrait serait faux."},
+  {t:"p", x:"Notons $D$ : « l'élève est demi-pensionnaire » et $S$ : « il fait du sport ». Maintenant, tout se lit dans le tableau. La seule question à se poser à chaque fois est : **quel nombre je mets en bas ?**"},
+  {t:"formule", titre:"Les trois lectures du tableau", x:"**Probabilité simple** : on divise par le total général<br>**Probabilité d'intersection** : une case, divisée par le total général<br>**Probabilité conditionnelle** : une case, divisée par le total de **sa** ligne ou de **sa** colonne", note:"C'est toute la différence entre les trois. Le numérateur bouge peu ; c'est le dénominateur qui change de sens."},
+  {t:"exemple", titre:"Exemple guidé — les quatre probabilités du tableau", enonce:"Avec le tableau ci-dessus, calculer $P(D)$, $P(D ∩ S)$, $P_D(S)$ puis $P_S(D)$. Un élève est choisi au hasard parmi les 200.", etapes:[
+   {q:"$P(D)$ : la probabilité d'être demi-pensionnaire", r:"C'est une probabilité simple : je prends le total de la ligne des demi-pensionnaires, sur le total général. $P(D) = @f{120}{200} = 0{,}6$."},
+   {q:"$P(D ∩ S)$ : demi-pensionnaire **et** sportif", r:"C'est une seule case — celle qui croise les deux —, toujours sur le total général : $P(D ∩ S) = @f{90}{200} = 0{,}45$."},
+   {q:"$P_D(S)$ : sportif **sachant** demi-pensionnaire", r:"Ici l'univers a rétréci : on ne regarde plus que les 120 demi-pensionnaires. Le dénominateur devient le total de leur ligne. $P_D(S) = @f{90}{120} = 0{,}75$."},
+   {q:"$P_S(D)$ : demi-pensionnaire **sachant** sportif", r:"Même case au numérateur, mais l'univers est cette fois la **colonne** des 130 sportifs : $P_S(D) = @f{90}{130} ≈ 0{,}692$."},
+   {q:"Ce que montrent ces deux derniers résultats", r:"$P_D(S) = 0{,}75$ et $P_S(D) ≈ 0{,}692$ sont **différents**. Ils partagent pourtant la même case, 90. Seul le dénominateur a changé — et il suffit à changer la réponse. C'est exactement le piège de l'inversion, vu ici en une ligne."},
+   {q:"Contrôle de bon sens", r:"$P_D(S) = 0{,}75$ dépasse $P(S) = @f{130}{200} = 0{,}65$ : savoir qu'un élève est demi-pensionnaire **augmente** la probabilité qu'il fasse du sport. L'information a bien servi à quelque chose."}
+  ]},
+  {t:"p", x:"Cette dernière remarque mérite qu'on s'y arrête, parce qu'elle donne un sens concret à tout le chapitre. Comparer $P_D(S)$ à $P(S)$, c'est demander : **est-ce que l'information change quelque chose ?** Ici $0{,}75 > 0{,}65$, donc oui. Si les deux avaient été égales, l'information n'aurait rien apporté — et c'est précisément la définition de l'indépendance, qu'on verra plus loin."},
+  {t:"astuce", titre:"Passer du tableau à l'arbre, et réciproquement", x:"Les deux outils disent la même chose. Le tableau donne des **effectifs**, l'arbre des **probabilités**. Pour passer du tableau à l'arbre : chaque branche du premier niveau porte un total de ligne divisé par le total général ($@f{120}{200}$), chaque branche du second niveau porte une case divisée par son total de ligne ($@f{90}{120}$).", note:"Retiens le critère de choix : **des effectifs dans l'énoncé → tableau. Des pourcentages → arbre.**"},
+  {t:"piege", titre:"Diviser par le total général au lieu du total de la ligne", x:"C'est l'erreur numéro un du chapitre. $@f{90}{200} = 0{,}45$ n'est **pas** la probabilité qu'un demi-pensionnaire fasse du sport : c'est la probabilité qu'un élève pris au hasard dans tout le lycée soit à la fois demi-pensionnaire et sportif. Dès qu'une phrase contient « sachant que », « parmi les », ou « chez les », le dénominateur n'est plus 200."},
+  {t:"check", q:"Dans le tableau ci-dessus, quelle probabilité vaut $@f{40}{80}$ ?",
+   choix:["La probabilité qu'un externe fasse du sport","La probabilité d'être externe et sportif","La probabilité qu'un sportif soit externe"], bonne:0,
+   expl:["","Ce serait $@f{40}{200}$ : une case sur le total général.","Ce serait $@f{40}{130}$ : la même case, mais sur le total de la colonne des sportifs."]}
+ ]},
+ {titre:"Quand il y a plus de deux branches", blocs:[
+  {t:"idee", x:"Rien ne limite un arbre à deux branches. Dès qu'une situation se sépare en **trois cas ou plus**, la méthode est identique : on multiplie le long de chaque chemin, on additionne tous les chemins qui arrivent au but."},
+  {t:"p", x:"La seule condition à respecter porte un nom : les cas doivent former une **partition**. Autrement dit, ils ne doivent pas se chevaucher, et à eux tous ils doivent couvrir toutes les possibilités. C'est ce qui garantit que les probabilités des branches du premier niveau totalisent 1."},
+  {t:"formule", titre:"Probabilités totales, cas général", x:"Si $A_1, A_2, …, A_n$ forment une partition, alors<br>$P(B) = P(A_1) × P_{A_1}(B) + P(A_2) × P_{A_2}(B) + … + P(A_n) × P_{A_n}(B)$", note:"Un terme par branche, et rien d'autre à changer. La formule à deux branches vue plus haut n'en est que le cas $n = 2$."},
+  {t:"exemple", titre:"Exemple guidé — trois fournisseurs", enonce:"Un atelier reçoit ses vis de trois fournisseurs : A en fournit 50 %, B 30 % et C 20 %. Le taux de vis défectueuses est de 2 % chez A, 4 % chez B et 5 % chez C. On prend une vis au hasard dans le stock. Quelle est la probabilité qu'elle soit défectueuse ? Et si elle l'est, d'où vient-elle le plus probablement ?", etapes:[
+   {q:"Vérifier que c'est bien une partition", r:"$50 + 30 + 20 = 100$ % : toute vis vient d'un et un seul de ces trois fournisseurs. La condition est remplie, on peut appliquer la formule."},
+   {q:"Nommer et traduire", r:"$A$, $B$, $C$ : la vis vient de ce fournisseur. $D$ : elle est défectueuse. L'énoncé donne $P(A) = 0{,}5$, $P(B) = 0{,}3$, $P(C) = 0{,}2$, puis $P_A(D) = 0{,}02$, $P_B(D) = 0{,}04$, $P_C(D) = 0{,}05$."},
+   {q:"Un produit par chemin", r:"Chemin A : $0{,}5 × 0{,}02 = 0{,}01$. Chemin B : $0{,}3 × 0{,}04 = 0{,}012$. Chemin C : $0{,}2 × 0{,}05 = 0{,}01$."},
+   {q:"Additionner les trois", r:"$P(D) = 0{,}01 + 0{,}012 + 0{,}01 = 0{,}032$, soit 3,2 % de vis défectueuses dans le stock."},
+   {q:"Remonter l'arbre", r:"$P_D(B) = @f{0,012}{0,032} = 0{,}375$. De même $P_D(A) = @f{0,01}{0,032} = 0{,}3125$ et $P_D(C) = 0{,}3125$."},
+   {q:"Lire le résultat", r:"Une vis défectueuse vient le plus souvent de **B**, avec 37,5 % de chances. C'est frappant : B n'est ni le plus gros fournisseur (c'est A), ni le plus mauvais (c'est C). C'est la **combinaison** d'un volume moyen et d'un taux médiocre qui le place en tête."},
+   {q:"Contrôle", r:"$0{,}375 + 0{,}3125 + 0{,}3125 = 1$ ✓ La vis défectueuse vient forcément de l'un des trois : leurs probabilités doivent totaliser 1."}
+  ]},
+  {t:"astuce", titre:"Le contrôle qui ne trompe jamais", x:"Après avoir remonté un arbre, additionne toutes les probabilités conditionnelles que tu viens de calculer. Elles doivent faire exactement 1. Si ce n'est pas le cas, l'erreur est presque toujours au dénominateur : tu as oublié un chemin dans le calcul de $P(D)$."},
+  {t:"piege", titre:"Croire que le plus gros fournisseur est le plus suspect", x:"L'intuition dit « A produit la moitié des vis, donc les défauts viennent surtout de A ». Faux : ce qui compte est le **produit** part × taux de défaut, pas la part seule. Un petit fournisseur très mauvais peut dépasser un gros fournisseur soigneux. Calcule les trois produits avant de conclure."}
+ ]},
  {titre:"Renverser le conditionnement", blocs:[
   {t:"idee", x:"Question typique : « la pièce est défectueuse, quelle est la probabilité qu'elle vienne de A ? » On remonte l'arbre à contre-courant."},
   {t:"formule", titre:"La méthode", x:"$P_D(A) = @f{P(A ∩ D)}{P(D)}$", note:"En haut : le chemin qui nous intéresse. En bas : tous les chemins menant à D."},
@@ -2330,7 +2901,7 @@ exos:[
   diag:["", "L'addition sert à regrouper **plusieurs chemins** différents menant au même événement, pas à parcourir un chemin unique.",
         "Aucune règle du cours ne fait intervenir un minimum.",
         "La moyenne n'intervient jamais dans le calcul d'un arbre."],
-  corr:["Deuxième règle de l'arbre : la probabilité d'un chemin est le **produit** des probabilités des branches qui le composent.","(L'addition, elle, sert à regrouper plusieurs chemins.)"],
+  corr:["**La règle.** La probabilité d'un chemin complet est le **produit** des probabilités portées par ses branches.","**Pourquoi une multiplication.** Parcourir un chemin, c'est prendre une proportion **d'une proportion**. Sur un arbre où 60 % des pièces viennent de A et où 5 % des pièces de A sont défectueuses, on cherche 5 % de ces 60 % : $0{,}05 × 0{,}60 = 0{,}03$. « Un pourcentage d'un pourcentage » se calcule toujours par une multiplication.","**Ce qui rend la lecture facile.** Chaque branche du second niveau porte déjà une probabilité **conditionnelle** — elle est calculée dans le petit monde de la branche précédente. Le produit fait le lien : $P(A ∩ B) = P(A) × P_A(B)$.","**Quand additionner, alors ?** Quand plusieurs chemins **différents** mènent au même résultat. Ces chemins sont des cas séparés, jamais simultanés : on cumule leurs poids. D'où la phrase à retenir : **on multiplie le long d'un chemin, on additionne entre les chemins.**","**Le contrôle.** Additionne les probabilités de tous les chemins de l'arbre : le total doit valoir exactement 1, car un trajet finit forcément quelque part."],
   indice:"Une règle pour parcourir une branche, une autre pour regrouper des branches. Laquelle s'applique ici ?"},
 
  {id:"pr3", niveau:2, type:"num", enonce:"Une urne contient 3 boules rouges et 7 boules noires. On tire deux boules successivement **sans remise**. Quelle est la probabilité d'obtenir deux rouges ?",
@@ -2380,6 +2951,76 @@ exos:[
         {v:0.048, m:"Tu as multiplié $0{,}4 × 0{,}12$. La probabilité conditionnelle est une division, pas une multiplication."}],
   corr:["$P_E(T) = @f{P(E ∩ T)}{P(E)}$.","$= @f{0,12}{0,4}$.","$= 0{,}3$.","Remarque : $P_E(T) = 0{,}3 = P(T)$, donc les deux activités sont indépendantes."],
   indice:"Le nouvel univers, ce sont les élèves qui font de l'espagnol. Il passe au dénominateur."}
+,
+
+ {id:"pr9", niveau:1, type:"num", enonce:"Un club compte 200 membres. 120 font du tennis ; parmi eux, 48 font aussi du judo. Parmi les 80 membres qui ne font pas de tennis, 22 font du judo.<br>On choisit un membre au hasard. Sachant qu'il fait du tennis, quelle est la probabilité qu'il fasse aussi du judo ?",
+  rep:0.4, tol:0.005,
+  diag:[{v:0.24, m:"Tu as calculé $@f{48}{200}$, c'est-à-dire $P(T ∩ J)$ : la probabilité qu'un membre pris au hasard **dans tout le club** fasse les deux. Mais l'énoncé dit « sachant qu'il fait du tennis » : l'univers s'est réduit aux 120 joueurs de tennis."},
+        {v:0.686, m:"Tu as divisé par le total des judokas ($48 + 22 = 70$), ce qui donne $P_J(T)$ : la probabilité qu'un **judoka** fasse du tennis. C'est la question inverse. Ce qui est écrit après « sachant que » passe au dénominateur — ici, le tennis."},
+        {v:0.35, m:"Tu as calculé $@f{70}{200}$, la probabilité de faire du judo dans tout le club. C'est $P(J)$, sans aucune condition."},
+        {v:0.6, m:"Tu as donné $@f{120}{200} = P(T)$, la probabilité de faire du tennis. La question porte sur le judo, sachant le tennis."}],
+  corr:["**Dresser le tableau**, c'est le plus sûr. Ligne « tennis » : 48 judo, 72 non-judo, total 120. Ligne « pas de tennis » : 22 judo, 58 non-judo, total 80. Colonnes : 70 judokas, 130 non-judokas, 200 en tout.",
+        "**Contrôler qu'il se referme** : $48+72 = 120$ ✓, $22+58 = 80$ ✓, $48+22 = 70$ ✓, $120+80 = 200$ ✓.",
+        "**Repérer la condition.** « Sachant qu'il fait du tennis » : le nouvel univers, ce sont les **120** joueurs de tennis.",
+        "**Écrire la formule.** $P_T(J) = @f{P(T ∩ J)}{P(T)}$, ou directement avec les effectifs : $@f{48}{120}$.",
+        "**Calculer.** $@f{48}{120} = 0{,}4$.",
+        "**Contrôle de sens.** $P(J) = @f{70}{200} = 0{,}35$, alors que $P_T(J) = 0{,}4$. Savoir qu'un membre fait du tennis **augmente** la probabilité qu'il fasse du judo : les deux sports ne sont donc pas indépendants."],
+  indice:"Fais le tableau à double entrée. Ce qui suit « sachant que » donne le total qui passe au dénominateur."},
+
+ {id:"pr10", niveau:2, type:"num", enonce:"Un atelier reçoit ses pièces de trois fournisseurs : A en fournit 40 %, B 35 % et C 25 %. Le taux de pièces défectueuses est de 3 % chez A, 2 % chez B et 6 % chez C. Quelle est la probabilité qu'une pièce prise au hasard dans le stock soit défectueuse ?",
+  rep:0.034, tol:0.0015,
+  diag:[{v:0.012, m:"Tu n'as gardé que le chemin passant par A ($0{,}40 × 0{,}03$). Il en reste deux : celui de B et celui de C. Une pièce défectueuse peut venir de n'importe lequel des trois."},
+        {v:0.11, m:"Tu as additionné les trois taux de défaut ($3 + 2 + 6 = 11$ %). On ne peut pas additionner des pourcentages qui ne portent pas sur la même population : chacun doit d'abord être multiplié par la part de son fournisseur."},
+        {v:0.037, m:"Tu as fait la moyenne simple des trois taux, $@f{3+2+6}{3}$. Mais les trois fournisseurs ne pèsent pas pareil : il faut une moyenne **pondérée** par leurs parts 0,40, 0,35 et 0,25."},
+        {v:0.06, m:"Tu as donné le taux du plus mauvais fournisseur. C'est le pire cas, pas la moyenne du stock : C ne fournit qu'un quart des pièces."}],
+  corr:["**Vérifier la partition.** $40 + 35 + 25 = 100$ % : toute pièce vient d'un seul des trois fournisseurs, et il n'en manque aucun. La formule des probabilités totales s'applique.",
+        "**Nommer.** $A$, $B$, $C$ selon le fournisseur ; $D$ : la pièce est défectueuse.",
+        "**Traduire.** $P(A) = 0{,}40$, $P(B) = 0{,}35$, $P(C) = 0{,}25$, puis $P_A(D) = 0{,}03$, $P_B(D) = 0{,}02$, $P_C(D) = 0{,}06$.",
+        "**Un produit par chemin.** $0{,}40 × 0{,}03 = 0{,}012$ ; $0{,}35 × 0{,}02 = 0{,}007$ ; $0{,}25 × 0{,}06 = 0{,}015$.",
+        "**Additionner les trois chemins.** $P(D) = 0{,}012 + 0{,}007 + 0{,}015 = 0{,}034$, soit 3,4 %.",
+        "**Contrôle de bon sens.** Le résultat doit tomber entre le meilleur taux (2 %) et le pire (6 %). C'est le cas. Et remarque au passage que C, avec seulement un quart des pièces, produit à lui seul le plus gros paquet de défauts (0,015) : c'est là qu'il faudrait agir en premier."],
+  indice:"Trois fournisseurs, donc trois chemins. Multiplie la part par le taux sur chacun, puis additionne les trois résultats."},
+
+ {id:"pr11", niveau:2, type:"qcm", enonce:"On donne $P(A) = 0{,}5$, $P(B) = 0{,}4$ et $P(A ∩ B) = 0{,}2$. Les événements $A$ et $B$ sont-ils indépendants ?",
+  choix:["Oui, car $P(A ∩ B) = P(A) × P(B)$","Non, car $P(A ∩ B) ≠ P(A) + P(B)$","Oui, car $A$ et $B$ peuvent se produire en même temps","On ne peut pas conclure sans connaître $P_A(B)$"], bonne:0,
+  diag:["","Le test d'indépendance ne fait jamais intervenir de somme. La bonne comparaison est $P(A ∩ B)$ face au **produit** $P(A) × P(B)$. Ici $0{,}5 × 0{,}4 = 0{,}2$, ce qui est bien égal à $P(A ∩ B)$ : ils sont donc indépendants.",
+        "Pouvoir se produire ensemble ne dit rien sur l'indépendance : cela signifie seulement que $P(A ∩ B) ≠ 0$. Deux événements peuvent parfaitement se produire ensemble tout en étant **dépendants**. Il faut faire le test.",
+        "On peut conclure, et sans effort : $P_A(B)$ se déduit des données. $P_A(B) = @f{0,2}{0,5} = 0{,}4$, ce qui est exactement $P(B)$ — la condition n'a rien changé, donc indépendance."],
+  corr:["**La définition.** $A$ et $B$ sont indépendants si et seulement si $P(A ∩ B) = P(A) × P(B)$. C'est une égalité à vérifier, jamais une impression.",
+        "**Calculer le produit.** $P(A) × P(B) = 0{,}5 × 0{,}4 = 0{,}2$.",
+        "**Comparer.** L'énoncé donne $P(A ∩ B) = 0{,}2$. Les deux nombres sont égaux.",
+        "**Conclure.** $A$ et $B$ sont indépendants.",
+        "**Le vérifier autrement.** L'autre test doit donner la même réponse : $P_A(B) = @f{P(A ∩ B)}{P(A)} = @f{0,2}{0,5} = 0{,}4 = P(B)$. Savoir que $A$ s'est produit ne change rien à la probabilité de $B$ — c'est le sens concret de l'indépendance."],
+  indice:"Compare $P(A ∩ B)$ au **produit** $P(A) × P(B)$, jamais à leur somme."},
+
+ {id:"pr12", niveau:3, type:"num", enonce:"Deux machines produisent les pièces d'un atelier : A en fait 70 %, avec 4 % de défauts, et B les 30 % restants, avec 10 % de défauts. On tire une pièce au hasard : elle est défectueuse. Quelle est la probabilité qu'elle vienne de B ? (arrondir au millième)",
+  rep:0.517, tol:0.002,
+  diag:[{v:0.1, m:"Tu as donné $P_B(D) = 0{,}10$, le taux de défauts **de la machine B**. La question va dans l'autre sens : on sait que la pièce est défectueuse, et on cherche d'où elle vient. C'est $P_D(B)$, pas $P_B(D)$ — c'est l'inversion illégitime."},
+        {v:0.3, m:"Tu as donné $P(B) = 0{,}30$, la part de B dans la production **avant** toute information. Mais on sait maintenant que la pièce est défectueuse, et B fabrique beaucoup plus de défauts que A : cette information doit faire monter la probabilité."},
+        {v:0.03, m:"Tu as calculé $P(B ∩ D) = 0{,}30 × 0{,}10 = 0{,}03$, le poids du chemin B-défectueux dans **toute** la production. C'est le bon numérateur, mais il reste à le diviser par $P(D)$ pour se replacer dans l'univers des pièces défectueuses."},
+        {v:0.483, m:"Tu as calculé $P_D(A)$, la probabilité que la pièce défectueuse vienne de **A**. C'est le complément : la question porte sur B. Les deux doivent totaliser 1, et c'est le cas."}],
+  corr:["**Nommer.** $A$ et $B$ : la pièce vient de cette machine. $D$ : elle est défectueuse.",
+        "**Traduire.** $P(A) = 0{,}70$, $P(B) = 0{,}30$, $P_A(D) = 0{,}04$, $P_B(D) = 0{,}10$.",
+        "**Repérer le sens de la question.** On donne l'effet (la pièce est défectueuse) et on cherche la cause (quelle machine). On **remonte** l'arbre : c'est $P_D(B)$.",
+        "**Écrire la formule.** $P_D(B) = @f{P(B ∩ D)}{P(D)}$.",
+        "**Le numérateur** est le chemin qui nous intéresse : $P(B ∩ D) = 0{,}30 × 0{,}10 = 0{,}03$.",
+        "**Le dénominateur** est le total de tous les chemins menant à $D$ : $P(D) = 0{,}70 × 0{,}04 + 0{,}30 × 0{,}10 = 0{,}028 + 0{,}03 = 0{,}058$.",
+        "**Diviser.** $P_D(B) = @f{0,03}{0,058} ≈ 0{,}517$.",
+        "**Interpréter.** B ne fabrique que 30 % des pièces, mais plus de la **moitié** des pièces défectueuses. C'est tout l'intérêt de renverser le conditionnement : l'information « la pièce est défectueuse » fait passer B de 30 % à 51,7 % de suspicion.",
+        "**Contrôle.** $P_D(A) = @f{0,028}{0,058} ≈ 0{,}483$, et $0{,}517 + 0{,}483 = 1$ ✓"],
+  indice:"On remonte l'arbre : au numérateur le seul chemin qui passe par B, au dénominateur **tous** les chemins qui mènent à une pièce défectueuse."},
+
+ {id:"pr13", niveau:2, type:"qcm", enonce:"On sait que $P_A(B) = 0{,}3$. Que vaut $P_A(B̄)$, la probabilité de « non B » sachant $A$ ?",
+  choix:["$0{,}7$","$0{,}3$","$1 - P(B)$, mais on ne peut pas la calculer ici","On ne peut rien dire sans connaître $P(A)$"], bonne:0,
+  diag:["","C'est $P_A(B)$ lui-même, recopié. Or $B$ et $B̄$ sont contraires : leurs probabilités ne peuvent pas être égales, sauf si elles valaient toutes les deux 0,5.",
+        "Attention à ne pas mélanger deux univers. $1 - P(B)$ se calcule dans l'univers **entier**. Ici on reste **à l'intérieur** de $A$ : c'est $1 - P_A(B)$ qu'il faut, et cette valeur est connue.",
+        "$P(A)$ n'intervient pas. Une fois la condition $A$ fixée, on travaille dans un univers complet à part entière, où les règles habituelles s'appliquent telles quelles."],
+  corr:["**L'idée de fond.** Une fois la condition $A$ posée, on ne travaille plus que parmi les cas où $A$ s'est produit. Ce petit monde est un univers de probabilité complet : la somme de toutes les possibilités y vaut 1, exactement comme dans l'univers de départ.",
+        "**Sur l'arbre, ça se voit.** Les deux branches qui partent du nœud $A$ sont $B$ et $B̄$. Elles couvrent tout ce qui peut arriver après $A$, donc elles totalisent 1.",
+        "**Appliquer.** $P_A(B) + P_A(B̄) = 1$, donc $P_A(B̄) = 1 - 0{,}3 = 0{,}7$.",
+        "**La règle à retenir.** La formule du contraire fonctionne parfaitement **à condition de ne pas changer de condition en route**. On peut passer de $B$ à $B̄$ ; on ne peut pas toucher au $A$ en indice.",
+        "**Ce qui ne marche pas.** $P_A(B) + P_{Ā}(B)$ n'a aucune raison de valoir 1 : ces deux nombres sont mesurés dans deux univers différents. Les additionner n'a pas de sens."],
+  indice:"À partir d'un même nœud de l'arbre, les branches totalisent toujours 1. Ici le nœud est $A$."}
 ]
 },
 
@@ -2508,6 +3149,7 @@ sections:[
   {t:"formule", titre:"Loi binomiale", x:"Si $X$ compte le nombre de succès obtenus sur $n$ répétitions indépendantes d'une épreuve de Bernoulli de paramètre $p$, on dit que $X$ suit la loi binomiale de paramètres $n$ et $p$, notée $X ∼ ℬ(n ; p)$.", note:"Deux nombres suffisent à la décrire entièrement : $n$ (le nombre de répétitions) et $p$ (la probabilité de succès à chaque répétition)."},
   {t:"p", x:"La question typique est : « quelle est la probabilité d'obtenir exactement $k$ succès sur les $n$ répétitions ? » Il y a deux choses à combiner. D'abord, la probabilité d'une suite précise de $k$ succès et $n-k$ échecs, dans un ordre donné : c'est $p^k (1-p)^{n-k}$, parce que les répétitions sont indépendantes. Ensuite, il faut compter **de combien de façons** ces $k$ succès peuvent se placer parmi les $n$ répétitions — c'est ce que compte le coefficient binomial $@b{n}{k}$, qui se lit « $k$ parmi $n$ »."},
   {t:"formule", titre:"Probabilité d'exactement $k$ succès", x:"$P(X = k) = @b{n}{k} p^k (1-p)^{n-k}$", note:"$@b{n}{k}$ compte le nombre de façons de placer $k$ succès parmi $n$ essais ; la calculatrice le donne directement (touche « nCr » ou « Combinaison »)."},
+  {t:"figi", nom:"loi-binomiale"},
   {t:"exemple", titre:"Exemple guidé — combien de six en cinq lancers ?", enonce:"On lance un dé équilibré 5 fois. On appelle succès l'obtention d'un 6. Quelle est la probabilité d'obtenir exactement 2 six ?", etapes:[
    {q:"Reconnaître le schéma", r:"5 lancers indépendants, deux issues à chaque fois (6 ou pas 6) : c'est un schéma de Bernoulli répété. $X$ = nombre de six suit $ℬ(n ; p)$ avec $n = 5$ et $p = @f{1}{6}$."},
    {q:"Écrire ce qu'on cherche", r:"On cherche $P(X = 2)$, avec $k = 2$."},
@@ -2579,7 +3221,7 @@ exos:[
   diag:["", "Un jeu favorable correspond à une espérance strictement positive.",
         "Un jeu défavorable correspond à une espérance strictement négative. Ici elle est nulle.",
         "Une espérance nulle est parfaitement possible : c'est le cas idéal d'un jeu sans avantage pour personne."],
-  corr:["$E(X) = 0$ signifie qu'à long terme, ni le joueur ni l'organisateur ne gagnent d'argent.","On dit que le jeu est équitable."],
+  corr:["**Ce que mesure l'espérance.** C'est le gain **moyen par partie** sur un très grand nombre de parties. Elle ne dit rien d'une partie prise isolément.","**Lire $E(X) = 0$.** Sur la durée, les gains compensent exactement les pertes : ni le joueur ni l'organisateur ne s'enrichit. On dit que le jeu est **équitable**.","**Les deux autres cas.** $E(X) > 0$ : le jeu est favorable au joueur. $E(X) < 0$ : il lui est défavorable — c'est le cas de tous les jeux d'argent réels, et c'est ainsi que l'organisateur se rémunère.","**Le contresens à ne pas faire.** Espérance nulle ne veut pas dire qu'on gagne 0 à chaque partie. On peut très bien gagner 10 € une fois sur trois et perdre 5 € deux fois sur trois : $10 × @f{1}{3} - 5 × @f{2}{3} = 0$. Chaque partie donne un résultat non nul ; c'est la **moyenne** qui est nulle.","**Ce que l'espérance ne dit pas.** Deux jeux d'espérance nulle peuvent être très différents : l'un fait gagner ou perdre 1 €, l'autre 1 000 €. Le risque, lui, se mesure avec la variance et l'écart-type — c'est tout l'objet de la partie suivante."],
   indice:"Que se passe-t-il à long terme si le gain moyen par partie vaut exactement zéro ?"},
 
  {id:"va5", niveau:2, type:"num", enonce:"Soit $X$ valant 0 avec une probabilité de 0,5 et 2 avec une probabilité de 0,5. Calculer la variance $V(X)$.",
@@ -2718,6 +3360,7 @@ sections:[
    ],
    note:"Le vecteur **directeur** (bleu) glisse le long de la droite. Le vecteur **normal** (rouge) en sort perpendiculairement."},
   {t:"formule", titre:"Équation cartésienne", x:"Toute droite s'écrit $ax + by + c = 0$, avec $a$ et $b$ non tous les deux nuls.", note:"Un point appartient à la droite si et seulement si ses coordonnées vérifient l'égalité."},
+  {t:"figi", nom:"droite-repere"},
   {t:"p", x:"Que dit vraiment cette équation ? Elle joue le rôle d'un **filtre**. Tu lui présentes un point : si le calcul donne 0, il est sur la droite ; sinon, il est ailleurs. La droite n'est rien d'autre que l'ensemble des points qui passent ce test. C'est pour ça qu'on écrit « $= 0$ » : le zéro est la condition d'appartenance."},
   {t:"formule", titre:"Lire les deux vecteurs sur l'équation", x:"Pour $ax + by + c = 0$ :<br>vecteur **normal** $@v{n}(a ; b)$ &nbsp;&nbsp;·&nbsp;&nbsp; vecteur **directeur** $@v{u}(-b ; a)$", note:"Le directeur s'obtient en échangeant les deux coefficients et en changeant un signe."},
   {t:"p", x:"Le normal se lit **tel quel** : les coefficients de $x$ et $y$, dans l'ordre. C'est le cadeau de l'équation cartésienne, et la raison pour laquelle on l'utilise autant. Le directeur, lui, demande une petite manipulation : échanger les deux nombres et changer un signe."},
@@ -2812,6 +3455,46 @@ sections:[
   {t:"astuce", titre:"Tester si un point est sur un cercle", x:"Remplace $x$ et $y$ par les coordonnées du point. Si tu obtiens exactement $R^2$, il est sur le cercle ; si tu obtiens moins, il est à l'intérieur ; si tu obtiens plus, il est à l'extérieur.<br><br>Là encore, l'équation joue le rôle de **filtre** : elle mesure le carré de la distance au centre, et il ne reste qu'à le comparer à $R^2$."}
  ]},
 
+ {titre:"La médiatrice et les problèmes de distance", blocs:[
+  {t:"idee", x:"La **médiatrice** d'un segment $[AB]$ est l'ensemble des points situés à égale distance de $A$ et de $B$. C'est une droite, et elle a deux définitions qui donnent deux méthodes de calcul — l'une géométrique, l'autre algébrique."},
+  {t:"p", x:"**La première définition** est celle de collège : la médiatrice est la droite **perpendiculaire** au segment et passant par son **milieu**. Elle donne un point et une direction, donc une équation.<br><br>**La seconde** est celle qui s'écrit avec des distances : $M$ appartient à la médiatrice si et seulement si $MA = MB$. Elle donne directement une équation en $x$ et $y$."},
+  {t:"formule", titre:"Les deux caractérisations", x:"$M ∈$ médiatrice de $[AB]$ &nbsp;⇔&nbsp; $MA = MB$<br>&nbsp;⇔&nbsp; $M$ est sur la perpendiculaire à $(AB)$ passant par le milieu $I$", note:"Les deux disent la même chose. En repère, la première est plus rapide à écrire, la seconde plus rapide à contrôler."},
+  {t:"fig", titre:"La médiatrice de [AB]",
+   vue:[-1,-1,8,7], w:400, h:300, grille:true, graduations:true,
+   objets:[
+    {t:"droite", de:[3,3], a:[2,5], couleur:"vert"},
+    {t:"seg", de:[1,2], a:[5,4], couleur:"bleu"},
+    {t:"angle", en:[3,3], de:[5,4], a:[2,5], droit:true},
+    {t:"seg", de:[2,5], a:[1,2], couleur:"ambre", pointille:true},
+    {t:"seg", de:[2,5], a:[5,4], couleur:"ambre", pointille:true},
+    {t:"point", x:1, y:2, nom:"A", couleur:"bleu"},
+    {t:"point", x:5, y:4, nom:"B", couleur:"bleu"},
+    {t:"point", x:3, y:3, nom:"I", couleur:"rouge", dessous:true},
+    {t:"point", x:2, y:5, nom:"M", couleur:"vert"},
+    {t:"texte", x:6.6, y:6.2, txt:"médiatrice", couleur:"vert", taille:12}
+   ],
+   note:"$M$ est un point quelconque de la médiatrice : les deux traits orange $MA$ et $MB$ ont **exactement la même longueur**, où que $M$ se place sur la droite verte. C'est ce que dit la définition, et c'est aussi le meilleur moyen de vérifier un résultat."},
+  {t:"exemple", titre:"Exemple guidé — l'équation d'une médiatrice", enonce:"On donne $A(1 ; 2)$ et $B(5 ; 4)$. Déterminer une équation cartésienne de la médiatrice de $[AB]$.", etapes:[
+   {q:"Le milieu", r:"$I$ a pour coordonnées la **moyenne** de celles de $A$ et $B$ : $x_I = @f{1 + 5}{2} = 3$ et $y_I = @f{2 + 4}{2} = 3$. Donc $I(3 ; 3)$."},
+   {q:"La direction du segment", r:"$@v{AB}$ a pour coordonnées $(5 - 1 ; 4 - 2) = (4 ; 2)$."},
+   {q:"L'astuce qui évite tout calcul", r:"Une droite d'équation $ax + by + c = 0$ admet $(a ; b)$ comme vecteur **normal**, c'est-à-dire perpendiculaire à elle. Or la médiatrice est justement perpendiculaire à $@v{AB}$ : il suffit donc de prendre $a = 4$ et $b = 2$, les coordonnées de $@v{AB}$ !"},
+   {q:"Écrire l'équation", r:"La médiatrice a une équation de la forme $4x + 2y + c = 0$. Il reste à trouver $c$."},
+   {q:"Utiliser le point connu", r:"$I(3 ; 3)$ est sur la droite, donc ses coordonnées vérifient l'équation : $4 × 3 + 2 × 3 + c = 0$, soit $12 + 6 + c = 0$, donc $c = -18$."},
+   {q:"Simplifier", r:"$4x + 2y - 18 = 0$. Les trois coefficients sont divisibles par 2 : on obtient $2x + y - 9 = 0$, plus élégant et tout aussi juste."},
+   {q:"Le contrôle par les distances", r:"Prenons un point de la droite, par exemple $M(4 ; 1)$ — on vérifie d'abord qu'il convient : $2 × 4 + 1 - 9 = 0$ ✓. Puis $MA^{2} = (4-1)^{2} + (1-2)^{2} = 9 + 1 = 10$ et $MB^{2} = (4-5)^{2} + (1-4)^{2} = 1 + 9 = 10$. Les deux distances sont égales ✓"},
+   {q:"Pourquoi comparer les carrés", r:"Parce que $MA = MB$ équivaut à $MA^{2} = MB^{2}$ pour des longueurs, qui sont positives. Cela évite les racines carrées, donc les erreurs d'arrondi. Prends le réflexe : **on compare toujours les carrés des distances.**"}
+  ]},
+  {t:"astuce", titre:"Le vecteur normal, l'outil le plus rentable du chapitre", x:"Retiens cette correspondance dans les deux sens :<br>**Une droite $ax + by + c = 0$** a pour vecteur normal $(a ; b)$ et pour vecteur directeur $(-b ; a)$.<br>**Une droite de vecteur normal $(a ; b)$** s'écrit $ax + by + c = 0$.<br><br>Dès qu'un énoncé parle de perpendicularité — médiatrice, hauteur d'un triangle, tangente à un cercle —, c'est le chemin le plus court. On lit le vecteur normal, on écrit l'équation, on trouve $c$ avec un point."},
+  {t:"piege", titre:"Médiatrice, médiane, hauteur : trois droites différentes", x:"Dans un triangle $ABC$, ces trois mots ne désignent pas la même chose, et on les confond très facilement :<br><br>**La médiatrice de $[BC]$** est perpendiculaire à $[BC]$ et passe par son milieu — elle ne passe **pas** par $A$.<br>**La médiane issue de $A$** relie $A$ au milieu de $[BC]$ — elle n'est pas perpendiculaire.<br>**La hauteur issue de $A$** part de $A$ et est perpendiculaire à $[BC]$ — elle ne passe pas par le milieu.<br><br>Chacune combine deux conditions sur trois. Avant de calculer, écris noir sur blanc laquelle des deux tu dois utiliser."},
+  {t:"exemple", titre:"Exemple guidé — le centre du cercle circonscrit", enonce:"Soit $A(0 ; 0)$, $B(6 ; 0)$ et $C(0 ; 4)$. Déterminer le centre du cercle passant par ces trois points.", etapes:[
+   {q:"L'idée de départ", r:"Le centre $Ω$ est à égale distance des trois sommets. Il est donc sur la médiatrice de $[AB]$ **et** sur celle de $[AC]$ : c'est leur point d'intersection."},
+   {q:"La médiatrice de [AB]", r:"$A$ et $B$ ont la même ordonnée 0 : le segment est horizontal, sa médiatrice est donc **verticale**, et passe par le milieu $(3 ; 0)$. Son équation est $x = 3$."},
+   {q:"La médiatrice de [AC]", r:"$A$ et $C$ ont la même abscisse 0 : le segment est vertical, sa médiatrice est **horizontale** et passe par le milieu $(0 ; 2)$. Son équation est $y = 2$."},
+   {q:"L'intersection", r:"$x = 3$ et $y = 2$ donnent immédiatement $Ω(3 ; 2)$."},
+   {q:"Vérifier les trois distances", r:"$ΩA^{2} = 9 + 4 = 13$. $ΩB^{2} = (3-6)^{2} + 4 = 9 + 4 = 13$. $ΩC^{2} = 9 + (2-4)^{2} = 9 + 4 = 13$ ✓ Les trois sont égales : le centre est bien équidistant, et le rayon vaut $@r{13}$."},
+   {q:"Ce qu'il faut remarquer", r:"Le triangle est rectangle en $A$, et $Ω(3 ; 2)$ est exactement le milieu de $[BC]$. Ce n'est pas un hasard : dans un triangle rectangle, le centre du cercle circonscrit est toujours le milieu de l'hypoténuse. Un résultat qui fait gagner beaucoup de temps quand on le repère."}
+  ]}
+ ]},
  {titre:"Récapitulatif : traduire, puis calculer", blocs:[
   {t:"idee", x:"Dans ce chapitre, la difficulté n'est jamais le calcul — c'est la **traduction**. Une fois l'énoncé transformé en équations et en vecteurs, tout devient mécanique."},
   {t:"tbl", head:["La question ressemble à…","Ce qu'il faut faire"], rows:[
@@ -2922,6 +3605,81 @@ exos:[
         "Le centre est $(2 ; 3)$, pas $(1 ; 1)$. Au centre, le calcul donnerait 0."],
   corr:["Je remplace $x$ par 1 et $y$ par 1 : $(1 - 2)^2 + (1 - 3)^2$.","$= (-1)^2 + (-2)^2 = 1 + 4 = 5$.","Or le cercle correspond à $R^2 = 16$.","$5 < 16$ : le point est plus proche du centre que le rayon, il est donc à l'intérieur."],
   indice:"Remplace les coordonnées et compare le résultat à $R^2$ : plus petit, égal ou plus grand ?"}
+,
+
+ {id:"gr9", niveau:2, type:"num", enonce:"On donne $A(-2 ; 3)$ et $B(4 ; -1)$. Calculer la longueur $AB$. (arrondir au millième)",
+  rep:7.211, tol:0.005,
+  diag:[{v:52, m:"Tu as trouvé $AB^{2} = 52$ et tu t'es arrêté là. Il reste à prendre la racine carrée : $@r{52} ≈ 7{,}211$."},
+        {v:2.828, m:"Tu as calculé $@r{6² - 4²} = @r{20}$ ou quelque chose d'approchant : la formule additionne les deux carrés, elle ne les soustrait pas. C'est Pythagore, pas sa réciproque."},
+        {v:10, m:"Tu as additionné les écarts sans les élever au carré : $6 + 4 = 10$. Cela reviendrait à longer les deux côtés du triangle rectangle au lieu de couper par l'hypoténuse — le chemin direct est forcément plus court."},
+        {v:1.414, m:"Tu as soustrait les coordonnées dans le désordre, en mélangeant les abscisses et les ordonnées. Écris d'abord le vecteur $@v{AB}$ au propre."}],
+  corr:["**Calculer le vecteur.** $@v{AB}$ a pour coordonnées $(x_B - x_A ; y_B - y_A) = (4 - (-2) ; -1 - 3) = (6 ; -4)$. Attention au double signe : $4 - (-2) = 6$.",
+        "**La formule.** $AB = @r{(x_B - x_A)² + (y_B - y_A)²}$ — c'est le théorème de Pythagore appliqué au triangle rectangle formé par les deux écarts.",
+        "**Élever au carré.** $6^{2} = 36$ et $(-4)^{2} = 16$. Les carrés effacent les signes : une longueur ne peut pas être négative.",
+        "**Additionner.** $AB^{2} = 36 + 16 = 52$.",
+        "**Extraire la racine.** $AB = @r{52} ≈ 7{,}211$.",
+        "**Contrôle de bon sens.** Le résultat doit être plus grand que chacun des deux écarts (6 et 4) mais plus petit que leur somme (10) : l'hypoténuse dépasse chaque côté sans atteindre leur total. Ici $6 < 7{,}211 < 10$ ✓",
+        "**Une simplification possible.** $@r{52} = @r{4 × 13} = 2@r{13}$. La valeur exacte est souvent préférée à l'arrondi dans une copie."],
+  indice:"Calcule les deux écarts, élève chacun au carré, additionne, puis prends la racine."},
+
+ {id:"gr10", niveau:2, type:"qcm", enonce:"Quelle est une équation cartésienne de la médiatrice de $[AB]$, avec $A(1 ; 2)$ et $B(5 ; 4)$ ?",
+  choix:["$2x + y - 9 = 0$","$x - 2y + 3 = 0$","$2x + y - 4 = 0$","$x + 2y - 9 = 0$"], bonne:0,
+  diag:["","Tu as pris comme vecteur normal le vecteur **directeur** de $(AB)$ au lieu de $@v{AB}$ lui-même. La médiatrice est perpendiculaire à $[AB]$, donc c'est $@v{AB}(4 ; 2)$ — ou son demi $(2 ; 1)$ — qui joue le rôle de vecteur normal.",
+        "La direction est bonne, mais la droite ne passe pas par le bon point. Vérifie avec le milieu $I(3 ; 3)$ : $2 × 3 + 3 - 4 = 5 ≠ 0$. Cette droite est parallèle à la bonne, décalée.",
+        "Les coefficients sont intervertis. Le vecteur normal serait ici $(1 ; 2)$, alors que $@v{AB} = (4 ; 2)$, dont la forme réduite est $(2 ; 1)$."],
+  corr:["**Le milieu d'abord.** $I(@f{1+5}{2} ; @f{2+4}{2}) = I(3 ; 3)$.",
+        "**Le vecteur $@v{AB}$.** $(5 - 1 ; 4 - 2) = (4 ; 2)$. On peut le simplifier en $(2 ; 1)$ : un vecteur garde sa direction quand on le divise par 2.",
+        "**L'idée décisive.** Une droite $ax + by + c = 0$ a pour vecteur normal $(a ; b)$. Comme la médiatrice est perpendiculaire à $@v{AB}$, ce vecteur $@v{AB}$ est justement son vecteur normal. On peut donc écrire directement $2x + y + c = 0$.",
+        "**Trouver $c$ avec le milieu.** $I(3 ; 3)$ appartient à la droite : $2 × 3 + 3 + c = 0$, donc $9 + c = 0$, donc $c = -9$.",
+        "**L'équation.** $2x + y - 9 = 0$.",
+        "**Le contrôle par les distances, le seul vraiment sûr.** Prenons $M(4 ; 1)$, qui vérifie l'équation ($8 + 1 - 9 = 0$ ✓). Alors $MA^{2} = 9 + 1 = 10$ et $MB^{2} = 1 + 9 = 10$. Égales ✓ Le point est bien à égale distance de $A$ et de $B$.",
+        "**Pourquoi ce contrôle est le bon.** Il teste la définition même de la médiatrice, pas la méthode employée. Une erreur de calcul en cours de route ne peut pas y échapper."],
+  indice:"La médiatrice est perpendiculaire à $@v{AB}$ : ce vecteur est donc son vecteur normal. Puis fais passer la droite par le milieu."},
+
+ {id:"gr11", niveau:2, type:"num", enonce:"Quelle est l'abscisse du point d'intersection des droites $d : 2x + y - 7 = 0$ et $d' : x - y + 1 = 0$ ?",
+  rep:2, tol:0.01,
+  diag:[{v:3, m:"Tu as trouvé l'**ordonnée** du point d'intersection. Le point est $(2 ; 3)$ : la question porte sur l'abscisse, la première coordonnée."},
+        {v:-2, m:"Erreur de signe. En additionnant les deux équations, on obtient $3x - 6 = 0$, donc $x = +2$."},
+        {v:8, m:"Tu as additionné les constantes sans les $x$ : $7 + 1 = 8$. Il faut additionner les équations **membre à membre**, ce qui fait disparaître les $y$."},
+        {v:2.333, m:"Tu as calculé $@f{7}{3}$, en oubliant le $+1$ de la seconde équation lors de l'addition. Le terme constant total est $-7 + 1 = -6$."}],
+  corr:["**Ce que veut dire « intersection ».** Le point cherché est sur les deux droites à la fois : ses coordonnées vérifient **les deux** équations. C'est donc un système à résoudre.",
+        "**Repérer le raccourci.** Dans $d$ il y a $+y$, dans $d'$ il y a $-y$. En additionnant les deux équations membre à membre, les $y$ s'éliminent d'eux-mêmes.",
+        "**Additionner.** $(2x + y - 7) + (x - y + 1) = 0$, ce qui donne $3x - 6 = 0$.",
+        "**Résoudre.** $x = 2$.",
+        "**Trouver aussi $y$, pour pouvoir vérifier.** En remplaçant dans $d'$ : $2 - y + 1 = 0$, donc $y = 3$. Le point d'intersection est $(2 ; 3)$.",
+        "**Vérifier dans les deux équations.** $d$ : $2 × 2 + 3 - 7 = 0$ ✓. $d'$ : $2 - 3 + 1 = 0$ ✓. Il faut tester les **deux** : un point qui ne vérifie qu'une seule équation n'est sur qu'une seule droite.",
+        "**Répondre à la question posée.** L'abscisse vaut **2**."],
+  indice:"Additionne les deux équations membre à membre : les $y$ disparaissent tout seuls."},
+
+ {id:"gr12", niveau:3, type:"qcm", enonce:"Quelle droite est perpendiculaire à $d : 3x - 2y + 1 = 0$ ?",
+  choix:["$2x + 3y - 4 = 0$","$3x - 2y + 5 = 0$","$-3x + 2y = 0$","$2x - 3y + 1 = 0$"], bonne:0,
+  diag:["","Cette droite a exactement le même vecteur normal $(3 ; -2)$ que $d$ : elle lui est donc **parallèle**, pas perpendiculaire. Seul le terme constant change, ce qui la décale sans la faire tourner.",
+        "C'est l'équation de $d$ multipliée par $-1$, à la constante près : le vecteur normal $(-3 ; 2)$ pointe dans le sens opposé mais garde la même direction. La droite est encore parallèle à $d$.",
+        "Vecteur normal $(2 ; -3)$. Testons avec celui de $d$, $(3 ; -2)$ : $2 × 3 + (-3) × (-2) = 6 + 6 = 12$. Ce produit scalaire n'est pas nul, donc les droites ne sont pas perpendiculaires. Attention, il ne suffit pas d'échanger les deux nombres : il faut aussi changer un signe."],
+  corr:["**Lire le vecteur normal de $d$.** Pour $3x - 2y + 1 = 0$, il vaut $(3 ; -2)$.",
+        "**Traduire la perpendicularité.** Deux droites sont perpendiculaires si et seulement si leurs vecteurs normaux le sont, c'est-à-dire si leur produit scalaire est nul.",
+        "**Chercher un vecteur orthogonal à $(3 ; -2)$.** La recette : on échange les deux coordonnées **et** on change un signe. Cela donne $(2 ; 3)$.",
+        "**Le vérifier.** $3 × 2 + (-2) × 3 = 6 - 6 = 0$ ✓ Les deux vecteurs sont bien orthogonaux.",
+        "**Écrire l'équation.** Toute droite de vecteur normal $(2 ; 3)$ s'écrit $2x + 3y + c = 0$. La réponse $2x + 3y - 4 = 0$ convient — et n'importe quelle autre valeur de $c$ conviendrait aussi, puisque la constante ne fait que translater la droite.",
+        "**Ce qui distingue les quatre propositions.** Trois d'entre elles gardent la direction $(3 ; -2)$ ou son opposée : ce sont des parallèles à $d$. Seule la bonne réponse fait vraiment tourner la droite d'un quart de tour.",
+        "**Le réflexe à garder.** Perpendiculaire → échanger les coordonnées et changer un signe. Parallèle → garder le même vecteur normal et changer seulement la constante."],
+  indice:"Lis le vecteur normal $(a ; b)$ de $d$, puis cherche l'équation dont le vecteur normal lui est orthogonal : produit scalaire nul."},
+
+ {id:"gr13", niveau:3, type:"num", enonce:"Quel est le rayon du cercle de diamètre $[AB]$, avec $A(1 ; 2)$ et $B(7 ; 10)$ ?",
+  rep:5, tol:0.01,
+  diag:[{v:10, m:"Tu as donné la longueur $AB$, c'est-à-dire le **diamètre**. Le rayon en est la moitié : $@f{10}{2} = 5$."},
+        {v:100, m:"Tu t'es arrêté à $AB^{2} = 100$ sans prendre la racine, puis sans diviser par 2. Deux étapes manquent."},
+        {v:2.5, m:"Tu as divisé deux fois par 2, ou tu as pris la moitié des écarts avant de calculer la distance. Une seule division par 2 suffit, et elle vient à la toute fin."},
+        {v:7, m:"Tu as pris la moitié de la somme des écarts, $@f{6 + 8}{2}$. Une distance ne s'obtient pas en additionnant les écarts, mais par Pythagore : $@r{6² + 8²}$."}],
+  corr:["**Ce que veut dire « de diamètre [AB] ».** Le segment $[AB]$ traverse le cercle de part en part en passant par le centre. Le centre est donc le milieu de $[AB]$, et le rayon vaut la moitié de $AB$.",
+        "**Calculer les écarts.** $x_B - x_A = 7 - 1 = 6$ et $y_B - y_A = 10 - 2 = 8$.",
+        "**Appliquer Pythagore.** $AB^{2} = 6^{2} + 8^{2} = 36 + 64 = 100$, donc $AB = 10$.",
+        "**Le triangle 6-8-10.** C'est le triangle rectangle $3$-$4$-$5$ doublé — un grand classique, qu'il vaut la peine de reconnaître au premier coup d'œil.",
+        "**Diviser par 2.** Le rayon vaut $r = @f{10}{2} = 5$.",
+        "**Le centre, pour aller plus loin.** C'est le milieu $Ω(@f{1+7}{2} ; @f{2+10}{2}) = Ω(4 ; 6)$.",
+        "**Vérifier.** $ΩA^{2} = (4-1)^{2} + (6-2)^{2} = 9 + 16 = 25$, donc $ΩA = 5$ ✓ De même $ΩB^{2} = 9 + 16 = 25$ ✓ Les deux extrémités sont bien à 5 du centre.",
+        "**L'équation du cercle, en prime.** $(x - 4)^{2} + (y - 6)^{2} = 25$."],
+  indice:"Le centre est le milieu de $[AB]$, et le rayon vaut la moitié de la longueur $AB$."}
 ]
 },
 
@@ -3019,7 +3777,48 @@ sections:[
   {t:"piege", titre:"Un seul égal ou deux ?", x:"<b>=</b> range une valeur dans une variable. <b>==</b> pose une question : « est-ce égal ? ». Dans un test <b>if</b>, il en faut toujours **deux**."}
  ]},
 
+ {titre:"Les tests : faire un choix", blocs:[
+  {t:"idee", x:"Jusqu'ici, le programme exécutait toutes ses lignes dans l'ordre. Un **test** lui permet de choisir : faire une chose **si** une condition est vraie, une autre sinon."},
+  {t:"p", x:"C'est le troisième et dernier outil du chapitre, après les variables et les boucles. Avec ces trois-là — ranger une valeur, répéter, choisir — on écrit tous les programmes du programme de Première."},
+  {t:"formule", titre:"La forme complète", code:true, x:"<b>if condition:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>ce qu'on fait si c'est vrai</b><br><b>else:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>ce qu'on fait sinon</b>", note:"Un seul des deux blocs s'exécute, jamais les deux. Le <b>else</b> est facultatif : sans lui, si la condition est fausse, il ne se passe simplement rien."},
+  {t:"p", x:"Ce qui sépare les deux blocs, ce sont les **quatre espaces** au début de la ligne. En Python, ce décalage — l'indentation — n'est pas une décoration : c'est lui qui dit ce qui appartient au bloc. Une ligne recollée à gauche sort du test et s'exécutera dans tous les cas."},
+  {t:"formule", titre:"Écrire une condition", code:true, x:"<b>==</b> égal &nbsp;·&nbsp; <b>!=</b> différent<br><b>&lt;</b> plus petit &nbsp;·&nbsp; <b>&lt;=</b> plus petit ou égal<br><b>&gt;</b> plus grand &nbsp;·&nbsp; <b>&gt;=</b> plus grand ou égal<br><b>and</b> les deux &nbsp;·&nbsp; <b>or</b> l'un au moins", note:"Une condition n'a que deux réponses possibles : vrai (True) ou faux (False)."},
+  {t:"piege", titre:"Le signe = et le signe ==, à ne jamais confondre", x:"**Un seul signe égal range une valeur** : $x = 3$ met 3 dans la boîte $x$. **Deux signes égaux posent une question** : $x == 3$ demande « est-ce que $x$ vaut 3 ? » et répond vrai ou faux.<br><br>Écrire <b>if x = 3:</b> est une erreur que Python refuse d'exécuter. C'est le premier message d'erreur que rencontre tout débutant — et une fois qu'on connaît la distinction, on ne s'y fait plus prendre."},
+  {t:"exemple", titre:"Exemple guidé — trois cas au lieu de deux", enonce:"Écrire un programme qui, selon la valeur du discriminant $Δ$ rangé dans la variable <b>d</b>, affiche le nombre de solutions de l'équation du second degré.", etapes:[
+   {q:"Combien de cas ?", r:"Trois : $Δ > 0$ (deux solutions), $Δ = 0$ (une seule), $Δ < 0$ (aucune). Un simple if/else ne suffit pas, il n'offre que deux issues."},
+   {q:"Le mot-clé qui manque", r:"<b>elif</b> — contraction de « else if ». Il ajoute autant de cas intermédiaires qu'on veut, entre le <b>if</b> et le <b>else</b> final."},
+   {q:"Le programme", r:"<b>if d > 0:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>print(2)</b><br><b>elif d == 0:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>print(1)</b><br><b>else:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>print(0)</b>"},
+   {q:"Comment Python lit ça", r:"Il descend dans l'ordre et s'arrête **au premier test vrai**. Si $Δ = 5$, le premier test réussit, il affiche 2 et saute tout le reste — il ne va même pas regarder le <b>elif</b>."},
+   {q:"Pourquoi l'ordre compte", r:"Comme il s'arrête au premier cas vrai, il faut ranger les cas du plus précis au plus général. Un <b>else</b> placé en premier attraperait tout le monde et les autres branches ne serviraient jamais."},
+   {q:"Le contrôle à faire", r:"Vérifie que les cas couvrent **toutes** les possibilités et ne se chevauchent pas. Ici : strictement positif, exactement nul, strictement négatif. Aucun oubli, aucun recouvrement."}
+  ]},
+  {t:"astuce", titre:"Tester un programme sur les cas limites", x:"Un programme qui marche sur $Δ = 5$ peut échouer sur $Δ = 0$. Les erreurs se cachent presque toujours aux **frontières** : la valeur qui bascule d'un cas à l'autre, le zéro, le nombre négatif, la liste vide. Essaie toujours ces valeurs-là — c'est en une minute qu'on trouve la faute."},
+  {t:"check", q:"Que fait <b>if x &gt; 10:</b> suivi d'une seule ligne indentée, si $x$ vaut 4 ?",
+   choix:["Rien : la ligne indentée est sautée","Elle s'exécute quand même","Le programme s'arrête sur une erreur"], bonne:0,
+   expl:["","La ligne indentée appartient au bloc du if : elle ne s'exécute que si la condition est vraie. Ici $4 > 10$ est faux, donc elle est ignorée.","Aucune erreur : une condition fausse sans else est un cas parfaitement normal. Le programme continue simplement après le bloc."]}
+ ]},
+ {titre:"Les listes : garder tous les termes", blocs:[
+  {t:"idee", x:"Une variable ne retient qu'une valeur : dès qu'on lui en range une nouvelle, l'ancienne disparaît. Une **liste** retient toute la série — pratique pour garder les termes d'une suite au lieu de seulement le dernier."},
+  {t:"formule", titre:"Créer, remplir, lire", code:true, x:"<b>L = []</b> crée une liste vide<br><b>L.append(7)</b> ajoute 7 à la fin<br><b>L[0]</b> lit le premier élément<br><b>len(L)</b> donne le nombre d'éléments", note:"Attention : le premier élément porte le numéro <b>0</b>, pas 1. Dans une liste de 5 éléments, les numéros vont de 0 à 4."},
+  {t:"piege", titre:"Le décalage des numéros", x:"C'est l'erreur classique. Pour une suite, elle tombe plutôt bien : si tu ranges $u_0$ en premier, alors $u_n$ se trouve en position $n$ — les numéros coïncident. Mais si tu commences à $u_1$, tout est décalé d'un cran et $u_n$ est en position $n-1$.<br><br>La règle sûre : **écris les deux ou trois premiers termes à la main** avec leur numéro de position, avant d'écrire la boucle."},
+  {t:"exemple", titre:"Exemple guidé — ranger les termes d'une suite", enonce:"La suite $u$ est définie par $u_0 = 2$ et $u_{n+1} = 3u_n - 1$. Écrire un programme qui range les termes de $u_0$ à $u_{10}$ dans une liste, puis affiche $u_{10}$.", etapes:[
+   {q:"Créer la liste avec son premier terme", r:"<b>L = [2]</b> — la liste contient déjà $u_0$. On peut aussi écrire <b>L = []</b> puis <b>L.append(2)</b>, c'est équivalent."},
+   {q:"Le nombre de tours", r:"On a $u_0$, il faut aller jusqu'à $u_{10}$ : il reste 10 termes à calculer, donc <b>for i in range(10):</b>."},
+   {q:"Le calcul dans la boucle", r:"Chaque nouveau terme se déduit du dernier rangé, que <b>L[-1]</b> désigne directement : <b>L.append(3 * L[-1] - 1)</b>."},
+   {q:"Le programme complet", r:"<b>L = [2]</b><br><b>for i in range(10):</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>L.append(3 * L[-1] - 1)</b><br><b>print(L[10])</b>"},
+   {q:"Vérifier à la main les premiers termes", r:"$u_0 = 2$, puis $3 × 2 - 1 = 5$, puis $3 × 5 - 1 = 14$, puis $3 × 14 - 1 = 41$. La liste commence par $[2, 5, 14, 41, …]$ — on peut le contrôler en affichant <b>L</b> en entier."},
+   {q:"Le contrôle qui rassure", r:"À la fin, <b>len(L)</b> doit valoir 11 : un terme de départ plus 10 calculés, donc $u_0$ à $u_{10}$. Si tu trouves 10, il manque un tour ; si tu trouves 12, il y en a un de trop."}
+  ]},
+  {t:"astuce", titre:"Quand une liste est-elle vraiment utile ?", x:"Si la question ne demande qu'**une** valeur — le terme de rang 20, le seuil atteint —, une simple variable suffit et le programme est plus court. La liste devient utile dès qu'il faut **revenir en arrière** : afficher tous les termes, chercher le plus grand, faire une somme, ou tracer un graphique."},
+  {t:"tbl", head:["Ce que je veux faire","L'outil le plus simple"],
+   rows:[["Connaître seulement le dernier terme","une variable, écrasée à chaque tour"],
+         ["Afficher tous les termes","une liste, remplie avec append"],
+         ["Compter combien d'étapes","une variable compteur $n$, plus une boucle while"],
+         ["Chercher le plus grand terme","une liste, puis max(L)"],
+         ["Faire la somme des termes","une liste, puis sum(L) — ou une variable qui accumule"]]}
+ ]},
  {titre:"Récapitulatif : lire un programme sans l'exécuter", blocs:[
+  {t:"figi", nom:"trace-python"},
   {t:"idee", x:"En contrôle, on ne te demandera presque jamais d'écrire un programme entier. On te demandera de **prédire ce qu'il affiche**, ou de compléter une ligne manquante. C'est une compétence de lecture, pas d'écriture."},
   {t:"p", x:"Et pour lire un programme, il n'existe qu'une méthode fiable : **le tableau d'exécution**. On dessine une colonne par variable, une ligne par passage, et on remplit à la main. C'est lent, un peu bête, et c'est exactement pour ça que ça marche : on ne peut pas se tromper si on ne saute aucune étape."},
   {t:"tbl", head:["Tour","$u$","$n$","condition $u < 500$ ?"], rows:[
@@ -3129,6 +3928,79 @@ exos:[
         "Une boucle ne s'exécute pas si la condition est fausse **dès le départ**. Ici c'est le contraire : elle est toujours vraie."],
   corr:["Une boucle while répète son bloc tant que la condition est vraie.","Si rien à l'intérieur ne fait évoluer la condition vers le faux, elle reste vraie pour toujours.","Le programme ne s'arrête jamais de lui-même.","C'est pourquoi il faut toujours vérifier qu'une variable de la condition est bien modifiée à l'intérieur de la boucle."],
   indice:"Demande-toi qui est chargé d'arrêter la boucle : Python, ou le code que tu as écrit ?"}
+,
+
+ {id:"al9", niveau:1, type:"qcm", enonce:"Quelle est la différence entre <b>x = 5</b> et <b>x == 5</b> ?",
+  choix:["Le premier range 5 dans $x$, le second demande si $x$ vaut 5","Ils font exactement la même chose","Le premier est faux, seul <b>==</b> existe en Python","Le second range 5 deux fois"], bonne:0,
+  diag:["","Ils font deux choses opposées : l'un **écrit** dans la variable, l'autre **lit** et compare sans rien modifier. Écrire <b>if x = 5:</b> provoque d'ailleurs une erreur.",
+        "Les deux existent, mais à des endroits différents : <b>=</b> pour ranger une valeur, <b>==</b> uniquement à l'intérieur d'une condition.",
+        "<b>==</b> ne range rien du tout. Il pose une question et répond seulement vrai ou faux ; la variable ressort inchangée."],
+  corr:["**Un seul signe égal : on range.** <b>x = 5</b> met la valeur 5 dans la boîte $x$. C'est un ordre, pas une affirmation — et c'est pour cela qu'on peut écrire <b>x = x + 1</b>, ce qui n'aurait aucun sens comme égalité mathématique.",
+        "**Deux signes égaux : on demande.** <b>x == 5</b> compare le contenu de $x$ avec 5 et répond <b>True</b> ou <b>False</b>. Rien n'est modifié.",
+        "**Où chacun s'emploie.** Le <b>=</b> se met sur une ligne à lui, pour affecter. Le <b>==</b> se met dans un <b>if</b> ou un <b>while</b>, là où Python attend une question.",
+        "**Ce que dit l'erreur.** Si tu écris <b>if x = 5:</b>, Python refuse de lancer le programme : il attendait une question et reçoit un ordre.",
+        "**Le moyen de ne plus hésiter.** Lis la ligne à voix haute. « x prend la valeur 5 » → un seul signe. « est-ce que x vaut 5 ? » → deux signes."],
+  indice:"L'un donne un ordre à la machine, l'autre lui pose une question."},
+
+ {id:"al10", niveau:2, type:"num", enonce:"Que vaut $u$ à la fin de ce programme ?<br><b>u = 1</b><br><b>for i in range(4):</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>u = 3 * u + 2</b><br><b>print(u)</b>",
+  rep:161, tol:0.5,
+  diag:[{v:5, m:"Tu n'as fait qu'un seul tour : $3 × 1 + 2 = 5$. Mais <b>range(4)</b> en demande quatre. Reprends en écrivant les quatre lignes d'un tableau, une par tour."},
+        {v:53, m:"Tu t'es arrêté au bout de trois tours. <b>range(4)</b> donne $i = 0, 1, 2, 3$ : cela fait bien **quatre** valeurs, donc quatre tours. C'est le piège du compteur qui commence à 0."},
+        {v:485, m:"Tu as fait un tour de trop, cinq au lieu de quatre. <b>range(4)</b> s'arrête à $i = 3$ : le 4 lui-même n'est jamais atteint."},
+        {v:20, m:"Tu as calculé $3 × 4 + 2 × 4$, comme si la boucle multipliait le résultat par le nombre de tours. Une boucle ne fait pas de calcul global : elle répète l'instruction, en réinjectant chaque fois le résultat précédent."}],
+  corr:["**Ne jamais calculer de tête : faire le tableau.** C'est la méthode qui ne trompe pas, et c'est exactement ce qu'attend le correcteur.",
+        "**Avant la boucle.** $u = 1$.",
+        "**Tour 1** ($i = 0$) : $u = 3 × 1 + 2 = 5$.",
+        "**Tour 2** ($i = 1$) : $u = 3 × 5 + 2 = 17$.",
+        "**Tour 3** ($i = 2$) : $u = 3 × 17 + 2 = 53$.",
+        "**Tour 4** ($i = 3$) : $u = 3 × 53 + 2 = 161$.",
+        "**La boucle s'arrête** : $i$ a parcouru 0, 1, 2, 3, soit les quatre valeurs de <b>range(4)</b>. Le programme affiche **161**.",
+        "**À remarquer.** La variable $i$ ne sert jamais dans le calcul — elle ne fait que compter les tours. C'est fréquent, et déroutant au début : on peut avoir une boucle dont le compteur n'apparaît nulle part dans le corps."],
+  indice:"Fais un tableau à deux colonnes : le numéro du tour, et la valeur de $u$ après ce tour. Quatre lignes."},
+
+ {id:"al11", niveau:2, type:"num", enonce:"Après ce programme, que vaut <b>len(L)</b> ?<br><b>L = [5]</b><br><b>for i in range(6):</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>L.append(L[-1] + 2)</b>",
+  rep:7, tol:0.5,
+  diag:[{v:6, m:"Tu as compté les 6 tours de boucle, en oubliant l'élément déjà présent au départ : la liste ne commence pas vide, elle contient déjà 5."},
+        {v:1, m:"Tu as donné la taille de la liste **avant** la boucle. Chaque <b>append</b> ajoute un élément, et il y en a 6."},
+        {v:17, m:"Tu as donné la **valeur** du dernier élément ($5 + 6 × 2 = 17$), pas le nombre d'éléments. <b>len</b> compte les cases, il ne regarde pas ce qu'elles contiennent."},
+        {v:12, m:"Tu as compté 6 × 2. La boucle ajoute **un** élément par tour, pas deux : le 2 est la valeur ajoutée au dernier terme, pas un nombre d'éléments."}],
+  corr:["**Ce que compte <b>len</b>.** Le nombre de cases de la liste — jamais leur contenu.",
+        "**Au départ.** <b>L = [5]</b> : une seule case, donc <b>len(L)</b> vaut 1.",
+        "**Ce que fait la boucle.** <b>range(6)</b> donne six tours, et chaque tour exécute un <b>append</b>, qui ajoute exactement une case.",
+        "**Le total.** $1 + 6 = 7$ cases. Donc <b>len(L)</b> vaut **7**.",
+        "**Le contenu, pour vérifier.** <b>L[-1]</b> désigne toujours la dernière case, donc chaque terme vaut le précédent plus 2 : $[5, 7, 9, 11, 13, 15, 17]$. On compte bien 7 nombres.",
+        "**Le lien avec les suites.** Cette liste contient $u_0$ à $u_6$ d'une suite arithmétique de raison 2. Retiens la règle : pour obtenir les termes de $u_0$ à $u_n$, il faut **n tours** de boucle et la liste finit avec $n+1$ éléments."],
+  indice:"La liste n'est pas vide au départ. Compte d'abord ce qu'elle contient, puis ajoute un élément par tour."},
+
+ {id:"al12", niveau:3, type:"qcm", enonce:"On veut compter combien de termes de la suite $u_0 = 1$, $u_{n+1} = 1{,}5 u_n$ sont nécessaires pour dépasser 100. Quel programme convient ?",
+  choix:["<b>u = 1</b> / <b>n = 0</b> / <b>while u &lt;= 100:</b> / &nbsp;&nbsp;<b>u = 1.5 * u</b> / &nbsp;&nbsp;<b>n = n + 1</b>",
+         "<b>u = 1</b> / <b>n = 0</b> / <b>for i in range(100):</b> / &nbsp;&nbsp;<b>u = 1.5 * u</b>",
+         "<b>u = 1</b> / <b>while u &lt;= 100:</b> / &nbsp;&nbsp;<b>n = n + 1</b>",
+         "<b>u = 1</b> / <b>n = 0</b> / <b>while u &lt;= 100:</b> / &nbsp;&nbsp;<b>n = n + 1</b> / <b>u = 1.5 * u</b>"], bonne:0,
+  diag:["","Une boucle <b>for</b> impose son nombre de tours d'avance. Or ici on ignore combien il en faudra — c'est justement la question posée. Et ce programme ne compte rien : aucune variable $n$ ne bouge.",
+        "Deux défauts, chacun fatal. $n$ n'est jamais initialisé, donc Python s'arrête sur une erreur. Et surtout $u$ n'est jamais modifié : la condition reste vraie pour toujours, la boucle ne s'arrête jamais.",
+        "Regarde l'indentation de la dernière ligne : <b>u = 1.5 * u</b> est collée à gauche, donc **hors** de la boucle. $u$ ne change pas pendant les tours, la condition reste vraie indéfiniment. Une boucle infinie."],
+  corr:["**Reconnaître le type de question.** On cherche « à partir de quel rang », sans savoir d'avance combien de tours seront nécessaires. C'est la signature d'une boucle <b>while</b>, jamais d'une boucle <b>for</b>.",
+        "**Les deux variables indispensables.** $u$ suit la valeur de la suite, $n$ compte les étapes. Toutes les deux doivent être initialisées **avant** la boucle.",
+        "**Écrire la bonne condition.** On veut continuer **tant qu'on n'a pas dépassé** 100, donc <b>while u &lt;= 100:</b>. On sort dès que $u$ dépasse strictement 100.",
+        "**Ce qu'il faut absolument dans la boucle.** Deux lignes, toutes les deux indentées : celle qui fait avancer $u$, et celle qui incrémente $n$. Si $u$ n'avance pas, la boucle ne s'arrête jamais.",
+        "**Où lire la réponse.** Dans $n$, pas dans $u$. La question porte sur le **nombre de termes**, pas sur la valeur atteinte.",
+        "**Le contrôle mental.** $1 ; 1{,}5 ; 2{,}25 ; …$ : la suite grandit, donc la condition finira par devenir fausse. Une boucle while doit toujours passer ce test avant d'être écrite."],
+  indice:"Nombre de tours inconnu à l'avance → <b>while</b>. Et vérifie que la variable testée est bien modifiée **à l'intérieur** de la boucle."},
+
+ {id:"al13", niveau:3, type:"num", enonce:"Que vaut $s$ à la fin ?<br><b>s = 0</b><br><b>for i in range(1, 5):</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>s = s + i * i</b><br><b>print(s)</b>",
+  rep:30, tol:0.5,
+  diag:[{v:55, m:"Tu as ajouté $5^2$. Avec deux arguments, <b>range(1, 5)</b> va de 1 **jusqu'à 4** : la borne de droite n'est jamais atteinte, exactement comme avec un seul argument."},
+        {v:10, m:"Tu as additionné les $i$ eux-mêmes ($1+2+3+4$) au lieu de leurs carrés. La ligne calcule $i × i$."},
+        {v:14, m:"Tu es parti de $i = 0$ : $0+1+4+9$. Mais <b>range(1, 5)</b> **commence à 1**, c'est le rôle du premier argument."},
+        {v:100, m:"Tu as calculé $(1+2+3+4)^2$. La boucle additionne les carrés un par un ; elle n'élève pas la somme au carré."}],
+  corr:["**Lire <b>range</b> avec deux arguments.** <b>range(1, 5)</b> donne 1, 2, 3, 4 : on part du premier nombre, on s'arrête **avant** le second. La borne de droite est toujours exclue.",
+        "**Ce que fait la ligne.** $s = s + i × i$ ajoute le carré de $i$ à ce qui est déjà accumulé dans $s$. On appelle ça une variable **accumulateur**.",
+        "**Pourquoi $s$ démarre à 0.** C'est l'élément neutre de l'addition : commencer à 0 ne fausse pas la somme. Pour un produit, on démarrerait à 1.",
+        "**Le tableau, tour par tour.** $i = 1$ : $s = 0 + 1 = 1$. $i = 2$ : $s = 1 + 4 = 5$. $i = 3$ : $s = 5 + 9 = 14$. $i = 4$ : $s = 14 + 16 = 30$.",
+        "**Le résultat.** Le programme affiche **30**.",
+        "**Vérification directe.** $1^2 + 2^2 + 3^2 + 4^2 = 1 + 4 + 9 + 16 = 30$ ✓ Sur un petit nombre de tours, refaire le calcul en ligne est le meilleur contrôle."],
+  indice:"<b>range(1, 5)</b> s'arrête à 4. Et la boucle additionne les **carrés**, pas les nombres."}
 ]
 }
 ]);
@@ -3633,6 +4505,511 @@ MODELES["tangente"] = function(){
   return boite;
 };
 
+/* =====================================================================
+   Cinq figures manipulables de plus — une par chapitre qui n'en avait
+   aucune : suites, exponentielle, géométrie repérée, probabilités
+   conditionnelles, variables aléatoires.
+   ===================================================================== */
+
+/* Petites aides communes, pour ne pas réécrire dix fois le même curseur. */
+function curseur(libelle, min, max, pas, valeur, onChange, format){
+  var lig = el("label","figCurseur");
+  var val = el("span", null, libelle + " = " + (format ? format(valeur) : valeur));
+  var s = document.createElement("input");
+  s.type = "range"; s.min = min; s.max = max; s.step = pas; s.value = valeur;
+  s.oninput = function(){
+    var x = parseFloat(s.value);
+    val.textContent = libelle + " = " + (format ? format(x) : x);
+    onChange(x);
+  };
+  lig.appendChild(val); lig.appendChild(s);
+  return lig;
+}
+function nb(x, d){
+  var k = Math.pow(10, d == null ? 2 : d);
+  var v = Math.round(x * k) / k;
+  return String(v).replace(".", ",");
+}
+function etiquette(svg, x, y, s, couleur, taille, ancre){
+  var e = txt(x, y, s, ancre || "middle");
+  e.setAttribute("fill", coul(couleur || "ink3"));
+  e.setAttribute("font-size", taille || 11);
+  e.setAttribute("font-family", "system-ui");
+  svg.appendChild(e);
+  return e;
+}
+
+/* -- 1. Suites : voir la différence entre additionner et multiplier -- */
+MODELES["suite-croissance"] = function(){
+  var w = 400, h = 330, u0 = 2, r = 2, q = 1.5, mode = "arith", N = 8;
+  var boite = el("div","figBoite");
+  var svg = n("svg",{viewBox:"0 0 "+w+" "+h, class:"fig"});
+  var lecture = el("div","figLecture");
+
+  function terme(i){ return mode === "arith" ? u0 + i*r : u0 * Math.pow(q, i); }
+
+  function redessine(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    var vals = [], i;
+    for(i = 0; i <= N; i++) vals.push(terme(i));
+    var lo = Math.min.apply(null, vals.concat([0]));
+    var hi = Math.max.apply(null, vals.concat([0]));
+    if(hi - lo < 1) hi = lo + 1;
+    var mg = 46, md = 16, mh = 22, mb = 32;
+    var X = function(i){ return mg + (w-mg-md)*i/N; };
+    var Y = function(v){ return h-mb - (h-mh-mb)*(v-lo)/(hi-lo); };
+    var C = mode === "arith" ? "bleu" : "vert";
+
+    /* axes */
+    svg.appendChild(n("line",{x1:mg-10, y1:Y(0), x2:w-md, y2:Y(0),
+      stroke:coul("ink3"), "stroke-width":1.4}));
+    svg.appendChild(n("line",{x1:mg, y1:mh-4, x2:mg, y2:h-mb+8,
+      stroke:coul("ink3"), "stroke-width":1.4}));
+    etiquette(svg, mg-14, Y(0)+4, "0", "ink3", 10, "end");
+
+    /* la ligne brisée qui relie les termes : elle rend la forme visible */
+    var d = "";
+    for(i = 0; i <= N; i++) d += (i ? " L " : "M ") + X(i) + " " + Y(vals[i]);
+    svg.appendChild(n("path",{d:d, fill:"none", stroke:coul(C),
+      "stroke-width":2, "stroke-dasharray":"4 4", opacity:.5}));
+
+    /* l'écart d'un terme au suivant, matérialisé */
+    for(i = 0; i < N; i++){
+      svg.appendChild(n("line",{x1:X(i+1), y1:Y(vals[i]), x2:X(i+1), y2:Y(vals[i+1]),
+        stroke:coul("ambre"), "stroke-width":1.6, opacity:.75}));
+    }
+
+    for(i = 0; i <= N; i++){
+      svg.appendChild(n("circle",{cx:X(i), cy:Y(vals[i]), r:5, fill:coul(C)}));
+      etiquette(svg, X(i), h-mb+18, String(i), "ink3", 10);
+    }
+    etiquette(svg, (mg+w-md)/2, h-6, "rang n", "ink3", 11);
+
+    var S;
+    if(mode === "arith") S = (N+1)*(vals[0]+vals[N])/2;
+    else S = q === 1 ? u0*(N+1) : u0*(1-Math.pow(q,N+1))/(1-q);
+
+    lecture.innerHTML = mode === "arith"
+      ? "<b>u<sub>n</sub> = " + nb(u0) + " + n × " + nb(r) + "</b> — on <b>ajoute</b> " + nb(r) + " à chaque pas<br>" +
+        "u<sub>0</sub> = " + nb(vals[0]) + " · u<sub>1</sub> = " + nb(vals[1]) + " · u<sub>2</sub> = " + nb(vals[2]) +
+        " · … · u<sub>8</sub> = " + nb(vals[8]) + "<br>" +
+        "somme des 9 premiers termes : <b>" + nb(S) + "</b>"
+      : "<b>u<sub>n</sub> = " + nb(u0) + " × " + nb(q) + "<sup>n</sup></b> — on <b>multiplie</b> par " + nb(q) + " à chaque pas<br>" +
+        "u<sub>0</sub> = " + nb(vals[0]) + " · u<sub>1</sub> = " + nb(vals[1]) + " · u<sub>2</sub> = " + nb(vals[2]) +
+        " · … · u<sub>8</sub> = " + nb(vals[8]) + "<br>" +
+        "somme des 9 premiers termes : <b>" + nb(S) + "</b>";
+  }
+
+  var choix = el("div","figCurseurs");
+  var bAri = el("button","btn sm","Arithmétique (on ajoute)");
+  var bGeo = el("button","btn sm","Géométrique (on multiplie)");
+  function majBoutons(){
+    bAri.className = "btn sm" + (mode === "arith" ? " pri" : "");
+    bGeo.className = "btn sm" + (mode === "geo" ? " pri" : "");
+  }
+  bAri.onclick = function(){ mode = "arith"; majBoutons(); redessine(); };
+  bGeo.onclick = function(){ mode = "geo";   majBoutons(); redessine(); };
+  majBoutons();
+  choix.appendChild(bAri); choix.appendChild(bGeo);
+
+  var ctr = el("div","figCurseurs");
+  ctr.appendChild(curseur("u₀", -4, 10, 1, u0, function(x){ u0 = x; redessine(); }));
+  ctr.appendChild(curseur("raison r", -3, 5, 0.5, r, function(x){ r = x; redessine(); }, nb));
+  ctr.appendChild(curseur("raison q", 0.4, 2, 0.1, q, function(x){ q = x; redessine(); }, nb));
+
+  redessine();
+  boite.appendChild(el("div","figTitre","Ajouter ou multiplier : deux formes très différentes"));
+  boite.appendChild(svg);
+  boite.appendChild(lecture);
+  boite.appendChild(choix);
+  boite.appendChild(ctr);
+  boite.appendChild(el("div","figNote",
+    "Les traits orange montrent l’écart d’un terme au suivant. En <b>arithmétique</b> ils ont tous la même hauteur : c’est une droite. En <b>géométrique</b> ils grandissent (ou rétrécissent) à chaque pas : la courbe s’envole ou s’écrase."));
+  return boite;
+};
+
+/* -- 2. Exponentielle : le coefficient k commande tout -- */
+MODELES["expo-k"] = function(){
+  var w = 390, h = 330, k = 1;
+  var boite = el("div","figBoite");
+  var svg = n("svg",{viewBox:"0 0 "+w+" "+h, class:"fig"});
+  var R = repere([-3,-1,3,6], w, h, 20);
+  var lecture = el("div","figLecture");
+
+  function redessine(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    fond(svg, R, {});
+    var vv = R.vue, d = "", i;
+    for(i = 0; i <= 300; i++){
+      var x = vv[0] + (vv[2]-vv[0])*i/300, y = Math.exp(k*x);
+      if(y < vv[1]-2 || y > vv[3]+2){ continue; }
+      d += (d ? " L " : "M ") + R.X(x) + " " + R.Y(y);
+    }
+    svg.appendChild(n("path",{d:d, fill:"none", stroke:coul("bleu"), "stroke-width":2.8}));
+
+    /* la tangente au point (0 ; 1) : sa pente vaut exactement k */
+    svg.appendChild(n("line",{
+      x1:R.X(vv[0]), y1:R.Y(1 + k*(vv[0]-0)),
+      x2:R.X(vv[2]), y2:R.Y(1 + k*(vv[2]-0)),
+      stroke:coul("ambre"), "stroke-width":2, "stroke-dasharray":"6 5"}));
+    point(svg, R, 0, 1, "1", "rouge");
+
+    var sens = k > 0.05 ? "elle monte" : (k < -0.05 ? "elle descend" : "elle est plate");
+    var duree = Math.abs(k) < 0.05 ? "—"
+      : nb(Math.log(2)/Math.abs(k)) + (k > 0 ? " (doublement)" : " (division par deux)");
+    lecture.innerHTML =
+      "<b>f(x) = e<sup>" + nb(k) + "x</sup></b> &nbsp;·&nbsp; f′(x) = " + nb(k) + " × f(x)<br>" +
+      "pente de la tangente en 0 : <b>" + nb(k) + "</b> — " + sens + "<br>" +
+      "pas de temps : <b>" + duree + "</b>";
+  }
+
+  var ctr = el("div","figCurseurs");
+  ctr.appendChild(curseur("k", -2, 2, 0.1, k, function(x){ k = x; redessine(); }, nb));
+
+  redessine();
+  boite.appendChild(el("div","figTitre","e^(kx) : un seul réglage, deux comportements"));
+  boite.appendChild(svg);
+  boite.appendChild(lecture);
+  boite.appendChild(ctr);
+  boite.appendChild(el("div","figNote",
+    "La courbe passe <b>toujours</b> par le point (0 ; 1), quel que soit k, et ne touche jamais l’axe horizontal : une exponentielle est toujours strictement positive. Le signe de k décide seul du sens de variation."));
+  return boite;
+};
+
+/* -- 3. Géométrie repérée : deux points, et tout ce qui s'en déduit -- */
+MODELES["droite-repere"] = function(){
+  var w = 380, h = 370, ax = -3, ay = -1, bx = 3, by = 2;
+  var boite = el("div","figBoite");
+  var svg = n("svg",{viewBox:"0 0 "+w+" "+h, class:"fig"});
+  var R = repere([-6,-6,6,6], w, h, 18);
+  var lecture = el("div","figLecture");
+
+  function redessine(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    fond(svg, R, {});
+    var dx = bx-ax, dy = by-ay;
+    var mx = (ax+bx)/2, my = (ay+by)/2;
+
+    if(dx !== 0 || dy !== 0){
+      svg.appendChild(n("line",{
+        x1:R.X(ax-dx*20), y1:R.Y(ay-dy*20),
+        x2:R.X(ax+dx*20), y2:R.Y(ay+dy*20),
+        stroke:coul("bleu"), "stroke-width":1.6, opacity:.45}));
+    }
+    /* le triangle de lecture : on voit les deux écarts qui font le vecteur */
+    svg.appendChild(n("polyline",{
+      points: R.X(ax)+","+R.Y(ay)+" "+R.X(bx)+","+R.Y(ay)+" "+R.X(bx)+","+R.Y(by),
+      fill:"none", stroke:coul("ambre"), "stroke-width":1.8, "stroke-dasharray":"5 4"}));
+    etiquette(svg, (R.X(ax)+R.X(bx))/2, R.Y(ay)+15, "x_B − x_A = " + nb(dx), "ambre", 11);
+    etiquette(svg, R.X(bx)+34, (R.Y(ay)+R.Y(by))/2, "y_B − y_A = " + nb(dy), "ambre", 11);
+
+    fleche(svg, R, [ax,ay], [bx,by], "vert", null);
+    point(svg, R, ax, ay, "A", "rouge");
+    point(svg, R, bx, by, "B", "rouge");
+    point(svg, R, mx, my, "I", "bleu", true);
+
+    var dist = Math.sqrt(dx*dx + dy*dy);
+    var eq;
+    if(dx === 0) eq = "x = " + nb(ax) + " &nbsp;<i>(droite verticale : pas de coefficient directeur)</i>";
+    else {
+      var m = dy/dx, pp = ay - m*ax;
+      eq = "y = " + nb(m) + "x " + (pp < 0 ? "− " : "+ ") + nb(Math.abs(pp));
+    }
+    lecture.innerHTML =
+      "A(" + nb(ax) + " ; " + nb(ay) + ") &nbsp; B(" + nb(bx) + " ; " + nb(by) + ")<br>" +
+      "vecteur <b>AB</b>(" + nb(dx) + " ; " + nb(dy) + ") &nbsp;·&nbsp; longueur AB = <b>" + nb(dist) + "</b><br>" +
+      "milieu I(" + nb(mx) + " ; " + nb(my) + ") &nbsp;·&nbsp; droite (AB) : <b>" + eq + "</b>";
+  }
+
+  var ctr = el("div","figCurseurs");
+  ctr.appendChild(curseur("x de A", -5, 5, 1, ax, function(x){ ax = x; redessine(); }));
+  ctr.appendChild(curseur("y de A", -5, 5, 1, ay, function(x){ ay = x; redessine(); }));
+  ctr.appendChild(curseur("x de B", -5, 5, 1, bx, function(x){ bx = x; redessine(); }));
+  ctr.appendChild(curseur("y de B", -5, 5, 1, by, function(x){ by = x; redessine(); }));
+
+  redessine();
+  boite.appendChild(el("div","figTitre","Deux points suffisent à tout calculer"));
+  boite.appendChild(svg);
+  boite.appendChild(lecture);
+  boite.appendChild(ctr);
+  boite.appendChild(el("div","figNote",
+    "Les deux traits orange sont les côtés du triangle rectangle caché derrière chaque calcul : ils donnent les coordonnées du vecteur, et Pythagore sur ces deux côtés donne la longueur AB. Amène B à la verticale de A : le coefficient directeur disparaît."));
+  return boite;
+};
+
+/* -- 4. Probabilités conditionnelles : l'arbre qui se recalcule -- */
+MODELES["arbre-proba"] = function(){
+  var w = 430, h = 300, pa = 0.6, pba = 0.8, pbna = 0.3;
+  var boite = el("div","figBoite");
+  var svg = n("svg",{viewBox:"0 0 "+w+" "+h, class:"fig"});
+  var lecture = el("div","figLecture");
+
+  function branche(x1, y1, x2, y2, etiq, couleur){
+    svg.appendChild(n("line",{x1:x1, y1:y1, x2:x2, y2:y2,
+      stroke:coul(couleur), "stroke-width":2, "stroke-linecap":"round"}));
+    var e = etiquette(svg, (x1+x2)/2, (y1+y2)/2 - 6, etiq, couleur, 11.5);
+    e.setAttribute("font-weight", 600);
+  }
+  function noeud(x, y, nom, couleur){
+    svg.appendChild(n("circle",{cx:x, cy:y, r:15,
+      fill:coul(couleur + "Soft"), stroke:coul(couleur), "stroke-width":1.8}));
+    var e = etiquette(svg, x, y+5, nom, couleur, 14);
+    e.setAttribute("font-weight", 700);
+  }
+
+  function redessine(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    var x0 = 26, x1 = 150, x2 = 290;
+    var yA = 78, yNA = 218, y1 = 38, y2 = 118, y3 = 178, y4 = 258;
+
+    noeud(x0, 148, "", "bleu");
+    branche(x0+15, 148, x1-15, yA,  nb(pa),   "bleu");
+    branche(x0+15, 148, x1-15, yNA, nb(1-pa), "bleu");
+    noeud(x1, yA,  "A", "bleu");
+    noeud(x1, yNA, "Ā", "bleu");
+
+    branche(x1+15, yA,  x2-15, y1, nb(pba),    "vert");
+    branche(x1+15, yA,  x2-15, y2, nb(1-pba),  "rouge");
+    branche(x1+15, yNA, x2-15, y3, nb(pbna),   "vert");
+    branche(x1+15, yNA, x2-15, y4, nb(1-pbna), "rouge");
+    noeud(x2, y1, "B", "vert");  noeud(x2, y2, "B̄", "rouge");
+    noeud(x2, y3, "B", "vert");  noeud(x2, y4, "B̄", "rouge");
+
+    /* le produit le long de chaque chemin, écrit au bout */
+    var c1 = pa*pba, c2 = pa*(1-pba), c3 = (1-pa)*pbna, c4 = (1-pa)*(1-pbna);
+    [[y1,c1,"vert"],[y2,c2,"ink3"],[y3,c3,"vert"],[y4,c4,"ink3"]].forEach(function(o){
+      etiquette(svg, x2+24, o[0]+5, "= " + nb(o[1], 3), o[2], 11.5, "start");
+    });
+
+    var pb = c1 + c3;
+    etiquette(svg, x2+24, 148, "P(B) = " + nb(pb, 3), "vert", 12.5, "start")
+      .setAttribute("font-weight", 700);
+
+    var pab = pb > 0 ? c1/pb : 0;
+    lecture.innerHTML =
+      "<b>Deux chemins mènent à B</b> : " + nb(pa) + " × " + nb(pba) + " = " + nb(c1,3) +
+      " &nbsp;et&nbsp; " + nb(1-pa) + " × " + nb(pbna) + " = " + nb(c3,3) + "<br>" +
+      "On les additionne : <b>P(B) = " + nb(pb,3) + "</b><br>" +
+      "Et en remontant l’arbre : <b>P<sub>B</sub>(A) = " + nb(c1,3) + " ÷ " + nb(pb,3) + " = " + nb(pab,3) + "</b>";
+  }
+
+  var ctr = el("div","figCurseurs");
+  ctr.appendChild(curseur("P(A)", 0.05, 0.95, 0.05, pa, function(x){ pa = x; redessine(); }, nb));
+  ctr.appendChild(curseur("P_A(B)", 0, 1, 0.05, pba, function(x){ pba = x; redessine(); }, nb));
+  ctr.appendChild(curseur("P_Ā(B)", 0, 1, 0.05, pbna, function(x){ pbna = x; redessine(); }, nb));
+
+  redessine();
+  boite.appendChild(el("div","figTitre","L’arbre pondéré, en direct"));
+  boite.appendChild(svg);
+  boite.appendChild(lecture);
+  boite.appendChild(ctr);
+  boite.appendChild(el("div","figNote",
+    "Deux gestes, toujours les mêmes : on <b>multiplie</b> le long d’un chemin, on <b>additionne</b> les chemins qui arrivent au même endroit. Essaie P(A) = 0,05 avec P<sub>A</sub>(B) = 0,95 : P<sub>B</sub>(A) reste petit malgré le test presque parfait — c’est tout le piège des faux positifs."));
+  return boite;
+};
+
+/* -- 5. Loi binomiale : la forme du diagramme selon n et p -- */
+MODELES["loi-binomiale"] = function(){
+  var w = 430, h = 320, N = 10, p = 0.5;
+  var boite = el("div","figBoite");
+  var svg = n("svg",{viewBox:"0 0 "+w+" "+h, class:"fig"});
+  var lecture = el("div","figLecture");
+
+  function cb(nn, kk){
+    if(kk < 0 || kk > nn) return 0;
+    if(kk > nn-kk) kk = nn-kk;
+    var r = 1;
+    for(var i = 1; i <= kk; i++) r = r*(nn-kk+i)/i;
+    return r;
+  }
+
+  function redessine(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    var probas = [], i;
+    for(i = 0; i <= N; i++) probas.push(cb(N,i)*Math.pow(p,i)*Math.pow(1-p,N-i));
+    var hi = Math.max.apply(null, probas);
+    var mg = 44, md = 16, mh = 20, mb = 40;
+    var larg = (w-mg-md)/(N+1);
+    var Y = function(v){ return h-mb - (h-mh-mb)*v/hi; };
+
+    /* barres */
+    for(i = 0; i <= N; i++){
+      var x = mg + i*larg;
+      svg.appendChild(n("rect",{x:x+larg*0.12, y:Y(probas[i]),
+        width:larg*0.76, height:(h-mb)-Y(probas[i]),
+        fill:coul("bleu"), opacity:.82, rx:2}));
+      if(N <= 14 || i % 2 === 0) etiquette(svg, x+larg/2, h-mb+16, String(i), "ink3", 10);
+      if(larg > 26) etiquette(svg, x+larg/2, Y(probas[i])-5, nb(probas[i],2).replace("0,","," ), "ink3", 9);
+    }
+    svg.appendChild(n("line",{x1:mg-8, y1:h-mb, x2:w-md, y2:h-mb,
+      stroke:coul("ink3"), "stroke-width":1.4}));
+    etiquette(svg, (mg+w-md)/2, h-8, "nombre de succès k", "ink3", 11);
+
+    /* l'espérance, plantée sur l'axe */
+    var E = N*p, xE = mg + (E+0.5)*larg;
+    svg.appendChild(n("line",{x1:xE, y1:mh-2, x2:xE, y2:h-mb+6,
+      stroke:coul("rouge"), "stroke-width":2, "stroke-dasharray":"5 4"}));
+    etiquette(svg, xE, mh+8, "E(X) = " + nb(E), "rouge", 11.5).setAttribute("font-weight", 700);
+
+    var V = N*p*(1-p);
+    lecture.innerHTML =
+      "<b>X ∼ ℬ(" + N + " ; " + nb(p) + ")</b><br>" +
+      "espérance E(X) = " + N + " × " + nb(p) + " = <b>" + nb(E) + "</b> &nbsp;·&nbsp; " +
+      "variance V(X) = <b>" + nb(V) + "</b> &nbsp;·&nbsp; écart-type σ = <b>" + nb(Math.sqrt(V)) + "</b><br>" +
+      "le plus probable : k = <b>" + probas.indexOf(Math.max.apply(null, probas)) + "</b>";
+  }
+
+  var ctr = el("div","figCurseurs");
+  ctr.appendChild(curseur("n (répétitions)", 1, 24, 1, N, function(x){ N = x; redessine(); }));
+  ctr.appendChild(curseur("p (succès)", 0.05, 0.95, 0.05, p, function(x){ p = x; redessine(); }, nb));
+
+  redessine();
+  boite.appendChild(el("div","figTitre","La forme de la loi binomiale"));
+  boite.appendChild(svg);
+  boite.appendChild(lecture);
+  boite.appendChild(ctr);
+  boite.appendChild(el("div","figNote",
+    "Le trait rouge tombe toujours au milieu du paquet : l’espérance, c’est le centre de gravité du diagramme. Mets p = 0,5 : la forme devient parfaitement symétrique. Éloigne p de 0,5 : elle se tasse contre un bord. Augmente n : elle s’élargit et s’arrondit en cloche."));
+  return boite;
+};
+
+/* -- 6. Algorithmique : exécuter un programme pas à pas, à la main --
+   Les étapes sont écrites en dur, jamais calculées par évaluation de
+   chaîne : la page interdit eval, et de toute façon on veut montrer
+   exactement le cheminement qu'un élève doit savoir refaire au brouillon. */
+MODELES["trace-python"] = function(){
+
+  function prog(titre, lignes, etapes, morale){
+    return { titre:titre, lignes:lignes, etapes:etapes, morale:morale };
+  }
+
+  /* -- programme 1 : une boucle « pour » -- */
+  var p1 = (function(){
+    var e = [], u = 3;
+    e.push({ l:0, v:{u:3}, m:"On range 3 dans la boîte u." });
+    e.push({ l:1, v:{u:3}, m:"La boucle va tourner 4 fois : i prendra les valeurs 0, 1, 2, 3." });
+    for(var i = 0; i < 4; i++){
+      var ancien = u;
+      u = 2*u + 1;
+      e.push({ l:1, v:{u:ancien, i:i}, m:"Tour n° " + (i+1) + " : i vaut " + i + "." });
+      e.push({ l:2, v:{u:u, i:i}, m:"u = 2 × " + ancien + " + 1 = " + u + ". L'ancienne valeur est écrasée." });
+    }
+    e.push({ l:1, v:{u:u, i:3}, m:"i a fait le tour de range(4) : la boucle s'arrête." });
+    e.push({ l:3, v:{u:u, i:3}, m:"Affichage : " + u + "." });
+    return prog("Une boucle « pour »",
+      ["u = 3", "for i in range(4):", "    u = 2 * u + 1", "print(u)"], e,
+      "Le nombre de tours est connu d'avance : 4, écrit dans range(4). Le compteur i part de 0 et s'arrête à 3 — jamais à 4.");
+  })();
+
+  /* -- programme 2 : une boucle « tant que », recherche de seuil -- */
+  var p2 = (function(){
+    var e = [], u = 100, n2 = 0;
+    e.push({ l:0, v:{u:100, n:null}, m:"u démarre à 100." });
+    e.push({ l:1, v:{u:100, n:0}, m:"n est le compteur d'étapes : il démarre à 0." });
+    while(u < 500){
+      e.push({ l:2, v:{u:u, n:n2}, m:"Test : " + u + " < 500 ? Oui → on entre dans la boucle." });
+      u = u*2;
+      e.push({ l:3, v:{u:u, n:n2}, m:"u double : il passe à " + u + "." });
+      n2 = n2 + 1;
+      e.push({ l:4, v:{u:u, n:n2}, m:"On compte une étape de plus : n = " + n2 + "." });
+    }
+    e.push({ l:2, v:{u:u, n:n2}, m:"Test : " + u + " < 500 ? Non → on sort de la boucle." });
+    e.push({ l:5, v:{u:u, n:n2}, m:"Affichage : " + n2 + ". Il a fallu " + n2 + " doublements pour dépasser 500." });
+    return prog("Chercher un seuil",
+      ["u = 100", "n = 0", "while u < 500:", "    u = u * 2", "    n = n + 1", "print(n)"], e,
+      "Le test est refait avant chaque tour. C'est lui qui décide de continuer ou de sortir — et la réponse cherchée est dans n, pas dans u.");
+  })();
+
+  /* -- programme 3 : un test if / else -- */
+  var p3 = (function(){
+    return prog("Faire un choix",
+      ["x = 7", "if x % 2 == 0:", "    print(\"pair\")", "else:", "    print(\"impair\")"],
+      [{ l:0, v:{x:7}, m:"On range 7 dans x." },
+       { l:1, v:{x:7}, m:"x % 2 est le reste de 7 divisé par 2, c'est-à-dire 1. Le test demande si ce reste vaut 0." },
+       { l:1, v:{x:7}, m:"1 == 0 est faux → on saute tout le bloc du if." },
+       { l:3, v:{x:7}, m:"On file directement au else." },
+       { l:4, v:{x:7}, m:"Affichage : impair." }],
+      "Un seul des deux blocs s'exécute, jamais les deux. Le == pose une question (« est-ce égal ? ») ; le = simple, lui, range une valeur.");
+  })();
+
+  var progs = [p1, p2, p3], choisi = 0, etape = 0;
+
+  var boite = el("div","figBoite");
+  var titre = el("div","figTitre","Exécuter un programme pas à pas");
+  var codeBoite = el("div");
+  codeBoite.style.cssText = "font-family:ui-monospace,Consolas,monospace;font-size:14px;" +
+    "line-height:1.85;text-align:left;width:100%;background:var(--surface2);" +
+    "border:1px solid var(--line);border-radius:10px;padding:10px 4px";
+  var tableau = el("div");
+  tableau.style.cssText = "display:flex;gap:10px;flex-wrap:wrap;justify-content:center;min-height:44px";
+  var message = el("div","figLecture");
+
+  function boiteVariable(nom, valeur){
+    var d = el("div");
+    d.style.cssText = "border:1px solid var(--bleuLine);background:var(--bleuSoft);" +
+      "border-radius:9px;padding:6px 14px;text-align:center;min-width:62px";
+    d.innerHTML = '<div style="font-size:11px;color:var(--ink2);letter-spacing:.06em">' + nom + '</div>' +
+      '<div style="font-size:19px;font-weight:700;font-family:ui-monospace,Consolas,monospace">' +
+      (valeur == null ? "—" : valeur) + '</div>';
+    return d;
+  }
+
+  function redessine(){
+    var P = progs[choisi], et = P.etapes[etape];
+    while(codeBoite.firstChild) codeBoite.removeChild(codeBoite.firstChild);
+    P.lignes.forEach(function(ligne, i){
+      var d = el("div");
+      var actif = i === et.l;
+      d.style.cssText = "padding:1px 12px;white-space:pre;border-radius:6px;" +
+        (actif ? "background:var(--ambreSoft);box-shadow:inset 3px 0 0 var(--ambre);font-weight:600"
+               : "opacity:.62");
+      d.textContent = (actif ? "▶ " : "  ") + ligne;
+      codeBoite.appendChild(d);
+    });
+
+    while(tableau.firstChild) tableau.removeChild(tableau.firstChild);
+    Object.keys(et.v).forEach(function(k){ tableau.appendChild(boiteVariable(k, et.v[k])); });
+
+    message.innerHTML = "<b>Étape " + (etape+1) + " sur " + P.etapes.length + "</b> — " + et.m;
+    suivant.disabled = etape >= P.etapes.length - 1;
+    precedent.disabled = etape === 0;
+    note.innerHTML = P.morale;
+  }
+
+  var choixProg = el("div","figCurseurs");
+  var boutonsProg = progs.map(function(P, i){
+    var b = el("button","btn sm", P.titre);
+    b.onclick = function(){
+      choisi = i; etape = 0;
+      boutonsProg.forEach(function(x, j){ x.className = "btn sm" + (j === i ? " pri" : ""); });
+      redessine();
+    };
+    choixProg.appendChild(b);
+    return b;
+  });
+  boutonsProg[0].className = "btn sm pri";
+
+  var pilote = el("div","figCurseurs");
+  var precedent = el("button","btn sm","← précédente");
+  var suivant = el("button","btn sm pri","étape suivante →");
+  var reprise = el("button","btn sm","recommencer");
+  precedent.onclick = function(){ if(etape > 0){ etape--; redessine(); } };
+  suivant.onclick   = function(){ if(etape < progs[choisi].etapes.length-1){ etape++; redessine(); } };
+  reprise.onclick   = function(){ etape = 0; redessine(); };
+  pilote.appendChild(precedent); pilote.appendChild(suivant); pilote.appendChild(reprise);
+
+  var note = el("div","figNote");
+
+  redessine();
+  boite.appendChild(titre);
+  boite.appendChild(choixProg);
+  boite.appendChild(codeBoite);
+  boite.appendChild(tableau);
+  boite.appendChild(message);
+  boite.appendChild(pilote);
+  boite.appendChild(note);
+  return boite;
+};
 window.FIGURE = figure;
 window.FIGURE_MANIP = function(b){
   var m = MODELES[b.nom];
@@ -3641,6 +5018,7 @@ window.FIGURE_MANIP = function(b){
 /* courbes nommées, utilisables dans les figures via {t:"courbe", f:"..."} */
 window.COURBES = {
   "trinome-signe":  function(x){ return x*x - 2*x - 3; },      // racines -1 et 3
+  "aire-enclos":   function(x){ return -0.32*x*x + 3.2*x; },   // racines 0 et 10, sommet (5 ; 8)
   "trinome-neg":    function(x){ return -x*x + 2*x + 3; },     // même chose, retournée
   "parabole-min":   function(x){ return x*x - 6*x + 5; },      // sommet en 3
   "carre":          function(x){ return x*x; },
@@ -3799,8 +5177,26 @@ function demoNode(b){
   return box;
 }
 
+/* Mélange les propositions d'un QCM avant de l'afficher.
+   Les diagnostics d'erreur voyagent avec leur proposition : sans cela,
+   l'élève recevrait l'explication d'un autre choix que le sien. */
+function melangerChoix(o, cleDiag){
+  if(!o || !o.choix || o.choix.length < 2) return o;
+  var ordre = A.shuffle(o.choix.map(function(_, i){ return i; }));
+  var copie = {}, k;
+  for(k in o) copie[k] = o[k];
+  copie.choix = ordre.map(function(i){ return o.choix[i]; });
+  copie.bonne = ordre.indexOf(o.bonne);
+  var d = o[cleDiag];
+  if(Object.prototype.toString.call(d) === "[object Array]")
+    copie[cleDiag] = ordre.map(function(i){ return d[i]; });
+  return copie;
+}
+window.MELANGER_QCM = melangerChoix;
+
 /* mini-question intégrée au cours */
 function checkNode(b){
+  b = melangerChoix(b, "expl");
   var box = el("div","card pad");
   box.innerHTML = '<div class="row" style="margin-bottom:8px"><span class="tag b">Vérification rapide</span></div>'+
                   '<div class="enonce">'+T(b.q)+'</div>';
@@ -3962,6 +5358,7 @@ function correctionProgressive(exo){
 }
 
 function exoNode(c, exo, onDone, onResult){
+  if(exo.type === "qcm") exo = melangerChoix(exo, "diag");
   var box = el("div","card pad");
   var st = A.chapState(c.id);
   var etat = st.exos[exo.id] || { ok:false, tries:0 };
@@ -6194,6 +7591,11 @@ function tirerSujet(){
       q.push({ chap:{ id:"controle", titre:e.source, n:0 }, exo:e });
     }
   }
+  q = q.map(function(item){
+    return item.exo.type === "qcm"
+      ? { chap:item.chap, exo:window.MELANGER_QCM(item.exo, "diag") }
+      : item;
+  });
   return A.shuffle(q).slice(0, ctl.nb);
 }
 

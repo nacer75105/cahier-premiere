@@ -245,6 +245,15 @@ page publique tournait sur une version antérieure à la loi binomiale.
 
 ## Notes techniques
 
+- **La page est compressée avant l'envoi.** Elle pèse 700 Ko bruts ; elle part
+  en 183 Ko en Brotli, 206 Ko en gzip, soit environ quatre fois moins de
+  données sur le forfait mobile. Rien à installer : `zlib` est fourni avec
+  Node. Le serveur recompresse tout seul dès que `public/index.html` change,
+  donc tu peux modifier le cours serveur allumé sans le redémarrer.
+- **Les propositions des QCM sont mélangées à l'affichage.** Dans les données,
+  la bonne réponse est toujours écrite en premier — c'est plus simple à
+  relire. Affichée telle quelle, elle apprenait à cliquer « A » sans lire.
+  Les explications d'erreur suivent leur proposition ; ne les sépare pas.
 - **Zod 4 est obligatoire.** Le helper de sortie structurée du SDK appelle
   `z.toJSONSchema()`, qui n'existe pas en Zod 3. Ne redescends pas en `zod@3`.
 - **Les trois appels passent en streaming.** En non-streaming, la génération de

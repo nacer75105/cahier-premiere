@@ -12,6 +12,7 @@ import express from "express";
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import zlib from "node:zlib";
 import Anthropic from "@anthropic-ai/sdk";
 // Zod 4 obligatoire : le helper du SDK fait `import * as z from 'zod'` puis
 // appelle z.toJSONSchema(), qui n'existe pas en Zod 3. Voir package.json.
@@ -565,6 +566,51 @@ function messageLisible(e) {
 }
 
 /* --------------------------- l'application --------------------------- */
+/* La page, compressée une fois pour toutes au démarrage.
+   Elle ne change qu'à un redéploiement : inutile de refaire le travail
+   à chaque visite. Les navigateurs qui n'annoncent pas gzip — il n'en
+   reste guère — reçoivent la version d'origine. */
+const PAGE = path.join(ICI, "public", "index.html");
+let pageGz = null, pageBr = null, pageDate = null, pageMtime = 0;
+
+function preparerPage(silencieux) {
+  try {
+    const mtime = fs.statSync(PAGE).mtimeMs;
+    if (mtime === pageMtime) return;            // rien n'a changé
+    const brut = fs.readFileSync(PAGE);
+    pageGz = zlib.gzipSync(brut, { level: 9 });
+    pageBr = zlib.brotliCompressSync(brut, {
+      params: { [zlib.constants.BROTLI_PARAM_QUALITY]: 9 },
+    });
+    pageMtime = mtime;
+    pageDate = new Date(mtime).toUTCString();
+    const ko = (b) => Math.round(b.length / 1024);
+    if (!silencieux)
+      console.log(`  Page : ${ko(brut)} Ko → ${ko(pageBr)} Ko en brotli, ${ko(pageGz)} Ko en gzip`);
+  } catch (e) {
+    pageGz = pageBr = null;
+    if (!silencieux) console.log("  Page : compression impossible, envoi brut —", e.message);
+  }
+}
+preparerPage(false);
+
+app.get(["/", "/index.html"], (req, res, suite) => {
+  preparerPage(true);                           // recompresse si le fichier a changé
+  const accepte = String(req.headers["accept-encoding"] || "");
+  const corps = accepte.includes("br") && pageBr ? pageBr
+              : accepte.includes("gzip") && pageGz ? pageGz
+              : null;
+  if (!corps) return suite();                 // navigateur sans compression
+  res.set({
+    "Content-Type": "text/html; charset=utf-8",
+    "Content-Encoding": corps === pageBr ? "br" : "gzip",
+    "Vary": "Accept-Encoding",
+    "Last-Modified": pageDate,
+    "Cache-Control": "no-cache",
+  });
+  res.send(corps);
+});
+
 app.use(express.static(path.join(ICI, "public")));
 
 app.listen(PORT, () => {
