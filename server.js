@@ -363,13 +363,16 @@ app.post("/api/photo", autorise, async (req, res) => {
         {
           type: "text",
           text:
-            `Voici la photo du travail de l'élève.\n\n` +
+            `Voici la photo du travail de l'élève. Corrige-la comme le ferait un examinateur du bac : rigoureux, mais jamais décourageant.\n\n` +
             (question ? `Sa question : ${question}\n\n` : "") +
             `Procède dans cet ordre :\n` +
             `1. Dis ce que tu lis (l'énoncé et ce qu'elle a écrit). Si un passage est illisible, dis-le franchement plutôt que de deviner.\n` +
-            `2. Indique si le raisonnement est juste. Si non, cite la première ligne où ça dérape et explique l'erreur de raisonnement qui l'a produite.\n` +
-            `3. Donne la méthode correcte, étape par étape.\n` +
-            `4. Termine par une phrase sur le réflexe à prendre pour éviter cette erreur la prochaine fois.`,
+            `2. Reprends le raisonnement pas à pas. Si une erreur apparaît, cite la ligne exacte où ça dérape et précise sa nature : erreur de calcul (une valeur fausse), erreur de logique (un raisonnement qui ne tient pas), ou erreur de rédaction (une justification manquante ou imprécise, même si le résultat est juste).\n` +
+            `3. Donne un **verdict** en une ligne : ✅ Correct, 🟡 Correct mais à consolider, ou ❌ Faux — avec la raison précise.\n` +
+            `4. Signale la **faille** : l'endroit précis où un correcteur du bac enlèverait des points, même si la copie est globalement juste (une hypothèse non vérifiée, un cas particulier non traité, une conclusion non reformulée).\n` +
+            `5. Donne la méthode correcte, étape par étape.\n` +
+            `6. Pose une **question piège**, une seule, qui oblige l'élève à justifier le point le plus fragile de sa réponse — sans donner la réponse à cette question.\n` +
+            `7. Termine par le **réflexe** à prendre pour éviter cette erreur la prochaine fois.`,
         },
       ],
     });
