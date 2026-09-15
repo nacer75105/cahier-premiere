@@ -1403,6 +1403,16 @@ sections:[
   {t:"piege", titre:"Ne pas confondre", x:"$f(a)$ est la **hauteur** de la courbe. $f'(a)$ est sa **pente**. Ce sont deux nombres différents, calculés avec deux expressions différentes. Beaucoup d'élèves remplacent $a$ dans la mauvaise formule."}
  ]},
 
+ {titre:"D'un nombre à une fonction : la fonction dérivée", blocs:[
+  {t:"idee", x:"Jusqu'ici, $f'(a)$ était **un nombre**, calculé pour une valeur de $a$ bien précise. Et si on refaisait ce calcul pour toutes les valeurs de $a$ à la fois ?"},
+  {t:"p", x:"Reprends l'exemple de $f(x) = x^2$. On a calculé $f'(1) = 2$ en rétrécissant un intervalle autour de 1. Rien n'empêche de refaire exactement le même calcul en 2, en 3, en $-5$, en n'importe quel nombre : $f'(2) = 4$, $f'(3) = 6$, $f'(-5) = -10$… À chaque nombre de départ correspond un nombre d'arrivée. C'est très exactement la définition d'une fonction."},
+  {t:"p", x:"Cette nouvelle fonction, qui à un nombre $a$ associe la pente de la courbe de $f$ en ce point, s'appelle la **fonction dérivée** de $f$, et se note $f'$. C'est un changement de nature qu'il faut voir passer : $f'(a)$, avec le $(a)$, est un nombre — une valeur. $f'$ tout court, sans rien après, est une fonction — une machine à calculer valable pour tous les $a$ à la fois."},
+  {t:"figi", nom:"fonction-derivee"},
+  {t:"p", x:"Déplace le point $A$ sur la courbe de gauche : à chaque position, le graphique de droite ajoute le point correspondant sur la courbe de $f'$. À gauche, tu lis une pente — un nombre, à un endroit précis. À droite, ce nombre devient un point parmi d'autres, sur une courbe qui existe entièrement, indépendamment de l'endroit où tu regardes. C'est cette courbe de droite, prise dans son ensemble, qui représente **la fonction dérivée** $f'$."},
+  {t:"piege", titre:"Ne pas confondre les deux courbes", x:"La courbe de gauche est celle de $f$ : sa hauteur donne $f(x)$. La courbe de droite est celle de $f'$ : sa hauteur donne la **pente** de la courbe de gauche à ce même $x$, pas une hauteur à elle. Les deux courbes n'ont presque jamais la même forme."},
+  {t:"astuce", titre:"Pourquoi ce changement d'objet est utile", x:"Une fois qu'on connaît l'expression de $f'(x)$ — comme $f'(x) = 2x$ pour $f(x) = x^2$ —, plus besoin de refaire un calcul de limite à chaque nouveau point : on remplace $x$ par le nombre voulu, et c'est fini. Le tableau qui suit donne ces expressions directement, pour les fonctions les plus courantes."}
+ ]},
+
  {titre:"Le tableau des dérivées à connaître", blocs:[
   {t:"tbl", head:["Fonction $f(x)$","Dérivée $f'(x)$","Exemple"], rows:[
    ["$k$ (un nombre)","$0$","$f(x)=7$ → $f'(x)=0$"],
@@ -1416,7 +1426,8 @@ sections:[
   {t:"astuce", titre:"La règle de la puissance en une phrase", x:"L'exposant descend en facteur devant, et il diminue de 1. Exemple : $x^7$ → $7x^6$."},
   {t:"p", x:"Vérifions cette règle sur le cas qu'on vient de calculer à la main. Pour $f(x) = x^2$, elle annonce $f'(x) = 2x$, donc $f'(1) = 2$. C'est exactement le nombre vers lequel le tableau des pentes convergeait. **La formule n'est qu'un raccourci** : elle donne d'un coup ce qu'on obtenait péniblement en rétrécissant l'intervalle."},
   {t:"p", x:"C'est important de le voir une fois, sinon les formules de dérivation ressemblent à des règles arbitraires tombées du ciel. Elles ont toutes été établies de cette façon, par le calcul de la limite, une bonne fois pour toutes. On les utilise ensuite sans les redémontrer — comme on utilise une table de multiplication sans recompter."},
-  {t:"formule", titre:"Les opérations", x:"$(u + v)' = u' + v'$<br>$(k u)' = k u'$<br>$(uv)' = u'v + uv'$<br>$(@f{u}{v})' = @f{u'v - uv'}{v^2}$", note:"Le produit et le quotient sont au programme ; leur forme se retient par répétition."},
+  {t:"formule", titre:"Les opérations", x:"$(u + v)' = u' + v'$<br>$(k u)' = k u'$<br>$(uv)' = u'v + uv'$<br>$(@f{u}{v})' = @f{u'v - uv'}{v^2}$", note:"Le produit et le quotient sont au programme ; voici d'où vient leur forme, plus bas dans le chapitre."},
+  {t:"idee", titre:"Pourquoi le produit donne deux termes", x:"Imagine $u$ et $v$ comme les deux côtés d'un rectangle, dont l'aire est $u × v$. Fais grandir $x$ d'un tout petit pas : $u$ grandit un peu (de $u'$), et $v$ grandit un peu aussi (de $v'$). L'aire gagnée se partage alors en **deux bandes fines** : une bande le long du côté $v$, de largeur $u'$ — elle vaut $u'v$ — et une bande le long du côté $u$, de largeur $v'$ — elle vaut $uv'$. Le petit coin où les deux bandes se croisent est négligeable, tellement le pas est petit. Il reste deux bandes, donc deux termes qui s'additionnent : $(uv)' = u'v + uv'$. Ce n'est pas une démonstration complète, mais ça dit pourquoi il y a deux morceaux, et pourquoi ils s'ajoutent."},
   {t:"exemple", titre:"Exemple guidé — dériver un polynôme", enonce:"Dériver $f(x) = 3x^3 - 5x^2 + 4x - 7$.", etapes:[
    {q:"Traiter chaque morceau séparément", r:"La dérivée d'une somme est la somme des dérivées : je dérive terme par terme."},
    {q:"$3x^3$", r:"L'exposant 3 descend : $3 × 3x^{2} = 9x^2$."},
@@ -1435,22 +1446,9 @@ sections:[
  ]},
 
  {titre:"Du signe de la dérivée aux variations", blocs:[
-  {t:"fig", titre:"Le signe de la dérivée, lu sur trois tangentes",
-   vue:[-0.5,-5.5,6.5,5.5], w:410, h:300, grille:true, graduations:true,
-   objets:[
-    {t:"courbe", f:"parabole-min", couleur:"bleu"},
-    {t:"seg", de:[0,4], a:[2,-4], couleur:"rouge"},
-    {t:"seg", de:[1.7,-4], a:[4.3,-4], couleur:"ambre"},
-    {t:"seg", de:[4,-4], a:[6,4], couleur:"vert"},
-    {t:"point", x:1, y:0, nom:"", couleur:"rouge"},
-    {t:"point", x:3, y:-4, nom:"S", couleur:"ambre", dessous:true},
-    {t:"point", x:5, y:0, nom:"", couleur:"vert"},
-    {t:"texte", x:0.7, y:4.6, txt:"f '(1) = −4", couleur:"rouge", taille:12},
-    {t:"texte", x:3, y:-5.1, txt:"f '(3) = 0", couleur:"ambre", taille:12},
-    {t:"texte", x:5.4, y:4.6, txt:"f '(5) = +4", couleur:"vert", taille:12}
-   ],
-   note:"Une seule courbe, trois tangentes. À gauche elle **descend** et sa tangente penche vers le bas : $f'$ est négative. Au creux, la tangente est **horizontale** : $f'$ s'annule. À droite elle **monte** : $f'$ est positive. Tout le chapitre tient dans cette image — le signe de la dérivée est la pente de la tangente, et la pente donne le sens de variation."},
-  {t:"p", x:"Regarde bien le point $S$. C'est le seul endroit où la tangente est horizontale, donc le seul où $f'$ s'annule — et c'est exactement là que la fonction cesse de descendre pour se mettre à monter. **Un extremum se trouve toujours là où la dérivée s'annule en changeant de signe.**"},
+  {t:"figi", nom:"signe-variation"},
+  {t:"p", x:"Déplace $A$ d'un bout à l'autre. À gauche la courbe **descend** et la tangente penche vers le bas : $f'$ est négative, la bande du dessous s'allume en rouge. Au creux, la tangente devient **horizontale** : $f'$ s'annule, on change de zone. À droite la courbe **monte** : $f'$ est positive, la bande passe au vert. Tout le chapitre tient dans cette image — le signe de la dérivée est la pente de la tangente, et la pente donne le sens de variation."},
+  {t:"p", x:"Repère les deux endroits où la tangente devient horizontale. Ce sont les seuls où $f'$ s'annule — et c'est exactement là que la fonction cesse de monter pour se mettre à descendre, ou l'inverse. **Un extremum se trouve toujours là où la dérivée s'annule en changeant de signe.**"},
   {t:"piege", titre:"Dérivée nulle ne veut pas dire extremum", x:"La réciproque est fausse, et c'est une erreur fréquente. Pour $f(x) = x^{3}$, la dérivée $f'(x) = 3x^{2}$ s'annule en 0 — pourtant la fonction continue de monter sans faire ni creux ni bosse, parce que $3x^{2}$ reste **positive** des deux côtés.<br><br>Ce qui crée un extremum, ce n'est pas que la dérivée s'annule : c'est qu'elle **change de signe**. Un tableau de signes bien fait le montre d'un coup d'œil."},
   {t:"idee", x:"C'est ici que la dérivée devient vraiment utile : **le signe de $f'$ donne les variations de $f$**, sans avoir besoin de tracer la courbe."},
   {t:"formule", titre:"Le lien fondamental", x:"$f' > 0$ sur un intervalle → $f$ est **croissante**<br>$f' < 0$ sur un intervalle → $f$ est **décroissante**<br>$f'$ s'annule en changeant de signe → **extremum** (max ou min)"},
@@ -1490,6 +1488,7 @@ sections:[
   {t:"p", x:"Jusqu'ici on n'a dérivé que des sommes. Voici les trois autres situations du programme, dans l'ordre où elles reviennent en contrôle."},
   {t:"formule", titre:"Produit", x:"$(uv)' = u'v + uv'$", note:"On dérive le premier en gardant le second, **plus** le premier en dérivant le second."},
   {t:"formule", titre:"Quotient", x:"$@f{u}{v}$ a pour dérivée $@f{u'v - uv'}{v^2}$", note:"Attention : un **moins** au numérateur, et l'ordre compte. Le dénominateur est mis au carré."},
+  {t:"idee", titre:"Pourquoi un signe moins, cette fois", x:"Le produit fait grandir les deux côtés ensemble, donc les deux termes s'ajoutent. Le quotient, c'est différent : $u$ et $v$ tirent en **sens opposés**. Si $u$ augmente, $@f{u}{v}$ augmente — d'où le terme $u'v$, avec un plus. Mais si $v$ augmente, $@f{u}{v}$ diminue : partager par un nombre plus grand donne un résultat plus petit. Le terme qui vient de $v$ doit donc entrer avec un **signe moins**, d'où $-uv'$. Le signe n'est pas un détail à retenir par cœur : il traduit que $u$ et $v$ n'agissent pas de la même façon sur le quotient."},
   {t:"formule", titre:"Inverse et racine", x:"$@f{1}{x}$ → $-@f{1}{x^2}$ &nbsp;&nbsp;·&nbsp;&nbsp; $@r{x}$ → $@f{1}{2@r{x}}$", note:"L'inverse est défini pour $x ≠ 0$, la racine pour $x > 0$ (et sa dérivée pour $x > 0$ strictement)."},
   {t:"astuce", titre:"Retenir le quotient", x:"Le numérateur commence par $u'v$, comme le produit. Puis on **soustrait** $uv'$. Une phrase qui marche : « dérivée du haut fois le bas, moins le haut fois dérivée du bas, le tout sur le bas au carré »."},
   {t:"exemple", titre:"Exemple guidé — dériver un produit", enonce:"Dériver $f(x) = (3x + 1)(x^2 - 2)$.", etapes:[
@@ -4502,6 +4501,132 @@ MODELES["tangente"] = function(){
   boite.appendChild(lecture);
   boite.appendChild(lig);
   boite.appendChild(el("div","figNote","Là où la courbe descend, la pente est négative. Au creux, elle vaut exactement 0 : c’est là que la dérivée s’annule."));
+  return boite;
+};
+
+/* -- d'un nombre à une fonction : deux panneaux liés par un seul curseur -- */
+MODELES["fonction-derivee"] = function(){
+  var w = 195, h = 250, a = 0;
+  var f = function(x){ return x*x*x/3 - x; }, fp = function(x){ return x*x - 1; };
+  var boite = el("div","figBoite");
+  var deux = el("div","figDeux");
+  deux.style.display = "flex"; deux.style.gap = "10px"; deux.style.flexWrap = "wrap";
+  deux.style.justifyContent = "center"; deux.style.width = "100%";
+  var panneauG = el("div"); panneauG.style.flex = "1 1 45%"; panneauG.style.minWidth = "150px";
+  var panneauD = el("div"); panneauD.style.flex = "1 1 45%"; panneauD.style.minWidth = "150px";
+  var svg1 = n("svg",{viewBox:"0 0 "+w+" "+h, class:"fig"});
+  var svg2 = n("svg",{viewBox:"0 0 "+w+" "+h, class:"fig"});
+  var R1 = repere([-2.2,-2,2.2,2], w, h, 18);
+  var R2 = repere([-2.2,-1.5,2.2,4], w, h, 18);
+  var lecture = el("div","figLecture");
+
+  function tracer(R, fonc, x0, x1){
+    var d = "", i, vv = R.vue;
+    for(i = 0; i <= 200; i++){
+      var x = x0 + (x1-x0)*i/200, y = fonc(x);
+      if(y < vv[1]-1 || y > vv[3]+1) continue;
+      d += (d ? " L " : "M ") + R.X(x) + " " + R.Y(y);
+    }
+    return d;
+  }
+
+  function redessine(){
+    /* panneau gauche : f, point A, tangente — un nombre, f'(a) */
+    while(svg1.firstChild) svg1.removeChild(svg1.firstChild);
+    fond(svg1, R1, {});
+    svg1.appendChild(n("path",{d:tracer(R1,f,R1.vue[0],R1.vue[2]), fill:"none", stroke:coul("bleu"), "stroke-width":2.6}));
+    var m = fp(a), p = f(a)-m*a, vv1 = R1.vue;
+    svg1.appendChild(n("line",{x1:R1.X(vv1[0]), y1:R1.Y(m*vv1[0]+p),
+      x2:R1.X(vv1[2]), y2:R1.Y(m*vv1[2]+p), stroke:coul("rouge"), "stroke-width":2.2}));
+    point(svg1, R1, a, f(a), "A", "rouge");
+
+    /* panneau droit : la courbe de f' se construit jusqu'à a — une fonction */
+    while(svg2.firstChild) svg2.removeChild(svg2.firstChild);
+    fond(svg2, R2, {});
+    var vv2 = R2.vue, xFin = Math.max(a, vv2[0]+0.02);
+    var d2 = tracer(R2, fp, vv2[0], xFin);
+    if(d2) svg2.appendChild(n("path",{d:d2, fill:"none", stroke:coul("vert"), "stroke-width":2.6}));
+    point(svg2, R2, a, fp(a), "", "vert");
+
+    lecture.innerHTML =
+      "en <i>a</i> = " + nb(a) + " : <b style=\"color:var(--rouge)\">f′(a) = " + nb(m) + "</b> — un nombre, lu à gauche.<br>" +
+      "c'est le point marqué à droite, sur <b style=\"color:var(--vert)\">la courbe de f′</b> — une fonction, tracée en entier au fil du glissement.";
+  }
+
+  var ctr = el("div","figCurseurs");
+  ctr.appendChild(curseur("a", -2, 2, 0.05, a, function(x){ a = x; redessine(); }, nb));
+
+  redessine();
+  boite.appendChild(el("div","figTitre","À gauche un nombre, à droite une fonction"));
+  panneauG.appendChild(svg1); panneauD.appendChild(svg2);
+  deux.appendChild(panneauG); deux.appendChild(panneauD);
+  boite.appendChild(deux);
+  boite.appendChild(lecture);
+  boite.appendChild(ctr);
+  boite.appendChild(el("div","figNote", T(
+    "Fais glisser le curseur d'un bout à l'autre. Le point de droite avance en même temps que $A$ à gauche, et laisse la courbe de $f'$ se dessiner au fur et à mesure : chaque position de $A$ donne un point de plus.")));
+  return boite;
+};
+
+/* -- le signe de f' et la forme de la courbe, sur un point qu'on déplace -- */
+MODELES["signe-variation"] = function(){
+  var w = 410, h = 300, a = 0;
+  var f = function(x){ return x*x*x/3 - x; }, fp = function(x){ return x*x - 1; };
+  var zones = [[-2.2,-1,"+","monte"], [-1,1,"−","descend"], [1,2.2,"+","monte"]];
+  var boite = el("div","figBoite");
+  var svg = n("svg",{viewBox:"0 0 "+w+" "+h, class:"fig"});
+  var bande = n("svg",{viewBox:"0 0 "+w+" 40", class:"fig"});
+  var R = repere([-2.2,-2,2.2,2], w, h, 20);
+  var lecture = el("div","figLecture");
+
+  function zoneDe(x){ return x < -1 ? 0 : (x < 1 ? 1 : 2); }
+
+  function redessine(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    fond(svg, R, {});
+    var d="", i, vv=R.vue;
+    for(i=0;i<=240;i++){
+      var x=vv[0]+(vv[2]-vv[0])*i/240, y=f(x);
+      if(y<vv[1]-1||y>vv[3]+1) continue;
+      d += (d?" L ":"M ")+R.X(x)+" "+R.Y(y);
+    }
+    svg.appendChild(n("path",{d:d,fill:"none",stroke:coul("bleu"),"stroke-width":2.8}));
+    var m=fp(a), p=f(a)-m*a;
+    svg.appendChild(n("line",{x1:R.X(vv[0]),y1:R.Y(m*vv[0]+p),
+      x2:R.X(vv[2]),y2:R.Y(m*vv[2]+p), stroke:coul("rouge"),"stroke-width":2.2}));
+    point(svg,R,a,f(a),"A","rouge");
+
+    while(bande.firstChild) bande.removeChild(bande.firstChild);
+    var zi = zoneDe(a), mB = 20, larg = w - 2*mB;
+    zones.forEach(function(z, idx){
+      var x0 = mB + (z[0]-vv[0])/(vv[2]-vv[0])*larg;
+      var x1 = mB + (z[1]-vv[0])/(vv[2]-vv[0])*larg;
+      bande.appendChild(n("rect",{x:x0, y:6, width:x1-x0, height:20,
+        fill: coul(z[2]==="+" ? "vert" : "rouge"),
+        opacity: idx===zi ? 0.85 : 0.25, rx:3}));
+      var e = txt((x0+x1)/2, 21, z[2], "middle");
+      e.setAttribute("fill","#fff"); e.setAttribute("font-size",13); e.setAttribute("font-weight",700);
+      bande.appendChild(e);
+    });
+    var Xa = mB + (a-vv[0])/(vv[2]-vv[0])*larg;
+    bande.appendChild(n("line",{x1:Xa,y1:2,x2:Xa,y2:32,stroke:coul("ink"),"stroke-width":2}));
+
+    var signe = m>0.03?"+":(m<-0.03?"−":"0");
+    lecture.innerHTML =
+      "en <i>a</i> = " + nb(a) + " : f′(a) = " + nb(m) + ", de signe <b>" + signe + "</b> — la courbe " + zones[zi][3] + ".";
+  }
+
+  var ctr = el("div","figCurseurs");
+  ctr.appendChild(curseur("a", -2.2, 2.2, 0.05, a, function(x){ a = x; redessine(); }, nb));
+
+  redessine();
+  boite.appendChild(el("div","figTitre","Le signe de f' et la forme de la courbe"));
+  boite.appendChild(svg);
+  boite.appendChild(bande);
+  boite.appendChild(lecture);
+  boite.appendChild(ctr);
+  boite.appendChild(el("div","figNote", T(
+    "La bande sous la figure montre le signe de $f'$ sur trois zones ; celle où se trouve $A$ s'allume. Balaie tout le curseur : deux changements de couleur, deux extremums.")));
   return boite;
 };
 
