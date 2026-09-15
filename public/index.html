@@ -3036,21 +3036,8 @@ sections:[
   {t:"p", x:"On note $P(X = 2)$ la probabilité que le gain vaille 2. Ici $P(X = 2) = @f{1}{2}$ et $P(X = -1) = @f{1}{2}$."},
   {t:"formule", titre:"Loi de probabilité", x:"C'est le tableau qui donne toutes les valeurs possibles de $X$ et leurs probabilités.", note:"Contrôle obligatoire : la somme de la ligne des probabilités doit valoir exactement 1."},
   {t:"tbl", head:["$x_i$","−1","2"], rows:[["$P(X = x_i)$","0,5","0,5"]]},
-  {t:"fig", titre:"Une loi de probabilité, vue de haut",
-   vue:[-1,-0.1,7,0.75], w:400, h:270, grille:false, graduations:false,
-   objets:[
-    {t:"seg", de:[-0.8,0], a:[6.6,0], couleur:"ink3"},
-    {t:"poly", pts:[[-0.25,0],[0.25,0],[0.25,0.5],[-0.25,0.5]], couleur:"bleu", remplir:true},
-    {t:"poly", pts:[[2.75,0],[3.25,0],[3.25,0.5],[2.75,0.5]], couleur:"bleu", remplir:true},
-    {t:"seg", de:[1.5,0], a:[1.5,0.62], couleur:"rouge", pointille:true},
-    {t:"texte", x:0, y:-0.09, txt:"−1", couleur:"ink2"},
-    {t:"texte", x:3, y:-0.09, txt:"2", couleur:"ink2"},
-    {t:"texte", x:0, y:0.56, txt:"0,5", couleur:"bleu"},
-    {t:"texte", x:3, y:0.56, txt:"0,5", couleur:"bleu"},
-    {t:"texte", x:1.5, y:0.69, txt:"E(X) = 0,5", couleur:"rouge"}
-   ],
-   note:"Deux barres de hauteur 0,5. L'espérance (trait rouge) est le **point d'équilibre** : elle tombe pile au milieu."},
-  {t:"p", x:"Cette image donne une intuition qu'aucune formule ne donne : **l'espérance est un point d'équilibre**. Imagine les deux barres comme deux poids posés sur une règle. L'endroit où la règle tient en équilibre, c'est $E(X)$. Ici les poids sont égaux, l'équilibre est au milieu ; si l'une des barres était plus haute, l'équilibre se déplacerait de son côté."},
+  {t:"figi", nom:"balance-esperance"},
+  {t:"p", x:"Cette figure donne une intuition qu'aucune formule ne donne : **l'espérance est un point d'équilibre**. Imagine les deux barres comme deux poids posés sur une règle. L'endroit où la règle tient en équilibre, c'est $E(X)$. Déplace le curseur : quand les poids sont égaux, l'équilibre est au milieu ; dès que l'un des deux devient plus probable, l'équilibre se déplace de son côté — jamais l'inverse."},
   {t:"p", x:"Cela explique du même coup pourquoi l'espérance n'est pas forcément une valeur atteignable. Ici elle vaut $0{,}5$, alors que le gain ne peut être que $-1$ ou $2$. Le point d'équilibre d'une balançoire n'est pas l'endroit où l'on s'assoit."},
   {t:"piege", titre:"Le contrôle qui sauve", x:"Si la somme des probabilités ne fait pas 1, il y a forcément une erreur quelque part. Prends dix secondes pour additionner la ligne du bas avant de continuer."}
  ]},
@@ -3081,22 +3068,16 @@ sections:[
  {titre:"Variance et écart-type : mesurer le risque", blocs:[
   {t:"idee", x:"Deux jeux peuvent avoir la même espérance mais être très différents : l'un régulier, l'autre très risqué. L'écart-type mesure cette **dispersion**."},
   {t:"p", x:"Voici pourquoi l'espérance seule ne suffit pas. Deux jeux, même mise, même gain moyen de 0 € :<br>— **Jeu A** : on gagne ou on perd 1 € à chaque partie.<br>— **Jeu B** : une fois sur mille on gagne 1000 €, sinon on perd 1 €.<br>Les deux ont une espérance nulle, donc « équitables » au sens du cours. Mais les vivre n'a rien à voir : le premier est ennuyeux et sans danger, le second peut ruiner avant le premier gain."},
-  {t:"fig", titre:"Même espérance, dispersions opposées",
-   vue:[-1,-0.15,10,1.25], w:400, h:280, grille:false, graduations:false,
-   objets:[
-    {t:"seg", de:[-0.6,0], a:[9.6,0], couleur:"ink3"},
-    {t:"poly", pts:[[1.6,0],[2.4,0],[2.4,0.9],[1.6,0.9]], couleur:"vert", remplir:true},
-    {t:"poly", pts:[[2.6,0],[3.4,0],[3.4,0.9],[2.6,0.9]], couleur:"vert", remplir:true},
-    {t:"poly", pts:[[0.1,0],[0.5,0],[0.5,0.28],[0.1,0.28]], couleur:"rouge", remplir:true},
-    {t:"poly", pts:[[8.6,0],[9,0],[9,0.28],[8.6,0.28]], couleur:"rouge", remplir:true},
-    {t:"seg", de:[2.5,0], a:[2.5,1.08], couleur:"ink", pointille:true},
-    {t:"texte", x:2.5, y:1.16, txt:"même E(X)", couleur:"ink2"},
-    {t:"texte", x:2.5, y:-0.11, txt:"resserré : σ petit", couleur:"vert"},
-    {t:"texte", x:7.6, y:-0.11, txt:"étalé : σ grand", couleur:"rouge"}
-   ],
-   note:"Les barres vertes sont serrées autour de la moyenne ; les rouges sont loin de part et d'autre. Même centre, risques opposés."},
-  {t:"p", x:"L'écart-type met un nombre sur cet étalement. Petit écart-type : les résultats se serrent autour de la moyenne, on sait à peu près à quoi s'attendre. Grand écart-type : ils partent loin des deux côtés, la moyenne devient une information peu utile pour prévoir une partie."},
-  {t:"formule", titre:"Variance", x:"$V(X) = x_1^2 P(X = x_1) + … + x_n^2 P(X = x_n) - [E(X)]^2$", note:"Traduction : moyenne des carrés, moins le carré de la moyenne."},
+  {t:"figi", nom:"dispersion-variance"},
+  {t:"p", x:"L'écart-type met un nombre sur cet étalement. Déplace le curseur : plus les deux barres s'écartent du centre, plus $V(X)$ et $σ(X)$ grandissent. Petit écart-type : les résultats se serrent autour de la moyenne, on sait à peu près à quoi s'attendre. Grand écart-type : ils partent loin des deux côtés, la moyenne devient une information peu utile pour prévoir une partie."},
+  {t:"idee", x:"Comment mettre un nombre sur cet étalement ? L'idée naïve : regarder à quelle distance de la moyenne les valeurs se trouvent, **en moyenne**."},
+  {t:"p", x:"Essayons sur un exemple simple : $X$ vaut $0$ avec une probabilité de $0{,}5$, ou $4$ avec une probabilité de $0{,}5$. On a $E(X) = 0 × 0{,}5 + 4 × 0{,}5 = 2$. Calculons l'écart moyen à cette valeur : $(0 - 2) × 0{,}5 + (4 - 2) × 0{,}5 = -1 + 1 = 0$. Zéro — alors que les valeurs sont loin d'être regroupées autour de 2, puisqu'aucune ne vaut 2 elle-même !"},
+  {t:"p", x:"Ce n'est pas un hasard de calcul : ça arrivera **toujours**, quelle que soit la variable. C'est la définition même de la moyenne pondérée qui l'impose — les écarts positifs et négatifs s'annulent exactement, par construction. Mesurer l'écart brut ne dira donc jamais rien sur le risque : il faut empêcher les écarts de s'annuler entre eux."},
+  {t:"idee", titre:"L'idée : mettre les écarts au carré", x:"Un carré est toujours positif, qu'on parte d'un écart négatif ou positif. En mettant chaque écart au carré avant de le moyenner, les compensations disparaissent — et ce qu'il reste mesure vraiment l'étalement."},
+  {t:"p", x:"Reprenons le même exemple : $(0 - 2)^2 × 0{,}5 + (4 - 2)^2 × 0{,}5 = 4 × 0{,}5 + 4 × 0{,}5 = 2 + 2 = 4$. Ce nombre — la moyenne pondérée des écarts **au carré** à l'espérance — porte un nom : c'est la **variance**, notée $V(X)$. Par définition, $V(X) = 4$ ici."},
+  {t:"astuce", titre:"Pourquoi le carré, et pas juste la valeur absolue", x:"Prendre la valeur absolue de chaque écart marcherait aussi pour empêcher les compensations — et c'est d'ailleurs ce que fait « l'écart moyen absolu » dans d'autres contextes. Le carré est préféré en probabilités parce qu'il se calcule et se manipule algébriquement bien plus facilement, comme tu vas le voir avec le raccourci ci-dessous."},
+  {t:"p", x:"Refaire ce calcul en repassant par chaque écart, à chaque fois, est lourd. Il existe un raccourci équivalent, plus rapide : la **moyenne des carrés des valeurs**, moins **le carré de la moyenne**. Vérifions qu'il retombe sur le même résultat : moyenne des carrés $= 0^2 × 0{,}5 + 4^2 × 0{,}5 = 8$ ; carré de la moyenne $= 2^2 = 4$ ; $8 - 4 = 4$. Bien le même nombre — ce raccourci n'est qu'une autre façon d'écrire exactement le calcul qu'on vient de faire à la main, comme le tableau des dérivées était un raccourci pour ne plus refaire un calcul de limite à chaque fois."},
+  {t:"formule", titre:"Variance", x:"$V(X) = x_1^2 P(X = x_1) + … + x_n^2 P(X = x_n) - [E(X)]^2$", note:"Ce n'est pas une nouvelle définition : c'est le raccourci de calcul pour la moyenne pondérée des écarts au carré à l'espérance, vue juste au-dessus. Traduction : moyenne des carrés, moins le carré de la moyenne."},
   {t:"formule", titre:"Écart-type", x:"$σ(X) = @r{V(X)}$", note:"On revient ainsi à l'unité de départ (des euros, des points…). C'est ce qu'on interprète."},
   {t:"exemple", titre:"Exemple guidé — calculer un écart-type", enonce:"Soit $X$ prenant la valeur 0 avec une probabilité de 0,5 et la valeur 4 avec une probabilité de 0,5. Calculer $E(X)$, $V(X)$ et $σ(X)$.", etapes:[
    {q:"Espérance", r:"$E(X) = 0 × 0{,}5 + 4 × 0{,}5 = 2$."},
@@ -3147,7 +3128,10 @@ sections:[
   {t:"p", x:"Un **schéma de Bernoulli** consiste à répéter $n$ fois la même épreuve de Bernoulli, de façon indépendante : le résultat d'un essai ne change rien à la probabilité des essais suivants, et $p$ reste le même à chaque fois."},
   {t:"formule", titre:"Loi binomiale", x:"Si $X$ compte le nombre de succès obtenus sur $n$ répétitions indépendantes d'une épreuve de Bernoulli de paramètre $p$, on dit que $X$ suit la loi binomiale de paramètres $n$ et $p$, notée $X ∼ ℬ(n ; p)$.", note:"Deux nombres suffisent à la décrire entièrement : $n$ (le nombre de répétitions) et $p$ (la probabilité de succès à chaque répétition)."},
   {t:"p", x:"La question typique est : « quelle est la probabilité d'obtenir exactement $k$ succès sur les $n$ répétitions ? » Il y a deux choses à combiner. D'abord, la probabilité d'une suite précise de $k$ succès et $n-k$ échecs, dans un ordre donné : c'est $p^k (1-p)^{n-k}$, parce que les répétitions sont indépendantes. Ensuite, il faut compter **de combien de façons** ces $k$ succès peuvent se placer parmi les $n$ répétitions — c'est ce que compte le coefficient binomial $@b{n}{k}$, qui se lit « $k$ parmi $n$ »."},
-  {t:"formule", titre:"Probabilité d'exactement $k$ succès", x:"$P(X = k) = @b{n}{k} p^k (1-p)^{n-k}$", note:"$@b{n}{k}$ compte le nombre de façons de placer $k$ succès parmi $n$ essais ; la calculatrice le donne directement (touche « nCr » ou « Combinaison »)."},
+  {t:"idee", titre:"Compter à la main, sur un petit cas", x:"Combien de façons de placer 2 succès parmi 4 répétitions ? Assez peu pour les lister toutes : les répétitions n°1-2, 1-3, 1-4, 2-3, 2-4, 3-4. **Six** façons."},
+  {t:"p", x:"Retrouvons ce 6 par le calcul, en deux temps — la méthode qui marche pour n'importe quel $n$ et $k$, même quand lister à la main devient trop long. **D'abord, en tenant compte de l'ordre** : pour le premier succès, 4 répétitions possibles ; pour le second, il n'en reste que 3 : $4 × 3 = 12$. **Mais chaque paire a été comptée deux fois** dans ces 12 — une fois dans chaque ordre (par exemple, « succès en 1 puis en 3 » et « succès en 3 puis en 1 » désignent la même paire {1,3}). Il faut donc diviser par le nombre de façons de ranger 2 éléments, soit $2! = 2 × 1 = 2$ : $@f{12}{2} = 6$. On retombe bien sur les 6 listées à la main."},
+  {t:"formule", titre:"Coefficient binomial", x:"$@b{n}{k} = @f{n × (n-1) × … × (n-k+1)}{k!}$", note:"$k$ facteurs qui descendent depuis $n$ au numérateur ($k × k{-}1 × … × 1$, c'est-à-dire $k!$) au dénominateur — pour corriger le fait que l'ordre ne compte pas."},
+  {t:"formule", titre:"Probabilité d'exactement $k$ succès", x:"$P(X = k) = @b{n}{k} p^k (1-p)^{n-k}$", note:"Pour un grand $n$, refaire ce calcul à la main devient long : la calculatrice donne $@b{n}{k}$ directement (touche « nCr » ou « Combinaison »), une fois qu'on sait ce que ce nombre compte."},
   {t:"figi", nom:"loi-binomiale"},
   {t:"exemple", titre:"Exemple guidé — combien de six en cinq lancers ?", enonce:"On lance un dé équilibré 5 fois. On appelle succès l'obtention d'un 6. Quelle est la probabilité d'obtenir exactement 2 six ?", etapes:[
    {q:"Reconnaître le schéma", r:"5 lancers indépendants, deux issues à chaque fois (6 ou pas 6) : c'est un schéma de Bernoulli répété. $X$ = nombre de six suit $ℬ(n ; p)$ avec $n = 5$ et $p = @f{1}{6}$."},
@@ -4995,6 +4979,90 @@ MODELES["loi-binomiale"] = function(){
   boite.appendChild(ctr);
   boite.appendChild(el("div","figNote",
     "Le trait rouge tombe toujours au milieu du paquet : l’espérance, c’est le centre de gravité du diagramme. Mets p = 0,5 : la forme devient parfaitement symétrique. Éloigne p de 0,5 : elle se tasse contre un bord. Augmente n : elle s’élargit et s’arrondit en cloche."));
+  return boite;
+};
+
+/* -- l'espérance comme point d'équilibre, sur une loi à deux valeurs -- */
+MODELES["balance-esperance"] = function(){
+  var w = 380, h = 220, p = 0.5;   /* p = P(X = 2), donc 1-p = P(X = -1) */
+  var boite = el("div","figBoite");
+  var svg = n("svg",{viewBox:"0 0 "+w+" "+h, class:"fig"});
+  var lecture = el("div","figLecture");
+  var mg = 70, md = 70, base = h-40, top = 30, largB = 60;
+  var xG = mg, xD = w-md;
+
+  function redessine(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    var q = 1-p, hG = q*(base-top), hD = p*(base-top);
+    svg.appendChild(n("line",{x1:mg-30,y1:base,x2:w-md+30,y2:base, stroke:coul("ink3"),"stroke-width":1.4}));
+    svg.appendChild(n("rect",{x:xG-largB/2, y:base-hG, width:largB, height:hG, fill:coul("bleu"), opacity:.85, rx:3}));
+    svg.appendChild(n("rect",{x:xD-largB/2, y:base-hD, width:largB, height:hD, fill:coul("bleu"), opacity:.85, rx:3}));
+    [[xG,"−1"],[xD,"2"]].forEach(function(t){
+      var e = txt(t[0], base+18, t[1], "middle"); e.setAttribute("fill",coul("ink2")); e.setAttribute("font-size",13);
+      svg.appendChild(e);
+    });
+    var l1 = txt(xG, base-hG-8, nb(q), "middle"); l1.setAttribute("fill",coul("bleu")); l1.setAttribute("font-size",12); svg.appendChild(l1);
+    var l2 = txt(xD, base-hD-8, nb(p), "middle"); l2.setAttribute("fill",coul("bleu")); l2.setAttribute("font-size",12); svg.appendChild(l2);
+
+    var E = -1*q + 2*p;
+    var xE = xG + (E+1)/3*(xD-xG);
+    svg.appendChild(n("line",{x1:xE,y1:top-10,x2:xE,y2:base+8, stroke:coul("rouge"),"stroke-width":2.2,"stroke-dasharray":"5 4"}));
+    var le = txt(xE, top-16, "E(X) = "+nb(E), "middle"); le.setAttribute("fill",coul("rouge")); le.setAttribute("font-size",12); le.setAttribute("font-weight",700);
+    svg.appendChild(le);
+
+    lecture.innerHTML = "P(X = −1) = "+nb(q)+" &nbsp;·&nbsp; P(X = 2) = "+nb(p)+" &nbsp;·&nbsp; <b style=\"color:var(--rouge)\">E(X) = "+nb(E)+"</b>";
+  }
+
+  var ctr = el("div","figCurseurs");
+  ctr.appendChild(curseur("P(X = 2)", 0.05, 0.95, 0.05, p, function(x){ p = x; redessine(); }, nb));
+
+  redessine();
+  boite.appendChild(el("div","figTitre","L'espérance, un point d'équilibre"));
+  boite.appendChild(svg);
+  boite.appendChild(lecture);
+  boite.appendChild(ctr);
+  boite.appendChild(el("div","figNote", T(
+    "Le trait rouge est $E(X)$ : il se déplace vers la barre la plus probable, comme le point d'équilibre d'une balançoire se rapproche du poids le plus lourd.")));
+  return boite;
+};
+
+/* -- pourquoi V(X) grandit au carré de l'écart, et σ(X) proportionnellement -- */
+MODELES["dispersion-variance"] = function(){
+  var w = 380, h = 220, d = 2;
+  var boite = el("div","figBoite");
+  var svg = n("svg",{viewBox:"0 0 "+w+" "+h, class:"fig"});
+  var lecture = el("div","figLecture");
+  var mg = 30, md = 30, base = h-40, top = 30, domaine = 6.5, hBar = 70, largB = 44;
+
+  function X(v){ return mg + (v+domaine)/(2*domaine) * (w-mg-md); }
+
+  function redessine(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    svg.appendChild(n("line",{x1:mg-10,y1:base,x2:w-md+10,y2:base, stroke:coul("ink3"),"stroke-width":1.4}));
+    [-d, d].forEach(function(v){
+      var xv = X(v);
+      svg.appendChild(n("rect",{x:xv-largB/2, y:base-hBar, width:largB, height:hBar, fill:coul("bleu"), opacity:.85, rx:3}));
+      var e = txt(xv, base+18, nb(v), "middle"); e.setAttribute("fill",coul("ink2")); e.setAttribute("font-size",13); svg.appendChild(e);
+      var l = txt(xv, base-hBar-8, "0,5", "middle"); l.setAttribute("fill",coul("bleu")); l.setAttribute("font-size",12); svg.appendChild(l);
+    });
+    var xE = X(0);
+    svg.appendChild(n("line",{x1:xE,y1:top-6,x2:xE,y2:base+8, stroke:coul("ink"),"stroke-width":2,"stroke-dasharray":"5 4"}));
+    var le = txt(xE, top-12, "E(X) = 0", "middle"); le.setAttribute("fill",coul("ink2")); le.setAttribute("font-size",12); svg.appendChild(le);
+
+    var V = d*d;
+    lecture.innerHTML = "écart <i>d</i> = "+nb(d)+" &nbsp;·&nbsp; V(X) = d² = <b>"+nb(V)+"</b> &nbsp;·&nbsp; σ(X) = <b style=\"color:var(--rouge)\">"+nb(d)+"</b>";
+  }
+
+  var ctr = el("div","figCurseurs");
+  ctr.appendChild(curseur("écart d", 0.5, 6, 0.5, d, function(x){ d = x; redessine(); }, nb));
+
+  redessine();
+  boite.appendChild(el("div","figTitre","Même espérance, dispersions opposées"));
+  boite.appendChild(svg);
+  boite.appendChild(lecture);
+  boite.appendChild(ctr);
+  boite.appendChild(el("div","figNote", T(
+    "Écarte les deux barres : $V(X)$ grandit **au carré** de l'écart $d$, alors que $σ(X)$ grandit à la même vitesse que $d$. C'est pour ça qu'on revient à $σ$ pour interpréter : c'est la seule des deux qui reste dans l'unité de départ.")));
   return boite;
 };
 
