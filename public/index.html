@@ -721,29 +721,7 @@ sections:[
   {t:"p", x:"Exemple : 2 ; 6 ; 18 ; 54… À chaque fois on multiplie par 3. Donc $q = 3$."},
   {t:"formule", titre:"Les deux formules à connaître", x:"$u_{n+1} = q × u_n$ &nbsp;&nbsp;(récurrence)<br>$u_n = u_0 × q^{n}$ &nbsp;&nbsp;(terme général)", note:"L'exposant, c'est le nombre de multiplications effectuées."},
   {t:"p", x:"Le raisonnement est exactement le même que pour l'arithmétique, avec une seule opération changée. Là-bas on ajoutait $r$ à chaque pas, donc après $n$ pas on avait ajouté $n × r$. Ici on **multiplie** par $q$ à chaque pas, donc après $n$ pas on a multiplié par $q × q × … × q$, soit $q^{n}$. Une puissance, c'est simplement une multiplication répétée — de la même façon qu'une multiplication est une addition répétée."},
-  {t:"fig", titre:"Deux suites qui partent du même point",
-   vue:[-0.4,-1,7.5,42], w:400, h:330, graduations:false,
-   objets:[
-    {t:"seg", de:[0,2], a:[1,7], couleur:"bleu"},
-    {t:"seg", de:[1,7], a:[2,12], couleur:"bleu"},
-    {t:"seg", de:[2,12], a:[3,17], couleur:"bleu"},
-    {t:"seg", de:[3,17], a:[4,22], couleur:"bleu"},
-    {t:"seg", de:[4,22], a:[5,27], couleur:"bleu"},
-    {t:"seg", de:[5,27], a:[6,32], couleur:"bleu"},
-    {t:"seg", de:[0,2], a:[1,3], couleur:"rouge"},
-    {t:"seg", de:[1,3], a:[2,4.5], couleur:"rouge"},
-    {t:"seg", de:[2,4.5], a:[3,6.75], couleur:"rouge"},
-    {t:"seg", de:[3,6.75], a:[4,10.1], couleur:"rouge"},
-    {t:"seg", de:[4,10.1], a:[5,15.2], couleur:"rouge"},
-    {t:"seg", de:[5,15.2], a:[6,22.8], couleur:"rouge"},
-    {t:"seg", de:[6,22.8], a:[7,34.2], couleur:"rouge"},
-    {t:"point", x:0, y:2, nom:null, couleur:"ink"},
-    {t:"point", x:6, y:32, nom:null, couleur:"bleu"},
-    {t:"point", x:7, y:34.2, nom:null, couleur:"rouge"},
-    {t:"texte", x:3.2, y:20.5, txt:"arithmétique  +5", couleur:"bleu"},
-    {t:"texte", x:4.4, y:8, txt:"géométrique  ×1,5", couleur:"rouge"}
-   ],
-   note:"Les deux partent de 2. L'arithmétique file droit ; la géométrique traîne longtemps, puis rattrape et dépasse."},
+  {t:"figi", nom:"suites-comparaison"},
   {t:"p", x:"Cette figure vaut tous les discours. Pendant les cinq premiers rangs, la suite arithmétique (bleue) écrase l'autre : elle est déjà à 27 quand la géométrique (rouge) n'est qu'à 15. On pourrait croire que le match est plié. Puis la rouge se redresse, rattrape, et passe devant."},
   {t:"p", x:"C'est la propriété la plus contre-intuitive des suites géométriques : **elles démarrent lentement et finissent par tout dépasser**. Peu importe la raison de l'arithmétique, peu importe le retard initial — si $q > 1$, la géométrique finit toujours par gagner. C'est ce qui rend les intérêts composés si puissants sur vingt ans, et les épidémies si dangereuses quand on les regarde trop tôt."},
   {t:"tbl", head:["","Arithmétique","Géométrique"], rows:[
@@ -809,13 +787,22 @@ sections:[
  {titre:"Additionner beaucoup de termes d'un coup", blocs:[
   {t:"p", x:"Il arrive qu'on doive additionner tous les termes d'une suite. Le faire à la main est impossible dès que les termes sont nombreux. Il existe des formules."},
   {t:"formule", titre:"Somme des entiers de 1 à n", x:"$1 + 2 + 3 + … + n = @f{n(n+1)}{2}$", note:"Exemple : $1+2+…+100 = @f{100 × 101}{2} = 5050$."},
+  {t:"p", x:"D'où vient cette formule ? Écris la somme deux fois : une fois à l'endroit, une fois à l'envers. $S = 1 + 2 + … + n$ et $S = n + (n-1) + … + 1$. Additionne les deux lignes **terme à terme** : $1+n$, $2+(n-1)$, $3+(n-2)$… chaque paire vaut exactement $n+1$, et il y a $n$ paires. Donc $2S = n × (n+1)$, d'où $S = @f{n(n+1)}{2}$. C'est cette astuce, attribuée à Gauss enfant, qui donne la formule — elle ne tombe pas du ciel."},
   {t:"formule", titre:"Somme d'une suite arithmétique", x:"Somme $=$ (nombre de termes) $× @f{premier + dernier}{2}$", note:"On multiplie l'effectif par la moyenne des extrêmes."},
+  {t:"p", x:"C'est exactement le même principe, généralisé à n'importe quelle suite arithmétique : en additionnant la somme à l'endroit et à l'envers, chaque paire vaut toujours (premier terme + dernier terme), et il y a (nombre de termes) paires. La formule des entiers de 1 à $n$ n'en est qu'un cas particulier, avec 1 pour premier terme et $n$ pour dernier."},
   {t:"formule", titre:"Somme d'une suite géométrique ($q ≠ 1$)", x:"$u_0 + u_1 + … + u_n = u_0 × @f{1 - q^{n+1}}{1 - q}$", note:"Attention : l'exposant est $n+1$, car il y a $n+1$ termes de $u_0$ à $u_n$."},
+  {t:"p", x:"L'astuce de Gauss ne marche plus ici — les termes d'une suite géométrique ne s'équilibrent pas par paires. Il en faut une autre. Note $S = u_0 + u_1 + … + u_n$, puis multiplie toute la somme par $q$ : $qS = u_1 + u_2 + … + u_{n+1}$, c'est-à-dire presque la même somme, décalée d'un cran. Soustrais les deux lignes : tous les termes du milieu ($u_1$ à $u_n$) s'annulent, et il reste $S - qS = u_0 - u_{n+1}$. Comme $u_{n+1} = u_0 q^{n+1}$, on obtient $S(1-q) = u_0(1 - q^{n+1})$, d'où $S = u_0 × @f{1 - q^{n+1}}{1 - q}$."},
   {t:"exemple", titre:"Exemple guidé — une somme arithmétique", enonce:"Calculer $S = 5 + 8 + 11 + … + 47$.", etapes:[
    {q:"Identifier la suite", r:"On ajoute 3 à chaque fois : suite arithmétique de premier terme 5 et de raison 3."},
    {q:"Compter les termes", r:"Le dernier terme vaut $5 + 3k = 47$, donc $3k = 42$ et $k = 14$. Il y a donc $14 + 1 = 15$ termes (on compte aussi le premier)."},
    {q:"Appliquer la formule", r:"$S = 15 × @f{5 + 47}{2} = 15 × 26 = 390$."},
    {q:"Contrôle", r:"La moyenne des termes est 26, il y en a 15 : le total doit tourner autour de $15 × 26$. Cohérent."}
+  ]},
+  {t:"exemple", titre:"Exemple guidé — une somme géométrique", enonce:"Calculer $S = 2 + 6 + 18 + 54 + 162$ (les 5 premiers termes d'une suite géométrique de premier terme 2 et de raison 3).", etapes:[
+   {q:"Identifier la suite", r:"On multiplie par 3 à chaque fois : $u_0 = 2$, $q = 3$, et on additionne les termes de $u_0$ à $u_4$ (5 termes)."},
+   {q:"Appliquer la formule", r:"$S = u_0 × @f{1 - q^{n+1}}{1 - q}$ avec $n = 4$ (le rang du dernier terme) : $S = 2 × @f{1 - 3^{5}}{1 - 3}$."},
+   {q:"Calculer", r:"$3^5 = 243$, donc $S = 2 × @f{1 - 243}{-2} = 2 × @f{-242}{-2} = 2 × 121 = 242$."},
+   {q:"Contrôle par addition directe", r:"$2 + 6 + 18 + 54 + 162 = 242$ ✓ — la formule évite d'avoir à tout additionner à la main, ce qui devient vite impossible quand il y a beaucoup de termes."}
   ]}
  ]},
 
@@ -885,17 +872,17 @@ exos:[
  {id:"su4", niveau:2, type:"num", enonce:"Le loyer d'un studio est de 500 € et augmente de 2 % par an. Quel sera le loyer au bout de 4 ans ? (arrondir au centime)",
   rep:541.216, tol:0.02, unite:"€",
   diag:[{v:540, m:"Tu as calculé $500 + 4 × 10 = 540$, c'est-à-dire 2 % du loyer **initial** chaque année. Mais l'augmentation porte chaque année sur le loyer de l'année précédente, qui grandit : il faut multiplier, pas ajouter."},
-        {v:520, m:"Tu as appliqué une seule augmentation de 2 %, ou tu as fait $500 × 1{,}02$ une fois. Il faut appliquer l'augmentation 4 fois : $500 × 1{,}02^4$."},
+        {v:510, m:"Tu as appliqué une seule augmentation de 2 %, ou tu as fait $500 × 1{,}02$ une fois. Il faut appliquer l'augmentation 4 fois : $500 × 1{,}02^4$."},
         {v:530.604, m:"Tu as calculé $500 × 1{,}02^3$ : tu es arrivé à la 3ᵉ année. Relis l'énoncé, on demande 4 ans."},
         {v:1040, m:"Tu as confondu la raison avec le pourcentage. Augmenter de 2 % revient à multiplier par $1{,}02$, pas par $2{,}08$ ni par 2."}],
   corr:["Augmenter de 2 % revient à multiplier par $1 + @f{2}{100} = 1{,}02$.","Le loyer suit une suite géométrique : $u_n = 500 × 1{,}02^{n}$.","Au bout de 4 ans : $u_4 = 500 × 1{,}02^{4}$.","$1{,}02^{4} ≈ 1{,}0824$, donc $u_4 ≈ 541{,}22$ €."],
   indice:"Une hausse de 2 % = multiplication par 1,02. Répétée 4 fois, cela donne un exposant 4."},
 
  {id:"su5", niveau:2, type:"qcm", enonce:"Soit la suite définie par $u_0 = 4$ et $u_{n+1} = 3u_n - 2$. Combien vaut $u_2$ ?",
-  choix:["28","10","34","22"], bonne:0,
+  choix:["28","10","34","12"], bonne:0,
   diag:["", "C'est $u_1$, pas $u_2$. Tu as fait un seul pas. Il faut recommencer l'opération à partir de 10 pour obtenir $u_2$.",
         "Tu as calculé $3 × 4 × 3 - 2 = 34$ ou une variante : tu as appliqué la multiplication deux fois mais la soustraction une seule fois. Chaque pas comporte **les deux** opérations.",
-        "Tu as sans doute fait $3 × (4 - 2) × … $ : l'ordre compte. On multiplie d'abord par 3, **puis** on retire 2."],
+        "Tu as inversé l'ordre des opérations aux deux étapes : $3 × (4 - 2) = 6$, puis $3 × (6 - 2) = 12$. Il faut multiplier **avant** de soustraire, comme l'indique l'écriture $3u_n - 2$."],
   corr:["Premier pas : $u_1 = 3 × u_0 - 2 = 3 × 4 - 2 = 12 - 2 = 10$.","Deuxième pas : $u_2 = 3 × u_1 - 2 = 3 × 10 - 2 = 30 - 2 = 28$.","Donc $u_2 = 28$."],
   indice:"Une suite définie par récurrence se calcule de proche en proche : il faut d'abord trouver $u_1$."},
 
@@ -917,7 +904,7 @@ exos:[
  {id:"su8", niveau:3, type:"num", enonce:"Une suite géométrique vérifie $u_0 = 5$ et $q = 2$. Calculer la somme $u_0 + u_1 + … + u_6$.",
   rep:635,
   diag:[{v:315, m:"Tu as utilisé l'exposant 6 au lieu de 7. De $u_0$ à $u_6$ il y a **7 termes**, donc l'exposant vaut $n+1 = 7$."},
-        {v:320, m:"C'est $u_7$, ou une somme mal comptée. La formule de la somme est $u_0 × @f{1-q^{n+1}}{1-q}$, pas un terme isolé."},
+        {v:320, m:"C'est $u_6$ (le 7ᵉ terme de la suite), pas la somme des sept premiers termes. La formule de la somme est $u_0 × @f{1-q^{n+1}}{1-q}$, pas un terme isolé."},
         {v:1275, m:"Tu as pris $u_0 = 5$ et $q = 2$ mais avec un terme de trop. Vérifie l'exposant : il vaut 7, pas 8."}],
   corr:["Formule : $u_0 + … + u_n = u_0 × @f{1 - q^{n+1}}{1 - q}$ avec $n = 6$.","$= 5 × @f{1 - 2^{7}}{1 - 2}$.","$2^{7} = 128$, donc $@f{1 - 128}{-1} = @f{-127}{-1} = 127$.","$5 × 127 = 635$."],
   indice:"De $u_0$ à $u_6$, compte bien : il y a 7 termes. L'exposant de la formule vaut donc 7."}
@@ -939,7 +926,7 @@ exos:[
   rep:619.02, tol:0.6,
   diag:[{v:600, m:"Tu as retiré $5 × 5 = 25$ % de 800 €, en additionnant les pourcentages. Ils ne s'additionnent pas : chaque baisse porte sur la valeur **de l'année en cours**, déjà réduite."},
         {v:760, m:"Tu n'as appliqué la baisse qu'une seule fois ($800 × 0{,}95$). Il faut la répéter cinq fois, donc élever $0{,}95$ à la puissance 5."},
-        {v:200, m:"Tu as calculé $800 × 0{,}05^5$ ou quelque chose d'approchant. Le coefficient multiplicateur d'une baisse de 5 % n'est pas $0{,}05$ mais $0{,}95$ : il reste 95 % de la valeur."},
+        {v:200, m:"Tu as calculé $800 × 0{,}25 = 200$ : c'est la valeur **perdue** en ajoutant les pourcentages (5×5 % = 25 %), pas la valeur restante. Même avec cette addition déjà erronée, il faudrait garder 75 % et non 25 %."},
         {v:1021, m:"Tu as utilisé $1{,}05$ au lieu de $0{,}95$ : c'est le coefficient d'une **hausse**. Ici la valeur diminue, donc la raison doit être inférieure à 1."}],
   corr:["**Reconnaître le modèle.** Un pourcentage qui se répète : c'est une suite **géométrique**.",
         "**Trouver la raison.** Perdre 5 %, c'est garder 95 % : $q = 1 - 0{,}05 = 0{,}95$.",
@@ -952,7 +939,7 @@ exos:[
 
  {id:"su11", niveau:2, type:"num", enonce:"Calculer la somme $3 + 7 + 11 + … $ des 20 premiers termes de la suite arithmétique de premier terme 3 et de raison 4.",
   rep:820, tol:0.5,
-  diag:[{v:790, m:"Tu as utilisé $u_{20} = 3 + 20 × 4 = 83$ comme dernier terme. Mais en partant de $u_1 = 3$, le vingtième terme est $u_{20} = 3 + 19 × 4 = 79$ : entre le premier et le vingtième, il n'y a que **19** pas."},
+  diag:[{v:790, m:"Tu as calculé le dernier terme comme $19 × 4 = 76$, en oubliant d'ajouter le premier terme : le vingtième terme est $u_{20} = 3 + 19 × 4 = 79$, pas 76."},
         {v:82, m:"Tu as calculé $u_1 + u_{20} = 3 + 79 = 82$, la somme des deux extrêmes. C'est le bon ingrédient, mais il reste à le multiplier par le nombre de termes et à diviser par 2."},
         {v:1640, m:"Tu as oublié de diviser par 2. La formule est $@f{n × (premier + dernier)}{2}$ : on additionne deux fois la somme, il faut donc la moitié."},
         {v:79, m:"Tu as donné le vingtième terme, pas la somme. La question porte sur le total des vingt termes."}],
@@ -4802,14 +4789,20 @@ MODELES["suite-croissance"] = function(){
     if(mode === "arith") S = (N+1)*(vals[0]+vals[N])/2;
     else S = q === 1 ? u0*(N+1) : u0*(1-Math.pow(q,N+1))/(1-q);
 
+    // nb() arrondit à 2 décimales par défaut : un terme géométrique minuscule
+    // mais non nul (ex. 0,0013) s'affichait alors "0", comme s'il s'annulait
+    // réellement — ce qu'une suite géométrique de raison positive ne fait
+    // jamais. On garde 4 décimales pour toute valeur non nulle de module < 1.
+    function nbA(x){ return nb(x, (x!==0 && Math.abs(x)<1) ? 4 : 2); }
+
     lecture.innerHTML = mode === "arith"
       ? "<b>u<sub>n</sub> = " + nb(u0) + " + n × " + nb(r) + "</b> — on <b>ajoute</b> " + nb(r) + " à chaque pas<br>" +
-        "u<sub>0</sub> = " + nb(vals[0]) + " · u<sub>1</sub> = " + nb(vals[1]) + " · u<sub>2</sub> = " + nb(vals[2]) +
-        " · … · u<sub>8</sub> = " + nb(vals[8]) + "<br>" +
+        "u<sub>0</sub> = " + nbA(vals[0]) + " · u<sub>1</sub> = " + nbA(vals[1]) + " · u<sub>2</sub> = " + nbA(vals[2]) +
+        " · … · u<sub>8</sub> = " + nbA(vals[8]) + "<br>" +
         "somme des 9 premiers termes : <b>" + nb(S) + "</b>"
       : "<b>u<sub>n</sub> = " + nb(u0) + " × " + nb(q) + "<sup>n</sup></b> — on <b>multiplie</b> par " + nb(q) + " à chaque pas<br>" +
-        "u<sub>0</sub> = " + nb(vals[0]) + " · u<sub>1</sub> = " + nb(vals[1]) + " · u<sub>2</sub> = " + nb(vals[2]) +
-        " · … · u<sub>8</sub> = " + nb(vals[8]) + "<br>" +
+        "u<sub>0</sub> = " + nbA(vals[0]) + " · u<sub>1</sub> = " + nbA(vals[1]) + " · u<sub>2</sub> = " + nbA(vals[2]) +
+        " · … · u<sub>8</sub> = " + nbA(vals[8]) + "<br>" +
         "somme des 9 premiers termes : <b>" + nb(S) + "</b>";
   }
 
@@ -4838,6 +4831,53 @@ MODELES["suite-croissance"] = function(){
   boite.appendChild(ctr);
   boite.appendChild(el("div","figNote",
     "Les traits orange montrent l’écart d’un terme au suivant. En <b>arithmétique</b> ils ont tous la même hauteur : c’est une droite. En <b>géométrique</b> ils grandissent (ou rétrécissent) à chaque pas : la courbe s’envole ou s’écrase."));
+  return boite;
+};
+
+/* -- 1bis. Comparaison arithmétique / géométrique : axes à échelles
+   indépendantes (pas d'orthonormalité — repere() est partagé par toutes
+   les figures fixes du cahier et force k=min(kx,ky), ce qui écrasait ce
+   graphique en un ruban de 46 px de large pour comparer des rangs 0..8 à
+   des valeurs 0..51 : deux échelles très différentes n'ont rien de
+   géométrique et n'ont pas à partager le même k). -- */
+MODELES["suites-comparaison"] = function(){
+  var w = 400, h = 320;
+  var boite = el("div","figBoite");
+  var svg = n("svg",{viewBox:"0 0 "+w+" "+h, class:"fig"});
+  var vue = [-0.4, -3, 8.6, 55], m = 30;
+  var kx = (w-2*m)/(vue[2]-vue[0]), ky = (h-2*m)/(vue[3]-vue[1]);
+  var R = {
+    X: function(x){ return m + (x-vue[0])*kx; },
+    Y: function(y){ return h-m - (y-vue[1])*ky; },
+    vue: vue
+  };
+  // Amplitude verticale de 58 unités : des graduations à chaque entier
+  // (comportement par défaut de fond()) se chevaucheraient totalement sur
+  // l'axe. Comme les autres figures à grande amplitude du cahier, on les
+  // désactive — les valeurs utiles sont de toute façon lues dans figNote.
+  fond(svg, R, {grille:false, axes:true, graduations:false});
+  function arith(nn){ return 2 + 5*nn; }
+  function geo(nn){ return 2*Math.pow(1.5, nn); }
+  var i;
+  for(i=0;i<8;i++) svg.appendChild(n("line",{
+    x1:R.X(i), y1:R.Y(arith(i)), x2:R.X(i+1), y2:R.Y(arith(i+1)),
+    stroke:coul("bleu"), "stroke-width":2.6}));
+  for(i=0;i<8;i++) svg.appendChild(n("line",{
+    x1:R.X(i), y1:R.Y(geo(i)), x2:R.X(i+1), y2:R.Y(geo(i+1)),
+    stroke:coul("rouge"), "stroke-width":2.6}));
+  point(svg, R, 0, 2, null, "ink");
+  point(svg, R, 8, arith(8), null, "bleu");
+  point(svg, R, 8, geo(8), null, "rouge");
+  var tb = txt(R.X(1.2), R.Y(46), "arithmétique  +5");
+  tb.setAttribute("fill", coul("bleu")); tb.setAttribute("font-size", 13);
+  svg.appendChild(tb);
+  var tr = txt(R.X(4.6), R.Y(6), "géométrique  ×1,5");
+  tr.setAttribute("fill", coul("rouge")); tr.setAttribute("font-size", 13);
+  svg.appendChild(tr);
+  boite.appendChild(el("div","figTitre","Deux suites qui partent du même point"));
+  boite.appendChild(svg);
+  boite.appendChild(el("div","figNote",
+    "Les deux partent de 2. L'arithmétique file droit ; la géométrique traîne longtemps, puis dépasse l'arithmétique — ici entre le rang 7 (34,2 < 37) et le rang 8 (51,3 > 42)."));
   return boite;
 };
 
@@ -6924,18 +6964,36 @@ var G_SUITES = [
   }},
 
 { id:"su-geo", titre:"Terme d'une suite géométrique", niveau:2, gen:function(){
-    var u0=pick([2,3,5,10,20,100]), q=pick([2,3,0.5,1.5]), n=ri(3,7);
-    var rep=arr(u0*Math.pow(q,n));
+    var u0=pick([2,3,5,10,20,100]), q=pick([2,3,0.5,1.5]);
+    // Pour q<1, un exposant trop grand avec un petit u0 donnerait une valeur
+    // proche de 0 (ex. 2×0,5^7=0,0156) : "arrondir au centième" y perdrait
+    // presque tout son sens, et rapprocherait dangereusement la bonne
+    // réponse arrondie de celle avec un exposant décalé d'une unité. On
+    // borne donc n plus court quand q<1, pour rester sur des valeurs où
+    // l'arrondi au centième reste une consigne raisonnable.
+    var n = q<1 ? ri(2,5) : ri(3,7);
+    var qn = Math.pow(q,n);
+    // Arrondi au centième pour coller à la consigne de l'énoncé (arr()
+    // arrondit au millième, ce qui ne correspond ni à la consigne ni,
+    // rechaînée dans un produit, à la valeur réellement affichée ensuite).
+    function arr2(x){ return Math.round(x*100)/100; }
+    var repExact = u0*qn, rep = arr2(repExact);
+    // q ∈ {2,3,0.5,1.5} : q^n est TOUJOURS une décimale exacte (fraction
+    // dyadique). On l'affiche donc en entier, sans arrondi ni "≈" — ainsi
+    // la ligne suivante peut littéralement multiplier cette valeur par u0
+    // et retomber sur le résultat annoncé, sans jamais enchaîner deux
+    // arrondis indépendants qui ne se recombineraient pas forcément juste.
+    var repRondValide = Math.abs(repExact - rep) < 1e-9;
     return { type:"num", niveau:2, rep:rep, tol:0.01,
-      enonce:"Une suite géométrique vérifie $u_0 = "+fr(u0)+"$ et $q = "+fr(q)+"$. Calculer $u_{"+n+"}$.",
-      diag:[{v:arr(u0*q*n), m:"Tu as multiplié par $q × n$. Or la raison s'applique "+n+" fois **d'affilée** : c'est une puissance, $q^{"+n+"}$, pas un produit par $n$."},
-            {v:arr(u0*Math.pow(q,n-1)), m:"Il manque une multiplication : tu t'es arrêté à $u_{"+(n-1)+"}$. L'exposant vaut "+n+"."},
-            {v:arr(u0*Math.pow(q,n+1)), m:"Tu as multiplié une fois de trop : c'est $u_{"+(n+1)+"}$. L'exposant vaut exactement "+n+"."},
-            {v:arr(u0+n*q), m:"Tu as ajouté la raison au lieu de multiplier. Ici la suite est géométrique."}],
+      enonce:"Une suite géométrique vérifie $u_0 = "+fr(u0)+"$ et $q = "+fr(q)+"$. Calculer $u_{"+n+"}$. (arrondir au centième si besoin)",
+      diag:[{v:arr2(u0*q*n), m:"Tu as multiplié par $q × n$. Or la raison s'applique "+n+" fois **d'affilée** : c'est une puissance, $q^{"+n+"}$, pas un produit par $n$."},
+            {v:arr2(u0*Math.pow(q,n-1)), m:"Il manque une multiplication : tu t'es arrêté à $u_{"+(n-1)+"}$. L'exposant vaut "+n+"."},
+            {v:arr2(u0*Math.pow(q,n+1)), m:"Tu as multiplié une fois de trop : c'est $u_{"+(n+1)+"}$. L'exposant vaut exactement "+n+"."},
+            {v:arr2(u0+n*q), m:"Tu as ajouté la raison au lieu de multiplier. Ici la suite est géométrique."}],
       corr:["Formule : $u_n = u_0 × q^{n}$.",
             "Je remplace : $u_{"+n+"} = "+fr(u0)+" × "+fr(q)+"^{"+n+"}$.",
-            "$"+fr(q)+"^{"+n+"} = "+fr(arr(Math.pow(q,n)))+"$.",
-            "$"+fr(u0)+" × "+fr(arr(Math.pow(q,n)))+" = "+fr(rep)+"$."],
+            "$"+fr(q)+"^{"+n+"} = "+fr(qn)+"$ (valeur exacte : $q$ est une fraction simple, sa puissance tombe toujours juste).",
+            "$"+fr(u0)+" × "+fr(qn)+" "+(repRondValide?"=":"≈")+" "+fr(rep)+"$."],
       indice:"L'exposant est le nombre de multiplications, ici "+n+"." };
   }},
 
@@ -6943,19 +7001,27 @@ var G_SUITES = [
     var hausse=Math.random()<0.6, t=pick([2,3,4,5,8,10,15,20]), n=ri(3,8);
     var V=pick([200,500,800,1000,1200,1500]);
     var q = hausse ? 1+t/100 : 1-t/100;
-    var rep=arr(V*Math.pow(q,n));
+    // Contrairement à su-geo, q n'est pas dyadique ici (1,05 = 21/20…) : sa
+    // puissance n'est pas toujours courte, mais reste une décimale exacte.
+    // On l'affiche avec assez de décimales (6) pour que "V × cette valeur"
+    // redonne bien, au centime près, le résultat annoncé — l'arrondi au
+    // centime officiel se fait une seule fois, sur le produit exact, jamais
+    // en rechaînant deux valeurs déjà arrondies séparément.
+    function arr2(x){ return Math.round(x*100)/100; }
+    function arr6(x){ return Math.round(x*1e6)/1e6; }
+    var qn = Math.pow(q,n), rep = arr2(V*qn);
     var mot = hausse ? "augmente" : "diminue";
     return { type:"num", niveau:2, rep:rep, tol:0.05,
       enonce:"Une valeur de "+fr(V)+" € "+mot+" de "+fr(t)+" % par an. Que vaut-elle au bout de "+n+" ans ? (arrondir au centime)",
-      diag:[{v:arr(hausse ? V+n*V*t/100 : V-n*V*t/100),
+      diag:[{v:arr2(hausse ? V+n*V*t/100 : V-n*V*t/100),
              m:"Tu as appliqué "+fr(t)+" % de la valeur **de départ** chaque année. Mais le pourcentage porte à chaque fois sur la valeur de l'année précédente, qui a changé : il faut multiplier "+n+" fois par $"+fr(q)+"$."},
-            {v:arr(V*q), m:"Tu n'as appliqué l'évolution qu'une seule fois. Elle se répète "+n+" fois : l'exposant vaut "+n+"."},
-            {v:arr(V*Math.pow(q,n-1)), m:"Tu as appliqué l'évolution "+(n-1)+" fois seulement. Recompte les années."},
-            {v:arr(V*t/100), m:"Tu as calculé le montant de l'évolution, pas la valeur finale. Il faut multiplier la valeur par $"+fr(q)+"$."}],
+            {v:arr2(V*q), m:"Tu n'as appliqué l'évolution qu'une seule fois. Elle se répète "+n+" fois : l'exposant vaut "+n+"."},
+            {v:arr2(V*Math.pow(q,n-1)), m:"Tu as appliqué l'évolution "+(n-1)+" fois seulement. Recompte les années."},
+            {v:arr2(V*t/100), m:"Tu as calculé le montant de l'évolution, pas la valeur finale. Il faut multiplier la valeur par $"+fr(q)+"$."}],
       corr:[(hausse?"Augmenter":"Diminuer")+" de "+fr(t)+" % revient à multiplier par $"+fr(q)+"$.",
             "Sur "+n+" ans, on multiplie "+n+" fois : $V_n = "+fr(V)+" × "+fr(q)+"^{"+n+"}$.",
-            "$"+fr(q)+"^{"+n+"} ≈ "+fr(arr(Math.pow(q,n)))+"$.",
-            "Résultat : environ "+fr(rep)+" €."],
+            "$"+fr(q)+"^{"+n+"} ≈ "+fr(arr6(qn))+"$.",
+            "$"+fr(V)+" × "+fr(arr6(qn))+" ≈ "+fr(rep)+"$ € (au centime près)."],
       indice:(hausse?"+":"−")+fr(t)+" % revient à multiplier par "+fr(q)+", et cela se répète "+n+" fois." };
   }},
 
@@ -6982,7 +7048,7 @@ var G_SUITES = [
     return { type:"num", niveau:2, rep:rep,
       enonce:"Soit la suite définie par $u_0 = "+fr(u0)+"$ et $u_{n+1} = "+terme(a,"u_n")+(b?sg(b):"")+"$. Calculer $u_{"+n+"}$.",
       diag:[{v:suite[1], m:"C'est $u_1$ : tu n'as fait qu'un seul pas. Il faut répéter l'opération jusqu'à $u_{"+n+"}$."},
-            {v:a*u0*(n)+b, m:"Tu as multiplié par $"+fr(a)+"$ plusieurs fois mais ajouté $"+fr(b)+"$ une seule fois. Chaque pas comporte **les deux** opérations."},
+            {v:Math.pow(a,n)*u0+b, m:"Tu as multiplié par $"+fr(a)+"$ plusieurs fois mais ajouté $"+fr(b)+"$ une seule fois, à la fin. Chaque pas comporte **les deux** opérations, dans l'ordre : multiplier, puis ajouter."},
             {v:a*(u0+b), m:"Ordre des opérations : on multiplie d'abord par $"+fr(a)+"$, **puis** on ajoute $"+fr(b)+"$."}],
       corr:suite.slice(1).map(function(v,i){
             return "Pas "+(i+1)+" : $u_{"+(i+1)+"} = "+fr(a)+" × "+fr(suite[i])+(b?sg(b):"")+" = "+fr(v)+"$."; })
@@ -6995,7 +7061,7 @@ var G_SUITES = [
     var r = geo ? pick([2,3,-2]) : nz(-6,8);
     for(var i=0;i<3;i++) s.push(geo ? s[i]*r : s[i]+r);
     var bon = geo ? "géométrique de raison "+fr(r) : "arithmétique de raison "+fr(r);
-    var faux3 = (s[1]===r) ? s[1]+1 : s[1];
+    var faux3 = (s[0]===r) ? s[2] : s[0];
     var choix = A.shuffle([bon,
       geo ? "arithmétique de raison "+fr(s[1]-s[0]) : "géométrique de raison "+fr(r),
       (geo?"géométrique":"arithmétique")+" de raison "+fr(faux3),
@@ -7009,10 +7075,10 @@ var G_SUITES = [
         if(c.indexOf(geo?"arithmétique":"géométrique")===0)
           return geo ? "Les écarts ne sont pas constants ici : $"+fr(s[1]-s[0])+"$ puis $"+fr(s[2]-s[1])+"$. Ce sont les **quotients** qui le sont."
                      : "Les quotients ne sont pas constants ici. Ce sont les **différences** qui le sont, et elles valent toutes $"+fr(r)+"$.";
-        return "La raison est ce par quoi on passe d'un terme au suivant, pas le premier terme de la suite.";
+        return "La raison est ce par quoi on passe d'un terme au suivant, pas un terme de la suite elle-même.";
       }),
       corr:["Différences : $"+fr(s[1]-s[0])+"$ puis $"+fr(s[2]-s[1])+"$"+(geo?" → elles changent."  :" → elles sont constantes."),
-            "Quotients : $"+fr(arr(s[1]/s[0]))+"$ puis $"+fr(arr(s[2]/s[1]))+"$"+(geo?" → ils sont constants.":" → ils changent."),
+            "Quotients : $"+(s[0]===0?"indéfini (division par 0)":fr(arr(s[1]/s[0])))+"$ puis $"+(s[1]===0?"indéfini (division par 0)":fr(arr(s[2]/s[1])))+"$"+(geo?" → ils sont constants.":" → ils changent."),
             "La suite est donc "+bon+"."],
       indice:"Fais les deux tests : les différences pour l'arithmétique, les quotients pour la géométrique." };
   }}
