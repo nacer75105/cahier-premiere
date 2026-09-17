@@ -3384,7 +3384,7 @@ duree:40,
 sections:[
  {titre:"Pourquoi mettre la géométrie dans un repère", blocs:[
   {t:"idee", x:"Poser un repère sur une figure, c'est **remplacer le dessin par des nombres** — et donc remplacer le raisonnement géométrique par du calcul."},
-  {t:"p", x:"Au collège, pour montrer que deux droites sont perpendiculaires, il fallait un raisonnement : des angles alternes-internes, des propriétés du triangle, parfois une construction. Ça marche, mais il faut avoir l'idée. Dans un repère, la même question devient une multiplication et une addition. On n'a plus besoin d'avoir l'idée : on applique."},
+  {t:"p", x:"Au collège, pour montrer que deux droites sont perpendiculaires, il fallait un raisonnement : la réciproque du théorème de Pythagore, une propriété du losange ou du triangle, parfois une construction au compas. Ça marche, mais il faut avoir l'idée. Dans un repère, la même question devient une multiplication et une addition. On n'a plus besoin d'avoir l'idée : on applique."},
   {t:"p", x:"C'est le grand basculement de ce chapitre, et il vaut la peine d'être compris pour ce qu'il est. Descartes, au XVIIᵉ siècle, s'est aperçu qu'en numérotant les points du plan, **tout problème de géométrie devient un problème d'algèbre**. Une droite n'est plus un trait, c'est une équation. Un cercle n'est plus une forme, c'est une égalité. Se couper en un point, c'est résoudre un système."},
   {t:"tbl", head:["Objet géométrique","Sa traduction en nombres"], rows:[
    ["Un point","un couple $(x ; y)$"],
@@ -3394,7 +3394,10 @@ sections:[
    ["« Ce point est sur cette droite »","ses coordonnées vérifient l'équation"],
    ["« Ces deux droites se coupent »","le système a une solution"]
   ]},
-  {t:"p", x:"Garde cette table en tête pendant tout le chapitre : chaque fois qu'un énoncé parle en géométrie, ton travail consiste d'abord à **traduire** dans la colonne de droite. Une fois la traduction faite, le reste n'est que du calcul."}
+  {t:"p", x:"Garde cette table en tête pendant tout le chapitre : chaque fois qu'un énoncé parle en géométrie, ton travail consiste d'abord à **traduire** dans la colonne de droite. Une fois la traduction faite, le reste n'est que du calcul."},
+  {t:"p", x:"Trois formules du chapitre précédent (Produit scalaire) servent ici à presque chaque exercice. Les voici rassemblées avant de commencer."},
+  {t:"formule", titre:"Rappels : vecteur, longueur, milieu", x:"Si $A(x_A ; y_A)$ et $B(x_B ; y_B)$ :<br>vecteur : $@v{AB}(x_B - x_A ; y_B - y_A)$<br>longueur : $AB = @r{(x_B - x_A)^2 + (y_B - y_A)^2}$<br>milieu de $[AB]$ : $I(@f{x_A + x_B}{2} ; @f{y_A + y_B}{2})$", note:"Les deux premières viennent du chapitre 6 : l'arrivée moins le départ, puis Pythagore appliqué aux deux écarts."},
+  {t:"p", x:"Celle du milieu se lit d'abord sur une seule ligne graduée : le milieu de 1 et 5, c'est $@f{1 + 5}{2} = 3$, la **moyenne** des deux. Dans le plan, on fait exactement la même chose deux fois, une fois sur les abscisses et une fois sur les ordonnées. Contrôle : les coordonnées de $@v{AI}$ valent $(@f{x_B - x_A}{2} ; @f{y_B - y_A}{2})$, soit précisément la **moitié** de $@v{AB}$ — $I$ est bien à mi-chemin."}
  ]},
 
  {titre:"Deux façons de décrire une droite", blocs:[
@@ -3403,11 +3406,11 @@ sections:[
   {t:"fig", titre:"Les deux vecteurs d'une même droite",
    vue:[-1,-1,6,5], w:400, h:320,
    objets:[
-    {t:"droite", de:[0.5,0.7], a:[3,2.3], couleur:"line2"},
-    {t:"vec", de:[2,1.6], a:[4.5,3.2], couleur:"bleu", nom:"u"},
-    {t:"vec", de:[2,1.6], a:[0.4,4.1], couleur:"rouge", nom:"n"},
-    {t:"angle", en:[2,1.6], de:[4.5,3.2], a:[0.4,4.1], droit:true},
-    {t:"texte", x:4.6, y:1.1, txt:"la droite", couleur:"ink3"}
+    {t:"droite", de:[0,0.5], a:[5,3.5], couleur:"line2"},
+    {t:"vec", de:[2,1.7], a:[4.5,3.2], couleur:"bleu", nom:"u"},
+    {t:"vec", de:[2,1.7], a:[0.5,4.2], couleur:"rouge", nom:"n"},
+    {t:"angle", en:[2,1.7], de:[4.5,3.2], a:[0.5,4.2], droit:true},
+    {t:"texte", x:1.15, y:0.5, txt:"la droite", couleur:"ink3"}
    ],
    note:"Le vecteur **directeur** (bleu) glisse le long de la droite. Le vecteur **normal** (rouge) en sort perpendiculairement."},
   {t:"formule", titre:"Équation cartésienne", x:"Toute droite s'écrit $ax + by + c = 0$, avec $a$ et $b$ non tous les deux nuls.", note:"Un point appartient à la droite si et seulement si ses coordonnées vérifient l'égalité."},
@@ -3451,7 +3454,7 @@ sections:[
 
  {titre:"Parallèles ou perpendiculaires ?", blocs:[
   {t:"p", x:"Deux questions reviennent sans arrêt : ces droites se coupent-elles, et si oui à angle droit ? Les deux se tranchent avec les vecteurs, et il n'y a que deux calculs possibles — mais il faut savoir lequel appliquer."},
-  {t:"formule", titre:"Les deux critères", x:"**Parallèles** : leurs vecteurs directeurs sont colinéaires, soit $x y' - y x' = 0$<br>**Perpendiculaires** : leurs vecteurs directeurs sont orthogonaux, soit $x x' + y y' = 0$", note:"Le premier test est un déterminant (produit en croix), le second un produit scalaire. Ne les mélange pas."},
+  {t:"formule", titre:"Les deux critères", x:"Soit $@v{u}(x ; y)$ un vecteur directeur de la première droite et $@v{u'}(x' ; y')$ un vecteur directeur de la seconde.<br>**Parallèles** : $@v{u}$ et $@v{u'}$ sont **colinéaires**, c'est-à-dire que l'un est un multiple de l'autre — soit $x y' - y x' = 0$<br>**Perpendiculaires** : $@v{u}$ et $@v{u'}$ sont orthogonaux, soit $x x' + y y' = 0$", note:"Attention : ici $x$ et $y$ sont les **coordonnées d'un vecteur**, pas celles d'un point — c'est le seul endroit du chapitre où ces lettres changent de rôle. Le premier test porte un nom, le **déterminant** : on multiplie en croix, puis on soustrait. Le second est le produit scalaire du chapitre 6 : on multiplie en ligne, puis on additionne. Ne les mélange pas."},
   {t:"fig", titre:"Deux droites perpendiculaires et leurs directeurs",
    vue:[-3.5,-3.5,3.5,3.5], w:360, h:330,
    objets:[
@@ -3464,7 +3467,7 @@ sections:[
    note:"$@v{u}(3 ; 2)$ et $@v{u'}(-2 ; 3)$ : produit scalaire $3×(-2) + 2×3 = 0$. Les droites se coupent à angle droit."},
   {t:"p", x:"Prends le temps de distinguer les deux calculs, parce qu'ils se ressemblent dangereusement — mêmes nombres, opérations différentes. Le **produit en croix** $x y' - y x'$ fait intervenir une soustraction et croise les indices. Le **produit scalaire** $x x' + y y'$ additionne et garde les indices alignés. Un signe et un croisement les séparent."},
   {t:"p", x:"Pourquoi le produit en croix détecte-t-il le parallélisme ? Deux vecteurs sont parallèles quand l'un est un multiple de l'autre : $(2 ; 3)$ et $(4 ; 6)$, par exemple, où tout a été doublé. Dans ce cas les deux « pentes » $@f{y}{x}$ et $@f{y'}{x'}$ sont égales, et en chassant les dénominateurs on obtient exactement $x y' - y x' = 0$. Le test n'est qu'une façon de comparer deux pentes sans risquer de diviser par zéro."},
-  {t:"astuce", titre:"Retenir lequel est lequel", x:"Le produit **en croix** teste le parallélisme (les vecteurs pointent dans la même direction). Le produit **scalaire** teste la perpendicularité (il vaut zéro quand l'angle est droit).<br><br>Moyen mnémotechnique : perpendi<b>c</b>ulaire et s<b>c</b>alaire vont ensemble ; parallèle et produit en croix, qui « croise » comme deux rails qu'on compare."},
+  {t:"astuce", titre:"Retenir lequel est lequel", x:"Le produit **en croix** teste le parallélisme (les vecteurs pointent dans la même direction). Le produit **scalaire** teste la perpendicularité (il vaut zéro quand l'angle est droit).<br><br>Moyen mnémotechnique : perpendi<b>c</b>ulaire et s<b>c</b>alaire vont ensemble ; parallèle et produit en croix, qui « croise » comme deux rails qu'on compare.<br><br>Les deux tests donnent le même verdict avec les vecteurs **normaux** qu'avec les directeurs : passer des uns aux autres revient à faire tourner les deux vecteurs d'un même quart de tour, ce qui ne change ni leur colinéarité, ni leur angle."},
   {t:"piege", titre:"Parallèles ne veut pas dire confondues", x:"Le test des directeurs ne distingue pas deux droites parallèles distinctes d'une droite avec elle-même. Après avoir trouvé « parallèles », il reste une question : sont-elles **confondues** ? Réponse : oui si l'une des équations est un multiple exact de l'autre, constante comprise. $x - 2y + 3 = 0$ et $2x - 4y + 6 = 0$ sont la même droite ; $2x - 4y - 1 = 0$ en est une autre, parallèle."},
   {t:"exemple", titre:"Exemple guidé — position relative de deux droites", enonce:"Les droites $d : 2x - 3y + 1 = 0$ et $d' : 3x + 2y - 5 = 0$ sont-elles parallèles, perpendiculaires, ou ni l'un ni l'autre ?", etapes:[
    {q:"Vecteurs directeurs", r:"Pour $d$ : $@v{u}(3 ; 2)$. Pour $d'$ : $@v{u'}(-2 ; 3)$."},
@@ -3518,9 +3521,9 @@ sections:[
  ]},
 
  {titre:"La médiatrice et les problèmes de distance", blocs:[
-  {t:"idee", x:"La **médiatrice** d'un segment $[AB]$ est l'ensemble des points situés à égale distance de $A$ et de $B$. C'est une droite, et elle a deux définitions qui donnent deux méthodes de calcul — l'une géométrique, l'autre algébrique."},
-  {t:"p", x:"**La première définition** est celle de collège : la médiatrice est la droite **perpendiculaire** au segment et passant par son **milieu**. Elle donne un point et une direction, donc une équation.<br><br>**La seconde** est celle qui s'écrit avec des distances : $M$ appartient à la médiatrice si et seulement si $MA = MB$. Elle donne directement une équation en $x$ et $y$."},
-  {t:"formule", titre:"Les deux caractérisations", x:"$M ∈$ médiatrice de $[AB]$ &nbsp;⇔&nbsp; $MA = MB$<br>&nbsp;⇔&nbsp; $M$ est sur la perpendiculaire à $(AB)$ passant par le milieu $I$", note:"Les deux disent la même chose. En repère, c'est la seconde (perpendiculaire + milieu) qui permet d'écrire directement une équation ; la première ($MA=MB$) sert surtout à contrôler le résultat, en comparant deux carrés de distances."},
+  {t:"idee", x:"La **médiatrice** d'un segment $[AB]$ est l'ensemble des points situés à égale distance de $A$ et de $B$. C'est une droite, et elle se décrit de deux façons : une **voie géométrique** (perpendiculaire + milieu), qui sert à écrire son équation, et une **voie des distances** ($MA = MB$), qui sert à vérifier le résultat."},
+  {t:"p", x:"**La voie géométrique** est celle du collège : la médiatrice est la droite **perpendiculaire** au segment et passant par son **milieu**. Elle donne un point et une direction — donc, dans un repère, une équation en deux lignes.<br><br>**La voie des distances** s'écrit avec des longueurs : $M$ appartient à la médiatrice si et seulement si $MA = MB$. C'est elle qui permet de contrôler un résultat : on prend un point de la droite trouvée et on compare $MA^2$ et $MB^2$."},
+  {t:"formule", titre:"Les deux caractérisations", x:"$M ∈$ médiatrice de $[AB]$ &nbsp;⇔&nbsp; $MA = MB$<br>&nbsp;⇔&nbsp; $M$ est sur la perpendiculaire à $(AB)$ passant par le milieu $I$", note:"Les deux disent la même chose. En repère, c'est la **voie géométrique** (perpendiculaire + milieu) qui permet d'écrire directement l'équation ; la **voie des distances** ($MA = MB$) sert à contrôler le résultat, en comparant deux carrés de longueurs."},
   {t:"fig", titre:"La médiatrice de [AB]",
    vue:[-1,-1,8,7], w:400, h:300, grille:true, graduations:true,
    objets:[
@@ -3533,7 +3536,7 @@ sections:[
     {t:"point", x:5, y:4, nom:"B", couleur:"bleu"},
     {t:"point", x:3, y:3, nom:"I", couleur:"rouge", dessous:true},
     {t:"point", x:2, y:5, nom:"M", couleur:"vert"},
-    {t:"texte", x:6.6, y:6.2, txt:"médiatrice", couleur:"vert", taille:12}
+    {t:"texte", x:5.45, y:0.75, txt:"médiatrice", couleur:"vert", taille:12}
    ],
    note:"$M$ est un point quelconque de la médiatrice : les deux traits orange $MA$ et $MB$ ont **exactement la même longueur**, où que $M$ se place sur la droite verte. C'est ce que dit la définition, et c'est aussi le meilleur moyen de vérifier un résultat."},
   {t:"exemple", titre:"Exemple guidé — l'équation d'une médiatrice", enonce:"On donne $A(1 ; 2)$ et $B(5 ; 4)$. Déterminer une équation cartésienne de la médiatrice de $[AB]$.", etapes:[
@@ -3743,7 +3746,21 @@ exos:[
         "**Le centre, pour aller plus loin.** C'est le milieu $Ω(@f{1+7}{2} ; @f{2+10}{2}) = Ω(4 ; 6)$.",
         "**Vérifier.** $ΩA^{2} = (4-1)^{2} + (6-2)^{2} = 9 + 16 = 25$, donc $ΩA = 5$ ✓ De même $ΩB^{2} = 9 + 16 = 25$ ✓ Les deux extrémités sont bien à 5 du centre.",
         "**L'équation du cercle, en prime.** $(x - 4)^{2} + (y - 6)^{2} = 25$."],
-  indice:"Le centre est le milieu de $[AB]$, et le rayon vaut la moitié de la longueur $AB$."}
+  indice:"Le centre est le milieu de $[AB]$, et le rayon vaut la moitié de la longueur $AB$."},
+
+ {id:"gr14", niveau:2, type:"qcm", enonce:"Déterminer une équation cartésienne de la droite $(AB)$, avec $A(2 ; 1)$ et $B(5 ; 7)$.",
+  choix:["$x + 2y - 4 = 0$","$-2x + y - 3 = 0$","$-2x + y + 3 = 0$","$2x + y - 5 = 0$"], bonne:2,
+  diag:["Tu as utilisé le **directeur** $(1 ; 2)$ comme s'il était normal. Cette droite passe bien par $A$, mais elle est **perpendiculaire** à $(AB)$ : teste $B(5 ; 7)$, on obtient $5 + 14 - 4 = 15 ≠ 0$.",
+        "Les deux coefficients sont bons, c'est le signe de $c$ qui a glissé. En remplaçant $A(2 ; 1)$ : $-2 × 2 + 1 + c = 0$, soit $-3 + c = 0$, donc $c = 3$ et non $-3$.", "",
+        "Tu as échangé les coordonnées du directeur $(1 ; 2)$ sans changer de signe : cela donne $(2 ; 1)$, qui n'est pas orthogonal à $(1 ; 2)$ — $1 × 2 + 2 × 1 = 4 ≠ 0$."],
+  corr:["**Étape 1 — le directeur.** $@v{AB}(5 - 2 ; 7 - 1) = (3 ; 6)$, que je simplifie en $@v{u}(1 ; 2)$ : diviser par 3 ne change pas la direction.",
+        "**Étape 2 — le normal.** J'échange et je change un signe : $@v{n}(-2 ; 1)$. Contrôle : $1 × (-2) + 2 × 1 = 0$ ✓.",
+        "**Étape 3 — la forme.** Le normal donne les coefficients : $-2x + y + c = 0$.",
+        "**Étape 4 — placer la droite.** $A(2 ; 1)$ est dessus : $-2 × 2 + 1 + c = 0$, soit $-3 + c = 0$, donc $c = 3$.",
+        "**Conclusion.** $-2x + y + 3 = 0$.",
+        "**Vérifier avec l'autre point.** $B(5 ; 7)$ : $-10 + 7 + 3 = 0$ ✓. Le point qui n'a pas servi au calcul est toujours le meilleur vérificateur.",
+        "**Remarque.** $2x - y - 3 = 0$ serait tout aussi juste : c'est la même équation multipliée par $-1$."],
+  indice:"Les quatre lignes de la recette : directeur, normal, forme $ax+by+c=0$, puis $c$ avec un point."}
 ]
 },
 
@@ -5076,8 +5093,10 @@ MODELES["droite-repere"] = function(){
     svg.appendChild(n("polyline",{
       points: R.X(ax)+","+R.Y(ay)+" "+R.X(bx)+","+R.Y(ay)+" "+R.X(bx)+","+R.Y(by),
       fill:"none", stroke:coul("ambre"), "stroke-width":1.8, "stroke-dasharray":"5 4"}));
-    etiquette(svg, (R.X(ax)+R.X(bx))/2, R.Y(ay)+15, "xB − xA = " + nb(dx), "ambre", 11);
-    etiquette(svg, R.X(bx)+34, (R.Y(ay)+R.Y(by))/2, "yB − yA = " + nb(dy), "ambre", 11);
+    var sX = "xB − xA = " + nb(dx), sY = "yB − yA = " + nb(dy);
+    var dX = sX.length * 3.2, dY = sY.length * 3.2;          /* ~6,4 px par caractère à 11 px */
+    etiquette(svg, Math.min(Math.max((R.X(ax)+R.X(bx))/2, dX+3), w-dX-3), R.Y(ay)+15, sX, "ambre", 11);
+    etiquette(svg, Math.min(Math.max(R.X(bx)+34,          dY+3), w-dY-3), (R.Y(ay)+R.Y(by))/2, sY, "ambre", 11);
 
     fleche(svg, R, [ax,ay], [bx,by], "vert", "u");
     point(svg, R, ax, ay, "A", "rouge");
@@ -5100,7 +5119,9 @@ MODELES["droite-repere"] = function(){
 
     var dist = Math.sqrt(dx*dx + dy*dy);
     var c = -(a*ax + b*ay);
-    var eqCart = (terme(a,"x",true) + terme(b,"y",false) || "0 ") + (c<0?"− ":"+ ") + nb(Math.abs(c)) + " = 0";
+    var tA = terme(a, "x", true);
+    var tB = terme(b, "y", tA === "");
+    var eqCart = tA + tB + (Math.abs(c) < 0.0001 ? "" : (c < 0 ? "− " : "+ ") + nb(Math.abs(c)) + " ") + "= 0";
     var eqReduite = dx === 0
       ? "pas de forme y = mx + p pour une droite verticale"
       : (function(){
@@ -5127,7 +5148,7 @@ MODELES["droite-repere"] = function(){
   boite.appendChild(lecture);
   boite.appendChild(ctr);
   boite.appendChild(el("div","figNote", T(
-    "Le vecteur $@v{n}$ (rouge) est toujours perpendiculaire à $@v{u}$ (vert) : ce sont ses coordonnées qui donnent directement l'équation cartésienne. Amène B à la verticale de A : la forme réduite $y=mx+p$ disparaît, mais l'équation cartésienne, elle, continue de fonctionner sans exception.")));
+    "Le vecteur $@v{n}$ (rouge) est toujours perpendiculaire à $@v{u}$ (vert) : ce sont ses coordonnées, affichées ci-dessus, qui donnent directement l'équation cartésienne. La flèche rouge est dessinée à **longueur réduite** pour rester lisible quel que soit l'écart entre A et B : seule sa **direction** compte, n'importe quel vecteur proportionnel est un vecteur normal tout aussi valable. Amène B à la verticale de A : la forme réduite $y=mx+p$ disparaît, mais l'équation cartésienne, elle, continue de fonctionner sans exception.")));
   return boite;
 };
 
@@ -7778,7 +7799,7 @@ var G_GEO = [
       corr:["**Lire l'équation.** Elle est de la forme $ax + by + c = 0$ avec $a = "+fr(a)+"$, $b = "+fr(b)+"$.",
             "**Le vecteur normal se lit directement.** $@v{n}("+fr(a)+" ; "+fr(b)+")$ — les coefficients de $x$ et $y$, dans l'ordre. C'est le cadeau de l'équation cartésienne.",
             "**Le directeur demande une manipulation.** On échange les deux coordonnées et on change un signe : $@v{u}("+fr(-b)+" ; "+fr(a)+")$.",
-            "**Vérifier qu'ils sont bien perpendiculaires.** $("+fr(a)+")("+fr(-b)+") + ("+fr(b)+")("+fr(a)+") = "+fr(-a*b)+" + "+fr(a*b)+" = 0$ ✓",
+            "**Vérifier qu'ils sont bien perpendiculaires.** $("+fr(a)+")("+fr(-b)+") + ("+fr(b)+")("+fr(a)+") = "+fr(-a*b)+sg(a*b)+" = 0$ ✓",
             "**Réponse : "+bon+"**. N'importe quel vecteur proportionnel conviendrait aussi."],
       indice:"Le normal se recopie tel quel. Le directeur : échange les deux nombres et change un signe." };
   }},

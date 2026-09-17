@@ -492,44 +492,92 @@ Points mineurs relevés par la relecture de justesse, non corrigés :
 
 ## Géométrie repérée (chapitre 7)
 
-- Le fait porteur du chapitre ($(a;b)$ normal à $ax+by+c=0$) n'a jamais
-  de démonstration complète, y compris dans le chapitre 6 (Produit
-  scalaire) qui énonce la même chose sans la justifier.
-- "Point d'intersection" réduit à "on résout le système" : la
-  résolution d'un système 2×2 n'est enseignée dans aucun chapitre du
-  cahier, alors qu'elle est nécessaire pour l'exercice gr11.
-- gr4 demande le coefficient directeur $m=\frac{y_B-y_A}{x_B-x_A}$ et la
-  forme $y=mx+p$, jamais enseignés dans ce chapitre.
-- Contradiction : le cours annonce la méthode algébrique de la
-  médiatrice comme "plus rapide à contrôler" mais ne la montre jamais
-  (exemple guidé et exercice utilisent tous deux la méthode
-  géométrique).
-- Deux étiquettes de figures fixes mal positionnées, loin de l'objet
-  qu'elles nomment (L.3342 "la droite", L.3457 "médiatrice").
-- Figure `droite-repere` : notation `x_B − x_A` envoyée en texte brut
-  hors du moteur LaTeX (`textContent`, pas `T(...)`).
-- Cas dégénéré du cercle (rayon nul) dans la fiche méthode "Reconnaître
-  l'équation d'un cercle" : traité comme "ensemble vide" alors que
-  c'est le point $\Omega$ lui-même — **corrigé** (voir section
-  BLOQUANT/À REVOIR justesse ci-dessus, appliqué directement).
-- Rendu cassé de `@r{}` vide dans le récapitulatif (L.3491) : affiche
-  "et √ à droite" au lieu d'un message clair sur la racine du membre de
-  droite.
-- Argument historique/géométrique faux : les angles alternes-internes
-  servent au parallélisme, pas à la perpendicularité (L.3319).
-- Aucun exercice sur "la recette en quatre lignes" (équation d'une
-  droite par deux points), pourtant présentée comme "le cas le plus
-  fréquent en contrôle".
-- La formule des coordonnées du milieu n'est énoncée nulle part en
-  bloc `formule` dans tout le cahier ; elle est utilisée avant d'être
-  justifiée (incidemment, dans un exemple).
-- Collision de notation $x,y$ utilisés à la fois pour le point courant
-  de $ax+by+c=0$ et pour les coordonnées d'un vecteur directeur/normal.
-- (Corrigé) Générateur `gr-normal` : les collisions distracteur/réponse
-  (~10,6%) et le dispatch de diagnostic fragile par `indexOf` (~16,5%
-  de messages faux) ont été corrigés — voir historique de commit.
+**Passe de justesse du 2026-09-17** (deux tours de `relecteur-maths` +
+corrections appliquées à la main, chaque tour balayant exhaustivement
+la figure `droite-repere` et le générateur `gr-normal`) : tous les
+bloquants hérités du tout premier audit du projet (listés ci-dessous,
+avant que la méthodologie actuelle n'existe) ont été traités, plus 3
+bugs de figure/générateur non documentés découverts par balayage
+exhaustif. Confirmé zéro point bloquant au second tour.
+
+- *(Corrigé)* Démonstration du fait porteur ($(a;b)$ normal à
+  $ax+by+c=0$) : le sens direct est démontré au chapitre 6 (Produit
+  scalaire), la réciproque au chapitre 7 — chaîne complète, déjà en
+  place avant ce tour.
+- *(Corrigé)* Système 2×2 : enseigné par un exemple guidé + une astuce,
+  avant gr11 — déjà en place avant ce tour.
+- *(Corrigé)* Coefficient directeur $m$ et forme $y=mx+p$ : enseignés
+  par l'astuce "L'autre méthode, vue en Seconde", avant gr4 — déjà en
+  place avant ce tour.
+- *(Corrigé)* Contradiction "première/seconde" définition de la
+  médiatrice, avec sur-promesse d'une méthode algébrique jamais
+  déroulée : renommé en "voie géométrique / voie des distances",
+  cohérent entre les trois blocs concernés.
+- *(Corrigé)* Deux étiquettes de figures fixes mal positionnées ("la
+  droite", "médiatrice") : repositionnées, vérifié en pixels qu'elles
+  ne chevauchent plus rien et restent proches de l'objet nommé.
+- *(Corrigé)* Notation `x_B − x_A` en texte SVG brut hors du moteur
+  LaTeX : déjà résolu avant ce tour (plus aucun `$` hors de `T(...)`).
+- *(Corrigé)* Cercle de rayon nul dans la fiche méthode : traité comme
+  le point $\Omega$ lui-même, pas un ensemble vide.
+- *(Corrigé)* `@r{}` vide dans le récapitulatif : plus aucune occurrence.
+- *(Corrigé)* Argument faux sur les angles alternes-internes (ils
+  servent au parallélisme, pas à la perpendicularité) : remplacé par
+  la réciproque de Pythagore / propriété du losange ou du triangle /
+  construction au compas.
+- *(Corrigé)* Aucun exercice sur "la recette en quatre lignes" : ajout
+  de `gr14` (équation cartésienne d'une droite par deux points).
+- *(Corrigé)* Formule du milieu jamais énoncée en bloc `formule`, et
+  formule de distance jamais rappelée avant usage : ajout d'un rappel
+  "vecteur, longueur, milieu" en fin de première section, avant toute
+  utilisation dans le chapitre.
+- *(Corrigé)* Collision de notation $x,y$ (point de $ax+by+c=0$ vs
+  coordonnées d'un vecteur) : signalée explicitement dans la note du
+  bloc "Les deux critères", qui introduit aussi $\vec u,\vec u'$ et
+  définit "colinéaire"/"déterminant" avant de les utiliser (ces deux
+  mots étaient jusqu'ici employés sans définition).
+- *(Corrigé, avant ce tour)* Générateur `gr-normal` : collisions
+  distracteur/réponse et dispatch fragile par `indexOf`.
+- *(Corrigé)* Critère utilisé par gr12 ("leurs vecteurs normaux
+  perpendiculaires") jamais énoncé pour les normaux, seulement pour
+  les directeurs : phrase ajoutée à l'astuce "Retenir lequel est
+  lequel".
+- *(Corrigé, découvert par balayage exhaustif, non documenté avant ce
+  tour)* Figure `droite-repere` : équation cartésienne affichée mal
+  formée dans ~9% des états atteignables (« + y + 5 = 0 », « x − y +
+  0 = 0 ») — reconstruction de `eqCart` corrigée, 0 état fautif sur
+  14 520 après correction.
+- *(Corrigé, idem)* Figure `droite-repere` : étiquettes des écarts
+  ($x_B-x_A$, $y_B-y_A$) débordant du `viewBox` dans ~9% des états —
+  bornées, 0 débordement après correction.
+- *(Corrigé, idem)* Générateur `gr-normal` : étape de contrôle
+  d'orthogonalité mal formée dans 51,9% des tirages (« 12 + -12 = 0 »)
+  — signe géré par `sg()`, vérifié sur les 5 068 tirages.
+- *(Corrigé)* Figure `droite-repere` : la `figNote` ne disait pas que
+  la flèche du vecteur normal est dessinée à longueur réduite (donc
+  visuellement incohérente avec les coordonnées affichées) — précisé
+  dans le texte.
 - Aucun exercice ni fiche méthode sur "tangente à un cercle", pourtant
-  citée comme application du vecteur normal (L.3472, avant correction).
+  citée comme application du vecteur normal : **différé**, contenu à
+  ajouter (pas une correction de justesse d'un texte existant) — à
+  traiter dans un chantier de contenu séparé si souhaité.
+
+Points mineurs relevés par la relecture de justesse, non corrigés
+(différés, aucun n'est bloquant) :
+- La réciproque du fait porteur ("toute équation $ax+by+c=0$ décrit
+  une droite") n'est jamais signalée comme admise, alors que toute la
+  recette du chapitre s'appuie dessus.
+- Figure `droite-repere` : forme réduite parfois écrite "y ≈ 0x + 0"
+  au lieu de "y = 0", et "≈"/"(arrondie)" affichés même quand la
+  valeur est exacte (~75% des états).
+- Figure `droite-repere` : collision possible entre une étiquette
+  d'écart et les graduations de l'axe, ou le point B, dans des cas
+  particuliers ($y_A=0$, $y_A=y_B$) — lisibilité, pas une erreur.
+- L.3387 : "une multiplication et une addition" alors que le chapitre
+  6 dit (correctement) "deux multiplications et une addition" pour le
+  même test.
+- La forme réduite $y=mx+p$ apparaît dans la légende de la figure
+  avant d'être rappelée dans le texte du chapitre (astuce plus loin).
 - Collision de point d'application des vecteurs sur la figure fixe
   "Les deux vecteurs d'une même droite" : les flèches partent d'un
   point légèrement hors de la droite tracée (~3px d'écart).
