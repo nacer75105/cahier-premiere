@@ -392,6 +392,44 @@ non corrigés (aucun des deux ne justifiait de retarder le commit) :
   de Géométrie repérée (où le terme est formellement défini) plutôt
   qu'ici.
 
+## Probabilités conditionnelles (chapitre 8)
+
+**Passe pédagogique + justesse du 2026-09-17** : 6 corrections de
+clarté intégrées (définir "univers" et ∩ avant emploi, vocabulaire de
+l'arbre pondéré, collision de la lettre B corrigée entre l'exemple
+usine et la formule des probabilités totales, figure interactive
+rendue lisible — curseurs en français, $Ā$ introduit avant usage,
+légende faux positifs traduite —, pont comptage↔formule explicité) —
+voir historique de commit. Relu ensuite par `relecteur-maths` en
+insistant sur ces 3 points : zéro point bloquant.
+
+- **Incohérence corrigée** : le critère "effectifs dans l'énoncé →
+  tableau, pourcentages → arbre" (astuce "Passer du tableau à
+  l'arbre", ~l.2867) était contredit par l'exemple guidé du tirage
+  sans remise juste après (effectifs, traité par l'arbre) et par
+  l'exercice pr3. Reformulé : le critère porte maintenant sur "des
+  effectifs qui croisent deux critères à la fois" (tableau) vs "des
+  pourcentages, ou une situation à deux étapes successives" (arbre),
+  en signalant explicitement l'exception du tirage sans remise.
+
+Points mineurs relevés par la relecture de justesse, non corrigés :
+- Le mot "réunion" (∪) apparaît une seule fois, dans le tableau de
+  traduction (~l.2932), jamais défini, avec une méthode ("passer par
+  l'événement contraire") jamais enseignée ni utilisée par un exercice.
+- pr3, diagnostic `v:0.6` (~l.2976) : ne correspond à aucune erreur
+  plausible identifiée (0,6 = 3/10+3/10 avec remise, alors que le
+  message parle de mal composer 3/10×2/9) ; l'erreur naturelle
+  3/10+2/9≈0,522 n'a pas de diag dédié.
+- Figure `arbre-proba`, cas $P(B)=0$ (~l.5201) : le message affiche
+  d'abord "0,6×0=0 et 0,4×0=0" puis "aucun chemin ne mène jamais à B"
+  — juste sur le fond, mais les deux phrases se lisent comme
+  contradictoires.
+- `check` du tableau (~l.2871) : `expl[0]` vide pour la bonne réponse,
+  contrairement à l'autre `check` du chapitre (~l.2841) qui explique.
+- Étape "Remonter l'arbre" de l'exemple des trois fournisseurs
+  (~l.2882) utilise le renversement du conditionnement une section
+  avant que sa formule ne soit présentée (~l.2889).
+
 ## Variables aléatoires (chapitre 9)
 
 - Le "Récapitulatif : trois nombres pour résumer le hasard" est placé
