@@ -54,6 +54,28 @@ QCM, cas dégénéré) ont été corrigés directement dans `public/index.html`
   contrairement à l'autre `check` du même chapitre (~L.693) qui
   explique aussi pourquoi la bonne réponse est bonne.
 
+## Second degré (chapitre 2)
+
+- La phrase de réassurance ajoutée avant la dérivation de la forme
+  canonique (~L.1053, "Tu n'as pas à savoir refaire ce calcul par
+  cœur en contrôle") reprend presque mot pour mot celle déjà présente
+  en section "Discriminant" (~L.1023, "Tu n'as pas à savoir refaire
+  ce calcul"). Pas d'erreur, juste une répétition littérale à varier
+  si l'occasion se présente.
+- Exemple guidé "Un maximum entre deux entiers" (~L.1157-1165) :
+  la conclusion ("plus on s'éloigne du sommet, plus le bénéfice
+  diminue") pourrait explicitement se relier à la forme canonique
+  construite juste avant dans le chapitre ($B(x)=-2(x-9{,}25)^2+91{,}125$,
+  qui ne dépend que de la distance au sommet) — actuellement affirmé
+  sans ce lien, correct mais un peu asséné.
+- Piège "Oublier les contraintes du problème" (~L.1156) : la phrase
+  "comme $α = 10$ dans l'enclos ci-dessus, où la contrainte ne
+  change donc rien" est trompeuse — l'exemple de l'enclos n'a
+  jamais de contrainte d'entier ($x$ y est une longueur continue
+  dans $]0;20[$), donc cette contrainte ne "ne change rien" au sens
+  où elle ne s'applique pas du tout à cet exemple. Antérieur à la
+  passe pédagogique du 2026-09-17, révélé au passage.
+
 ## Dérivation (chapitre 3)
 
 - Deux pièges "dérivée nulle ≠ extremum" quasi identiques et redondants
