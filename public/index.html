@@ -2797,6 +2797,14 @@ sections:[
    {q:"Contrôle de bon sens", r:"Le résultat doit être compris entre 2 % et 5 % (les deux taux de départ), et plus proche de 5 % puisque A produit la majorité. C'est cohérent."}
   ]},
   {t:"formule", titre:"Formule des probabilités totales", x:"$P(B) = P(A) × P_A(B) + P(Ā) × P_{Ā}(B)$", note:"C'est exactement le calcul de l'exemple ci-dessus, écrit en toutes lettres. $Ā$ désigne le contraire de $A$ (« non A »)."},
+  {t:"p", x:"L'arbre sert aussi quand les deux étapes ne sont pas indépendantes — typiquement un **tirage sans remise** : chaque boule sortie de l'urne change ce qu'il reste dedans, donc change les probabilités du tirage suivant. C'est le cas où l'arbre est indispensable, puisqu'il n'y a plus de pourcentage fixe à multiplier deux fois."},
+  {t:"exemple", titre:"Exemple guidé — un tirage sans remise", enonce:"Une urne contient 4 boules rouges et 6 boules noires. On tire deux boules successivement, **sans les remettre**. Quelle est la probabilité d'obtenir deux boules rouges ?", etapes:[
+   {q:"Nommer les événements", r:"$R_1$ : « la 1ʳᵉ boule tirée est rouge ». $R_2$ : « la 2ᵉ boule tirée est rouge »."},
+   {q:"Le premier tirage", r:"L'urne est complète : 4 rouges sur 10 boules. $P(R_1) = @f{4}{10} = 0{,}4$."},
+   {q:"Le mot « sans remise » traduit en probabilité", r:"La boule tirée n'est pas remise dans l'urne : au second tirage, il ne reste que **9** boules, et si la première était rouge, il ne reste que **3** rouges parmi elles. C'est exactement ce que dit $P_{R_1}(R_2)$ : sachant que $R_1$ est arrivé, l'univers a changé. $P_{R_1}(R_2) = @f{3}{9} = @f{1}{3}$."},
+   {q:"Multiplier le long du chemin", r:"$P(R_1 ∩ R_2) = P(R_1) × P_{R_1}(R_2) = 0{,}4 × @f{1}{3} = @f{2}{15} ≈ 0{,}133$."},
+   {q:"Le réflexe à retenir", r:"Dès qu'un énoncé dit « sans remise » (ou « on ne remet pas », « successivement, sans remettre »…), il faut **recompter l'urne à chaque étape** : un tirage de moins au total, et un tirage de moins parmi la couleur qui vient de sortir. Avec remise, au contraire, l'urne resterait identique et $P_{R_1}(R_2)$ vaudrait encore $@f{4}{10}$."}
+  ]},
   {t:"check", q:"Sur un arbre, deux branches partent du premier nœud. La première porte 0,7. Que porte la seconde ?",
    choix:["0,3","0,7","1","impossible à savoir"], bonne:0,
    expl:["Exact : la somme des branches issues d'un même nœud vaut 1, donc $1 - 0{,}7 = 0{,}3$.",
@@ -5074,22 +5082,44 @@ MODELES["arbre-proba"] = function(){
     noeud(x2, y1, "B", "vert");  noeud(x2, y2, "B̄", "rouge");
     noeud(x2, y3, "B", "vert");  noeud(x2, y4, "B̄", "rouge");
 
-    /* le produit le long de chaque chemin, écrit au bout */
-    var c1 = pa*pba, c2 = pa*(1-pba), c3 = (1-pa)*pbna, c4 = (1-pa)*(1-pbna);
+    /* le produit le long de chaque chemin, écrit au bout.
+       pa, pba, pbna sont toujours des multiples exacts de 0,05 (pas de
+       curseurs) : leurs produits sont donc des multiples exacts de
+       0,0001 — 4 décimales suffisent à les afficher SANS AUCUN arrondi.
+       On n'utilise donc jamais nb(...,3) ici : un arrondi à 3 décimales
+       pouvait rendre l'égalité affichée fausse (ex. 0,95 × 0,05 = 0,048
+       au lieu de 0,0475 exact), et deux arrondis à 3 décimales sur c1 et
+       c3 ne se rajoutaient pas forcément à l'arrondi à 3 décimales de
+       leur somme P(B). */
+    function exact4(x){ return Math.round(x*10000)/10000; }
+    var c1 = exact4(pa*pba), c2 = exact4(pa*(1-pba)),
+        c3 = exact4((1-pa)*pbna), c4 = exact4((1-pa)*(1-pbna));
     [[y1,c1,"vert"],[y2,c2,"ink3"],[y3,c3,"vert"],[y4,c4,"ink3"]].forEach(function(o){
-      etiquette(svg, x2+24, o[0]+5, "= " + nb(o[1], 3), o[2], 11.5, "start");
+      etiquette(svg, x2+24, o[0]+5, "= " + fr(o[1]), o[2], 11.5, "start");
     });
 
-    var pb = c1 + c3;
-    etiquette(svg, x2+24, 148, "P(B) = " + nb(pb, 3), "vert", 12.5, "start")
+    var pb = exact4(c1 + c3);
+    etiquette(svg, x2+24, 148, "P(B) = " + fr(pb), "vert", 12.5, "start")
       .setAttribute("font-weight", 700);
 
-    var pab = pb > 0 ? c1/pb : 0;
-    lecture.innerHTML =
-      "<b>Deux chemins mènent à B</b> : " + nb(pa) + " × " + nb(pba) + " = " + nb(c1,3) +
-      " &nbsp;et&nbsp; " + nb(1-pa) + " × " + nb(pbna) + " = " + nb(c3,3) + "<br>" +
-      "On les additionne : <b>P(B) = " + nb(pb,3) + "</b><br>" +
-      "Et en remontant l’arbre : <b>P<sub>B</sub>(A) = " + nb(c1,3) + " ÷ " + nb(pb,3) + " = " + nb(pab,3) + "</b>";
+    if(pb === 0){
+      // pba = pbna = 0 : aucun chemin ne mène à B. P_B(A) est alors
+      // indéfini (on ne peut pas se placer "sachant B" si B ne se
+      // produit jamais) — pas "0 ÷ 0 = 0", qui ferait croire à un calcul
+      // valide là où il n'y en a pas.
+      lecture.innerHTML =
+        "<b>Deux chemins mènent à B</b> : " + nb(pa) + " × " + nb(pba) + " = " + fr(c1) +
+        " &nbsp;et&nbsp; " + nb(1-pa) + " × " + nb(pbna) + " = " + fr(c3) + "<br>" +
+        "On les additionne : <b>P(B) = " + fr(pb) + "</b><br>" +
+        "P(B) = 0 : aucun chemin ne mène jamais à B. On ne peut pas se placer « sachant B », puisque B ne se produit jamais — <b>P<sub>B</sub>(A)</b> n'est pas défini ici.";
+    } else {
+      var pab = c1/pb;
+      lecture.innerHTML =
+        "<b>Deux chemins mènent à B</b> : " + nb(pa) + " × " + nb(pba) + " = " + fr(c1) +
+        " &nbsp;et&nbsp; " + nb(1-pa) + " × " + nb(pbna) + " = " + fr(c3) + "<br>" +
+        "On les additionne : <b>P(B) = " + fr(pb) + "</b><br>" +
+        "Et en remontant l’arbre : <b>P<sub>B</sub>(A) = " + fr(c1) + " ÷ " + fr(pb) + " ≈ " + nb(pab,3) + "</b>";
+    }
   }
 
   var ctr = el("div","figCurseurs");
@@ -5103,7 +5133,7 @@ MODELES["arbre-proba"] = function(){
   boite.appendChild(lecture);
   boite.appendChild(ctr);
   boite.appendChild(el("div","figNote",
-    "Deux gestes, toujours les mêmes : on <b>multiplie</b> le long d’un chemin, on <b>additionne</b> les chemins qui arrivent au même endroit. Essaie P(A) = 0,05 avec P<sub>A</sub>(B) = 0,95 : P<sub>B</sub>(A) reste petit malgré le test presque parfait — c’est tout le piège des faux positifs."));
+    "Deux gestes, toujours les mêmes : on <b>multiplie</b> le long d’un chemin, on <b>additionne</b> les chemins qui arrivent au même endroit. Essaie P(A) = 0,05 avec P<sub>A</sub>(B) = 0,95 et P<sub>Ā</sub>(B) = 0,3 (sa valeur par défaut) : P<sub>B</sub>(A) reste petit malgré le test presque parfait — c’est tout le piège des faux positifs."));
   return boite;
 };
 
@@ -7707,19 +7737,24 @@ var G_PROBA = [
 { id:"pr-totales", chap:"proba", titre:"Probabilités totales", niveau:2, gen:function(){
     var pa=pick([0.3,0.4,0.6,0.7,0.75]);
     var p1=pick([0.02,0.05,0.1,0.2]), p2=pick([0.01,0.03,0.08,0.15]);
-    var rep=arr(pa*p1+(1-pa)*p2);
+    // pa, p1, p2 ont au plus 2 décimales : leurs produits deux à deux (et la
+    // somme de deux tels produits) sont des multiples exacts de 0,0001.
+    // 4 décimales suffisent donc à afficher chaque étape SANS AUCUN arrondi,
+    // pour que la ligne "Additionner les chemins" s'additionne réellement.
+    function ex4(x){ return Math.round(x*10000)/10000; }
+    var chemA=ex4(pa*p1), chemB=ex4((1-pa)*p2), rep=ex4(chemA+chemB);
     return { type:"num", niveau:2, rep:rep, tol:0.002,
       enonce:"Une usine fait fabriquer "+fr(pa*100)+" % de ses pièces par la machine A, le reste par B. "+
              fr(p1*100)+" % des pièces de A sont défectueuses, contre "+fr(p2*100)+" % de celles de B. "+
              "Quelle est la probabilité qu'une pièce prise au hasard soit défectueuse ?",
       diag:[{v:p1, m:"Tu as donné $P_A(D)$, la probabilité qu'une pièce **de A** soit défectueuse. La question porte sur l'ensemble de la production, les deux machines confondues."},
-            {v:arr(pa*p1), m:"Tu n'as gardé que le chemin passant par A. Il faut aussi ajouter celui passant par B : $"+fr(arr(1-pa))+" × "+fr(p2)+"$."},
-            {v:arr(p1+p2), m:"Tu as additionné les deux taux sans les pondérer. Chaque chemin doit d'abord être multiplié par la probabilité de la machine dont il part."}],
+            {v:chemA, m:"Tu n'as gardé que le chemin passant par A. Il faut aussi ajouter celui passant par B : $"+fr(ex4(1-pa))+" × "+fr(p2)+"$."},
+            {v:ex4(p1+p2), m:"Tu as additionné les deux taux sans les pondérer. Chaque chemin doit d'abord être multiplié par la probabilité de la machine dont il part."}],
       corr:["**Nommer.** $A$ : la pièce vient de A. $B$ : elle vient de B. $D$ : elle est défectueuse.",
-            "**Traduire l'énoncé.** $P(A) = "+fr(pa)+"$ et $P(B) = "+fr(arr(1-pa))+"$ (le reste). Puis $P_A(D) = "+fr(p1)+"$ et $P_B(D) = "+fr(p2)+"$ — ce sont des conditionnelles, car elles portent sur les pièces **de** chaque machine.",
-            "**Premier chemin.** On multiplie le long de la branche : $"+fr(pa)+" × "+fr(p1)+" = "+fr(arr(pa*p1))+"$.",
-            "**Second chemin.** $"+fr(arr(1-pa))+" × "+fr(p2)+" = "+fr(arr((1-pa)*p2))+"$.",
-            "**Additionner les chemins.** Une pièce défectueuse vient soit de A, soit de B : $P(D) = "+fr(arr(pa*p1))+" + "+fr(arr((1-pa)*p2))+" = "+fr(rep)+"$.",
+            "**Traduire l'énoncé.** $P(A) = "+fr(pa)+"$ et $P(B) = "+fr(ex4(1-pa))+"$ (le reste). Puis $P_A(D) = "+fr(p1)+"$ et $P_B(D) = "+fr(p2)+"$ — ce sont des conditionnelles, car elles portent sur les pièces **de** chaque machine.",
+            "**Premier chemin.** On multiplie le long de la branche : $"+fr(pa)+" × "+fr(p1)+" = "+fr(chemA)+"$.",
+            "**Second chemin.** $"+fr(ex4(1-pa))+" × "+fr(p2)+" = "+fr(chemB)+"$.",
+            "**Additionner les chemins.** Une pièce défectueuse vient soit de A, soit de B : $P(D) = "+fr(chemA)+" + "+fr(chemB)+" = "+fr(rep)+"$.",
             "**Contrôle de bon sens.** Le résultat doit tomber entre les deux taux ("+fr(p2)+" et "+fr(p1)+"), plus proche de celui de la machine majoritaire. ✓"],
       indice:"Deux chemins mènent à une pièce défectueuse. Multiplie le long de chacun, puis additionne." };
   }},
