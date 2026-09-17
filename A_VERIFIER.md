@@ -269,6 +269,73 @@ correction de justesse ni de clarté d'un texte existant) :
   qu'elle suppose implicitement $u,v>0$, alors que l'intuition du
   quotient le précise désormais pour $v$.
 
+## Fonction exponentielle (chapitre 4)
+
+**Corrigé le 2026-09-17, passe pédagogique (grille prof-pedagogue)** :
+le paragraphe dense énumérant les 4 cas de solutions de $A=B$ dans
+$e^A=e^B$ a été sorti en tableau (3 colonnes), avec un exemple chiffré
+par ligne ; l'aparté sur les "règles à calcul" précise maintenant ce
+qu'était l'instrument. Deux bloquants trouvés par la relecture de
+justesse qui a suivi, tous deux corrigés le même jour :
+- Le nouvel exemple du tableau utilisait `{-}`/`{+}` pour échapper des
+  signes dans du texte LaTeX — accolades non consommées par
+  `mathCore()`, donc affichées en clair à l'écran ("2x{-}1=x{+}5").
+  Réécrit sans échappement, au niveau de l'équation exponentielle
+  (cohérent avec les 3 autres lignes du tableau).
+- Exercice `ex11`, dernière étape du corrigé (contrôle "par l'autre
+  chemin") : $200 × 1{,}162^{10} ≈ 897{,}6$, qui arrondit à 898, pas
+  896 comme l'affichait le texte — l'arrondi de $e^{0,15}$ à 3
+  décimales n'était pas assez précis pour que la vérification tombe
+  juste. Passé à 4 décimales ($1{,}1618$), qui redonne bien 896.
+
+**Corrigés le même jour, une deuxième relecture (2 passes au total)
+a trouvé deux échos du même défaut, corrigés dans la foulée :**
+- Exemple guidé "culture de bactéries" : "$500 × e^{0,2} × 5$
+  donnerait 3053" — la vraie valeur est 3053,5, qui arrondit à 3054,
+  pas 3053 (l'ancien "3053" venait d'un calcul fait à partir du
+  tableau déjà arrondi, pas de la valeur exacte). Passé à "environ
+  3054".
+- Exercice `ex11`, diag `v:809` : disait "$e^{0,15} ≈ 1{,}162$", la
+  même précision insuffisante que celle corrigée dans le corrigé
+  juste au-dessus (une élève qui reprend ce 1,162 pour vérifier le
+  contrôle du corrigé retombe sur 898, pas 896). Harmonisé à
+  $1{,}1618$ comme dans le corrigé.
+
+**À traiter (pas seulement "pour mémoire") :**
+- L'intuition "on compte des facteurs" pour justifier l'addition des
+  exposants (L.1766-1767) ne vaut littéralement que pour des exposants
+  entiers naturels, alors que le chapitre utilise aussitôt après des
+  exposants négatifs et décimaux — l'extension est vraie mais jamais
+  signalée comme admise, contrairement à d'autres passages du même
+  chapitre (ex. L.1790) qui le font explicitement. **Même type
+  d'omission que l'admission de dérivabilité corrigée sur le chapitre
+  Dérivation** (voir plus haut) — à reprendre en cohérence avec ce
+  précédent, pas juste une amélioration facultative.
+- Le nouveau tableau des 4 cas utilise l'exemple $e^{2x-1}=e^{x+5}$
+  (→ $x=6$), très proche de l'exemple guidé de la section précédente
+  $e^{2x-1}=e^{x+4}$ (→ $x=5$) — même famille d'expressions avec une
+  réponse différente à un chiffre près : vrai risque de confusion à la
+  révision, pas juste un souci de forme. Hérité du paragraphe
+  d'origine (pas une régression du jour). À écarter en changeant l'un
+  des deux exemples.
+
+Points mineurs relevés par ces deux relectures, chantier figures
+(cosmétique, voir la section dédiée en tête de fichier) :
+- Figure `expo-k` : le titre annonce "deux comportements" alors que le
+  curseur atteint aussi $k=0$ (comportement plat), un troisième cas
+  correctement affiché par la figure elle-même — titre à généraliser.
+  Même figure : aux valeurs entières du curseur, la `figLecture`
+  affiche des exposants collés peu lisibles ("e^1x", "e^0x").
+- L'exemple de la ligne 2 et 3 du nouveau tableau des 4 cas
+  ($e^{x+1}=e^{x+1}$, $e^{x+1}=e^{x+2}$) reste correct mais pourrait
+  gagner à citer un $x$ concret vérifiant/contredisant l'égalité,
+  comme le fait la ligne 1 — cohérence de forme, pas une erreur.
+- "Tables de logarithmes" (L.1769, dans la parenthèse ajoutée sur les
+  règles à calcul) : terme jamais défini dans le cahier (vu seulement
+  en Terminale) — aparté culturel, aucune notion du programme n'en
+  dépend, mais pourrait gagner un gloss de 3-4 mots comme fait pour la
+  règle à calcul elle-même.
+
 ## Variables aléatoires (chapitre 9)
 
 - Le "Récapitulatif : trois nombres pour résumer le hasard" est placé
