@@ -562,76 +562,93 @@ exhaustif. Confirmé zéro point bloquant au second tour.
   ajouter (pas une correction de justesse d'un texte existant) — à
   traiter dans un chantier de contenu séparé si souhaité.
 
-Points mineurs relevés par la relecture de justesse, non corrigés
-(différés, aucun n'est bloquant) :
+**Passe pédagogique du 2026-09-17** (`prof-pedagogue`) : 5 points
+principaux intégrés (motivation + construction de l'équation
+cartésienne via $\vec n·\vec{AM}=0$, preuve détaillée de la
+perpendicularité de $(a;b)$ marche par marche, étymologie de "normal"
+= *norma*/équerre, définition de "circonscrit" + justification de
+l'équidistance aux 3 sommets, bloc dédié pour "colinéaire" avec image
+et lien explicite à "parallèle"), plus deux points jugés bloquants
+pour la lecture (nommer $Ω$ "oméga", détailler le passage "chasser les
+dénominateurs") et un détour cosmétique retiré d'une correction
+d'exercice (gr7, une constante $c'$ introduite sans raison). Les 3
+premiers points touchaient des dérivations nouvelles ($\vec n·\vec
+{AM}=0 → ax+by+c=0$, preuve de perpendicularité, exemple numérique
+$2x-5y+7=0$) : relus par `relecteur-maths`, qui a trouvé et fait
+corriger 2 bloquants introduits par ces ajouts — une commande LaTeX
+`\text{}` affichée en clair (le projet n'a pas ce moteur), et une
+phrase de gr7 parlant de "deux signes négatifs" pour une équation qui
+n'en a qu'un (vestige d'une version antérieure de la correction).
+Confirmé zéro bloquant après correction et relecture de confirmation.
+
+Points mineurs non corrigés (différés, aucun n'est bloquant) :
+- L. 3418 : "le **bloc de droite**" pour désigner le dernier terme du
+  membre de gauche ($-(ax_A+by_A)$) risque de se télescoper avec
+  "membre de droite" (qui désigne, lui, le 0 de l'équation).
+- L. 3421 : "[le produit scalaire] vaut zéro exactement quand les deux
+  vecteurs sont perpendiculaires" sans la précision "non nuls", martelée
+  juste avant au chapitre 6 — vrai dans ce contexte ($A≠B$, $a,b$ non
+  tous deux nuls) mais recul de rigueur par rapport à l'énoncé complet.
+- Articulation non signalée entre L.3418 (construit l'équation à partir
+  d'un normal choisi) et L.3421 (redémontre le fait dans l'autre sens,
+  à partir d'une équation donnée) : les deux sont corrects et
+  complémentaires (sens direct puis réciproque), mais rien ne le dit,
+  et L.3421 peut se lire comme une répétition inexpliquée de L.3418.
+- L.3472 ("chasser les dénominateurs") : la dérivation suppose $x≠0$ et
+  $x'≠0$ mais enchaîne aussitôt sur le cas d'une droite verticale, sans
+  traiter explicitement ce cas limite (qui se règle pourtant en une
+  phrase : $x=0 ⟹ yx'=0 ⟹ x'=0$ puisque $y≠0$).
+- L.3558 (cercle circonscrit) : "$Ω$ est leur point d'intersection"
+  suppose implicitement que $A,B,C$ ne sont pas alignés (donc que les
+  deux médiatrices ne sont pas parallèles) — jamais dit.
+- L.3421 : le nouvel exemple numérique ($2x-5y+7=0$) refait exactement
+  le même calcul que l'exemple qui suit 4 blocs plus bas (L.3425,
+  même droite, même résultat $(5;2)$) sans faire le lien entre les
+  deux — pas une erreur, mais une répétition qui peut désorienter.
 - La réciproque du fait porteur ("toute équation $ax+by+c=0$ décrit
   une droite") n'est jamais signalée comme admise, alors que toute la
   recette du chapitre s'appuie dessus.
 - Figure `droite-repere` : forme réduite parfois écrite "y ≈ 0x + 0"
-  au lieu de "y = 0", et "≈"/"(arrondie)" affichés même quand la
-  valeur est exacte (~75% des états).
+  au lieu de "y = 0", "≈"/"(arrondie)" affichés même quand la valeur
+  est exacte (~75% des états), coefficients de l'équation cartésienne
+  jamais simplifiés (ex. "10x − 20 = 0" au lieu de "x − 2 = 0" —
+  volontaire pour garder "coefficients = coordonnées du normal", voir
+  section justesse ci-dessus), et signe moins ASCII (`nb()`) incohérent
+  avec le signe typographique du reste de la figure.
 - Figure `droite-repere` : collision possible entre une étiquette
   d'écart et les graduations de l'axe, ou le point B, dans des cas
   particuliers ($y_A=0$, $y_A=y_B$) — lisibilité, pas une erreur.
+- Figure `droite-repere` : la `figNote` n'explique plus le triangle
+  orange (écarts $x_B-x_A$, $y_B-y_A$) ni la longueur $AB$, qui restent
+  pourtant affichés en permanence.
 - L.3387 : "une multiplication et une addition" alors que le chapitre
   6 dit (correctement) "deux multiplications et une addition" pour le
   même test.
 - La forme réduite $y=mx+p$ apparaît dans la légende de la figure
-  avant d'être rappelée dans le texte du chapitre (astuce plus loin).
-- Collision de point d'application des vecteurs sur la figure fixe
-  "Les deux vecteurs d'une même droite" : les flèches partent d'un
-  point légèrement hors de la droite tracée (~3px d'écart).
-- Numérotation "première/seconde" des deux caractérisations de la
-  médiatrice qui s'inverse entre le paragraphe (L.3456) et la note de
-  la formule (L.3457) — le contenu reste juste (les parenthèses lèvent
-  l'ambiguïté), mais la numérotation se contredit à quatre lignes
-  d'écart.
-- Figure `droite-repere` : la flèche du vecteur normal est dessinée à
-  longueur normalisée (2 unités) alors que la lecture affiche ses
-  vraies coordonnées — décalage visuel entre dessin et texte, signalé
-  seulement en commentaire de code.
-- Figure `droite-repere`, fonction `terme()` : cosmétique sans
-  incidence sur la justesse (équation toujours vérifiée par A et B) —
-  "+ y + 5 = 0" avec un "+" en tête (4,1% des états atteignables),
-  "+ 0" pour une constante nulle, coefficients jamais simplifiés (ex.
-  "10x − 20 = 0" au lieu de "x − 2 = 0").
-- Étiquette "yB − yA = ..." pouvant légèrement déborder du cadre SVG à
-  x de B = 5 (maximum du curseur).
+  (terme "forme réduite") avant d'être rappelée dans le texte du
+  chapitre sous ce nom (astuce plus loin, qui dit "équation réduite") —
+  vocabulaire à harmoniser, et la `figNote` gagnerait à être coupée en
+  plusieurs phrases courtes (une idée par phrase).
 - Astuce "La technique pour résoudre un système de deux équations" ne
   couvre que le cas où l'addition/soustraction élimine directement une
-  inconnue (coefficients égaux ou opposés) ; le cas général (multiplier
-  une équation d'abord) n'est pas mentionné, alors que le titre présente
-  la méthode comme générale. Aucun exercice du chapitre n'exige plus
-  que le cas simple.
-- Numérotation "première/seconde" des deux caractérisations de la
-  médiatrice qui s'inverse entre le paragraphe (L.3456) et sa note
-  (L.3457) — le fond reste juste grâce aux parenthèses, mais la
-  numérotation se contredit à quatre lignes d'écart ; mieux vaudrait
-  nommer les deux voies ("voie des distances" / "voie perpendiculaire
-  + milieu") plutôt que des ordinaux.
-- La "méthode de calcul algébrique" de la médiatrice ($MA=MB$ développé
-  directement) est annoncée mais jamais déroulée dans un exemple ; le
-  texte la rétrograde aussitôt en simple moyen de contrôle.
-- Figure `droite-repere` : équations cartésiennes esthétiquement
-  dégradées mais mathématiquement exactes ("+ 0 = 0" quand la droite
-  passe par l'origine, "+ y + 5 = 0" avec un "+" en tête, signe moins
-  ASCII vs typographique incohérent dans la forme réduite).
-- Figure `droite-repere` : la longueur affichée du vecteur normal dans
-  la zone de lecture (ex. "n(10 ; -10)") ne correspond pas à la
-  longueur du vecteur dessiné (normalisée à 2 unités) — assumé en
-  commentaire de code, jamais dit à l'élève dans la figNote.
-- Figure `droite-repere` : la figNote n'explique plus le triangle
-  orange (écarts xB−xA, yB−yA) ni la longueur AB, qui restent pourtant
-  affichés.
-- Deux étiquettes de figures fixes toujours mal positionnées (L.3344
-  "la droite", L.3470 "médiatrice"), loin de l'objet nommé — antérieur
-  aux corrections de ce tour.
+  inconnue ; le cas général (multiplier une équation d'abord) n'est pas
+  mentionné, alors que le titre présente la méthode comme générale.
+  Aucun exercice du chapitre n'exige plus que le cas simple.
 - Générateur `gr-normal` : la bonne réponse porte toujours un préfixe
   $@v{n}$/$@v{u}$ alors que deux des trois distracteurs sont des
   couples nus — indice de format qui permet d'éliminer des options
   sans calculer.
-- "Toute droite s'écrit $ax+by+c=0$" (L.3347) posé sans dire qu'on
-  l'admet (le sens direct et sa réciproque ne sont pas démontrés).
-- La formule de distance (norme d'un vecteur) n'est jamais rappelée ni
-  renvoyée explicitement au chapitre 6 dans le chapitre 7, bien
-  qu'utilisée dès le cours et dans gr6/gr9/gr13.
+- Formule "Point d'intersection" (l.~3479) : "on résout le système"
+  reste une consigne sans le "pourquoi" (résoudre un système = trouver
+  le couple qui vérifie les deux équations à la fois) ; l'explication
+  n'existe que dans la correction de gr11.
+- Bloc `idee` d'ouverture de "Deux façons de décrire une droite" :
+  l'image "la direction qu'elle suit / qu'elle fuit" est un peu
+  trompeuse au premier contact ("fuit" peut se lire "direction
+  interdite") ; le paragraphe suivant rattrape avec une meilleure image
+  (route / passage piéton).
+- Le mot "repère" n'est jamais reglosé en clair dans le chapitre qui
+  porte son nom (acquis de Seconde).
+- Astuce "Retenir lequel est lequel" (l.~3472) : l'argument "faire
+  tourner les deux vecteurs d'un quart de tour" reste purement verbal,
+  sans image concrète (ex. photo pivotée).
