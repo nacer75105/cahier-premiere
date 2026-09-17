@@ -5,6 +5,47 @@ contenant le cours, les exercices et les figures interactives (SVG dessiné
 à la main en JS, pas de framework, pas de bibliothèque de rendu maths — les
 macros `@f{}` `@r{}` `@v{}` etc. sont gérées par `mathCore()` dans le fichier).
 
+## Méthode : un chapitre n'est fini qu'après DEUX contrôles, dans cet ordre
+
+**Adoptée le 2026-09-17**, après un audit qui a montré que la clarté
+pédagogique et la justesse mathématique sont deux défauts complètement
+indépendants : un chapitre peut lire admirablement bien (motivation avant
+la formule, exemples concrets, pièges explicités) et contenir des erreurs
+de calcul, des diagnostics d'exercice qui ne correspondent à aucune erreur
+réelle, ou des figures interactives qui affichent des égalités fausses —
+rien de tout ça ne se voit à la seule lecture pédagogique.
+
+**Ordre impératif pour reprendre un chapitre :**
+
+1. **Justesse d'abord** (agent `relecteur-maths`) : refaire tous les
+   calculs du cours, des exemples guidés, des exercices, de leurs
+   corrections et de leurs diagnostics d'erreur, sous Node quand c'est
+   possible plutôt qu'« à l'œil ». Corriger chaque bloquant trouvé, puis
+   **refaire relire** — une correction peut en réintroduire un autre
+   (vu plusieurs fois : une reformulation change un exemple numérique
+   sans mettre à jour un diagnostic qui s'y réfère, ou une deuxième
+   passe de relecture, plus poussée, débusque un bloquant préexistant
+   que la première n'avait pas vu). Recommencer jusqu'à ce qu'un passage
+   de relecture confirme explicitement **zéro** point bloquant restant —
+   ne pas s'arrêter au premier passage propre en apparence.
+2. **Clarté pédagogique ensuite**, seulement une fois la justesse validée
+   (grille : jargon non expliqué, abstraction sèche, formule tombée du
+   ciel, saut trop raide, manque de « pourquoi » — avec reformulation
+   concrète pour chaque point trouvé). Chaque reformulation ajoutée à ce
+   stade doit elle-même repasser par `relecteur-maths` avant validation :
+   une correction pédagogique peut, comme une correction de justesse,
+   introduire une erreur de calcul ou une référence fausse (vu sur
+   Produit scalaire et Second degré : une dérivation ajoutée pour
+   « expliquer le pourquoi » peut développer la mauvaise identité, ou
+   renvoyer vers un exemple ou une section qui ne dit pas ce qu'on croit).
+
+Un chapitre n'est « fini » que lorsque les deux contrôles ont chacun reçu
+une confirmation explicite sans réserve. Traiter les chapitres dans
+l'ordre de gravité (le plus de points bloquants trouvés d'abord), un
+chapitre à la fois, avec un commit dédié à la fin de chacun — ne pas
+grouper plusieurs chapitres dans un même commit, pour garder un historique
+qui isole ce qui a changé et pourquoi.
+
 ## Contrainte technique : figures interactives — jamais de valeurs arrondies indépendamment
 
 **Cause identifiée le 2026-09-17**, lors d'un audit de justesse mathématique

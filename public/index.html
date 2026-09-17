@@ -1018,7 +1018,7 @@ sections:[
   {t:"p", x:"Prends le temps de bouger les trois curseurs, un à la fois — c'est le moyen le plus rapide de comprendre à quoi sert chaque coefficient. Fais d'abord varier **a** seul : la parabole se retourne quand il change de signe, et se resserre quand il grandit. Puis **c** seul : la courbe monte et descend en bloc, sans changer de forme, parce que $c$ est simplement la hauteur en $x = 0$. Puis **b** : c'est le plus déroutant, il déplace la parabole en biais."},
   {t:"p", x:"Surveille aussi la ligne « Δ = … » sous la figure pendant que tu bouges les curseurs. Tu verras le nombre de racines changer exactement au moment où Δ passe par zéro — c'est-à-dire quand la parabole vient effleurer l'axe horizontal. C'est toute l'idée du discriminant, vue en direct."},
   {t:"p", x:"Le point le plus bas (ou le plus haut) s'appelle le **sommet**. La parabole est symétrique par rapport à la droite verticale qui passe par ce sommet."},
-  {t:"formule", titre:"Coordonnées du sommet", x:"$α = -@f{b}{2a}$ &nbsp;&nbsp;et&nbsp;&nbsp; $β = f(α)$", note:"On calcule d'abord $α$, puis on remplace dans la fonction pour trouver $β$."}
+  {t:"formule", titre:"Coordonnées du sommet", x:"$α = -@f{b}{2a}$ &nbsp;&nbsp;et&nbsp;&nbsp; $β = f(α)$", note:"On calcule d'abord $α$, puis on remplace dans la fonction pour trouver $β$. Tu verras d'où sort exactement cette formule un peu plus loin dans ce chapitre, quand on complètera le carré de $ax^2+bx+c$ — elle n'est pas tombée du ciel."}
  ]},
 
  {titre:"Le discriminant : combien de solutions ?", blocs:[
@@ -1032,6 +1032,7 @@ sections:[
    ["$Δ = 0$","1 solution (double)","La parabole touche l'axe sans le traverser"],
    ["$Δ < 0$","aucune solution","La parabole ne touche jamais l'axe"]
   ]},
+  {t:"p", x:"Un mot de vocabulaire avant la formule : les solutions de $ax^2+bx+c=0$ s'appellent aussi les **racines** de l'équation — un pur synonyme de « solution », mais c'est le mot que tu croiseras le plus souvent dans la suite du chapitre. Attention, la phrase qui suit contient deux sens différents du mot « racine » à quelques lettres d'écart : les racines de l'équation (ce qu'on cherche) et la **racine carrée** de $Δ$ (un outil du calcul). Ce sont deux idées sans rapport qui portent le même nom — ne les confonds pas."},
   {t:"formule", titre:"Les racines quand $Δ > 0$", x:"$x_1 = @f{-b - @r{Δ}}{2a}$ &nbsp;&nbsp;et&nbsp;&nbsp; $x_2 = @f{-b + @r{Δ}}{2a}$", note:"Quand $Δ = 0$, il y a une seule racine : $x_0 = -@f{b}{2a}$."},
   {t:"exemple", titre:"Exemple guidé — résoudre une équation", enonce:"Résoudre $x^2 - 2x - 3 = 0$.", etapes:[
    {q:"Identifier $a$, $b$ et $c$", r:"$a = 1$ (le coefficient devant $x^2$), $b = -2$, $c = -3$. Attention : le signe fait partie du coefficient."},
@@ -1040,13 +1041,13 @@ sections:[
    {q:"Calculer les racines", r:"$@r{16} = 4$. Donc $x_1 = @f{2 - 4}{2} = @f{-2}{2} = -1$ et $x_2 = @f{2 + 4}{2} = @f{6}{2} = 3$."},
    {q:"Vérifier", r:"On remplace : $(-1)^2 - 2×(-1) - 3 = 1 + 2 - 3 = 0$. ✓ Et $3^2 - 2×3 - 3 = 9 - 6 - 3 = 0$. ✓"}
   ]},
-  {t:"piege", titre:"Les deux erreurs de signe les plus fréquentes", x:"1. Oublier que $-4ac$ devient **plus** quand $c$ est négatif : $-4 × 1 × (-3) = +12$.<br>2. Écrire $x = @f{b ± @r{Δ}}{2a}$ au lieu de $-b$. La formule commence par **moins** $b$."},
+  {t:"piege", titre:"Les deux erreurs de signe les plus fréquentes", x:"1. Le signe de $-4ac$ trompe souvent : il est **positif** quand $a$ et $c$ sont de signes **contraires**, négatif quand ils ont le même signe. Ici $a=1$ et $c=-3$ sont de signes contraires : $-4 × 1 × (-3) = +12$. (Si $a$ et $c$ étaient tous les deux négatifs, par exemple $a=-1$ et $c=-3$, on aurait $-4×(-1)×(-3) = -12$, bien négatif.)<br>2. Écrire $x = @f{b ± @r{Δ}}{2a}$ au lieu de $-b$. La formule commence par **moins** $b$."},
   {t:"check", q:"Pour $2x^2 + 3x - 5$, quel est le discriminant ?",
-   choix:["49","−31","9","19"], bonne:0,
+   choix:["49","−31","9","29"], bonne:0,
    expl:["Exact : $3^2 - 4 × 2 × (-5) = 9 + 40 = 49$.",
          "Tu as calculé $9 - 40$. Mais $c = -5$ est négatif, donc $-4ac = -4 × 2 × (-5) = +40$. Deux signes moins donnent un plus.",
          "Tu as calculé $b^2$ et t'es arrêté. Il reste à retirer $4ac$.",
-         "Tu as oublié le facteur $a = 2$ dans $4ac$ : $4 × 2 × 5 = 40$, pas 20."]}
+         "Tu as oublié le facteur $a$ dans $4ac$ : sans lui, $4c = 4 × (-5) = -20$, donc $9 - (-20) = 29$, au lieu de $9 - 4×2×(-5) = 49$."]}
  ]},
 
  {titre:"Factoriser et lire les racines", blocs:[
@@ -1054,7 +1055,15 @@ sections:[
   {t:"formule", titre:"Forme factorisée (si $Δ ≥ 0$)", x:"$ax^2 + bx + c = a(x - x_1)(x - x_2)$", note:"Si $Δ = 0$ : $a(x - x_0)^2$. Si $Δ < 0$ : pas de factorisation possible."},
   {t:"p", x:"Exemple : $x^2 - 2x - 3$ a pour racines $-1$ et $3$, donc il se factorise en $(x + 1)(x - 3)$. Remarque le changement de signe : la racine $-1$ donne le facteur $(x - (-1)) = (x + 1)$."},
   {t:"piege", titre:"L'erreur de signe dans la factorisation", x:"Une racine **négative** donne un facteur avec un **plus**. Si $x_1 = -4$, le facteur est $(x + 4)$, pas $(x - 4)$. Pour vérifier : remplace $x$ par la racine, chaque facteur doit s'annuler."},
-  {t:"formule", titre:"Forme canonique", x:"$ax^2 + bx + c = a(x - α)^2 + β$", note:"Avec $α$ et $β$ les coordonnées du sommet. Utile pour lire directement le minimum ou le maximum."}
+  {t:"formule", titre:"Forme canonique", x:"$ax^2 + bx + c = a(x - α)^2 + β$", note:"Avec $α$ et $β$ les coordonnées du sommet. Utile pour lire directement le minimum ou le maximum."},
+  {t:"p", x:"D'où vient cette forme — et, par la même occasion, d'où vient $Δ$ ? On fait apparaître un carré dans $ax^2+bx+c$, avec la technique dite de **complétion du carré**, qu'on va appliquer juste en dessous à $x^2-2x-3$. On met $a$ en facteur devant les deux premiers termes : $a(x^2 + @f{b}{a}x) + c$. À l'intérieur de la parenthèse, $x^2 + @f{b}{a}x$ est le début du carré $(x + @f{b}{2a})^2 = x^2 + @f{b}{a}x + @f{b^2}{4a^2}$ : il ne manque que le dernier terme, qu'on ajoute et qu'on retranche aussitôt pour ne rien changer à la valeur globale."},
+  {t:"p", x:"On obtient $a[(x + @f{b}{2a})^2 - @f{b^2}{4a^2}] + c = a(x + @f{b}{2a})^2 - @f{b^2}{4a} + c$. Reste à faire coïncider $(x + @f{b}{2a})$ avec la forme de référence $(x - α)$. Comme pour une racine négative dans la factorisation (le piège juste au-dessus) : $x + @f{b}{2a} = x - (-@f{b}{2a})$, donc $α = -@f{b}{2a}$ — exactement la formule du sommet donnée en tout début de chapitre, retrouvée ici en la **fabriquant** plutôt qu'en l'admettant. Et $β = c - @f{b^2}{4a} = -@f{b^2-4ac}{4a} = -@f{Δ}{4a}$ : le discriminant n'est donc rien d'autre que ce qui apparaît naturellement quand on complète le carré. C'est la ligne annoncée plus haut, tenue."},
+  {t:"exemple", titre:"Exemple guidé — retrouver la forme canonique", enonce:"Écrire $x^2 - 2x - 3$ (déjà rencontré dans ce chapitre) sous forme canonique.", etapes:[
+   {q:"Faire apparaître le carré", r:"$x^2 - 2x$ est le début de $(x-1)^2 = x^2 - 2x + 1$. Donc $x^2 - 2x = (x-1)^2 - 1$."},
+   {q:"Réinjecter le reste", r:"$x^2 - 2x - 3 = (x-1)^2 - 1 - 3 = (x-1)^2 - 4$."},
+   {q:"Lire $α$ et $β$", r:"$α = 1$ et $β = -4$ : le sommet de la parabole est en $(1 ; -4)$, et comme $a=1>0$, c'est un minimum."},
+   {q:"Vérifier avec $Δ$", r:"On avait trouvé $Δ = 16$ pour ce même trinôme. Or $β = -@f{Δ}{4a} = -@f{16}{4×1} = -4$ : même résultat par les deux chemins ✓"}
+  ]}
  ]},
 
  {titre:"Le signe du trinôme", blocs:[
@@ -1087,12 +1096,24 @@ sections:[
    {q:"Répondre à la question posée", r:"On cherche là où l'expression est **négative** : c'est entre les racines."},
    {q:"Écrire la solution", r:"$S = ]-1 ; 3[$. Les crochets sont ouverts car l'inégalité est stricte ($<$ et non $≤$)."}
   ]},
-  {t:"astuce", titre:"Le réflexe qui sauve", x:"En cas de doute, teste une valeur. Ici $x = 0$ donne $0 - 0 - 3 = -3 < 0$ : le zéro est bien entre $-1$ et $3$, donc c'est cohérent."}
+  {t:"p", x:"Cette même solution se présente aussi sous une forme standard qu'on appelle le **tableau de signes** : une ligne pour $x$ qui découpe la droite aux racines, une ligne juste en dessous pour le signe du trinôme dans chaque zone."},
+  {t:"tbl", head:["Intervalle","$]-∞ ; -1[$","$-1$","$]-1 ; 3[$","$3$","$]3 ; +∞[$"], rows:[
+   ["Signe de $x^2-2x-3$","+","0","−","0","+"]
+  ]},
+  {t:"p", x:"On y lit directement la solution de $x^2-2x-3<0$ : c'est la zone marquée « $-$ », donc $]-1 ; 3[$ — le même résultat que ci-dessus, présenté autrement. Retiens cette construction : dès qu'un trinôme a deux racines distinctes ($Δ>0$), le tableau se bâtit toujours pareil — les racines rangées dans l'ordre croissant, le signe de $a$ aux deux extrémités, le signe opposé entre les deux, et un $0$ pile aux racines. (Si $Δ≤0$, il n'y a rien à découper : reviens au tableau de cas ci-dessus.)"},
+  {t:"astuce", titre:"Le réflexe qui sauve", x:"En cas de doute, teste une valeur. Ici $x = 0$ donne $0 - 0 - 3 = -3 < 0$ : le zéro est bien entre $-1$ et $3$, donc c'est cohérent."},
+  {t:"exemple", titre:"Exemple guidé — quand la solution a deux morceaux", enonce:"Résoudre $x^2 - 4 > 0$.", etapes:[
+   {q:"Trouver les racines", r:"$x^2 - 4 = 0$ donne $x^2 = 4$, donc $x = -2$ ou $x = 2$."},
+   {q:"Repérer le signe de $a$", r:"$a = 1 > 0$ : le trinôme est positif à l'extérieur des racines, négatif entre elles."},
+   {q:"Répondre à la question posée", r:"On cherche où l'expression est **positive** : c'est à l'extérieur — donc avant $-2$ **et** après $2$. Ce sont deux morceaux séparés, pas un seul intervalle."},
+   {q:"Écrire la solution avec le symbole ∪", r:"$S = ]-∞ ; -2[ ∪ ]2 ; +∞[$. Le symbole $∪$ se lit « union » : il réunit les deux morceaux — tous les nombres avant $-2$, et tous ceux après $2$ — sans jamais toucher à ce qu'il y a entre les deux."}
+  ]}
  ]},
 
  {titre:"Somme et produit des racines", blocs:[
   {t:"idee", x:"Il existe un raccourci : sans calculer les racines, on connaît déjà **leur somme et leur produit**. C'est très pratique pour vérifier un résultat ou deviner des racines simples."},
   {t:"formule", titre:"Les deux relations", x:"$x_1 + x_2 = -@f{b}{a}$ &nbsp;&nbsp;et&nbsp;&nbsp; $x_1 × x_2 = @f{c}{a}$", note:"Valables dès que $Δ ≥ 0$. La somme porte un signe moins, le produit non."},
+  {t:"p", x:"D'où viennent ces deux relations ? Elles se lisent directement dans la forme factorisée vue plus haut : $ax^2+bx+c = a(x-x_1)(x-x_2)$. Développons ce produit : $a(x-x_1)(x-x_2) = a(x^2 - (x_1+x_2)x + x_1x_2) = ax^2 - a(x_1+x_2)x + a x_1x_2$. C'est le même trinôme que $ax^2+bx+c$, donc les coefficients de $x$ doivent coïncider : $-a(x_1+x_2) = b$, soit $x_1+x_2 = -@f{b}{a}$. Et les termes constants coïncident aussi : $a x_1x_2 = c$, soit $x_1x_2 = @f{c}{a}$. Ce ne sont donc pas deux raccourcis magiques : c'est la forme factorisée, lue autrement."},
   {t:"p", x:"Reprenons $x^2 - 2x - 3$, dont les racines sont $-1$ et $3$. La somme vaut $-1 + 3 = 2$, et effectivement $-@f{b}{a} = -@f{-2}{1} = 2$. Le produit vaut $-1 × 3 = -3$, et $@f{c}{a} = -3$. ✓"},
   {t:"astuce", titre:"Deviner les racines de tête", x:"Quand $a = 1$, cherche deux nombres dont la **somme vaut $-b$** et le **produit vaut $c$**. Pour $x^2 - 7x + 12$ : somme 7, produit 12 → 3 et 4. Trouvé en trois secondes, sans discriminant."},
   {t:"exemple", titre:"Exemple guidé — retrouver une racine cachée", enonce:"On sait que $2x^2 - 10x + c = 0$ admet 1 comme racine. Trouver l'autre racine, puis $c$.", etapes:[
@@ -1138,7 +1159,7 @@ sections:[
   {t:"tbl", head:["$x$ (m)","5","8","10","12","15"],
    rows:[["aire $A(x)$ (m²)","150","192","**200**","192","150"]]},
   {t:"p", x:"Ce tableau mérite un regard. Les valeurs montent, atteignent 200, puis redescendent — et surtout, elles sont **symétriques** : 8 et 12 donnent la même aire, 5 et 15 aussi. Chaque paire est à égale distance de 10. C'est la signature d'une parabole, et un excellent moyen de vérifier un sommet sans refaire le calcul."},
-  {t:"piege", titre:"Oublier les contraintes du problème", x:"Le sommet mathématique n'est pas toujours la réponse au problème. Si l'énoncé impose par exemple que $x$ soit un nombre entier de mètres, ou que $x ≥ 12$ pour laisser passer un tracteur, le maximum se trouve **au bord** de l'intervalle autorisé, pas au sommet.<br><br>Le réflexe : après avoir calculé $α$, vérifie toujours qu'il appartient bien au domaine. Sinon, l'extremum est atteint à la borne la plus proche."},
+  {t:"piege", titre:"Oublier les contraintes du problème", x:"Le sommet mathématique n'est pas toujours la réponse au problème — mais deux situations bien différentes se cachent derrière cette phrase.<br><br>**Un intervalle imposé** (par exemple $x ≥ 12$, pour laisser passer un tracteur) : si $α$ tombe hors de cet intervalle, la parabole continue de monter ou de descendre jusqu'à la limite imposée. Le maximum est alors **au bord** du domaine autorisé, pas au sommet.<br><br>**Un nombre entier imposé** : c'est différent. Le maximum n'est pas au bord, mais à **l'entier le plus proche de $α$** — $α$ lui-même s'il est déjà entier (comme $α = 10$ dans l'enclos ci-dessus, où la contrainte ne change donc rien), sinon celui des deux entiers voisins qui donne la meilleure valeur.<br><br>Le réflexe : calcule $α$, puis regarde s'il est dans le domaine imposé. Hors d'un intervalle → borne la plus proche. Pas entier alors qu'il le faudrait → comparer les deux entiers qui l'encadrent."},
   {t:"exemple", titre:"Exemple guidé — la hauteur d'un ballon", enonce:"Un ballon est lancé et sa hauteur, en mètres, est donnée par $h(t) = -5t^{2} + 20t + 1$, où $t$ est le temps en secondes. Quelle hauteur maximale atteint-il, et au bout de combien de temps ?", etapes:[
    {q:"Lire les coefficients", r:"$a = -5$, $b = 20$, $c = 1$. Comme $a < 0$, il y a bien un maximum."},
    {q:"Ce que représente $c$", r:"$h(0) = 1$ : le ballon part d'une hauteur de 1 mètre. C'est la hauteur de la main qui lance — le terme constant a toujours un sens concret."},
@@ -1162,14 +1183,14 @@ sections:[
    ["Un problème concret (aire, bénéfice…)","Traduire en trinôme, puis chercher le sommet"]
   ]},
   {t:"astuce", titre:"Les contrôles qui rattrapent presque tout", x:"**Remplace tes racines dans l'équation.** Si tu ne tombes pas sur 0, elles sont fausses. Ce test est infaillible et prend vingt secondes.<br><br>**Vérifie le signe de $Δ$ avant de prendre une racine carrée.** Si $Δ$ est négatif, il n'y a rien à extraire : la réponse est « aucune solution », et c'est une réponse complète.<br><br>**Regarde si le résultat est plausible.** Une aire négative, une quantité produite négative, un temps négatif : dans un problème concret, ces réponses sont à écarter même si le calcul est juste."},
-  {t:"piege", titre:"Les trois erreurs les plus fréquentes", x:"**1. Le double signe moins.** $-4ac$ devient **plus** quand $a$ ou $c$ est négatif. $-4 × 1 × (-3) = +12$.<br>**2. Le $-b$ oublié.** La formule commence par $-b$ : si $b = -5$, alors $-b = +5$.<br>**3. Le signe dans la factorisation.** Une racine négative donne un facteur avec un plus : $x_1 = -4$ donne $(x + 4)$."},
+  {t:"piege", titre:"Les trois erreurs les plus fréquentes", x:"**1. Le signe de $-4ac$.** Il est positif quand $a$ et $c$ sont de signes **contraires** — pas simplement « l'un des deux négatif » : si $a$ et $c$ sont tous les deux négatifs, $-4ac$ reste négatif. Exemple : $a=1,c=-3 → -4×1×(-3)=+12$, mais $a=-1,c=-3 → -4×(-1)×(-3)=-12$.<br>**2. Le $-b$ oublié.** La formule commence par $-b$ : si $b = -5$, alors $-b = +5$.<br>**3. Le signe dans la factorisation.** Une racine négative donne un facteur avec un plus : $x_1 = -4$ donne $(x + 4)$."},
   {t:"p", x:"Enfin, un conseil de méthode. Ce chapitre récompense la lenteur. Les erreurs ne viennent presque jamais d'une incompréhension — elles viennent de signes recopiés trop vite. Écris chaque étape sur sa propre ligne, garde les parenthèses autour des nombres négatifs, et ne fais jamais deux calculs de tête à la suite."}
  ]},
 {titre:"Les méthodes du chapitre", blocs:[
   {t:"methode", titre:"Résoudre une équation du second degré", etapes:[
    "**Tout ramener d'un côté**, pour obtenir la forme $ax^2 + bx + c = 0$. Sans cette mise en forme, les coefficients sont faux.",
    "**Relever $a$, $b$ et $c$ avec leur signe.** C'est là que se perdent la plupart des points : le signe fait partie du coefficient.",
-   "**Calculer le discriminant** $Δ = b^2 - 4ac$, en prenant garde au signe de $c$ : $-4 × a × (-3)$ donne un $+$.",
+   "**Calculer le discriminant** $Δ = b^2 - 4ac$, en prenant garde au signe de $-4ac$ : il n'est positif que si $a$ et $c$ sont de signes **contraires** — pas simplement si l'un des deux est négatif.",
    "**Regarder le signe de $Δ$.** Positif : deux solutions. Nul : une seule. Négatif : aucune — et on s'arrête là.",
    "**Calculer les solutions** $x = @f{-b ± @r{Δ}}{2a}$, puis vérifier en les remplaçant dans l'équation de départ."
   ], exemple:"$x^2 - 2x - 3 = 0$ : $a = 1$, $b = -2$, $c = -3$. $Δ = 4 + 12 = 16 > 0$, donc $x = @f{2 ± 4}{2}$, soit $x = 3$ ou $x = -1$."},
@@ -4417,21 +4438,29 @@ MODELES["parabole"] = function(){
   function redessine(){
     while(svg.firstChild) svg.removeChild(svg.firstChild);
     fond(svg, R, {});
-    var d="", i, vv=R.vue;
+    var d="", i, vv=R.vue, segmentOuvert=false;
     for(i=0;i<=300;i++){
       var x = vv[0]+(vv[2]-vv[0])*i/300, y = a*x*x+b*x+c;
-      if(y<vv[1]-2||y>vv[3]+2){ continue; }
-      d += (d?" L ":"M ")+R.X(x)+" "+R.Y(y);
+      if(y<vv[1]-2||y>vv[3]+2){ segmentOuvert=false; continue; }
+      // Après un passage hors cadre, on repart avec "M" (nouveau tracé) et
+      // non "L" (ligne) : sinon les deux bouts visibles se retrouveraient
+      // reliés par une corde qui ne fait pas partie de la courbe.
+      d += (segmentOuvert?" L ":"M ")+R.X(x)+" "+R.Y(y);
+      segmentOuvert=true;
     }
     svg.appendChild(n("path",{d:d,fill:"none",stroke:coul("bleu"),"stroke-width":2.8}));
     var D = b*b-4*a*c;
     if(D>=0 && a!==0){
+      // Les racines ne sont dessinées que si elles tombent dans la partie
+      // du repère réellement affichée : sinon le point se retrouvait
+      // visible, flottant dans la marge, hors de la courbe qu'il annonce.
       var r1=(-b-Math.sqrt(D))/(2*a), r2=(-b+Math.sqrt(D))/(2*a);
-      point(svg,R,r1,0,null,"rouge"); point(svg,R,r2,0,null,"rouge");
+      if(r1>=vv[0] && r1<=vv[2]) point(svg,R,r1,0,null,"rouge");
+      if(r2>=vv[0] && r2<=vv[2]) point(svg,R,r2,0,null,"rouge");
     }
     if(a!==0){
-      var al=-b/(2*a);
-      point(svg,R,al,a*al*al+b*al+c,"S","ambre");
+      var al=-b/(2*a), be=a*al*al+b*al+c;
+      if(al>=vv[0] && al<=vv[2] && be>=vv[1] && be<=vv[3]) point(svg,R,al,be,"S","ambre");
     }
     lecture.innerHTML =
       '<b>f(x) = '+a+'x² '+(b<0?"− ":"+ ")+Math.abs(b)+'x '+(c<0?"− ":"+ ")+Math.abs(c)+'</b><br>'+
@@ -6983,7 +7012,7 @@ var G_SECOND = [
     var rep=b*b-4*a*c;
     return { type:"num", niveau:1, rep:rep,
       enonce:"Calculer le discriminant du trinôme $"+trinome(a,b,c)+"$.",
-      diag:[{v:b*b+4*a*c, m:"Erreur de signe sur $-4ac$. Ici $a = "+fr(a)+"$ et $c = "+fr(c)+"$, donc $-4ac = "+fr(-4*a*c)+"$. Attention quand $a$ ou $c$ est négatif : deux moins font un plus."},
+      diag:[{v:b*b+4*a*c, m:"Erreur de signe sur $-4ac$. Ici $a = "+fr(a)+"$ et $c = "+fr(c)+"$, donc $-4ac = "+fr(-4*a*c)+"$, pas $"+fr(4*a*c)+"$. Le signe de $-4ac$ dépend des signes de $a$ et de $c$ pris ensemble : calcule d'abord $a×c$, puis change de signe."},
             {v:b*b, m:"Tu t'es arrêté à $b^2 = "+fr(b*b)+"$. La formule complète est $Δ = b^2 - 4ac$ : il reste à traiter $-4 × "+fr(a)+" × "+fr(c)+"$."},
             {v:-b*b-4*a*c, m:"Un carré est toujours positif : $("+fr(b)+")^2 = "+fr(b*b)+"$, jamais $-"+fr(b*b)+"$."},
             {v:b*b-4*c, m:"Tu as oublié le coefficient $a = "+fr(a)+"$ dans le produit $4ac$."}],
@@ -7016,15 +7045,17 @@ var G_SECOND = [
 { id:"sd-sommet", titre:"Abscisse du sommet", niveau:2, gen:function(){
     var a=pick([1,2,-1,-2,3]), b=nz(-12,12)*2, c=ri(-6,6);
     var rep=arr(-b/(2*a));
+    var exact = Math.abs(-b/(2*a) - rep) < 1e-9;
+    var egal = exact ? " = " : " ≈ ";
     return { type:"num", niveau:2, rep:rep, tol:0.01,
-      enonce:"La parabole d'équation $y = "+trinome(a,b,c)+"$ admet un "+(a>0?"minimum":"maximum")+". En quelle valeur de $x$ est-il atteint ?",
-      diag:[{v:arr(b/(2*a)), m:"Erreur de signe : la formule est $α = -@f{b}{2a}$, avec le **moins** devant la fraction. Ici $b = "+fr(b)+"$ donc $α = "+fr(rep)+"$."},
+      enonce:"La parabole d'équation $y = "+trinome(a,b,c)+"$ admet un "+(a>0?"minimum":"maximum")+". En quelle valeur de $x$ est-il atteint ? (arrondir au centième si besoin)",
+      diag:[{v:arr(b/(2*a)), m:"Erreur de signe : la formule est $α = -@f{b}{2a}$, avec le **moins** devant la fraction. Ici $b = "+fr(b)+"$ donc $α"+egal+fr(rep)+"$."},
             {v:arr(-b/a), m:"Tu as oublié le 2 du dénominateur. La formule est $-@f{b}{2a}$, pas $-@f{b}{a}$."},
             {v:-b, m:"Tu as oublié de diviser par $2a = "+fr(2*a)+"$."},
             {v:arr(a*rep*rep+b*rep+c), m:"Tu as donné la valeur du "+(a>0?"minimum":"maximum")+" ($β$), pas l'endroit où il est atteint. La question porte sur $x$."}],
       corr:["Le sommet a pour abscisse $α = -@f{b}{2a}$.",
             "Ici $a = "+fr(a)+"$ et $b = "+fr(b)+"$.",
-            "$α = -@f{"+fr(b)+"}{"+fr(2*a)+"} = "+fr(rep)+"$."],
+            "$α = -@f{"+fr(b)+"}{"+fr(2*a)+"}"+egal+fr(rep)+"$."+(exact?"":" La fraction ne tombe pas juste : on garde la valeur arrondie.")],
       indice:"$α = -@f{b}{2a}$. Attention au signe de $b$ combiné au moins de la formule." };
   }},
 
