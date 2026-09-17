@@ -336,6 +336,39 @@ Points mineurs relevés par ces deux relectures, chantier figures
   dépend, mais pourrait gagner un gloss de 3-4 mots comme fait pour la
   règle à calcul elle-même.
 
+## Trigonométrie
+
+**Justesse validée le 2026-09-17** (2 passes de `relecteur-maths`,
+balayage exhaustif de 2M d'angles) : 3 bloquants corrigés sur la figure
+`cercle-trigo` (angle annoncé comme fraction exacte de π incohérent avec
+le cos/sin affiché à côté, "-0,00" affiché pour une valeur quasi nulle,
+signe "=" affiché à tort pour une valeur irrationnelle arrondie — voir
+commit "Trigonométrie : uniformisation quadrant→quart + justesse figure
+cercle trigo"). Tableau des valeurs remarquables vérifié intégralement
+juste.
+
+**Chantier "figures" à regrouper en fin de projet** — deux défauts
+pédagogiques réels (pas cosmétiques) relevés dans `MODELES["cercle-trigo"]`
+lors de cette relecture, non corrigés maintenant :
+- Dans les états où l'angle n'est *pas* aimanté sur un multiple de π/12
+  (`fracPi` renvoie `exact:false`), les degrés (arrondis à l'unité) et la
+  fraction de π (arrondie à 2 décimales) sont deux arrondis indépendants
+  de précisions différentes : sur ~12,5% des états non aimantés, l'écart
+  entre les deux atteint jusqu'à 1,40° — ex. "angle 283° ≈ 1,58π" alors
+  que $1,58π = 284,4°$. Une élève qui vérifie $1,58 × 180$ retombe sur
+  284, pas 283. À corriger avec la méthode du chantier (balayage
+  exhaustif) : soit augmenter la précision de la fraction affichée dans
+  cette branche, soit n'afficher que les degrés quand la fraction n'est
+  pas exacte.
+- La grille d'aimantation (dénominateurs 1,2,3,4,6,12) fait apparaître
+  des fractions comme π/12, 5π/12, 7π/12… qui ne figurent pas dans le
+  tableau des valeurs remarquables enseigné dans ce chapitre (seulement
+  0, π/6, π/4, π/3, π/2, π). Une élève peut donc voir la figure annoncer
+  "= π/12" pour un angle qu'elle n'a jamais appris. À arbitrer : soit
+  restreindre la grille d'aimantation aux dénominateurs du programme
+  (1,2,3,4,6), soit assumer ces valeurs mais les indiquer comme
+  hors-programme dans la figNote.
+
 ## Variables aléatoires (chapitre 9)
 
 - Le "Récapitulatif : trois nombres pour résumer le hasard" est placé
