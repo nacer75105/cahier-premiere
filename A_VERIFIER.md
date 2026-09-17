@@ -1,5 +1,53 @@
 # À vérifier
 
+## Chantier "figures" de fin de projet — méthode à appliquer
+
+**Constat du 2026-09-17**, après la relecture de justesse de Dérivation
+(4 passes de `relecteur-maths` le même jour) : les bugs de figures ne
+sont pas des incidents isolés, ils se répètent selon les **mêmes
+classes de défauts** d'un chapitre à l'autre, et chaque fois qu'un
+chapitre a été relu en balayage exhaustif (Dérivation ce jour,
+Produit scalaire et Probabilités conditionnelles avant lui — voir
+la contrainte technique dans CLAUDE.md sur les valeurs arrondies
+indépendamment), la relecture a trouvé des bugs qu'une lecture "à
+l'œil" du code n'avait pas vus. Rien qui suggère que Dérivation était
+un cas particulier plutôt pire que les autres — plutôt qu'il a
+simplement été le premier chapitre passé au peigne fin sur ses
+figures.
+
+**Classes de défauts déjà rencontrées, par ordre de fréquence
+observée :**
+1. **Valeurs affichées arrondies indépendamment**, cassant une égalité
+   avec "=" sur un sous-ensemble des états atteignables par le
+   curseur (souvent 30 à 45% des états) — cf. la règle dédiée dans
+   CLAUDE.md. Trouvé sur `signe-variation`, `fonction-derivee`,
+   `tangente` (Dérivation), la figure du produit scalaire, l'arbre
+   pondéré (probabilités conditionnelles).
+2. **Débordements de cadre** aux bornes du curseur (point ou étiquette
+   qui sort du quadrillage gradué sans sortir du viewBox — donc
+   invisible en relecture de code, seulement visible en le rejouant).
+   Trouvé sur `tangente`, `sécante` (Dérivation).
+3. **Incohérence entre deux éléments d'une même figure** à un état
+   limite (ex. `signe-variation` : la bande de couleur contredisait le
+   texte pile aux extremums).
+4. **Diagnostics d'exercice imprécis ou mal attribués** (le message
+   affiché à l'élève décrit une erreur différente de celle qui produit
+   réellement le distracteur), et **affichages arithmétiquement mal
+   formés** dans les générateurs paramétrés (signes en dur non
+   compatibles avec une valeur qui change de signe selon le tirage,
+   ex. `de-tangente`).
+
+**Méthode à appliquer pour ce chantier, chapitre par chapitre :** ne
+pas se contenter d'une relecture visuelle du code des figures. Lancer
+`relecteur-maths` avec instruction explicite de rejouer **chaque**
+figure interactive et **chaque** générateur d'exercice sous Node, en
+balayant exhaustivement (ou en échantillonnant densément si l'espace
+d'états est trop grand) tous les états atteignables par les curseurs
+et tous les tirages aléatoires possibles des générateurs — pas
+seulement les valeurs par défaut ou quelques exemples choisis à la
+main. C'est ce balayage, et lui seul, qui a débusqué tous les bugs
+listés ci-dessus ; aucun n'était visible à la seule lecture du code.
+
 ## Test eleve-adversaire (2026-09-15) — à traiter dans un chantier dédié
 
 Le test à l'aveugle (répondre aux QCM des 3 chapitres sans connaître le
@@ -78,35 +126,134 @@ QCM, cas dégénéré) ont été corrigés directement dans `public/index.html`
 
 ## Dérivation (chapitre 3)
 
-- Deux pièges "dérivée nulle ≠ extremum" quasi identiques et redondants
-  (piège après L.1451 et piège après L.1454 dans le fichier avant
-  correction) — à fusionner en un seul.
-- Tension entre "un extremum se trouve **toujours** là où $f'$ s'annule"
-  et la remarque ultérieure sur les extremums aux bornes d'un intervalle
-  — les extremums aux bornes ne sont jamais mentionnés dans la partie
-  théorique du cours.
-- La dérivabilité des fonctions du programme est utilisée sans jamais
-  signaler explicitement qu'on l'admet.
-- La figure `fonction-derivee` change de fonction ($x^2$ dans le texte
-  qui précède, $x^3/3-x$ dans le modèle réel) sans jamais nommer $f$ ni
-  $f'$ sur les deux panneaux.
-- La description de la figure `fonction-derivee` ("le graphique de
-  droite **ajoute** le point") ne correspond pas exactement au
-  comportement du tracé (la courbe s'efface si on recule le curseur).
+**Corrigés lors de la passe pédagogique du 2026-09-17** (pour mémoire,
+ne plus retraiter) : les deux pièges "dérivée nulle ≠ extremum"
+quasi identiques ont été fusionnés en un seul ; la tension entre
+"un extremum se trouve toujours là où $f'$ s'annule" et le cas des
+extremums aux bornes est résolue (le piège "Deux oublis classiques"
+relie maintenant explicitement les valeurs de bord à la notion
+d'extremum) ; la dérivabilité admise des fonctions du programme est
+désormais signalée explicitement en section 1 (avec l'exception de
+$\sqrt{x}$ en 0 mentionnée pour rester cohérent avec le tableau des
+dérivées).
+
+**Corrigés le même jour, deux bugs de justesse (pas seulement de
+présentation)** : sur la figure `signe-variation`, pile aux deux
+extremums ($a=-1$ et $a=1$, exactement atteignables par le pas de
+curseur de 0,05), la lecture affichait "f′(a) = 0 ... la courbe
+monte/descend" — contradictoire, puisqu'une dérivée nulle signale
+justement l'arrêt de la montée ou de la descente, pas sa poursuite.
+Le texte affiche maintenant "change de sens ici : c'est un extremum
+(tangente horizontale)" quand le signe calculé vaut "0" (reformulé une
+seconde fois le même jour pour ne pas laisser lire l'implication
+générale "f′=0 ⇒ extremum", que le piège juste après contredit), au
+lieu de retomber sur le mot de la zone voisine — et la bande de
+couleur ne met plus aucune zone en avant à ces deux points précis
+(`figNote` mise à jour en conséquence). Et le diagnostic du `check`
+"$4x+9$" qui ne mentionnait que l'exposant oublié (donnant $4x$ au
+lieu de $8x$) mentionne désormais aussi le $+9$ recopié à tort
+(dérivée d'une constante = 0) — le distracteur combine bien les deux
+erreurs, son diagnostic les couvre maintenant toutes les deux.
+
+**Corrigés le même jour, trois bloquants préexistants découverts par
+la relecture (même classe de bug que ci-dessus — affichage qui ne
+correspond pas à un calcul cohérent, cf. règle du projet sur les
+figures interactives) :**
+- Figure `fonction-derivee` : "f′(a) = " affichait `nb(m)` (2
+  décimales) alors que $m=a^2-1$ a besoin de 4 décimales pour être
+  exact avec le pas de curseur 0,05 — faux dans 40 des 81 états
+  atteignables. Passé à `nb(m,4)`, vérifié exact sur les 81 états.
+- Figure `tangente` : "f(a) = " affichait `f(a).toFixed(2)` alors que
+  $f(a)=0{,}5a^2-1$ a besoin de 3 décimales pour être exact avec le pas
+  de curseur 0,1 — faux dans 36 des 71 états atteignables. Passé à
+  `nb(f(a),3)`, vérifié exact sur les 71 états.
+- Générateur `de-tangente` : quand $a=-1$ est tiré (1 tirage sur 3),
+  les gabarits d'affichage du corrigé et du diagnostic (`v:a*k*k`)
+  inséraient un "−"/"+" en dur devant des quantités qui peuvent être
+  négatives, produisant des expressions mal formées du type
+  "$-8x − -32 + -16$" — pas juste le parenthésage de $k$ déjà
+  documenté (voir ci-dessous), mais un affichage arithmétiquement
+  incohérent sur l'étape que l'élève est censé suivre pour vérifier
+  son calcul. Remplacé par des appels à `sg(...)` (déjà utilisée
+  ailleurs dans le fichier pour ce cas), vérifié bien formé sur les 24
+  combinaisons $(a,k)$ possibles.
+
+**Chantier contenu à part, non traité ici** (ajout de contenu, pas une
+correction de justesse ni de clarté d'un texte existant) :
 - Aucune fiche méthode "dresser un tableau de variations", alors que le
   cours la qualifie lui-même d'"aboutissement du chapitre".
 - Couverture des exercices : aucun ne demande de dresser un tableau de
   variations, ni ne fait intervenir $\sqrt{x}$, ni ne fait travailler
   "traduire un problème en fonction".
+- Le bloc "idee" ajouté pour construire l'équation de la tangente
+  s'appuie sur la forme "point-pente" $y=m(x-x_0)+y_0$, qui n'est pas
+  exactement la forme vue en Seconde ($y=mx+p$) ni justifiée par une
+  vérification explicite (pour $x=x_0$ on retrouve $y=y_0$) — à relier
+  explicitement à la forme de Seconde ou à ajouter la vérification.
+- Le paragraphe sur la dérivabilité admise (section 1) annonce que
+  l'exception $\sqrt{x}$ en 0 est "indiqué plus loin dans le tableau
+  des dérivées", mais le tableau ne dit que "dérivable pour $x > 0$" —
+  il ne reprend pas littéralement l'expression "tangente verticale".
+  À corriger dans la passe de clarté (relecteur-maths, 2026-09-17) :
+  soit reformuler l'annonce, soit ajouter la mention dans le tableau.
+  Ce même paragraphe est aussi signalé comme une phrase unique trop
+  dense (5 lignes, deux incises) à découper en 2-3 phrases.
+
+- **Chantier "figures" à regrouper en fin de projet** — figure
+  `fonction-derivee` : change de fonction entre le texte qui l'entoure
+  ($x^2$ évoqué) et le modèle réellement tracé ($x^3/3-x$), sans jamais
+  nommer $f$ ni $f'$ sur les deux panneaux ; sa description ("le
+  graphique de droite **ajoute** le point") ne correspond pas
+  exactement au comportement du tracé (la courbe s'efface si on
+  recule le curseur). Plus généralement, aucune des quatre figures
+  interactives du chapitre n'affiche l'expression de $f(x)$ à l'écran ;
+  l'élève doit deviner quelle fonction elle manipule. Défaut réel,
+  mais travail sur figure/JS, pas sur le texte — signalé le
+  2026-09-17, à traiter avec les autres corrections de figures
+  (voir aussi les entrées `droite-repere`, `dispersion-variance`,
+  `loi-binomiale` dans les sections suivantes).
+- Figure `signe-variation` : aux deux points où aucune zone n'est mise
+  en avant (les deux extremums, opacité uniforme 0,25 depuis la
+  correction du 2026-09-17), les libellés "+ / − / +" en blanc sur
+  fond à 0,25 d'opacité sont peu lisibles en thème clair (contraste
+  ~1,4, sous le seuil usuel de 4,5) — préexistant pour les zones
+  inactives, mais plus visible maintenant que les trois zones sont
+  simultanément à cette opacité. Et la même ligne mélange le signe
+  "-" ASCII (issu de `nb()`) et le signe "−" typographique (U+2212,
+  utilisé pour `signe`) dans la même phrase — cosmétique.
+- Figure `tangente` : aux deux bornes du curseur ($a=\pm3{,}5$),
+  $f(a)=5{,}125$ dépasse le haut du repère (vue jusqu'à $y=5$) ; le
+  point $A$ et son étiquette restent dans le viewBox mais flottent
+  au-dessus du cadre gradué. Pas d'erreur affichée, juste un point
+  hors quadrillage — à revoir avec les autres figures (agrandir la
+  vue ou réduire l'amplitude du curseur).
 - L.1660 (de13) : l'intervalle de décroissance est donné en ouvert
   ($]-1;1[$) alors que le cours utilise ailleurs des crochets fermés
   aux points où $f'$ s'annule — inconsistance de convention, pas une
   erreur de fond.
-- Générateur `de-tangente` : affichage `x − -2` au lieu de `x − (-2)`
-  quand $k<0$ (parenthésage manquant dans l'affichage, présent dans le
-  corrigé).
 - Générateur `de-poly` : distracteur peu crédible (deux constantes non
   réduites affichées côte à côte).
+- Exercice `de7` (L.1627) : le diagnostic du distracteur "$2x-5$" dit
+  "Tu as oublié un terme", alors que l'erreur réelle est une règle de
+  puissance mal appliquée ($2x^2$ dérivé en $2x$ au lieu de $4x$) — le
+  reste du message (développement, dérivée finale) est correct, seule
+  l'étiquette de l'erreur ne correspond pas.
+- Exercice `de12` (L.1675) : diagnostic `{v:1}` ("Tu as sans doute
+  dérivé le 2 en 1") plausible mais peu précis par rapport aux autres
+  diagnostics du chapitre.
+- Figure `signe-variation` : la formulation "de signe **0**" (à
+  $a=\pm1$) est un peu bancale mathématiquement (0 n'a pas de signe à
+  proprement parler) — se défend par la convention du tableau de
+  signes, mais "f′(a) = 0 : la dérivée s'annule" serait plus net.
+- Figure `sécante` : aux plus grands écarts du curseur (h entre 1,54 et
+  1,60), le point B et son étiquette dépassent le haut du repère —
+  même défaut cosmétique que celui déjà noté sur `tangente`
+  (débordement du cadre gradué, pas d'erreur affichée).
+- Générateur `de-tangente` (après correctif du 2026-09-17) : mélange
+  du tiret ASCII "-" (`fr`/`terme`) et du signe typographique "−"
+  (`sg`) dans une même expression, et écriture un peu lourde "$1 ×
+  (1)^2$" quand $a=1$ — cosmétique, convention déjà partagée par tous
+  les générateurs du fichier, aucun calcul faux.
 - "Voici les **trois** autres situations du programme" alors que
   quatre formules suivent (produit, quotient, inverse, racine).
 - Figure `tangente` : `figNote` non passée par `T(...)` (contrairement
@@ -118,26 +265,6 @@ QCM, cas dégénéré) ont été corrigés directement dans `public/index.html`
   pointillés sans libellé).
 - "Les valeurs se resserrent **autour** de 2" (L.1383) : en réalité
   elles décroissent vers 2 par valeurs supérieures uniquement.
-- Sur la figure `signe-variation`, pile à $a=-1$ (un des deux
-  extremums, atteignable par pas de 0,05 depuis $-2{,}2$), la lecture
-  affiche "f′(a) = 0 ... la courbe descend" (effet de bord de
-  `zoneDe`), alors que c'est justement le point où la courbe change de
-  sens — pas une vraie erreur (l'affichage "0" prime visuellement) mais
-  à améliorer.
-- Aucune des quatre figures interactives du chapitre n'affiche
-  l'expression de $f(x)$ à l'écran ; l'élève doit deviner quelle
-  fonction elle manipule (deux figures tracent $f(x)=x^2$ dans le
-  texte qui les entoure mais $x^3/3-x$ dans le modèle réel).
-- Le bloc "idee" ajouté pour construire l'équation de la tangente
-  s'appuie sur la forme "point-pente" $y=m(x-x_0)+y_0$, qui n'est pas
-  exactement la forme vue en Seconde ($y=mx+p$) ni justifiée par une
-  vérification explicite (pour $x=x_0$ on retrouve $y=y_0$).
-- Deux pièges "dérivée nulle n'implique pas extremum" restent
-  redondants dans la même section (même contre-exemple $x^3$, même
-  conclusion, à cinq blocs d'écart).
-- Le diagnostic du `check` "$4x+9$" (L.1442) ne mentionne que l'oubli
-  de l'exposant, pas le $+9$ recopié — qui est pourtant la deuxième
-  erreur du même distracteur.
 - L'intuition du produit (rectangle $u \times v$) ne signale pas
   qu'elle suppose implicitement $u,v>0$, alors que l'intuition du
   quotient le précise désormais pour $v$.

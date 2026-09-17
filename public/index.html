@@ -1407,6 +1407,7 @@ sections:[
   {t:"p", x:"Regarde la dernière colonne descendre : 3, puis 2,5, puis 2,1, puis 2,01… Les valeurs se resserrent autour de **2**, sans jamais tout à fait l'atteindre. On dit que la pente **tend vers 2**, et on écrit $f'(1) = 2$. C'est ce que la formule de dérivation $(x^2)' = 2x$ donnera en une seconde — mais tu sais maintenant ce que ce 2 signifie et d'où il sort."},
   {t:"astuce", titre:"Pourquoi on n'écrit jamais $h = 0$", x:"Avec $h = 0$, la fraction devient $@f{0}{0}$ : elle n'a aucun sens. C'est précisément pour contourner cet obstacle qu'on a inventé la notion de limite. On ne pose jamais $h = 0$ ; on regarde ce qui se passe **quand $h$ s'en approche**. La nuance paraît subtile, mais c'est elle qui rend tout le calcul différentiel possible."},
   {t:"formule", titre:"Nombre dérivé", x:"$f'(a) = lim_{h → 0} @f{f(a + h) - f(a)}{h}$", note:"Autrement dit : la pente moyenne entre $a$ et un point tout proche, quand ce point se colle à $a$. En pratique on n'utilise presque jamais cette limite : on applique les formules du tableau plus bas."},
+  {t:"p", x:"Une précision importante, qu'on admet sans la démontrer : cette limite n'existe pas forcément pour n'importe quelle fonction ni en n'importe quel point (il peut y avoir un angle, une cassure, ou une tangente verticale). Mais **les fonctions usuelles de ce chapitre sont dérivables sur les intervalles où elles sont définies**, à de rares exceptions signalées explicitement le moment venu (comme la racine carrée en 0, où la tangente est verticale — indiqué plus loin dans le tableau des dérivées) — sauf mention contraire, tu peux donc supposer que $f'(a)$ existe et te concentrer sur son calcul."},
   {t:"astuce", titre:"Traduction en français", x:"$f'(a)$ est un nombre. C'est la pente de la courbe au point d'abscisse $a$. Positif = ça monte. Négatif = ça descend. Nul = c'est plat (sommet ou creux)."},
   {t:"figi", nom:"tangente"},
   {t:"p", x:"Déplace le point $A$ le long de la courbe et regarde la droite rouge : c'est la tangente. Elle change d'inclinaison à mesure que $A$ se déplace, et le nombre $f'(a)$ affiché en dessous suit exactement cette inclinaison."},
@@ -1465,7 +1466,7 @@ sections:[
   {t:"check", q:"Quelle est la dérivée de $f(x) = 4x^2 + 9$ ?",
    choix:["$8x + 9$","$4x + 9$","$8x$","$8x^2$"], bonne:2,
    expl:["Tu as recopié le $+9$. Mais 9 est une constante, sa dérivée est 0 : elle disparaît.",
-         "Tu as oublié de faire descendre l'exposant. La dérivée de $x^2$ est $2x$, donc celle de $4x^2$ est $8x$.",
+         "Deux erreurs cumulées. D'une part tu as oublié de faire descendre l'exposant en facteur : la dérivée de $x^2$ est $2x$, donc celle de $4x^2$ est $8x$, pas $4x$. D'autre part tu as recopié le $+9$ : une constante a une dérivée nulle, elle disparaît.",
          "Exact : $4 × 2x = 8x$, et la dérivée de 9 vaut 0.",
          "Tu as multiplié le coefficient sans baisser l'exposant. Il doit passer de 2 à 1."]}
  ]},
@@ -1474,12 +1475,11 @@ sections:[
   {t:"figi", nom:"signe-variation"},
   {t:"p", x:"Déplace $A$ d'un bout à l'autre. Avant le premier extremum (à gauche), la courbe **monte** et la tangente penche vers le haut : $f'$ est positive, la bande s'allume en vert. Entre les deux extremums, la courbe **descend** : $f'$ est négative, la bande passe au rouge. Après le second extremum (à droite), la courbe **remonte** : $f'$ redevient positive, la bande repasse au vert. Tout le chapitre tient dans cette image — le signe de la dérivée est la pente de la tangente, et la pente donne le sens de variation."},
   {t:"p", x:"Repère les deux endroits où la tangente devient horizontale. Ce sont les seuls où $f'$ s'annule — et c'est exactement là que la fonction cesse de monter pour se mettre à descendre, ou l'inverse. **À l'intérieur d'un intervalle, un extremum se trouve toujours là où la dérivée s'annule en changeant de signe** (aux bornes de l'intervalle, il n'y a pas besoin que $f'$ s'annule : il suffit de comparer les valeurs, comme on le verra plus loin)."},
-  {t:"piege", titre:"Dérivée nulle ne veut pas dire extremum", x:"La réciproque est fausse, et c'est une erreur fréquente. Pour $f(x) = x^{3}$, la dérivée $f'(x) = 3x^{2}$ s'annule en 0 — pourtant la fonction continue de monter sans faire ni creux ni bosse, parce que $3x^{2}$ reste **positive** des deux côtés.<br><br>Ce qui crée un extremum, ce n'est pas que la dérivée s'annule : c'est qu'elle **change de signe**. Un tableau de signes bien fait le montre d'un coup d'œil."},
+  {t:"piege", titre:"Dérivée nulle ne veut pas dire extremum", x:"La réciproque naïve — « la dérivée s'annule, donc il y a un extremum » — est fausse, et c'est une erreur fréquente. Pour $f(x) = x^{3}$, la dérivée $f'(x) = 3x^{2}$ s'annule en 0 — pourtant la fonction continue de monter sans faire ni creux ni bosse, parce que $3x^{2}$ reste **positive** des deux côtés.<br><br>Ce qui crée un extremum, ce n'est pas que la dérivée s'annule : c'est qu'elle **change de signe**. Un tableau de signes bien fait le montre d'un coup d'œil."},
   {t:"idee", x:"C'est ici que la dérivée devient vraiment utile : **le signe de $f'$ donne les variations de $f$**, sans avoir besoin de tracer la courbe."},
   {t:"formule", titre:"Le lien fondamental", x:"$f' > 0$ sur un intervalle → $f$ est **croissante**<br>$f' < 0$ sur un intervalle → $f$ est **décroissante**<br>$f'$ s'annule en changeant de signe → **extremum** (max ou min)"},
   {t:"p", x:"Ce lien mérite qu'on s'y arrête, parce que c'est lui qui rend la dérivée utile. Relis les trois lignes : à gauche, on parle du **signe** d'une expression — un simple calcul. À droite, on parle de la **forme** d'une courbe — quelque chose de visuel. La dérivée fait le pont entre les deux. Elle permet de décrire l'allure d'une courbe qu'on n'a jamais tracée."},
   {t:"p", x:"L'intuition est directe si tu penses à une marche. Ta pente est positive : tu montes. Négative : tu descends. Nulle : tu es sur un replat — et si juste avant tu montais et juste après tu descends, ce replat est un **sommet**. C'est tout le contenu du troisième point : un extremum se trouve là où la pente s'annule **en changeant de signe**."},
-  {t:"piege", titre:"S'annuler ne suffit pas", x:"La dérivée peut s'annuler sans qu'il y ait de maximum ni de minimum. Pour $f(x) = x^3$ en $x = 0$, la pente vaut zéro — la courbe fait une pause — mais elle continue de monter juste après. C'est un simple palier, pas un sommet.<br><br>Ce qui fait l'extremum, ce n'est pas l'annulation : c'est le **changement de signe** de part et d'autre. Regarde toujours ce qui se passe avant et après, pas seulement au point."},
   {t:"exemple", titre:"Exemple guidé — étude complète", enonce:"Étudier les variations de $f(x) = x^2 - 6x + 5$ sur ℝ.", etapes:[
    {q:"Dériver", r:"$f'(x) = 2x - 6$."},
    {q:"Chercher où la dérivée s'annule", r:"$2x - 6 = 0$ donne $2x = 6$, donc $x = 3$."},
@@ -1505,7 +1505,7 @@ sections:[
    {q:"Lecture finale", r:"$f$ décroît sur $]-∞ ; 3]$, croît sur $[3 ; +∞[$, et admet un **minimum** valant $-4$, atteint en $x = 3$. Compare avec la courbe juste au-dessus : le creux est bien à cet endroit et à cette hauteur."}
   ]},
   {t:"astuce", titre:"Le sens de la flèche se lit sur le signe", x:"Un doute permanent chez les élèves : « la flèche monte ou descend ? » La règle ne varie jamais — **le signe de $f'$ commande**. « + » sous la colonne, flèche montante. « − », flèche descendante. Le zéro de $f'$ marque le sommet ou le creux, là où les deux flèches se rejoignent."},
-  {t:"piege", titre:"Deux oublis classiques", x:"**Les bornes.** Si l'énoncé demande le tableau sur $[0 ; 10]$ et non sur ℝ, les colonnes extrêmes sont 0 et 10, pas $-∞$ et $+∞$. Et il faut alors calculer $f(0)$ et $f(10)$ pour compléter les extrémités des flèches.<br><br>**Les valeurs aux extrémités.** Un tableau où les flèches ne portent aucun nombre ne vaut presque rien : c'est justement ces valeurs qui permettent de répondre à « quel est le maximum ? »."},
+  {t:"piege", titre:"Deux oublis classiques", x:"**Les bornes.** Si l'énoncé demande le tableau sur $[0 ; 10]$ et non sur ℝ, les colonnes extrêmes sont 0 et 10, pas $-∞$ et $+∞$. Et il faut alors calculer $f(0)$ et $f(10)$ pour compléter les extrémités des flèches. Ces valeurs de bord comptent double : comme annoncé plus haut, sur un intervalle fermé, le maximum ou le minimum de $f$ peut très bien se trouver **à un bord**, sans que $f'$ s'y annule — un bord n'a pas besoin d'être un sommet de la courbe pour être la plus grande ou la plus petite valeur du tableau.<br><br>**Les valeurs aux extrémités.** Un tableau où les flèches ne portent aucun nombre ne vaut presque rien : c'est justement ces valeurs qui permettent de répondre à « quel est le maximum ? »."},
   {t:"p", x:"Une dernière remarque de méthode. Quand la dérivée est un trinôme du second degré — ce qui arrive dès que $f$ est de degré 3 — son signe s'étudie avec le chapitre du second degré : discriminant, racines, puis la règle « du signe de $a$ sauf entre les racines ». Les deux chapitres se combinent constamment, et c'est ce qui rend les exercices de fin d'année plus longs, mais pas plus difficiles."}
  ]},
 
@@ -4618,7 +4618,7 @@ MODELES["tangente"] = function(){
     point(svg,R,a,f(a),"A","rouge");
     lecture.innerHTML =
       'point d’abscisse <b>a = '+a.toFixed(1).replace(".",",")+'</b> &nbsp;·&nbsp; '+
-      'hauteur <b>f(a) = '+f(a).toFixed(2).replace(".",",")+'</b> &nbsp;·&nbsp; '+
+      'hauteur <b>f(a) = '+nb(f(a),3)+'</b> &nbsp;·&nbsp; '+
       '<span style="color:var(--rouge)">pente f\'(a) = '+m.toFixed(2).replace(".",",")+'</span>';
   }
   var lig = el("label","figCurseur");
@@ -4681,7 +4681,7 @@ MODELES["fonction-derivee"] = function(){
     point(svg2, R2, a, fp(a), "", "vert");
 
     lecture.innerHTML =
-      "en <i>a</i> = " + nb(a) + " : <b style=\"color:var(--rouge)\">f′(a) = " + nb(m) + "</b> — un nombre, lu à gauche.<br>" +
+      "en <i>a</i> = " + nb(a) + " : <b style=\"color:var(--rouge)\">f′(a) = " + nb(m,4) + "</b> — un nombre, lu à gauche.<br>" +
       "c'est le point marqué à droite, sur <b style=\"color:var(--vert)\">la courbe de f′</b> — une fonction, tracée en entier au fil du glissement.";
   }
 
@@ -4729,8 +4729,9 @@ MODELES["signe-variation"] = function(){
       x2:segV.x2,y2:segV.y2, stroke:coul("rouge"),"stroke-width":2.2}));
     point(svg,R,a,f(a),"A","rouge");
 
+    var signe = m>0.03?"+":(m<-0.03?"−":"0");
     while(bande.firstChild) bande.removeChild(bande.firstChild);
-    var zi = zoneDe(a);
+    var zi = signe==="0" ? -1 : zoneDe(a);
     zones.forEach(function(z, idx){
       var x0 = R.X(z[0]), x1 = R.X(z[1]);
       bande.appendChild(n("rect",{x:x0, y:6, width:x1-x0, height:20,
@@ -4743,9 +4744,13 @@ MODELES["signe-variation"] = function(){
     var Xa = R.X(a);
     bande.appendChild(n("line",{x1:Xa,y1:2,x2:Xa,y2:32,stroke:coul("ink"),"stroke-width":2}));
 
-    var signe = m>0.03?"+":(m<-0.03?"−":"0");
+    // "extremum" est vrai ici seulement parce que les deux zéros de fp (±1)
+    // sont des changements de signe pour ce f précis (x³/3 − x) — pas une
+    // propriété générale : ne pas réutiliser ce libellé tel quel avec une
+    // fonction dont f' s'annule sans changer de signe (ex. x³).
+    var motZone = signe==="0" ? "change de sens ici : c'est un extremum (tangente horizontale)" : zones[zi][3];
     lecture.innerHTML =
-      "en <i>a</i> = " + nb(a) + " : f′(a) = " + nb(m) + ", de signe <b>" + signe + "</b> — la courbe " + zones[zi][3] + ".";
+      "en <i>a</i> = " + nb(a) + " : f′(a) = " + nb(m,4) + ", de signe <b>" + signe + "</b> — la courbe " + motZone + ".";
   }
 
   var ctr = el("div","figCurseurs");
@@ -4758,7 +4763,7 @@ MODELES["signe-variation"] = function(){
   boite.appendChild(lecture);
   boite.appendChild(ctr);
   boite.appendChild(el("div","figNote", T(
-    "La bande sous la figure montre le signe de $f'$ sur trois zones ; celle où se trouve $A$ s'allume. Balaie tout le curseur : deux changements de couleur, deux extremums.")));
+    "La bande sous la figure montre le signe de $f'$ sur trois zones ; celle où se trouve $A$ s'allume — sauf pile aux deux extremums, où $A$ est à la frontière entre deux zones et où aucune ne s'allume. Balaie tout le curseur : deux changements de couleur, deux extremums.")));
   return boite;
 };
 
@@ -7320,13 +7325,13 @@ var G_DERIV = [
     return { type:"num", niveau:3, rep:p,
       enonce:"Soit $f(x) = "+terme(a,"x^2")+"$. La tangente à la courbe au point d'abscisse $"+fr(k)+"$ s'écrit $y = mx + p$. Que vaut $p$ ?",
       diag:[{v:m, m:"$"+fr(m)+"$ est la valeur de $m$, le coefficient directeur. On demande $p$, l'ordonnée à l'origine."},
-            {v:a*k*k, m:"Erreur de signe. On a $y = "+fr(m)+"(x − "+fr(k)+") + "+fr(a*k*k)+" = "+fr(m)+"x − "+fr(m*k)+" + "+fr(a*k*k)+"$, et $-"+fr(m*k)+" + "+fr(a*k*k)+" = "+fr(p)+"$."},
-            {v:-m*k, m:"Tu as développé $"+fr(m)+"(x − "+fr(k)+")$ mais oublié d'ajouter $f("+fr(k)+") = "+fr(a*k*k)+"$. La formule est $y = f'(a)(x-a) + f(a)$."},
+            {v:a*k*k, m:"Erreur de signe. On a $y = "+fr(m)+"(x − ("+fr(k)+"))"+sg(a*k*k)+" = "+fr(m)+"x"+sg(-m*k)+sg(a*k*k)+"$, et $"+fr(-m*k)+sg(a*k*k)+" = "+fr(p)+"$."},
+            {v:-m*k, m:"Tu as développé $"+fr(m)+"(x − ("+fr(k)+"))$ mais oublié d'ajouter $f("+fr(k)+") = "+fr(a*k*k)+"$. La formule est $y = f'(a)(x-a) + f(a)$."},
             {v:k, m:"$"+fr(k)+"$ est l'abscisse du point de contact, donnée dans l'énoncé, pas l'ordonnée à l'origine de la tangente."}],
       corr:["$f("+fr(k)+") = "+fr(a)+" × ("+fr(k)+")^2 = "+fr(a*k*k)+"$.",
             "$f'(x) = "+terme(2*a,"x")+"$, donc $f'("+fr(k)+") = "+fr(m)+"$.",
-            "Tangente : $y = "+fr(m)+"(x − ("+fr(k)+")) + "+fr(a*k*k)+"$.",
-            "Je développe : $y = "+fr(m)+"x − "+fr(m*k)+" + "+fr(a*k*k)+" = "+fr(m)+"x"+sg(p)+"$, donc $p = "+fr(p)+"$."],
+            "Tangente : $y = "+fr(m)+"(x − ("+fr(k)+"))"+sg(a*k*k)+"$.",
+            "Je développe : $y = "+fr(m)+"x"+sg(-m*k)+sg(a*k*k)+" = "+fr(m)+"x"+sg(p)+"$, donc $p = "+fr(p)+"$."],
       indice:"Écris $y = f'(a)(x - a) + f(a)$, puis développe complètement pour lire $p$." };
   }}
 ];
