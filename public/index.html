@@ -2773,11 +2773,13 @@ desc:"Probabilité conditionnelle, arbre pondéré, probabilités totales et ind
 duree:40,
 sections:[
  {titre:"Une information change tout", blocs:[
-  {t:"idee", x:"Une probabilité conditionnelle répond à la question : **sachant que tel événement s'est produit, quelle est maintenant la probabilité de tel autre ?**"},
+  {t:"idee", x:"Une probabilité conditionnelle répond à la question : **sachant que tel événement s'est produit, quelle est maintenant la probabilité de tel autre ?** Le mot « conditionnelle » vient de « condition » : on calcule sous la condition que quelque chose est déjà arrivé."},
   {t:"p", x:"Exemple concret : la probabilité qu'une personne prise au hasard mesure plus d'1,80 m n'est pas la même si l'on sait déjà qu'il s'agit d'un joueur de basket professionnel. L'information reçue **rétrécit l'univers** dans lequel on compte."},
+  {t:"p", x:"Un mot de vocabulaire, parce qu'il va revenir tout le chapitre : l'**univers**, c'est l'ensemble de tout ce qui peut arriver — la liste complète des cas possibles. Quand on calcule une probabilité, c'est lui qu'on met au dénominateur. Dans un lycée de 1000 élèves, l'univers, ce sont les 1000 élèves. Recevoir une information, c'est apprendre qu'on n'est plus dans le grand univers mais dans un plus petit, découpé dedans : « c'est un littéraire » nous fait passer de 1000 élèves à 200. Tout le chapitre tient dans cette phrase : **une information conditionnelle ne change pas les cas favorables, elle change l'univers dans lequel on les compte.**"},
   {t:"p", x:"Prenons un exemple chiffré pour voir l'effet. Dans un lycée de 1000 élèves, 100 font de l'allemand : la probabilité qu'un élève au hasard en fasse est donc $@f{100}{1000} = 0{,}1$. Maintenant on vous dit que l'élève tiré au sort est en série littéraire — et qu'il n'y a que 200 littéraires, dont 60 germanistes. La probabilité passe à $@f{60}{200} = 0{,}3$. **Le même événement, trois fois plus probable**, simplement parce qu'on a reçu une information."},
   {t:"p", x:"Regarde ce qui a changé dans le calcul : le dénominateur. On est passé de 1000 (tous les élèves) à 200 (les littéraires seulement). L'information a **rétréci l'univers** dans lequel on compte. C'est toute l'idée, et c'est exactement ce que dit la formule."},
-  {t:"formule", titre:"Définition", x:"$P_A(B) = @f{P(A ∩ B)}{P(A)}$ &nbsp;&nbsp;(avec $P(A) ≠ 0$)", note:"Se lit « probabilité de B sachant A ». Le dénominateur est la probabilité de ce qu'on sait déjà."},
+  {t:"formule", titre:"Définition", x:"$P_A(B) = @f{P(A ∩ B)}{P(A)}$ &nbsp;&nbsp;(avec $P(A) ≠ 0$)", note:"Se lit « probabilité de B sachant A ». Le symbole ∩ se lit « **inter** » : $A ∩ B$ signifie « A **et** B », les cas où les deux se produisent en même temps. Le dénominateur est la probabilité de ce qu'on sait déjà."},
+  {t:"p", x:"D'où sort exactement cette formule ? De l'exemple qu'on vient de voir, en divisant tout par 1000. On avait calculé $@f{60}{200}$ avec des **effectifs**. Divisons le haut et le bas par 1000, le total du lycée : en haut, $@f{60}{1000} = 0{,}06$, qui est la probabilité d'être littéraire **et** germaniste, c'est-à-dire $P(A ∩ B)$ ; en bas, $@f{200}{1000} = 0{,}2$, qui est $P(A)$, la probabilité d'être littéraire. Et $@f{0{,}06}{0{,}2} = 0{,}3$ : le même résultat qu'avant. La formule ne dit rien d'autre que « je compte dans le sous-groupe », écrit avec des probabilités au lieu d'effectifs — c'est la version qui marche encore quand l'énoncé ne donne aucun effectif, seulement des pourcentages."},
   {t:"p", x:"Relis la formule avec l'exemple en tête. En haut, $P(A ∩ B)$ : les élèves qui sont **à la fois** littéraires et germanistes — les 60. En bas, $P(A)$ : tous les littéraires — les 200. Le petit $A$ écrit en indice désigne toujours **le nouvel univers**, celui qui passe au dénominateur."},
   {t:"astuce", titre:"Comment lire cette formule", x:"En haut : les cas où **les deux** se réalisent. En bas : le nouvel univers, c'est-à-dire ce dont on est déjà sûr. On ne compte plus que dans la partie du monde où $A$ est vrai."},
   {t:"formule", titre:"La formule des probabilités composées", x:"$P(A ∩ B) = P(A) × P_A(B)$", note:"C'est la même relation, réécrite. C'est celle qu'on utilise sur un arbre."},
@@ -2787,6 +2789,7 @@ sections:[
  {titre:"L'arbre pondéré : l'outil qui fait tout", blocs:[
   {t:"p", x:"Presque tous les exercices de ce chapitre se résolvent en dessinant un arbre. C'est un investissement de deux minutes qui évite dix minutes d'erreurs."},
   {t:"p", x:"Pourquoi un arbre ? Parce qu'une situation à deux étapes se décrit mal par une phrase, mais très bien par un schéma qui **sépare les cas**. La première fourche représente le premier choix du hasard ; chaque branche se subdivise ensuite selon ce qui peut arriver **sachant** qu'on a pris ce chemin-là. L'arbre matérialise exactement ce que veut dire « conditionnel »."},
+  {t:"astuce", titre:"Le vocabulaire de l'arbre, une fois pour toutes", x:"Un **nœud** : un point d'où partent des traits — le tronc, puis chaque embranchement. Une **branche** : un trait, qui porte toujours une probabilité, c'est pour ça qu'on parle d'arbre **pondéré** : chaque branche a un « poids ». Un **chemin** : la suite des branches qu'on parcourt du tronc jusqu'au bout, sans revenir en arrière. Une **feuille** : le bout d'un chemin, tout à droite — un scénario complet, du début à la fin."},
   {t:"fig", titre:"L'arbre de l'usine à deux machines",
    vue:[0,0,10,6], w:400, h:270, grille:false, axes:false, graduations:false,
    objets:[
@@ -2813,6 +2816,7 @@ sections:[
   {t:"p", x:"Lis la figure de gauche à droite, comme un trajet. Une pièce part du tronc, choisit d'abord sa machine (60 % de chances d'être une pièce de A), puis se révèle défectueuse ou non — avec des probabilités **différentes selon la branche empruntée** : 5 % du côté de A, seulement 2 % du côté de B. Ce sont exactement les probabilités conditionnelles $P_A(D)$ et $P_B(D)$."},
   {t:"p", x:"Remarque un détail qui compte : sur la seconde fourche du haut, $0{,}05$ et $0{,}95$ font 1. Sur celle du bas, $0{,}02$ et $0{,}98$ font 1 aussi. Chaque fourche est un petit monde complet où toutes les possibilités sont couvertes. C'est la première règle ci-dessous, et elle sert de contrôle permanent."},
   {t:"formule", titre:"Les trois règles de l'arbre", x:"1. La somme des probabilités partant d'un même nœud vaut **1**<br>2. Sur un chemin, on **multiplie** les probabilités<br>3. Pour un événement atteint par plusieurs chemins, on **additionne** les chemins", note:"Multiplier le long d'une branche, additionner entre les branches."},
+  {t:"p", x:"À toi de manipuler. Dans l'arbre ci-dessous, $A$ et $B$ sont deux événements quelconques. La barre au-dessus d'une lettre, comme $Ā$ (« A barre »), veut dire **le contraire** : $Ā$, c'est « $A$ ne se produit pas ». Bouge les trois curseurs et regarde les quatre nombres écrits au bout des chemins : vérifie à chaque fois que les **deux** chemins qui arrivent sur un $B$ s'additionnent bien pour donner $P(B)$."},
   {t:"figi", nom:"arbre-proba"},
   {t:"p", x:"Ces trois règles se comprennent si on pense en termes de proportions. **Multiplier** le long d'un chemin : sur les 60 % de pièces venant de A, on ne garde que les 5 % défectueuses — soit 5 % de 60 %, donc $0{,}05 × 0{,}6$. « Un pourcentage d'un pourcentage » se calcule toujours par une multiplication.<br><br>**Additionner** entre les chemins : les pièces défectueuses viennent soit de A, soit de B, jamais des deux. Ce sont des cas séparés, donc on cumule leurs effectifs."},
   {t:"exemple", titre:"Exemple guidé — une usine à deux machines", enonce:"Une usine produit des pièces avec deux machines. La machine A fabrique 60 % des pièces, la machine B le reste. 5 % des pièces de A sont défectueuses, contre 2 % de celles de B. On prend une pièce au hasard : quelle est la probabilité qu'elle soit défectueuse ?", etapes:[
@@ -2823,7 +2827,7 @@ sections:[
    {q:"Additionner les chemins", r:"$P(D) = 0{,}03 + 0{,}008 = 0{,}038$, soit 3,8 %."},
    {q:"Contrôle de bon sens", r:"Le résultat doit être compris entre 2 % et 5 % (les deux taux de départ), et plus proche de 5 % puisque A produit la majorité. C'est cohérent."}
   ]},
-  {t:"formule", titre:"Formule des probabilités totales", x:"$P(B) = P(A) × P_A(B) + P(Ā) × P_{Ā}(B)$", note:"C'est exactement le calcul de l'exemple ci-dessus, écrit en toutes lettres. $Ā$ désigne le contraire de $A$ (« non A »)."},
+  {t:"formule", titre:"Formule des probabilités totales", x:"$P(D) = P(A) × P_A(D) + P(Ā) × P_{Ā}(D)$", note:"C'est exactement le calcul de l'exemple ci-dessus, écrit en toutes lettres : $D$ est l'événement « la pièce est défectueuse ». $Ā$ (« A barre ») désigne le contraire de $A$ — ici, « la pièce ne vient pas de A », c'est-à-dire « elle vient de la machine B ». Avec les valeurs de l'exemple : $P(D) = 0{,}6 × 0{,}05 + 0{,}4 × 0{,}02 = 0{,}038$, exactement le résultat trouvé plus haut."},
   {t:"p", x:"L'arbre sert aussi quand les deux étapes ne sont pas indépendantes — typiquement un **tirage sans remise** : chaque boule sortie de l'urne change ce qu'il reste dedans, donc change les probabilités du tirage suivant. C'est le cas où l'arbre est indispensable, puisqu'il n'y a plus de pourcentage fixe à multiplier deux fois."},
   {t:"exemple", titre:"Exemple guidé — un tirage sans remise", enonce:"Une urne contient 4 boules rouges et 6 boules noires. On tire deux boules successivement, **sans les remettre**. Quelle est la probabilité d'obtenir deux boules rouges ?", etapes:[
    {q:"Nommer les événements", r:"$R_1$ : « la 1ʳᵉ boule tirée est rouge ». $R_2$ : « la 2ᵉ boule tirée est rouge »."},
@@ -5207,8 +5211,8 @@ MODELES["arbre-proba"] = function(){
 
   var ctr = el("div","figCurseurs");
   ctr.appendChild(curseur("P(A)", 0.05, 0.95, 0.05, pa, function(x){ pa = x; redessine(); }, nb));
-  ctr.appendChild(curseur("P_A(B)", 0, 1, 0.05, pba, function(x){ pba = x; redessine(); }, nb));
-  ctr.appendChild(curseur("P_Ā(B)", 0, 1, 0.05, pbna, function(x){ pbna = x; redessine(); }, nb));
+  ctr.appendChild(curseur("P(B) sachant A", 0, 1, 0.05, pba, function(x){ pba = x; redessine(); }, nb));
+  ctr.appendChild(curseur("P(B) sachant non-A", 0, 1, 0.05, pbna, function(x){ pbna = x; redessine(); }, nb));
 
   redessine();
   boite.appendChild(el("div","figTitre","L’arbre pondéré, en direct"));
@@ -5216,7 +5220,7 @@ MODELES["arbre-proba"] = function(){
   boite.appendChild(lecture);
   boite.appendChild(ctr);
   boite.appendChild(el("div","figNote",
-    "Deux gestes, toujours les mêmes : on <b>multiplie</b> le long d’un chemin, on <b>additionne</b> les chemins qui arrivent au même endroit. Essaie P(A) = 0,05 avec P<sub>A</sub>(B) = 0,95 et P<sub>Ā</sub>(B) = 0,3 (sa valeur par défaut) : P<sub>B</sub>(A) reste petit malgré le test presque parfait — c’est tout le piège des faux positifs."));
+    "Deux gestes, toujours les mêmes : on <b>multiplie</b> le long d’un chemin, on <b>additionne</b> les chemins qui arrivent au même endroit.<br><br>Donne un sens aux lettres pour voir une application classique : imagine que <b>A</b> = « la personne est malade » et <b>B</b> = « son test est positif ». Mets P(A) = 0,05 (5 % de la population est malade), « P(B) sachant A » à 0,95 (le test repère 95 % des malades : il semble excellent) et « P(B) sachant non-A » à 0,3, sa valeur par défaut (il se déclenche aussi chez 30 % des gens sains : un faux positif). Regarde alors le dernier nombre affiché, celui qui remonte l’arbre : parmi tous les tests positifs, la proportion de vrais malades reste petite, alors que le test semblait presque parfait — c’est tout le piège des faux positifs."));
   return boite;
 };
 
