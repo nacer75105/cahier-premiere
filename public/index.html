@@ -2055,7 +2055,10 @@ sections:[
    ["$cos x$","1","$@f{@r{3}}{2}$","$@f{@r{2}}{2}$","$@f{1}{2}$","0","−1"],
    ["$sin x$","0","$@f{1}{2}$","$@f{@r{2}}{2}$","$@f{@r{3}}{2}$","1","0"]
   ]},
-  {t:"astuce", titre:"Astuce pour retenir ce tableau", x:"Écris sous la racine : 0, 1, 2, 3, 4 pour le sinus (dans l'ordre croissant), et divise par 2. Cela donne $@f{@r{0}}{2}, @f{@r{1}}{2}, @f{@r{2}}{2}, @f{@r{3}}{2}, @f{@r{4}}{2}$, soit $0, @f{1}{2}, @f{@r{2}}{2}, @f{@r{3}}{2}, 1$. Pour le cosinus, c'est la même chose à l'envers."},
+  {t:"p", x:"D'où sortent ces six valeurs ? Rien qu'avec le cercle, deux rayons et Pythagore, on les retrouve sans rien apprendre par cœur. Pour $@f{π}{4}$ (45°), le point $M$ est sur la bissectrice du premier quart : par symétrie, son abscisse et son ordonnée sont égales, donc $cos@f{π}{4} = sin@f{π}{4}$. En reportant dans $cos^2 x + sin^2 x = 1$ (la relation vue juste après), cela donne $cos^2@f{π}{4} = @f{1}{2}$ ; et comme $M$ est dans le premier quart (cosinus positif), $cos@f{π}{4} = @r{@f{1}{2}} = @f{@r{2}}{2}$ — la même valeur pour le sinus, puisqu'ils sont égaux."},
+  {t:"p", x:"Pour $@f{π}{3}$ (60°), reste sur le cercle et construis un triangle avec deux rayons. Place $A$ au point d'angle $0$ (donc $A(1;0)$) et $M$ au point d'angle $@f{π}{3}$. $OA$ et $OM$ sont deux rayons, donc $OA = OM = 1$, et l'angle en $O$ mesure $@f{π}{3}$ (60°) : le triangle $OAM$ est isocèle avec un sommet à 60°, donc ses deux autres angles valent chacun $@f{180 - 60}{2} = 60°$ aussi — les trois angles sont égaux, le triangle est **équilatéral**, et $AM = 1$ comme les deux autres côtés. La hauteur issue de $M$ tombe exactement au **milieu** de $OA$ (propriété du triangle équilatéral), donc à l'abscisse $@f{1}{2}$ — qui est justement celle de $M$, c'est-à-dire $cos@f{π}{3}$. D'où $cos@f{π}{3} = @f{1}{2}$, et par $cos^2 x + sin^2 x = 1$ : $sin^2@f{π}{3} = @f{3}{4}$ ; comme $M$ est dans le premier quart (ordonnée positive), $sin@f{π}{3} = @r{@f{3}{4}} = @f{@r{3}}{2}$."},
+  {t:"p", x:"Pour $@f{π}{6}$ (30°), même construction, avec $A$ cette fois à l'angle $-@f{π}{6}$ et $M$ à l'angle $@f{π}{6}$ : l'écart entre les deux vaut encore $@f{π}{3}$ (60°), donc $OAM$ est encore équilatéral, et $AM = 1$. Mais $A$ et $M$ sont maintenant symétriques par rapport à l'axe horizontal, donc le segment $AM$ est **vertical**, et sa longueur vaut deux fois l'ordonnée de $M$ : $AM = 2 sin@f{π}{6} = 1$, d'où $sin@f{π}{6} = @f{1}{2}$. Et par la même relation $cos^2 x + sin^2 x = 1$ : $cos^2@f{π}{6} = @f{3}{4}$ ; comme $M$ est dans le premier quart (abscisse positive), $cos@f{π}{6} = @r{@f{3}{4}} = @f{@r{3}}{2}$."},
+  {t:"astuce", titre:"Astuce pour retenir ce tableau", x:"Une fois ces valeurs comprises, un moyen mnémotechnique aide à les ressortir vite en contrôle. Écris sous la racine : 0, 1, 2, 3, 4 pour le sinus (dans l'ordre croissant), et divise par 2. Cela donne $@f{@r{0}}{2}, @f{@r{1}}{2}, @f{@r{2}}{2}, @f{@r{3}}{2}, @f{@r{4}}{2}$, soit $0, @f{1}{2}, @f{@r{2}}{2}, @f{@r{3}}{2}, 1$. Pour le cosinus, c'est la même chose à l'envers."},
   {t:"formule", titre:"La relation fondamentale", x:"$cos^2 x + sin^2 x = 1$", note:"C'est le théorème de Pythagore appliqué au cercle de rayon 1. Elle sert à retrouver l'un connaissant l'autre."},
   {t:"fig", titre:"Cette relation, c'est Pythagore",
    vue:[-1.35,-0.5,1.35,1.35], w:370, h:270, grille:false, graduations:false,
@@ -2078,7 +2081,7 @@ sections:[
 
  {titre:"Les angles associés", blocs:[
   {t:"idee", x:"Plutôt que d'apprendre des dizaines de valeurs, on utilise les **symétries du cercle** pour tout ramener aux angles connus du premier quart."},
-  {t:"p", x:"Voici l'économie que cela représente. Le tableau des valeurs remarquables ne contient que six angles, tous situés dans le premier quart du cercle. Mais un contrôle peut demander $cos@f{5π}{6}$, $sin@f{7π}{4}$, $cos@f{4π}{3}$… Faut-il apprendre les valeurs des quatre quarts ? Non : **les trois autres quarts sont les reflets du premier**. Une seule série de valeurs, plus trois symétries, suffit à tout couvrir."},
+  {t:"p", x:"Voici l'économie que cela représente. Le tableau des valeurs remarquables ne contient que six angles, presque tous situés dans le premier quart du cercle (le dernier, $π$, s'en déduit tout de suite : c'est l'opposé de $0$). Mais un contrôle peut demander $cos@f{5π}{6}$, $sin@f{7π}{4}$, $cos@f{4π}{3}$… Faut-il apprendre les valeurs des quatre quarts ? Non : **les trois autres quarts sont les reflets du premier**. Une seule série de valeurs, plus trois symétries, suffit à tout couvrir."},
   {t:"fig", titre:"Les quatre points sont des reflets du premier",
    vue:[-1.5,-1.5,1.5,1.5], w:360, h:340, grille:false, graduations:false,
    objets:[
@@ -2094,7 +2097,7 @@ sections:[
    ],
    note:"Les quatre points ont les **mêmes coordonnées au signe près**. Il suffit de savoir dans quel quart on est pour retrouver les deux signes."},
   {t:"p", x:"Regarde la figure et raisonne sur les coordonnées, pas sur les formules. Le point $-x$ est le reflet de $x$ **par rapport à l'axe horizontal** : il est à la même abscisse (le cosinus ne change pas) mais à l'ordonnée opposée (le sinus change de signe). Le point $π - x$ est le reflet **par rapport à l'axe vertical** : ordonnée conservée, abscisse opposée. Et $π + x$ est le point diamétralement opposé : les deux coordonnées changent de signe."},
-  {t:"formule", titre:"Les quatre symétries utiles", x:"$cos(-x) = cos x$ &nbsp;·&nbsp; $sin(-x) = -sin x$<br>$cos(π - x) = -cos x$ &nbsp;·&nbsp; $sin(π - x) = sin x$<br>$cos(π + x) = -cos x$ &nbsp;·&nbsp; $sin(π + x) = -sin x$", note:"Le cosinus est pair, le sinus est impair."},
+  {t:"formule", titre:"Les trois symétries utiles", x:"$cos(-x) = cos x$ &nbsp;·&nbsp; $sin(-x) = -sin x$<br>$cos(π - x) = -cos x$ &nbsp;·&nbsp; $sin(π - x) = sin x$<br>$cos(π + x) = -cos x$ &nbsp;·&nbsp; $sin(π + x) = -sin x$", note:"Le cosinus est pair, le sinus est impair."},
   {t:"astuce", titre:"Ne pas apprendre ces six lignes par cœur", x:"Elles se retrouvent en dessinant le cercle et en plaçant le point — dix secondes, sans risque d'erreur de mémoire. La méthode fiable en contrôle : trace un cercle à main levée, place l'angle demandé, regarde **dans quel quart** il tombe, et lis les signes. En haut à gauche : cosinus négatif, sinus positif. En bas à droite : l'inverse. C'est tout."},
   {t:"exemple", titre:"Exemple guidé — ramener à un angle connu", enonce:"Calculer $cos@f{2π}{3}$.", etapes:[
    {q:"Repérer une forme connue", r:"$@f{2π}{3} = π - @f{π}{3}$, car $π = @f{3π}{3}$ et $@f{3π}{3} - @f{π}{3} = @f{2π}{3}$."},
@@ -2123,7 +2126,7 @@ sections:[
    note:"La verticale d'abscisse $@f{1}{2}$ coupe le cercle en **deux** points : un au-dessus, un en dessous. D'où deux solutions."},
   {t:"p", x:"Cette figure explique tout. Chercher les $x$ tels que $cos x = @f{1}{2}$, c'est chercher les points du cercle dont **l'abscisse vaut $@f{1}{2}$** — donc les points situés sur la verticale orange. Elle traverse le cercle en deux endroits, symétriques par rapport à l'axe horizontal. Voilà pourquoi la réponse comporte deux angles, et pas un."},
   {t:"astuce", titre:"Le réflexe qui évite l'oubli", x:"Avant de répondre, **trace la droite** : verticale pour une équation en cosinus, horizontale pour une équation en sinus. Compte les points d'intersection avec le cercle. Deux points → deux solutions. Un seul point (aux extrêmes $1$ ou $-1$) → une solution. Aucun point (valeur hors de $[-1 ; 1]$) → aucune solution. Cette vérification prend cinq secondes et supprime l'erreur la plus fréquente du chapitre."},
-  {t:"formule", titre:"Solutions sur un tour", x:"$cos x = cos a$ &nbsp;⇔&nbsp; $x = a$ ou $x = -a$ (modulo $2π$)<br>$sin x = sin a$ &nbsp;⇔&nbsp; $x = a$ ou $x = π - a$ (modulo $2π$)"},
+  {t:"formule", titre:"Solutions sur un tour", x:"$cos x = cos a$ &nbsp;⇔&nbsp; $x = a$ ou $x = -a$ (modulo $2π$)<br>$sin x = sin a$ &nbsp;⇔&nbsp; $x = a$ ou $x = π - a$ (modulo $2π$)", note:"« Modulo $2π$ » est le mot savant pour ce qu'on vient de voir : on peut ajouter ou retirer autant de tours complets ($2π$) qu'on veut, ça ne change ni le point sur le cercle ni la validité de l'égalité."},
   {t:"exemple", titre:"Exemple guidé — résoudre sur $[0 ; 2π[$", enonce:"Résoudre $cos x = @f{1}{2}$ sur l'intervalle $[0 ; 2π[$.", etapes:[
    {q:"Trouver une solution évidente", r:"D'après le tableau, $cos@f{π}{3} = @f{1}{2}$. Donc $a = @f{π}{3}$ convient."},
    {q:"Utiliser la symétrie du cosinus", r:"Le cosinus est pair : $cos(-x) = cos x$. Donc $-@f{π}{3}$ est aussi solution."},
@@ -2151,6 +2154,7 @@ sections:[
   {t:"p", x:"Cela veut dire qu'il suffit d'étudier la fonction sur un intervalle de longueur $2π$ — par exemple $[-π ; π]$ — puis de recopier le motif à l'infini, à droite comme à gauche."},
   {t:"formule", titre:"Parité", x:"$cos(-x) = cos x$ → **fonction paire**<br>$sin(-x) = -sin x$ → **fonction impaire**", note:"Paire = courbe symétrique par rapport à l'axe des ordonnées. Impaire = symétrique par rapport à l'origine."},
   {t:"plot", f:"Math.sin(x)", xmin:-6.3, xmax:6.3, titre:"Courbe de $f(x) = sin x$", note:"Même forme que le cosinus, décalée de $@f{π}{2}$ vers la droite, et symétrique par rapport à l'origine."},
+  {t:"p", x:"Dans le tableau qui suit (et dans le reste du chapitre), la lettre $k$ désigne **n'importe quel entier relatif** — positif, négatif ou nul ($k = …, -2, -1, 0, 1, 2, …$). Écrire « $kπ$ » n'est pas une valeur précise : c'est une façon compacte de désigner **tous** les multiples de $π$ à la fois ($0$, $π$, $-π$, $2π$, $-2π$, …). C'est la même idée que le « modulo $2π$ » vu plus haut, écrite avec une lettre plutôt qu'en mots."},
   {t:"tbl", head:["","$cos$","$sin$"], rows:[
    ["Ensemble de définition","ℝ","ℝ"],
    ["Valeurs prises","$[-1 ; 1]$","$[-1 ; 1]$"],
@@ -2332,14 +2336,14 @@ exos:[
  {id:"tr14", niveau:3, type:"qcm", enonce:"Que vaut $cos(π + x)$ ?",
   choix:["$-cos x$","$cos x$","$-sin x$","$sin x$"], bonne:0,
   diag:["","Ajouter $π$, c'est faire un demi-tour complet sur le cercle : le point arrive à l'opposé du centre. Ses **deux** coordonnées changent de signe, donc le cosinus aussi.",
-        "Le sinus et le cosinus ne s'échangent que pour les angles associés à $@f{π}{2}$, comme $cos(@f{π}{2} - x) = sin x$. Ajouter $π$ ne mélange pas les deux coordonnées, il les inverse toutes les deux.",
+        "Aucune des trois symétries de ce cours ($-x$, $π-x$, $π+x$) ne transforme un cosinus en sinus : chacune garde ou inverse le signe de **chaque coordonnée séparément**, sans jamais les échanger. Ajouter $π$ inverse les deux signes, ce n'est pas la même chose que passer du cosinus au sinus.",
         "Même remarque : il n'y a aucun échange entre sinus et cosinus ici, et le signe n'est pas le bon non plus."],
   corr:["**Traduire géométriquement.** Passer de l'angle $x$ à l'angle $π + x$, c'est tourner d'un demi-tour supplémentaire. Le point $M$ devient son **symétrique par rapport au centre** du cercle.",
         "**Ce que fait cette symétrie.** Elle change le signe des deux coordonnées : $(cos x ; sin x)$ devient $(-cos x ; -sin x)$.",
         "**Lire les deux formules d'un coup.** $cos(π + x) = -cos x$ et $sin(π + x) = -sin x$.",
         "**Vérifier sur un cas connu.** Prenons $x = 0$ : $cos(π) = -1$ et $cos 0 = 1$. On a bien $-1 = -(1)$ ✓",
         "**Un second essai, pour être sûr.** $x = @f{π}{3}$ : $cos@f{4π}{3} = -0{,}5$ et $cos@f{π}{3} = 0{,}5$ ✓",
-        "**Ne pas apprendre par cœur, mais retrouver.** Les huit formules d'angles associés se déduisent toutes du même dessin. Trace le cercle, place $x$, place l'angle demandé, et compare les coordonnées : c'est plus rapide et plus sûr que de réciter une liste.",
+        "**Ne pas apprendre par cœur, mais retrouver.** Les six formules d'angles associés se déduisent toutes du même dessin. Trace le cercle, place $x$, place l'angle demandé, et compare les coordonnées : c'est plus rapide et plus sûr que de réciter une liste.",
         "**Les trois symétries à distinguer.** $-x$ : symétrie par rapport à l'axe **horizontal**. $π - x$ : par rapport à l'axe **vertical**. $π + x$ : par rapport au **centre**."],
   indice:"Ajouter $π$, c'est un demi-tour. Où arrive le point, et que deviennent ses deux coordonnées ?"}
 ]
@@ -4285,27 +4289,56 @@ MODELES["cercle-trigo"] = function(){
       stroke:coul("bleu"),"stroke-width":4.5,"stroke-linecap":"round"}));
     svg.appendChild(n("line",{x1:R.X(0),y1:R.Y(0),x2:R.X(0),y2:R.Y(s),
       stroke:coul("vert"),"stroke-width":4.5,"stroke-linecap":"round"}));
-    marqueAngle(svg,R,[0,0],[1,0],[c,s],false);
+    // marqueAngle() partagé par tout le cahier ne sait tracer que le petit
+    // arc entre deux vecteurs (angle ≤ 180°, comme entre deux côtés d'un
+    // triangle) : son drapeau "grand arc" est toujours à 0. Ici l'angle
+    // affiché va de 0 à 2π dans le sens direct et peut largement dépasser
+    // 180° : on trace donc l'arc nous-mêmes, point par point le long du
+    // vrai cercle trigonométrique, plutôt que de réutiliser cette aide qui
+    // dessinerait le complémentaire dans le mauvais sens au-delà de 180°.
+    (function(){
+      var rr = 0.18, pas = Math.max(4, Math.round(Math.abs(ang)/0.12));
+      var d = "", i;
+      for(i=0;i<=pas;i++){
+        var t = ang*i/pas;
+        var px = R.X(rr*Math.cos(t)), py = R.Y(rr*Math.sin(t));
+        d += (i===0 ? "M " : "L ") + px + " " + py;
+      }
+      svg.appendChild(n("path",{d:d, fill:"none", stroke:coul("ambre"), "stroke-width":2}));
+    })();
     svg.appendChild(n("line",{x1:R.X(0),y1:R.Y(0),x2:R.X(c),y2:R.Y(s),
       stroke:coul("ink2"),"stroke-width":1.6}));
     point(svg,R,c,s,"M","ink");
     var t = Math.round(ang*180/Math.PI);
+    var fp = fracPi(ang);
     lecture.innerHTML =
-      '<span style="color:var(--ambre)">angle '+t+'° = '+fracPi(ang)+'</span> &nbsp; '+
+      '<span style="color:var(--ambre)">angle '+t+'° '+(fp.exact?"=":"≈")+' '+fp.txt+'</span> &nbsp; '+
       '<span style="color:var(--bleu)">cos = '+c.toFixed(2).replace(".",",")+'</span> &nbsp; '+
       '<span style="color:var(--vert)">sin = '+s.toFixed(2).replace(".",",")+'</span>';
   }
   function fracPi(a){
-    var v = a/Math.PI, den=[1,2,3,4,6,12], i;
+    // Tolérance angulaire FIXE (0,5°), convertie pour chaque dénominateur
+    // testé — l'ancienne tolérance était fixée sur "num" directement, donc
+    // 20 fois plus large pour un dénominateur 1 que pour un dénominateur 12
+    // (jusqu'à 3,6° d'écart), au point d'afficher « angle 178° = π » comme
+    // si c'était une égalité exacte. 0,5° est choisi pour coïncider avec
+    // l'arrondi au degré affiché juste à côté (Math.round) : les deux ne
+    // peuvent plus se contredire (ex. "angle 180° ≈ 1π" pour 179,5°).
+    var v = a/Math.PI, den=[1,2,3,4,6,12], tolDeg=0.5, i;
+    function coefTxt(nu, d){
+      if(nu===0) return "0";
+      var base = (Math.abs(nu)===1 ? "π" : Math.abs(nu)+"π");
+      return (nu<0 ? "-" : "") + base + (d===1 ? "" : "/"+d);
+    }
     for(i=0;i<den.length;i++){
       var num = v*den[i];
-      if(Math.abs(num-Math.round(num))<0.02){
-        var nu=Math.round(num);
-        if(nu===0) return "0";
-        return (den[i]===1 ? (nu===1?"π":nu+"π") : (nu===1?"π":nu+"π")+"/"+den[i]);
+      if(Math.abs(num-Math.round(num)) < (tolDeg/180)*den[i]){
+        return {txt:coefTxt(Math.round(num), den[i]), exact:true};
       }
     }
-    return (Math.round(v*100)/100)+"π";
+    var vR = Math.round(v*100)/100;
+    var txt = vR===0 ? "0" : (Math.abs(vR)===1 ? (vR<0?"-π":"π") : String(vR).replace(".",",")+"π");
+    return {txt:txt, exact:false};
   }
   function local(ev){
     var r = svg.getBoundingClientRect();
@@ -7521,7 +7554,10 @@ var G_TRIGO = [
 { id:"tr-valeur", chap:"trigo", titre:"Valeur remarquable", niveau:1, gen:function(){
     var v=pick(VALEURS.slice(1,4)), estCos=Math.random()<0.5;
     var bon = estCos ? v.cos : v.sin, autre = estCos ? v.sin : v.cos;
-    var choix=H.shuffleUnique(["$"+bon+"$","$"+autre+"$","$-"+bon+"$","$@f{1}{@r{2}}$"]);
+    // Le 4e distracteur ne doit jamais coïncider avec une vraie valeur
+    // remarquable pour aucun angle de VALEURS : @r{2} (√2 ≈ 1,414, la
+    // racine sans son dénominateur) n'est ni 1/2, ni √2/2, ni √3/2.
+    var choix=H.shuffleUnique(["$"+bon+"$","$"+autre+"$","$-"+bon+"$","$@r{2}$"]);
     var bonne=choix.indexOf("$"+bon+"$");
     var nom = estCos ? "cos" : "sin";
     return { type:"qcm", niveau:1, choix:choix, bonne:bonne,
@@ -7530,7 +7566,7 @@ var G_TRIGO = [
         if(i===bonne) return "";
         if(s==="$"+autre+"$") return "Tu as lu l'autre ligne du tableau : c'est la valeur de $"+(estCos?"sin":"cos")+" "+v.a+"$. Rappel : **cos** comme **c**ouché, il se lit horizontalement.";
         if(s==="$-"+bon+"$") return "La valeur est bonne mais le signe est faux. L'angle $"+v.a+"$ est dans le **premier quart** du cercle : le cosinus et le sinus y sont tous deux positifs.";
-        return "Cette écriture ne figure pas dans le tableau des valeurs remarquables.";
+        return "Tu as oublié de diviser par 2 : la valeur $@r{2}$ toute seule ne figure dans aucune case du tableau des valeurs remarquables.";
       }),
       corr:["**Situer l'angle.** $"+v.a+"$ appartient au premier quart du cercle, entre 0 et $@f{π}{2}$. Les deux coordonnées y sont positives.",
             "**Lire la bonne ligne.** Le "+nom+" se lit "+(estCos?"sur l'axe horizontal (abscisse)":"sur l'axe vertical (ordonnée)")+".",
