@@ -3783,28 +3783,13 @@ sections:[
    {q:"Interpréter", r:"Il faut 17 ans pour que le capital dépasse 5000 €."},
    {q:"Le point délicat", r:"À la sortie de la boucle, $u$ a **déjà dépassé** le seuil. La valeur affichée est la première année où le dépassement a lieu, pas la dernière année en dessous."}
   ]},
-  {t:"piege", titre:"L'oubli du compteur", x:"Si tu oublies la ligne <b>n = n + 1</b> à l'intérieur de la boucle, le programme calcule bien mais n'a rien à afficher. Et si tu la places **en dehors** (non indentée), elle ne s'exécute qu'une fois : $n$ vaudra 1 quel que soit le résultat."},
+  {t:"piege", titre:"L'oubli du compteur", x:"Si tu oublies la ligne <b>n = n + 1</b> à l'intérieur de la boucle, $n$ reste bloqué à sa valeur de départ (0) : le programme tourne, $u$ grandit normalement, mais <b>print(n)</b> affichera 0 quel que soit le nombre réel de tours — un résultat qui a l'air de marcher (pas d'erreur) mais qui est faux. Et si tu places la ligne **en dehors** de la boucle (non indentée), elle ne s'exécute qu'une fois après coup : $n$ vaudra 1, là encore quel que soit le résultat."},
   {t:"astuce", titre:"Vérifier un seuil sans ordinateur", x:"Fais tourner le programme à la main sur 2 ou 3 tours seulement, dans un tableau. Si les premières valeurs sont bonnes, la logique l'est aussi."}
  ]},
 
- {titre:"Fonctions et simulation", blocs:[
-  {t:"p", x:"Une **fonction** en Python est un bloc de code réutilisable, à qui on donne des valeurs d'entrée et qui renvoie un résultat. C'est la même idée qu'une fonction mathématique."},
-  {t:"formule", titre:"Définir et utiliser une fonction", code:true, x:"<b>def terme(u0, r, n):</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>return u0 + n * r</b><br><br><b>terme(7, 3, 10)</b> renvoie <b>37</b>", note:"<b>def</b> définit, <b>return</b> renvoie la valeur. Sans return, la fonction ne rend rien."},
-  {t:"piege", titre:"print n'est pas return", x:"<b>print</b> affiche une valeur à l'écran ; <b>return</b> la renvoie pour qu'on puisse la réutiliser dans un autre calcul. Une fonction qui fait seulement <b>print</b> ne peut pas être utilisée dans une expression."},
-  {t:"formule", titre:"Simuler le hasard", code:true, x:"<b>from random import randint</b><br><b>randint(1, 6)</b> tire un entier au hasard entre 1 et 6 **inclus**", note:"Contrairement à range, randint inclut les deux bornes."},
-  {t:"exemple", titre:"Exemple guidé — estimer une probabilité", enonce:"Que fait ce programme ?<br><b>s = 0</b><br><b>for i in range(10000):</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>if randint(1, 6) == 6:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>s = s + 1</b><br><b>print(s / 10000)</b>", etapes:[
-   {q:"Que fait la boucle ?", r:"Elle lance un dé 10 000 fois."},
-   {q:"Que compte $s$ ?", r:"Le double signe <b>==</b> teste l'égalité. À chaque fois que le dé tombe sur 6, $s$ augmente de 1. Donc $s$ compte les 6 obtenus."},
-   {q:"Que vaut l'affichage ?", r:"$s ÷ 10000$ est la **fréquence** d'apparition du 6."},
-   {q:"Résultat attendu", r:"Environ 0,167, c'est-à-dire $@f{1}{6}$. Le programme estime la probabilité par l'expérience."},
-   {q:"À retenir", r:"Une fréquence observée s'approche de la probabilité théorique quand le nombre d'essais est grand. C'est ce qui justifie les simulations."}
-  ]},
-  {t:"piege", titre:"Un seul égal ou deux ?", x:"<b>=</b> range une valeur dans une variable. <b>==</b> pose une question : « est-ce égal ? ». Dans un test <b>if</b>, il en faut toujours **deux**."}
- ]},
-
  {titre:"Les tests : faire un choix", blocs:[
-  {t:"idee", x:"Jusqu'ici, le programme exécutait toutes ses lignes dans l'ordre. Un **test** lui permet de choisir : faire une chose **si** une condition est vraie, une autre sinon."},
-  {t:"p", x:"C'est le troisième et dernier outil du chapitre, après les variables et les boucles. Avec ces trois-là — ranger une valeur, répéter, choisir — on écrit tous les programmes du programme de Première."},
+  {t:"idee", x:"Une boucle **while** sait déjà s'arrêter selon une condition, mais elle ne fait qu'une seule chose à la fois : soit elle refait le même bloc, soit elle s'arrête. Un **test** va plus loin : il permet au programme de choisir entre **deux actions différentes** — faire une chose **si** une condition est vraie, une autre sinon."},
+  {t:"p", x:"C'est un troisième outil essentiel, après les variables et les boucles : à eux trois — ranger une valeur, répéter, choisir — ils suffisent déjà à écrire des programmes utiles. Les fonctions et les listes, vues dans les sections suivantes, complètent la boîte à outils du programme de Première."},
   {t:"formule", titre:"La forme complète", code:true, x:"<b>if condition:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>ce qu'on fait si c'est vrai</b><br><b>else:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>ce qu'on fait sinon</b>", note:"Un seul des deux blocs s'exécute, jamais les deux. Le <b>else</b> est facultatif : sans lui, si la condition est fausse, il ne se passe simplement rien."},
   {t:"p", x:"Ce qui sépare les deux blocs, ce sont les **quatre espaces** au début de la ligne. En Python, ce décalage — l'indentation — n'est pas une décoration : c'est lui qui dit ce qui appartient au bloc. Une ligne recollée à gauche sort du test et s'exécutera dans tous les cas."},
   {t:"formule", titre:"Écrire une condition", code:true, x:"<b>==</b> égal &nbsp;·&nbsp; <b>!=</b> différent<br><b>&lt;</b> plus petit &nbsp;·&nbsp; <b>&lt;=</b> plus petit ou égal<br><b>&gt;</b> plus grand &nbsp;·&nbsp; <b>&gt;=</b> plus grand ou égal<br><b>and</b> les deux &nbsp;·&nbsp; <b>or</b> l'un au moins", note:"Une condition n'a que deux réponses possibles : vrai (True) ou faux (False)."},
@@ -3821,6 +3806,21 @@ sections:[
   {t:"check", q:"Que fait <b>if x &gt; 10:</b> suivi d'une seule ligne indentée, si $x$ vaut 4 ?",
    choix:["Rien : la ligne indentée est sautée","Elle s'exécute quand même","Le programme s'arrête sur une erreur"], bonne:0,
    expl:["","La ligne indentée appartient au bloc du if : elle ne s'exécute que si la condition est vraie. Ici $4 > 10$ est faux, donc elle est ignorée.","Aucune erreur : une condition fausse sans else est un cas parfaitement normal. Le programme continue simplement après le bloc."]}
+ ]},
+
+ {titre:"Fonctions et simulation", blocs:[
+  {t:"p", x:"Une **fonction** en Python est un bloc de code réutilisable, à qui on donne des valeurs d'entrée et qui renvoie un résultat. C'est la même idée qu'une fonction mathématique."},
+  {t:"formule", titre:"Définir et utiliser une fonction", code:true, x:"<b>def terme(u0, r, n):</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>return u0 + n * r</b><br><br><b>terme(7, 3, 10)</b> renvoie <b>37</b>", note:"<b>def</b> définit, <b>return</b> renvoie la valeur. Sans return, la fonction ne rend rien."},
+  {t:"piege", titre:"print n'est pas return", x:"<b>print</b> affiche une valeur à l'écran ; <b>return</b> la renvoie pour qu'on puisse la réutiliser dans un autre calcul. Une fonction qui fait seulement <b>print</b> ne peut pas être utilisée dans une expression."},
+  {t:"formule", titre:"Simuler le hasard", code:true, x:"<b>from random import randint</b><br><b>randint(1, 6)</b> tire un entier au hasard entre 1 et 6 **inclus**", note:"Contrairement à range, randint inclut les deux bornes."},
+  {t:"exemple", titre:"Exemple guidé — estimer une probabilité", enonce:"Que fait ce programme ?<br><b>s = 0</b><br><b>for i in range(10000):</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>if randint(1, 6) == 6:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>s = s + 1</b><br><b>print(s / 10000)</b>", etapes:[
+   {q:"Que fait la boucle ?", r:"Elle lance un dé 10 000 fois."},
+   {q:"Que compte $s$ ?", r:"Le test <b>if</b> compare avec <b>==</b> : à chaque fois que le dé tombe sur 6, la condition est vraie et $s$ augmente de 1. Donc $s$ compte les 6 obtenus."},
+   {q:"Que vaut l'affichage ?", r:"$s ÷ 10000$ est la **fréquence** d'apparition du 6."},
+   {q:"Résultat attendu", r:"Environ 0,167, c'est-à-dire $@f{1}{6}$. Le programme estime la probabilité par l'expérience."},
+   {q:"À retenir", r:"Une fréquence observée s'approche de la probabilité théorique quand le nombre d'essais est grand. C'est ce qui justifie les simulations."}
+  ]},
+  {t:"piege", titre:"Un seul égal ou deux ?", x:"<b>=</b> range une valeur dans une variable. <b>==</b> pose une question : « est-ce égal ? ». Pour **tester une égalité** dans un <b>if</b> (comme <b>randint(1, 6) == 6</b>), il en faut toujours **deux** — mais un test comme <b>if x > 10:</b> ou <b>while u < 100:</b> n'a besoin d'aucun signe égal du tout, seulement du signe de comparaison."}
  ]},
  {titre:"Les listes : garder tous les termes", blocs:[
   {t:"idee", x:"Une variable ne retient qu'une valeur : dès qu'on lui en range une nouvelle, l'ancienne disparaît. Une **liste** retient toute la série — pratique pour garder les termes d'une suite au lieu de seulement le dernier."},
@@ -3885,7 +3885,7 @@ exos:[
  {id:"al1", niveau:1, type:"num", enonce:"Que vaut $u$ à la fin ? <br><b>u = 4</b><br><b>u = u * 5</b><br><b>u = u - 2</b>",
   rep:18,
   diag:[{v:20, m:"Tu t'es arrêté à la deuxième ligne. La troisième s'exécute aussi : $20 - 2 = 18$."},
-        {v:12, m:"Tu as fait $4 × 5 - 2$ dans le désordre, ou $(4-2) × ...$. Les lignes s'exécutent strictement dans l'ordre : d'abord la multiplication, puis la soustraction."},
+        {v:12, m:"Tu as soustrait avant de multiplier : $4 × (5 - 2) = 12$. Or les deux lignes s'exécutent séparément et dans l'ordre où elles sont écrites : d'abord $u = u × 5$ (ligne 2, qui donne 20), **puis** $u = u - 2$ (ligne 3, qui donne 18) — jamais les deux dans un seul calcul."},
         {v:4, m:"Tu as gardé la valeur initiale. Les lignes suivantes modifient bien $u$ : chaque affectation remplace l'ancien contenu."}],
   corr:["Ligne 1 : $u = 4$.","Ligne 2 : $u = 4 × 5 = 20$.","Ligne 3 : $u = 20 - 2 = 18$.","À la fin, $u$ vaut 18."],
   indice:"Exécute ligne par ligne en notant la valeur de $u$ après chacune."},
@@ -7941,9 +7941,13 @@ var G_ALGO = [
     var u=ri(1,9), n=ri(2,5), op=pick(["+","*"]), k=op==="+" ? nz(-7,9) : pick([2,3]);
     var v=u, suite=[u];
     for(var i=0;i<n;i++){ v = op==="+" ? v+k : v*k; suite.push(v); }
+    // Pour n=2, "0, 1, … , 1" est absurde (la liste tient déjà en deux
+    // valeurs) : on écrit la liste complète tant qu'elle est courte.
+    var listeRange = n<=3 ? Array.from({length:n}, function(_,i){return i;}).join(", ")
+                          : "0, 1, … , "+(n-1);
     return { type:"num", niveau:1, rep:v,
       enonce:"Que vaut $u$ à la fin ?<br><b>u = "+u+"</b><br><b>for i in range("+n+"):</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>u = u "+op+" "+k+"</b>",
-      diag:[{v:suite[n-1], m:"Tu as fait "+(n-1)+" tours au lieu de "+n+". range("+n+") produit "+n+" valeurs : 0, 1, … , "+(n-1)+"."},
+      diag:[{v:suite[n-1], m:"Tu as fait "+(n-1)+(n-1>1?" tours":" tour")+" au lieu de "+n+". range("+n+") produit "+n+" valeurs : "+listeRange+"."},
             {v:op==="+" ? u+k : u*k, m:"Tu n'as fait qu'un seul tour. La boucle en fait "+n+" : il faut répéter l'opération autant de fois."},
             {v:op==="+" ? u+k*(n+1) : u*Math.pow(k,n+1), m:"Tu as fait un tour de trop. range("+n+") s'arrête à "+(n-1)+", ce qui fait "+n+" passages."}],
       corr:["**Compter les tours.** range("+n+") produit "+n+" valeurs (0 à "+(n-1)+"), donc la boucle s'exécute **"+n+" fois**.",
@@ -7962,8 +7966,11 @@ var G_ALGO = [
     var v=u, n=0;
     while(v < seuil && n < 40){ v = v*q; n++; }
     return { type:"num", niveau:2, rep:n,
+      // Le code Python affiché doit garder le POINT décimal (fr() met une
+      // virgule, ce qui change "u * 1.5" en "u * 1,5" — un tuple en Python,
+      // pas une multiplication : du code qui ne s'exécuterait pas tel quel.
       enonce:"Que vaut $n$ à la fin ?<br><b>u = "+u+"</b><br><b>n = 0</b><br><b>while u &lt; "+seuil+":</b><br>"+
-             "&nbsp;&nbsp;&nbsp;&nbsp;<b>u = u * "+fr(q)+"</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>n = n + 1</b>",
+             "&nbsp;&nbsp;&nbsp;&nbsp;<b>u = u * "+q+"</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>n = n + 1</b>",
       diag:[{v:n-1, m:"Tu t'es arrêté un tour trop tôt. La boucle continue **tant que** $u$ est strictement inférieur à "+seuil+" : il faut un tour de plus pour franchir le seuil."},
             {v:n+1, m:"Tu as fait un tour de trop. Dès que $u$ atteint ou dépasse "+seuil+", le test devient faux et on sort sans refaire de tour."},
             {v:arr(u*Math.pow(q,n)), m:"Tu as donné la valeur finale de $u$, pas celle de $n$. Le compteur $n$ compte les tours."}],
@@ -7971,8 +7978,13 @@ var G_ALGO = [
             "**Comprendre la condition.** On répète **tant que** $u$ est strictement inférieur à "+seuil+". On teste avant chaque tour.",
             "**Dresser le tableau d'exécution.** Départ : $u = "+u+"$, $n = 0$."]
         .concat((function(){
-          var l=[], vv=u, i;
-          for(i=1;i<=n;i++){ vv=arr(vv*q); l.push("Tour "+i+" : $u = "+fr(vv)+"$, $n = "+i+"$"+(vv<seuil ? " — encore inférieur à "+seuil+", on continue." : " — **atteint ou dépasse "+seuil+"**, on sort.")); }
+          // vv recalculé depuis la puissance exacte à chaque tour (pas depuis
+          // le vv déjà arrondi du tour précédent) : sinon l'arrondi se
+          // cumule tour après tour et finit par s'écarter de la valeur
+          // exacte — au point de contredire le diagnostic {v:arr(u*q^n)}
+          // de ce même exercice, qui repart toujours de la puissance exacte.
+          var l=[], i;
+          for(i=1;i<=n;i++){ var vv=arr(u*Math.pow(q,i)); l.push("Tour "+i+" : $u = "+fr(vv)+"$, $n = "+i+"$"+(vv<seuil ? " — encore inférieur à "+seuil+", on continue." : " — **atteint ou dépasse "+seuil+"**, on sort.")); }
           return l;
         })())
         .concat(["**Résultat.** $n = "+n+"$.",
