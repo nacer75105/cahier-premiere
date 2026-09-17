@@ -369,6 +369,29 @@ lors de cette relecture, non corrigés maintenant :
   (1,2,3,4,6), soit assumer ces valeurs mais les indiquer comme
   hors-programme dans la figNote.
 
+## Produit scalaire (chapitre 6)
+
+**Passe pédagogique du 2026-09-17** : chapitre déjà abouti (motivation
+avant formule, analogie de la luge, dérivations expliquées). Seul défaut
+trouvé et corrigé : jargon non expliqué ("colinéaire", "déterminant")
+dans les diagnostics de `ps2`/`ps13`, alors que ces notions ne sont
+formellement introduites qu'au chapitre suivant (Géométrie repérée) —
+courts rappels ajoutés entre parenthèses.
+
+Deux points mineurs relevés au passage par la relecture de confirmation,
+non corrigés (aucun des deux ne justifiait de retarder le commit) :
+- `ps13`, diag `v:-2.667` (~l.2738) : ponctuation à revoir — les
+  deux-points suivant "au lieu du produit scalaire $xx'+yy'$" précèdent
+  en fait l'équation du *déterminant*, pas du produit scalaire ; l'ordre
+  des mots prête légèrement à confusion (le signe moins la lève).
+- Le mot "colinéaire" n'est toujours défini dans aucun bloc de **cours**
+  de tout le cahier — les deux seules gloses se trouvent maintenant dans
+  ces diagnostics d'exercices (invisibles pour une élève qui répond
+  juste), alors que le terme est réutilisé sans gloss en Géométrie
+  repérée (~l.3450, 3614, 3616). À traiter lors de la passe pédagogique
+  de Géométrie repérée (où le terme est formellement défini) plutôt
+  qu'ici.
+
 ## Variables aléatoires (chapitre 9)
 
 - Le "Récapitulatif : trois nombres pour résumer le hasard" est placé
