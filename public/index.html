@@ -2390,6 +2390,7 @@ sections:[
   {t:"formule", titre:"Avec l'angle", x:"$@v{u} · @v{v} = ||@v{u}|| × ||@v{v}|| × cos θ$", note:"$θ$ est l'angle entre les deux vecteurs. Utile pour trouver un angle."},
   {t:"p", x:"Celle-ci rend visible ce que la première cachait. Les deux longueurs disent « quelle est la taille des vecteurs », et le $cos θ$ dit « à quel point ils pointent dans la même direction » : il vaut 1 s'ils sont parfaitement alignés, 0 s'ils sont perpendiculaires, $-1$ s'ils sont opposés. Le produit scalaire, c'est donc **la taille multipliée par l'accord**. Retiens le cas central : quand l'angle est droit, $cos(90°) = 0$, et tout le produit s'effondre à zéro quelles que soient les longueurs."},
   {t:"formule", titre:"Avec les normes", x:"$@v{u} · @v{v} = @f{1}{2}(||@v{u}||^2 + ||@v{v}||^2 - ||@v{u} - @v{v}||^2)$", note:"Réservée aux situations où on ne dispose que de longueurs."},
+  {t:"p", x:"D'où sort-elle ? Du même calcul qui donne $(a-b)^2 = a^2 - 2ab + b^2$ avec des nombres ordinaires — sauf qu'ici $a$ et $b$ sont des vecteurs. Vérifions d'abord en coordonnées que ça se passe pareil. Avec $@v{u}(x;y)$ et $@v{v}(x';y')$ : $@v{u} · @v{u} = x^2 + y^2 = ||@v{u}||^2$ — un vecteur multiplié par lui-même donne bien le carré de sa norme. Et $@v{u} - @v{v}$ a pour coordonnées $(x-x' ; y-y')$, donc $||@v{u} - @v{v}||^2 = (x-x')^2 + (y-y')^2 = x^2+y^2 - 2(xx'+yy') + x'^2+y'^2 = ||@v{u}||^2 - 2 @v{u}·@v{v} + ||@v{v}||^2$ — exactement le développement d'un carré, terme à terme. C'est ce calcul en coordonnées qui autorise à manipuler $(@v{u} - @v{v}) · (@v{u} - @v{v})$ comme un produit ordinaire. Il ne reste qu'à isoler $@v{u} · @v{v}$ pour retrouver la formule ci-dessus : ce n'est pas une troisième idée, c'est une identité remarquable déjà connue, appliquée à des vecteurs."},
   {t:"p", x:"Celle-là est la moins fréquente, et il ne faut surtout pas s'y accrocher. Elle sert quand un énoncé ne donne que des distances — trois longueurs d'un triangle, par exemple — sans coordonnées ni angle. Si tu as des coordonnées, n'y touche pas : la première formule est dix fois plus rapide."},
   {t:"tbl", head:["Ce que donne l'énoncé","Formule à prendre"], rows:[
    ["Des coordonnées de points ou de vecteurs","$x x' + y y'$ — presque toujours celle-ci"],
@@ -2427,14 +2428,14 @@ sections:[
  {titre:"Orthogonalité : le critère qui sert tout le temps", blocs:[
   {t:"idee", x:"C'est l'application reine du produit scalaire : il permet de tester si deux directions sont perpendiculaires, sans rapporteur."},
   {t:"p", x:"Prends la mesure de ce que ça change. Avant, pour prouver qu'un angle est droit, il fallait Pythagore : calculer trois longueurs, souvent avec des racines carrées, puis vérifier une égalité. Maintenant, deux multiplications et une addition suffisent, et le résultat est un nombre entier la plupart du temps. C'est **l'outil le plus rentable de tout le chapitre**, et il tombe à presque tous les contrôles."},
-  {t:"formule", titre:"Critère d'orthogonalité", x:"$@v{u} ⊥ @v{v}$ &nbsp;⇔&nbsp; $@v{u} · @v{v} = 0$", note:"Produit scalaire nul = vecteurs perpendiculaires. C'est une équivalence : ça marche dans les deux sens."},
+  {t:"formule", titre:"Critère d'orthogonalité", x:"$@v{u} ⊥ @v{v}$ &nbsp;⇔&nbsp; $@v{u} · @v{v} = 0$", note:"Pour deux vecteurs **non nuls**. Produit scalaire nul = vecteurs perpendiculaires. C'est une équivalence : ça marche dans les deux sens."},
   {t:"p", x:"Le petit symbole ⇔ se lit « équivaut à », et il compte. Il signifie que la propriété fonctionne **dans les deux sens** : si tu sais que l'angle est droit, tu peux affirmer que le produit scalaire est nul ; et si tu trouves un produit scalaire nul, tu peux affirmer que l'angle est droit. C'est ce qui en fait un outil de **démonstration** : trouver zéro n'est pas un indice, c'est une preuve."},
-  {t:"p", x:"D'où vient ce zéro ? De la deuxième formule. Le produit scalaire vaut $||@v{u}|| × ||@v{v}|| × cos θ$. Les deux longueurs ne sont jamais nulles (sinon il n'y aurait pas de vecteur). Donc le seul moyen d'obtenir zéro, c'est que $cos θ = 0$ — et le cosinus ne s'annule qu'à 90°. Le critère n'est pas une règle arbitraire à mémoriser : c'est une conséquence directe."},
+  {t:"p", x:"D'où vient ce zéro ? De la deuxième formule. Le produit scalaire vaut $||@v{u}|| × ||@v{v}|| × cos θ$. Pour deux vecteurs **non nuls**, ces deux longueurs ne sont jamais nulles. Donc le seul moyen d'obtenir zéro, c'est que $cos θ = 0$ — et le cosinus ne s'annule qu'à 90° (pour un angle entre deux vecteurs, toujours compris entre 0° et 180°). Le critère n'est pas une règle arbitraire à mémoriser : c'est une conséquence directe. Le vecteur nul, lui, n'a pas de direction : la question de l'angle ne se pose même pas pour lui, c'est pourquoi le critère se limite aux vecteurs non nuls."},
   {t:"p", x:"Le signe du produit scalaire renseigne aussi sur l'allure de l'angle, ce qui donne un contrôle rapide."},
   {t:"tbl", head:["Signe de $@v{u} · @v{v}$","Angle entre les vecteurs"], rows:[
-   ["Positif","Aigu — les vecteurs pointent globalement dans la même direction"],
+   ["Positif","Aigu — les vecteurs pointent globalement dans la même direction (nul si en plus ils sont alignés)"],
    ["Nul","Droit — ils sont perpendiculaires"],
-   ["Négatif","Obtus — ils pointent dans des directions opposées"]
+   ["Négatif","Obtus — ils pointent globalement dans des directions opposées (plat si en plus ils sont alignés)"]
   ]},
   {t:"fig", titre:"Le triangle de l'exemple ci-dessous",
    vue:[0,0,5.5,6], w:380, h:340,
@@ -2473,8 +2474,25 @@ sections:[
  ]},
 
  {titre:"Applications : droites et cercles", blocs:[
-  {t:"formule", titre:"Vecteur normal et équation de droite", x:"Une droite d'équation $ax + by + c = 0$ admet $@v{n}(a ; b)$ comme vecteur normal (perpendiculaire à la droite).", note:"Les coefficients devant $x$ et $y$ se lisent directement comme les coordonnées du vecteur normal."},
+  {t:"idee", x:"Le produit scalaire donne accès à deux nouvelles écritures : l'équation d'une droite connaissant une direction perpendiculaire, et l'équation d'un cercle. Ce ne sont pas deux formules de plus à apprendre par cœur — ce sont **les deux outils déjà rencontrés dans ce chapitre**, le critère d'orthogonalité et la norme, appliqués une fois de plus."},
+  {t:"p", x:"Commençons par la droite. Une droite $(d)$ perpendiculaire à un vecteur $@v{n}(a ; b)$ et passant par un point $A(x_A ; y_A)$, c'est l'ensemble des points $M(x ; y)$ tels que $@v{AM}$ soit perpendiculaire à $@v{n}$ — c'est exactement ce que veut dire « vecteur normal » : il pointe hors de la droite, à angle droit. Le critère d'orthogonalité vu plus haut donne alors $@v{n} · @v{AM} = 0$, c'est-à-dire $a(x - x_A) + b(y - y_A) = 0$. En développant : $ax + by + (-a x_A - b y_A) = 0$. On retrouve la forme $ax + by + c = 0$, avec $c = -a x_A - b y_A$. Le vecteur normal n'est donc pas une recette à part : c'est le critère d'orthogonalité, appliqué à un point $M$ qui se promène sur la droite."},
+  {t:"formule", titre:"Vecteur normal et équation de droite", x:"Une droite d'équation $ax + by + c = 0$ admet $@v{n}(a ; b)$ comme vecteur normal (perpendiculaire à la droite).", note:"Les coefficients devant $x$ et $y$ se lisent directement comme les coordonnées du vecteur normal (il faut $(a;b) ≠ (0;0)$, sinon il n'y a pas de droite)."},
+  {t:"exemple", titre:"Exemple guidé — écrire l'équation d'une droite", enonce:"Écrire une équation de la droite $(d)$ passant par $A(2 ; -1)$ et de vecteur normal $@v{n}(3 ; 4)$.", etapes:[
+   {q:"Traduire la condition", r:"Un point $M(x ; y)$ est sur $(d)$ si et seulement si $@v{AM}$ est perpendiculaire à $@v{n}$, c'est-à-dire $@v{n} · @v{AM} = 0$."},
+   {q:"Calculer $@v{AM}$", r:"$@v{AM}(x - 2 ; y - (-1)) = (x - 2 ; y + 1)$."},
+   {q:"Écrire le produit scalaire", r:"$@v{n} · @v{AM} = 3(x-2) + 4(y+1)$."},
+   {q:"Développer et réduire", r:"$3x - 6 + 4y + 4 = 0$, soit $3x + 4y - 2 = 0$."},
+   {q:"Vérifier", r:"En $A$ : $3×2 + 4×(-1) - 2 = 6 - 4 - 2 = 0$ ✓. Et les coefficients de $x$ et $y$, $(3 ; 4)$, redonnent bien $@v{n}$."}
+  ]},
+  {t:"p", x:"Passons au cercle. Un cercle de centre $Ω(a ; b)$ et de rayon $R$, c'est l'ensemble des points $M(x ; y)$ situés à une distance $R$ de $Ω$ — rien de plus. Or une distance, c'est une **norme** : $ΩM = ||@v{ΩM}||$. Et la norme d'un vecteur de coordonnées $(x - a ; y - b)$, tu l'as vue dès le début du chapitre : $||@v{ΩM}|| = @r{(x-a)^2 + (y-b)^2}$. Poser $ΩM = R$ revient donc à écrire $@r{(x-a)^2 + (y-b)^2} = R$, puis à élever les deux membres au carré pour se débarrasser de la racine. L'équation du cercle n'est donc, elle aussi, que du Pythagore — le même que celui qui a donné la formule de la norme."},
   {t:"formule", titre:"Équation d'un cercle", x:"Cercle de centre $Ω(a ; b)$ et de rayon $R$ : $(x - a)^2 + (y - b)^2 = R^2$", note:"Attention aux signes : un centre en $(-2 ; 3)$ donne $(x + 2)^2 + (y - 3)^2 = R^2$."},
+  {t:"exemple", titre:"Exemple guidé — écrire et vérifier une équation de cercle", enonce:"Écrire l'équation du cercle de centre $Ω(2 ; -3)$ et de rayon 5. Le point $A(5 ; 1)$ appartient-il à ce cercle ?", etapes:[
+   {q:"Traduire la condition", r:"$M(x;y)$ est sur le cercle si et seulement si $ΩM = 5$, ou de façon équivalente $ΩM^2 = 25$ — travailler au carré évite la racine."},
+   {q:"Écrire $ΩM^2$ avec les coordonnées", r:"$ΩM^2 = (x - 2)^2 + (y - (-3))^2 = (x-2)^2 + (y+3)^2$."},
+   {q:"Poser l'équation", r:"$(x-2)^2 + (y+3)^2 = 25$."},
+   {q:"Tester le point $A$", r:"$(5-2)^2 + (1+3)^2 = 3^2 + 4^2 = 9 + 16 = 25$."},
+   {q:"Conclure", r:"Le résultat vaut exactement 25 : $A$ appartient bien au cercle. Un résultat différent de 25 aurait signifié que $A$ est trop proche ou trop loin du centre."}
+  ]},
   {t:"astuce", titre:"Lire un cercle en une seconde", x:"Dans $(x - 5)^2 + (y + 1)^2 = 9$, le centre est $(5 ; -1)$ — signes inversés — et le rayon vaut $@r{9} = 3$, pas 9."}
  ]},
 
@@ -2557,7 +2575,7 @@ sections:[
    "**Vérifier le signe obtenu** : positif si les vecteurs pointent grossièrement dans le même sens, négatif s'ils s'opposent, nul s'ils sont perpendiculaires."
   ], exemple:"Pour $@v{u}(3 ; 2)$ et $@v{v}(-1 ; 4)$ : $@v{u} · @v{v} = 3 × (-1) + 2 × 4 = -3 + 8 = 5$. Positif : les deux vecteurs pointent plutôt du même côté."},
   {t:"methode", titre:"Montrer que deux droites sont perpendiculaires", etapes:[
-   "**Trouver un vecteur directeur de chaque droite**, à partir de deux points ou de l'équation.",
+   "**Trouver un vecteur directeur de chaque droite** — un vecteur parallèle à elle. À partir de deux points $A$ et $B$ de la droite, c'est simplement $@v{AB}$. À partir d'une équation $ax+by+c=0$, c'est $(-b ; a)$ : ce vecteur est perpendiculaire au normal $(a;b)$ (leur produit scalaire vaut $a×(-b) + b×a = 0$), donc parallèle à la droite — dans le plan, il n'existe qu'une seule direction perpendiculaire à une direction donnée.",
    "**Calculer leur produit scalaire** avec les coordonnées.",
    "**Conclure** : le produit scalaire est nul **si et seulement si** les vecteurs sont orthogonaux.",
    "**Rédiger la conclusion en toutes lettres** : « le produit scalaire est nul, donc les droites sont perpendiculaires ». C'est cette phrase qui rapporte le point."
@@ -2616,15 +2634,15 @@ exos:[
  {id:"ps7", niveau:3, type:"num", enonce:"Soit $A(0 ; 0)$, $B(4 ; 0)$ et $C(4 ; 3)$. Calculer $@v{AB} · @v{AC}$.",
   rep:16,
   diag:[{v:0, m:"Tu as peut-être supposé un angle droit en $A$. Or l'angle droit est en $B$ : les vecteurs $@v{AB}(4 ; 0)$ et $@v{AC}(4 ; 3)$ ne sont pas perpendiculaires."},
-        {v:12, m:"Tu as utilisé les mauvais vecteurs, sans doute $@v{BA}$ ou $@v{BC}$. Repars des coordonnées : $@v{AB}(4 ; 0)$ et $@v{AC}(4 ; 3)$."},
+        {v:12, m:"Tu as croisé les coordonnées : $4 × 3 + 0 × 4 = 12$. La formule associe l'abscisse avec l'abscisse et l'ordonnée avec l'ordonnée, jamais en croix : $@v{AB} · @v{AC} = 4 × 4 + 0 × 3$."},
         {v:28, m:"Tu as ajouté quelque chose en trop. $4 × 4 = 16$ et $0 × 3 = 0$, la somme vaut donc 16."}],
   corr:["$@v{AB}(4 - 0 ; 0 - 0) = (4 ; 0)$.","$@v{AC}(4 - 0 ; 3 - 0) = (4 ; 3)$.","$@v{AB} · @v{AC} = 4 × 4 + 0 × 3 = 16 + 0$.","Le produit scalaire vaut 16."],
   indice:"Calcule les deux vecteurs à partir de $A$ (arrivée moins départ), puis applique la formule des coordonnées."},
 
  {id:"ps8", niveau:3, type:"qcm", enonce:"Une droite a pour équation $2x - 5y + 7 = 0$. Quel vecteur lui est normal (perpendiculaire) ?",
   choix:["$@v{n}(2 ; -5)$","$@v{n}(5 ; 2)$","$@v{n}(-5 ; 2)$","$@v{n}(2 ; 7)$"], bonne:0,
-  diag:["", "$(5 ; 2)$ est un vecteur **directeur** de la droite, c'est-à-dire parallèle à elle. Le vecteur normal se lit directement sur les coefficients de $x$ et $y$.",
-        "Comme le précédent, celui-ci est directeur et non normal.",
+  diag:["", "$(5 ; 2)$ est un vecteur **directeur** de la droite, c'est-à-dire un vecteur parallèle à elle (il glisse le long de la droite, là où le normal lui est perpendiculaire). Le vecteur normal, lui, se lit directement sur les coefficients de $x$ et $y$ dans l'équation.",
+        "Celui-ci n'est ni normal ni directeur : comparé au vecteur normal $(2 ; -5)$, tu as échangé les deux coordonnées sans changer aucun signe. (Le directeur, lui, s'obtient en échangeant les deux coordonnées du normal **et** en changeant le signe de l'une d'elles : $(5 ; 2)$.)",
         "Le 7 est la constante de l'équation : il ne fait pas partie des coordonnées du vecteur normal, qui ne retient que les coefficients de $x$ et $y$."],
   corr:["Pour une droite $ax + by + c = 0$, le vecteur $@v{n}(a ; b)$ est normal à la droite.","Ici $a = 2$ et $b = -5$.","Donc $@v{n}(2 ; -5)$ convient."],
   indice:"Les coordonnées du vecteur normal se lisent directement dans l'équation. Quels coefficients ?"},
@@ -2634,7 +2652,7 @@ exos:[
   diag:[{v:52, m:"Tu as oublié le terme $-2bc × cos Â$. Il vaut $-2 × 4 × 6 × 0{,}5 = -24$, donc $52 - 24 = 28$."},
         {v:76, m:"Tu as ajouté le dernier terme au lieu de le retrancher. La formule contient un **moins** : $a^2 = b^2 + c^2 - 2bc × cos Â$."},
         {v:5.29, m:"Tu as donné $BC$ (environ $@r{28} ≈ 5{,}29$), mais la question demande $BC^2$. Relis l'énoncé."},
-        {v:4, m:"Avec un angle de 60°, le triangle n'est pas rectangle : Pythagore seul ne suffit pas, il faut Al-Kashi."}],
+        {v:4, m:"Tu as appliqué Al-Kashi mais oublié le facteur $cos(60°) = 0{,}5$ dans le terme correctif : $16 + 36 - 2×4×6 = 52 - 48 = 4$. Il manque la multiplication par $cos Â$ : $2 × 4 × 6 × cos(60°) = 24$, pas 48."}],
   corr:["Formule d'Al-Kashi : $BC^2 = AB^2 + AC^2 - 2 × AB × AC × cos Â$.","$= 4^2 + 6^2 - 2 × 4 × 6 × cos(60°)$.","$cos(60°) = 0{,}5$, donc le dernier terme vaut $48 × 0{,}5 = 24$.","$BC^2 = 16 + 36 - 24 = 28$."],
   indice:"Al-Kashi : les deux côtés connus, puis on retranche $2bc × cos Â$ avec l'angle situé entre eux."},
 
@@ -2666,7 +2684,7 @@ exos:[
   diag:[{v:39, m:"Tu as trouvé $BC^{2} = 39$ et tu t'es arrêté là. Il reste à prendre la racine carrée : $@r{39} ≈ 6{,}245$."},
         {v:8.602, m:"Tu as appliqué Pythagore, $@r{25 + 49}$, comme si le triangle était rectangle en $A$. Il ne l'est pas : l'angle vaut 60°. C'est justement le terme correctif d'Al-Kashi qui règle ce cas."},
         {v:12, m:"Tu as additionné les deux côtés, $5 + 7$. C'est l'inégalité triangulaire : $BC$ est forcément **plus petit** que cette somme."},
-        {v:10.677, m:"Tu as ajouté le terme correctif au lieu de le soustraire. La formule est $BC^{2} = AB^{2} + AC^{2} - 2 × AB × AC × cos A$ : le signe est un **moins**."}],
+        {v:10.440, m:"Tu as ajouté le terme correctif au lieu de le soustraire : $BC^{2} = 74 + 35 = 109$, donc $BC ≈ 10{,}440$. La formule est $BC^{2} = AB^{2} + AC^{2} - 2 × AB × AC × cos A$ : le signe est un **moins**."}],
   corr:["**Reconnaître le cas.** On connaît deux côtés et l'angle **entre** les deux. C'est exactement la situation d'Al-Kashi — Pythagore ne s'applique pas, faute d'angle droit.",
         "**Écrire la formule.** $BC^{2} = AB^{2} + AC^{2} - 2 × AB × AC × cos A$.",
         "**Les deux carrés.** $5^{2} + 7^{2} = 25 + 49 = 74$.",
@@ -2681,14 +2699,14 @@ exos:[
   rep:6, tol:0.01,
   diag:[{v:-6, m:"Erreur de signe. L'équation est $2k - 12 = 0$, donc $2k = +12$ et $k = +6$. Le $-12$ passe de l'autre côté en changeant de signe."},
         {v:12, m:"Tu as résolu $2k = 12$ mais tu as oublié de diviser par 2."},
-        {v:-1.5, m:"Tu as cherché la **colinéarité** au lieu de l'orthogonalité, avec le déterminant $2 × 4 - (-3) × k = 0$. Ce sont deux conditions opposées : la colinéarité annule le déterminant, l'orthogonalité annule le produit scalaire."},
+        {v:-2.667, m:"Tu as cherché la **colinéarité** au lieu de l'orthogonalité, avec le déterminant $2 × 4 - (-3) × k = 0$, soit $8 + 3k = 0$ et $k = -@f{8}{3} ≈ -2{,}667$. Ce sont deux conditions différentes, qui ne donnent pas la même valeur de $k$ : la colinéarité annule le déterminant, l'orthogonalité annule le produit scalaire."},
         {v:0, m:"$k = 0$ donnerait $@v{v}(0 ; 4)$, un vecteur vertical. Son produit scalaire avec $@v{u}$ vaut $0 - 12 = -12 ≠ 0$ : ils ne sont pas orthogonaux."}],
   corr:["**Le critère.** Deux vecteurs non nuls sont orthogonaux si et seulement si leur produit scalaire est **nul**.",
         "**Écrire le produit scalaire en gardant $k$.** $@v{u} · @v{v} = 2 × k + (-3) × 4 = 2k - 12$.",
         "**Poser l'équation.** $2k - 12 = 0$.",
         "**Résoudre.** $2k = 12$, donc $k = 6$.",
         "**Vérifier.** Avec $@v{v}(6 ; 4)$ : $2 × 6 + (-3) × 4 = 12 - 12 = 0$ ✓",
-        "**Ne pas confondre les deux critères.** Produit scalaire nul → **orthogonaux**. Déterminant nul ($x_u y_v - y_u x_v = 0$) → **colinéaires**. Ils portent sur les mêmes nombres mais avec une opération différente, et donnent des réponses opposées : ici la colinéarité donnerait $k = -@f{8}{3}$.",
+        "**Ne pas confondre les deux critères.** Produit scalaire nul → **orthogonaux**. Déterminant nul ($x_u y_v - y_u x_v = 0$) → **colinéaires**. Ils portent sur les mêmes nombres mais avec une opération différente, et donnent des réponses différentes : ici la colinéarité donnerait $k = -@f{8}{3}$.",
         "**Le contrôle par le dessin.** $@v{u}(2 ; -3)$ descend vers la droite, $@v{v}(6 ; 4)$ monte vers la droite. Un croquis rapide montre qu'ils forment bien un angle droit."],
   indice:"Écris le produit scalaire en laissant $k$ dedans, puis résous l'équation « produit scalaire = 0 »."},
 
@@ -2702,7 +2720,7 @@ exos:[
         "**Le retrouver avec l'angle.** $@v{u} · @v{v} = ‖@v{u}‖ × ‖@v{v}‖ × cos θ$. Ici les deux vecteurs sont identiques, donc l'angle est nul et $cos 0 = 1$ : il reste $‖@v{u}‖ × ‖@v{u}‖ = ‖@v{u}‖^{2}$. Les deux chemins concordent.",
         "**Vérifier sur un exemple.** $@v{u}(3 ; 4)$ : $@v{u} · @v{u} = 9 + 16 = 25$, et $‖@v{u}‖ = 5$. On a bien $25 = 5^{2}$ ✓",
         "**Une notation à connaître.** On écrit souvent $@v{u}^{2}$ pour $@v{u} · @v{u}$. C'est le **carré scalaire**, et il vaut toujours la norme au carré — donc toujours un nombre positif ou nul.",
-        "**À quoi ça sert vraiment.** C'est ce qui permet de développer des expressions vectorielles comme $(@v{u} + @v{v})^{2} = @v{u}^{2} + 2@v{u} · @v{v} + @v{v}^{2}$, exactement comme une identité remarquable. De là se déduit la formule d'Al-Kashi."],
+        "**À quoi ça sert vraiment.** Ce carré scalaire permet de développer une différence de vecteurs comme un carré ordinaire. En coordonnées, $@v{u}(x;y)$ et $@v{v}(x';y')$ donnent $@v{u} - @v{v}$ de coordonnées $(x-x' ; y-y')$, donc $(@v{u} - @v{v})^{2} = (x-x')^{2} + (y-y')^{2} = x^{2}+y^{2} - 2(xx'+yy') + x'^{2}+y'^{2} = @v{u}^{2} - 2@v{u} · @v{v} + @v{v}^{2}$ — le même développement qu'un carré de nombres, terme à terme. C'est exactement cette identité, retournée pour isoler $@v{u} · @v{v}$, qui a donné la formule « avec les normes » vue plus haut dans ce chapitre."],
   indice:"Écris le produit scalaire en coordonnées, et compare le résultat à la formule de la norme."}
 ]
 }
@@ -4320,13 +4338,32 @@ MODELES["produit-scalaire"] = function(){
     marqueAngle(svg,R,[0,0],u,v,Math.abs(ps)<0.15);
     point(svg,R,u[0],u[1],null,"bleu");
     point(svg,R,v[0],v[1],null,"vert");
-    var mot = ps>0.15 ? "aigu" : (ps<-0.15 ? "obtus" : "droit");
-    var col = ps>0.15 ? "vert" : (ps<-0.15 ? "rouge" : "ambre");
+    // Produit vectoriel : 0 exact (coordonnées multiples de 0,5) quand les
+    // deux vecteurs sont colinéaires — angle de 0° ou 180°, un cas valide
+    // et bien défini, mais que le classement aigu/droit/obtus à lui seul
+    // range à tort dans "aigu" ou "obtus". On le nomme correctement plutôt
+    // que de l'empêcher : ce n'est pas un état dégénéré comme le vecteur nul.
+    var cross = u[0]*v[1]-u[1]*v[0];
+    var mot, col;
+    if(cross===0){
+      mot = ps>0 ? "nul — les deux vecteurs sont alignés, même sens" : "plat — les deux vecteurs sont alignés, sens opposés";
+      col = ps>0 ? "vert" : "rouge";
+    } else {
+      mot = ps>0.15 ? "aigu" : (ps<-0.15 ? "obtus" : "droit");
+      col = ps>0.15 ? "vert" : (ps<-0.15 ? "rouge" : "ambre");
+    }
+    // Les coordonnées sont des multiples de 0,5 (voir pointe()), donc chaque
+    // produit est un multiple exact de 0,25 : deux décimales suffisent à
+    // afficher chaque terme SANS arrondi. Le total affiché est calculé à
+    // partir des deux mêmes termes exacts, jamais arrondi séparément — les
+    // trois nombres affichés s'additionnent donc toujours pour de vrai.
+    function fmt(x){ return x.toFixed(2).replace(".",","); }
+    var p1 = u[0]*v[0], p2 = u[1]*v[1];
+    var somme = fmt(p1) + (p2<0 ? " − " + fmt(-p2) : " + " + fmt(p2));
     lecture.innerHTML =
       '<span style="color:var(--bleu)">u ('+u[0].toFixed(1).replace(".",",")+' ; '+u[1].toFixed(1).replace(".",",")+')</span> &nbsp;·&nbsp; '+
       '<span style="color:var(--vert)">v ('+v[0].toFixed(1).replace(".",",")+' ; '+v[1].toFixed(1).replace(".",",")+')</span><br>'+
-      '<b>u · v = '+(u[0]*v[0]).toFixed(1).replace(".",",")+' + '+(u[1]*v[1]).toFixed(1).replace(".",",")+
-      ' = '+ps.toFixed(1).replace(".",",")+'</b> → angle <span style="color:var(--'+col+')">'+mot+'</span>';
+      '<b>u · v = '+somme+' = '+fmt(p1+p2)+'</b> → angle <span style="color:var(--'+col+')">'+mot+'</span>';
   }
   function maths(ev){
     var r = svg.getBoundingClientRect();
@@ -4336,8 +4373,17 @@ MODELES["produit-scalaire"] = function(){
   function pointe(ev){
     var q = maths(ev);
     var cible = glisse==="u" ? u : v;
-    cible[0] = Math.max(-3.5, Math.min(3.5, Math.round(q.x*2)/2));
-    cible[1] = Math.max(-3.5, Math.min(3.5, Math.round(q.y*2)/2));
+    var nx = Math.max(-3.5, Math.min(3.5, Math.round(q.x*2)/2));
+    var ny = Math.max(-3.5, Math.min(3.5, Math.round(q.y*2)/2));
+    // Le vecteur nul n'a pas de direction (voir ps2) : on l'exclut à la
+    // source plutôt que d'afficher un message après coup. On retombe sur
+    // la demi-graduation la plus proche du geste réel, jamais (0;0).
+    if(nx===0 && ny===0){
+      if(Math.abs(q.x) >= Math.abs(q.y)) nx = q.x >= 0 ? 0.5 : -0.5;
+      else ny = q.y >= 0 ? 0.5 : -0.5;
+    }
+    cible[0] = nx;
+    cible[1] = ny;
     redessine();
   }
   svg.addEventListener("pointerdown", function(e){
@@ -7432,15 +7478,15 @@ var G_GEO = [
     // a*c + b*m = 0  ->  m = -a*c/b
     var m = arr(-a*c/b);
     return { type:"num", niveau:2, rep:m, tol:0.001,
-      enonce:"Pour quelle valeur de $m$ les vecteurs $@v{u}("+fr(a)+" ; "+fr(b)+")$ et $@v{v}("+fr(c)+" ; m)$ sont-ils orthogonaux ?",
-      diag:[{v:arr(a*c/b), m:"Erreur de signe. De $"+fr(a*c)+" + "+fr(b)+"m = 0$ on tire $"+fr(b)+"m = "+fr(-a*c)+"$, donc $m = "+fr(m)+"$."},
+      enonce:"Pour quelle valeur de $m$ les vecteurs $@v{u}("+fr(a)+" ; "+fr(b)+")$ et $@v{v}("+fr(c)+" ; m)$ sont-ils orthogonaux ? (arrondir au millième si besoin)",
+      diag:[{v:arr(a*c/b), m:"Erreur de signe. De $"+fr(a*c)+sg(b)+"m = 0$ on tire $"+fr(b)+"m = "+fr(-a*c)+"$, donc $m ≈ "+fr(m)+"$."},
             {v:arr(-a*c), m:"Tu as oublié de diviser par $"+fr(b)+"$, le coefficient qui multiplie $m$."},
             {v:arr(-b/(a*c)), m:"Tu as divisé à l'envers. L'équation est $"+fr(b)+"m = "+fr(-a*c)+"$ : on divise le second membre par $"+fr(b)+"$."}],
       corr:["**Traduire « orthogonaux ».** Deux vecteurs sont orthogonaux exactement quand leur produit scalaire est nul.",
             "**Écrire le produit scalaire avec la lettre.** $("+fr(a)+") × ("+fr(c)+") + ("+fr(b)+") × m = "+fr(a*c)+sg(b)+"m$. La lettre se manipule comme un nombre.",
             "**Poser l'équation.** $"+fr(a*c)+sg(b)+"m = 0$.",
-            "**Résoudre.** $"+fr(b)+"m = "+fr(-a*c)+"$, donc $m = @f{"+fr(-a*c)+"}{"+fr(b)+"} = "+fr(m)+"$.",
-            "**Vérifier — toujours.** $("+fr(a)+")("+fr(c)+") + ("+fr(b)+")("+fr(m)+") = "+fr(a*c)+" + "+fr(arr(b*m))+" = 0$ ✓"],
+            "**Résoudre.** $"+fr(b)+"m = "+fr(-a*c)+"$, donc $m = @f{"+fr(-a*c)+"}{"+fr(b)+"} ≈ "+fr(m)+"$.",
+            "**Vérifier, sans arrondir.** $m$ vaut exactement $@f{"+fr(-a*c)+"}{"+fr(b)+"}$, donc $"+fr(b)+" × m = "+fr(-a*c)+"$ **exactement**, et $"+fr(a*c)+" + ("+fr(-a*c)+") = 0$ ✓ — cette vérification avec la fraction ne demande aucun arrondi, contrairement à un calcul fait avec la valeur décimale de $m$."],
       indice:"Écris le produit scalaire en laissant $m$, puis résous l'équation « = 0 »." };
   }},
 
