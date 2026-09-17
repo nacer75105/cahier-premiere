@@ -1784,6 +1784,7 @@ sections:[
   {t:"p", x:"Cette propriété paraît étrange, et pourtant c'est exactement la phrase du début, traduite en langage de dérivées. Relis : « elle grandit proportionnellement à ce qu'elle vaut déjà ». Or « à quelle vitesse elle grandit », c'est $f'(x)$. Et « ce qu'elle vaut déjà », c'est $f(x)$. Dire que les deux sont égaux, c'est écrire $f' = f$ — soit exactement $(e^{x})' = e^{x}$."},
   {t:"p", x:"Autrement dit, ce n'est pas une coïncidence bizarre : **c'est la définition même de l'exponentielle**, vue sous un autre angle. C'est d'ailleurs comme ça qu'on la construit proprement en mathématiques : on cherche la fonction dont la dérivée est elle-même et qui vaut 1 en zéro. Il n'y en a qu'une, et c'est celle-là. Le nombre $e ≈ 2{,}718$ n'a pas été choisi : c'est la valeur qu'il **faut** pour que cette égalité fonctionne."},
   {t:"formule", titre:"Dérivées à connaître", x:"$(e^{x})' = e^{x}$<br>$(e^{kx})' = k e^{kx}$<br>$(e^{u})' = u' e^{u}$", note:"Le facteur qui sort devant est la dérivée de l'exposant."},
+  {t:"p", x:"D'où viennent les deux dernières lignes ? La première, $(e^{kx})' = ke^{kx}$, se retrouve à partir de $(e^{x})' = e^{x}$ : multiplier $x$ par $k$ dans l'exposant revient à parcourir l'axe des $x$ $k$ fois plus vite, donc la pente de la courbe est elle aussi multipliée par $k$. La troisième, $(e^{u})' = u' e^{u}$ pour un exposant $u(x)$ quelconque, généralise la même idée — on **l'admet** à ce niveau, elle deviendra plus tard un cas particulier de la dérivée d'une fonction composée. Tu peux la vérifier sur un exemple numérique, à la calculatrice : pour $u(x) = x^2$, la pente de $e^{x^2}$ en $x=1$ vaut environ $5{,}44$ — exactement $u'(1) × e^{u(1)} = 2 × e ≈ 5{,}44$."},
   {t:"figi", nom:"expo-k"},
   {t:"p", x:"Comme $e^{x} > 0$ pour tout $x$, la dérivée de $e^{x}$ est toujours strictement positive. Conclusion : **la fonction exponentielle est strictement croissante sur ℝ**, sans aucune exception."},
   {t:"exemple", titre:"Exemple guidé — dériver un produit avec exponentielle", enonce:"Dériver $f(x) = 3e^{2x}$.", etapes:[
@@ -1825,7 +1826,7 @@ sections:[
   {t:"piege", titre:"Retourner l'inégalité au mauvais moment", x:"Dans $e^{-2x} > e^{6}$, l'erreur classique consiste à retourner le sens **en passant aux exposants**, à cause du signe moins qu'on voit dans l'écriture. C'est faux : l'exponentielle conserve toujours l'ordre.<br><br>La bonne question à se poser est : **par quoi est-ce que je divise ?** Si c'est un nombre négatif, alors — et seulement alors — le sens change."},
   {t:"astuce", titre:"Un cas qui revient souvent", x:"Une équation comme $e^{x} = -3$ n'a **aucune solution** : l'exponentielle est toujours strictement positive, elle ne peut jamais valoir un nombre négatif. Repérer cela fait gagner du temps et des points."},
   {t:"p", x:"Pourquoi a-t-on le droit de « retirer les exponentielles » des deux côtés ? Parce que la fonction est **strictement croissante** : elle ne prend jamais deux fois la même valeur. Si deux exponentielles sont égales, elles ne peuvent venir que du même exposant. Ce raisonnement n'est pas valable pour n'importe quelle fonction — avec des carrés, par exemple, $x^2 = 9$ a deux solutions, parce que la fonction carré repasse par les mêmes valeurs."},
-  {t:"p", x:"Retiens donc la différence : une équation en exponentielle a **au plus une solution**. Si tu en trouves deux, il y a une erreur."}
+  {t:"p", x:"Retiens donc précisément ce que dit cette propriété (les mathématiciens l'appellent l'**injectivité** de l'exponentielle) : $e^{A} = e^{B}$ force $A = B$, **sans exception**. Mais attention à ne pas en tirer une règle trop large sur le nombre de solutions en $x$. Si $A$ et $B$ sont deux expressions du premier degré **avec des coefficients de $x$ différents** (comme $2x-1$ et $x+5$), alors $A=B$ se résout en une seule valeur de $x$ — c'est le cas le plus fréquent, et le réflexe à avoir. Mais deux autres cas existent : si les coefficients de $x$ sont égaux, $A=B$ devient une égalité entre deux nombres fixes, vraie pour tout $x$ (**une infinité** de solutions, comme $e^{x+1}=e^{x+1}$) ou fausse pour tout $x$ (**aucune** solution, comme $e^{x+1}=e^{x+2}$, qui reviendrait à $1=2$). Et si l'exposant est une expression plus riche qu'une expression du premier degré, comme $-x^2$, l'égalité des exposants peut redonner une équation qui, elle, a plusieurs solutions : reprends $f(x)=e^{-x^2}$ étudiée plus haut — résoudre $f(x) = e^{-1}$ donne $-x^2=-1$, soit $x^2=1$, qui a **deux** solutions, $x=1$ et $x=-1$. Ce n'est pas l'exponentielle qui triche : c'est l'exposant qui n'est plus injectif, lui."}
  ]},
 
  {titre:"Modéliser une évolution", blocs:[
@@ -1890,8 +1891,8 @@ sections:[
   ], exemple:"$@f{e^{3x} × e^{x}}{e^{2x}} = @f{e^{4x}}{e^{2x}} = e^{4x-2x} = e^{2x}$. Contrôle en $x = 0$ : les deux membres valent 1."},
   {t:"methode", titre:"Résoudre une équation avec une exponentielle", etapes:[
    "**Isoler l'exponentielle** d'un côté du signe égal, comme on isolerait une inconnue.",
-   "**Vérifier que l'autre membre est strictement positif** : une exponentielle ne peut jamais valoir 0 ni un nombre négatif. Sinon, il n'y a pas de solution.",
-   "**Passer au logarithme** des deux côtés, ou identifier directement les exposants si les deux membres sont des exponentielles.",
+   "**Vérifier que l'autre membre est strictement positif** : une exponentielle ne peut jamais valoir 0 ni un nombre négatif. Sinon, il n'y a pas de solution — inutile d'aller plus loin.",
+   "**Identifier les exposants** : une fois les deux membres écrits comme deux exponentielles, $e^{A} = e^{B}$ équivaut à $A = B$. C'est la seule méthode du programme de Première pour ce type d'équation.",
    "**Résoudre l'équation obtenue**, qui est en général du premier degré.",
    "**Vérifier** en remplaçant dans l'équation de départ."
   ], exemple:"$e^{2x} = e^{x+3}$ : les deux membres sont des exponentielles, j'identifie les exposants. $2x = x + 3$, donc $x = 3$."}
@@ -1933,7 +1934,7 @@ exos:[
  {id:"ex5", niveau:2, type:"qcm", enonce:"Combien l'équation $e^{x} = -5$ a-t-elle de solutions ?",
   choix:["Aucune","Une seule","Deux","Une infinité"], bonne:0,
   diag:["", "Il n'existe aucun nombre dont l'exponentielle soit négative. La courbe de $e^{x}$ reste entièrement au-dessus de l'axe des abscisses.",
-        "Une équation en exponentielle ne peut de toute façon pas avoir deux solutions : la fonction est strictement croissante, donc elle ne repasse jamais par la même valeur.",
+        "Ici l'exposant est $x$ lui-même, une expression du premier degré : $e^x$ est strictement croissante, donc injective, et ne prend jamais deux fois la même valeur — une équation $e^x = k$ a donc au plus une solution. (Ce serait différent avec un exposant plus riche, comme $e^{-x^2}$, qui peut redonner deux solutions.) Mais ce n'est de toute façon pas le problème ici : $-5$ est négatif, donc aucune solution du tout.",
         "Non : aucune valeur de $x$ ne convient, ce qui est le contraire d'une infinité."],
   corr:["Propriété fondamentale : $e^{x} > 0$ pour tout réel $x$.","Or $-5$ est négatif.","Aucune valeur de $x$ ne peut donc convenir : $S = ∅$."],
   indice:"Quel est le signe de l'exponentielle, quel que soit $x$ ?"},
@@ -1994,7 +1995,7 @@ exos:[
   diag:[{v:300, m:"Tu as calculé $200 × 1{,}5$, comme si $e^{0,15t}$ était une simple multiplication. L'exposant $0{,}15 × 10 = 1{,}5$ doit passer **dans** l'exponentielle : c'est $e^{1,5} ≈ 4{,}48$ qu'il faut utiliser."},
         {v:2000, m:"Tu as multiplié l'effectif de départ par le temps. Le temps n'agit pas directement sur l'effectif : il agit sur l'exposant."},
         {v:230, m:"Tu as appliqué une seule augmentation de 15 % ($200 × 1{,}15$). Mais la croissance dure 10 heures, et elle s'accumule à chaque instant."},
-        {v:930, m:"Tu as calculé $200 × 1{,}15^{10}$, comme une suite géométrique de raison $1{,}15$. La raison n'est pas $1{,}15$ mais $e^{0,15} ≈ 1{,}162$ : c'est là toute la différence entre le coefficient $k$ et le pourcentage."}],
+        {v:809, m:"Tu as calculé $200 × 1{,}15^{10} ≈ 809$, comme une suite géométrique de raison $1{,}15$. La raison n'est pas $1{,}15$ mais $e^{0,15} ≈ 1{,}162$ : c'est là toute la différence entre le coefficient $k$ et le pourcentage."}],
   corr:["**Repérer les deux nombres du modèle.** $N_0 = 200$ est l'effectif de départ, $k = 0{,}15$ commande la vitesse de croissance.",
         "**Calculer l'exposant en entier, d'abord.** $0{,}15 × 10 = 1{,}5$. C'est l'étape que l'on saute le plus souvent, et celle qui fausse tout.",
         "**Appliquer l'exponentielle.** $e^{1,5} ≈ 4{,}4817$.",
@@ -4859,20 +4860,32 @@ MODELES["expo-k"] = function(){
     }
     svg.appendChild(n("path",{d:d, fill:"none", stroke:coul("bleu"), "stroke-width":2.8}));
 
-    /* la tangente au point (0 ; 1) : sa pente vaut exactement k */
-    svg.appendChild(n("line",{
-      x1:R.X(vv[0]), y1:R.Y(1 + k*(vv[0]-0)),
-      x2:R.X(vv[2]), y2:R.Y(1 + k*(vv[2]-0)),
-      stroke:coul("ambre"), "stroke-width":2, "stroke-dasharray":"6 5"}));
+    /* la tangente au point (0 ; 1) : sa pente vaut exactement k.
+       On la trace seulement sur la portion réellement visible du cadre —
+       sinon, pour |k| grand, un bout de la tangente sort de la vue tout
+       en restant dans le viewBox (marge de repere()), et flotte, visible,
+       hors du repère qu'il est censé illustrer. */
+    if(k === 0){
+      svg.appendChild(n("line",{
+        x1:R.X(vv[0]), y1:R.Y(1), x2:R.X(vv[2]), y2:R.Y(1),
+        stroke:coul("ambre"), "stroke-width":2, "stroke-dasharray":"6 5"}));
+    } else {
+      var xAtYmin=(vv[1]-1)/k, xAtYmax=(vv[3]-1)/k;
+      var xLo=Math.min(xAtYmin,xAtYmax), xHi=Math.max(xAtYmin,xAtYmax);
+      var xt1=Math.max(vv[0],xLo), xt2=Math.min(vv[2],xHi);
+      if(xt1<=xt2){
+        svg.appendChild(n("line",{
+          x1:R.X(xt1), y1:R.Y(1+k*xt1), x2:R.X(xt2), y2:R.Y(1+k*xt2),
+          stroke:coul("ambre"), "stroke-width":2, "stroke-dasharray":"6 5"}));
+      }
+    }
     point(svg, R, 0, 1, "1", "rouge");
 
     var sens = k > 0.05 ? "elle monte" : (k < -0.05 ? "elle descend" : "elle est plate");
-    var duree = Math.abs(k) < 0.05 ? "—"
-      : nb(Math.log(2)/Math.abs(k)) + (k > 0 ? " (doublement)" : " (division par deux)");
     lecture.innerHTML =
       "<b>f(x) = e<sup>" + nb(k) + "x</sup></b> &nbsp;·&nbsp; f′(x) = " + nb(k) + " × f(x)<br>" +
       "pente de la tangente en 0 : <b>" + nb(k) + "</b> — " + sens + "<br>" +
-      "pas de temps : <b>" + duree + "</b>";
+      "d'une unité de plus en x, f est multipliée par <b>e<sup>" + nb(k) + "</sup> ≈ " + nb(Math.exp(k)) + "</b>";
   }
 
   var ctr = el("div","figCurseurs");
@@ -7351,26 +7364,34 @@ var G_EXPO = [
 
 { id:"ex-derivee", chap:"expo", titre:"Dériver une exponentielle", niveau:2, gen:function(){
     var k=nz(-6,7), c=pick([1,2,3,5]);
-    var enonce = "$f(x) = "+(c===1?"":fr(c))+"e^{"+terme(k,"x")+"}$";
+    var u = terme(k,"x");
+    var enonce = "$f(x) = "+terme(c,"e^{"+u+"}")+"$";
     var rep = c*k;
+    // terme() écrit "e^{u}" sans coefficient quand celui-ci vaut 1 (ou "-e^{u}"
+    // pour -1) : la bonne réponse et le distracteur "coefficient c oublié k"
+    // deviennent alors littéralement la même chaîne quand k=1 (multiplier par
+    // 1 ne change rien), et shuffleUnique les fusionne au lieu de compter à
+    // tort la bonne réponse comme fausse.
     var choix=H.shuffleUnique([
-      "$"+fr(rep)+"e^{"+terme(k,"x")+"}$",
-      "$"+(c===1?"":fr(c))+"e^{"+terme(k,"x")+"}$",
-      "$"+fr(c*k)+"x e^{"+terme(k,"x")+"}$",
-      "$"+fr(c)+"e^{"+fr(k)+"}$"]);
-    var bonne=choix.indexOf("$"+fr(rep)+"e^{"+terme(k,"x")+"}$");
+      "$"+terme(rep,"e^{"+u+"}")+"$",
+      "$"+terme(c,"e^{"+u+"}")+"$",
+      "$"+terme(rep,"x e^{"+u+"}")+"$",
+      "$"+terme(c,"e^{"+fr(k)+"}")+"$"]);
+    var bonne=choix.indexOf("$"+terme(rep,"e^{"+u+"}")+"$");
     return { type:"qcm", niveau:2, choix:choix, bonne:bonne,
       enonce:"Dériver "+enonce+".",
       diag:choix.map(function(s,i){
         if(i===bonne) return "";
-        if(s.indexOf("x e^")>=0) return "Tu as fait sortir $"+terme(k,"x")+"$ au lieu de sa dérivée. La règle est $(e^{u})' = u' e^{u}$ : c'est $u' = "+fr(k)+"$ qui sort, pas $u$.";
-        if(s.indexOf("e^{"+fr(k)+"}")>=0) return "L'exposant ne devient pas une constante : il reste $"+terme(k,"x")+"$, avec le $x$.";
-        return "Il manque le facteur $"+fr(k)+"$. En dérivant $e^{"+terme(k,"x")+"}$, la dérivée de l'exposant sort devant.";
+        if(s.indexOf("x e^")>=0) return "Tu as fait sortir $"+u+"$ au lieu de sa dérivée. La règle est $(e^{u})' = u' e^{u}$ : c'est $u' = "+fr(k)+"$ qui sort, pas $u$.";
+        if(s.indexOf("e^{"+fr(k)+"}")>=0) return "L'exposant ne devient pas une constante : il reste $"+u+"$, avec le $x$.";
+        return "Il manque le facteur $"+fr(k)+"$. En dérivant $e^{"+u+"}$, la dérivée de l'exposant sort devant.";
       }),
-      corr:["**Repérer la forme.** C'est $"+(c===1?"":fr(c))+"e^{u}$ avec $u = "+terme(k,"x")+"$.",
+      corr:["**Repérer la forme.** C'est $"+terme(c,"e^{u}")+"$ avec $u = "+u+"$.",
             "**Dériver l'exposant.** $u' = "+fr(k)+"$.",
-            "**Appliquer $(e^{u})' = u' e^{u}$.** On obtient $"+fr(k)+"e^{"+terme(k,"x")+"}$.",
-            "**Ne pas perdre le coefficient de départ.** $"+(c===1?"":fr(c)+" × ")+fr(k)+" = "+fr(rep)+"$, d'où $f'(x) = "+fr(rep)+"e^{"+terme(k,"x")+"}$."],
+            "**Appliquer $(e^{u})' = u' e^{u}$.** On obtient $"+terme(k,"e^{"+u+"}")+"$.",
+            (c===1
+              ? "**Ne pas perdre le coefficient de départ.** Ici le coefficient devant l'exponentielle vaut 1, il n'y a donc rien à multiplier : $f'(x) = "+terme(rep,"e^{"+u+"}")+"$."
+              : "**Ne pas perdre le coefficient de départ.** $"+fr(c)+" × "+fr(k)+" = "+fr(rep)+"$, d'où $f'(x) = "+terme(rep,"e^{"+u+"}")+"$.")],
       indice:"La dérivée de l'exposant vient se placer en facteur devant l'exponentielle." };
   }},
 
