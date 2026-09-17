@@ -37,6 +37,23 @@ Les points « BLOQUANT » et les points « À REVOIR » touchant la justesse
 QCM, cas dégénéré) ont été corrigés directement dans `public/index.html`
 (et synchronisés dans `docs/index.html`).
 
+## Suites numériques (chapitre 1)
+
+- Encadré "Deux façons de définir une suite" (L.682) utilise encore "Par
+  récurrence" alors que les deux encadrés voisins ("Les deux formules à
+  connaître", section arithmétique L.705 et géométrique L.722) ont été
+  alignés sur l'étiquette "(relation de récurrence)" lors de la passe
+  pédagogique du 2026-09-17 — reste à harmoniser ce troisième encadré.
+- Figure `suites-comparaison` tracée avec `graduations:false` : les
+  valeurs citées dans le texte qui l'entoure ("elle est déjà à 27",
+  "n'est qu'à 15") ne sont lisibles nulle part sur le dessin — l'élève
+  doit croire le texte sur parole plutôt que de le vérifier à l'œil.
+- `check` "Une population diminue de 5 % par an" (~L.783) : `expl[0]`
+  (l'explication censée accompagner la bonne réponse) est une chaîne
+  vide. Une élève qui répond juste voit "✓ C'est ça" suivi de rien,
+  contrairement à l'autre `check` du même chapitre (~L.693) qui
+  explique aussi pourquoi la bonne réponse est bonne.
+
 ## Dérivation (chapitre 3)
 
 - Deux pièges "dérivée nulle ≠ extremum" quasi identiques et redondants
