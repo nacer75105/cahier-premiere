@@ -2060,7 +2060,7 @@ sections:[
   {t:"p", x:"D'abord, à quoi sert toute la trigonométrie. Elle décrit **ce qui se répète**. Les marées qui montent et descendent deux fois par jour. Le courant alternatif de la prise électrique, qui change de sens cinquante fois par seconde. Un son, qui n'est qu'une vibration régulière de l'air. Le balancement d'une balançoire. Chaque fois qu'un phénomène revient au même état à intervalles réguliers, ce sont le cosinus et le sinus qui le décrivent."},
   {t:"p", x:"Et pourquoi un **cercle** pour étudier ça ? Parce qu'un cercle est la forme du « ça recommence » : quand on a fait un tour, on est revenu au point de départ. Enrouler un phénomène périodique autour d'un cercle, c'est le moyen le plus naturel de le représenter."},
   {t:"p", x:"Reste la question des degrés. Pourquoi 360 ? C'est un héritage des Babyloniens, un choix arbitraire — 360 se divise bien, voilà tout. Le radian, lui, n'est pas arbitraire : il mesure l'angle par **la longueur de l'arc parcouru sur un cercle de rayon 1**. Faire un tour complet, c'est parcourir la circonférence, soit $2π$. L'unité vient de la géométrie elle-même, pas d'une convention."},
-  {t:"p", x:"Ce n'est pas qu'une question d'élégance : en radians, les formules de dérivation des fonctions trigonométriques deviennent simples. En degrés, elles traîneraient un facteur $@f{π}{180}$ partout. C'est pour cette raison très pratique que les mathématiciens ont changé d'unité."},
+  {t:"p", x:"Ce n'est pas qu'une question d'élégance : en radians, les formules de dérivation des fonctions trigonométriques deviennent simples. En degrés, elles traîneraient un facteur $@f{π}{180}$ partout — tu le vérifieras en Terminale, quand tu dériveras $cos$ et $sin$. C'est pour cette raison très pratique que les mathématiciens ont changé d'unité."},
   {t:"tbl", head:["Degrés","0°","30°","45°","60°","90°","180°","360°"], rows:[
    ["Radians","0","$@f{π}{6}$","$@f{π}{4}$","$@f{π}{3}$","$@f{π}{2}$","$π$","$2π$"]
   ]},
@@ -2216,10 +2216,10 @@ sections:[
 {titre:"Les méthodes du chapitre", blocs:[
   {t:"methode", titre:"Placer un angle sur le cercle trigonométrique", etapes:[
    "**Repérer le signe** : un angle positif se lit dans le sens inverse des aiguilles d'une montre, un angle négatif dans l'autre sens.",
-   "**Comparer à $π$** pour situer le quadrant : $@f{π}{2}$ est en haut, $π$ à gauche, $@f{3π}{2}$ en bas.",
+   "**Comparer à $π$** pour situer le quart : $@f{π}{2}$ est en haut, $π$ à gauche, $@f{3π}{2}$ en bas.",
    "**Retirer ou ajouter des tours** de $2π$ si l'angle en dépasse : $@f{9π}{4} = @f{π}{4} + 2π$, c'est le même point.",
    "**Lire le cosinus en abscisse et le sinus en ordonnée** — jamais l'inverse. C'est la source d'erreur numéro un."
-  ], exemple:"$@f{5π}{4}$ dépasse $π$ mais reste sous $@f{3π}{2}$ : le point est dans le troisième quadrant, en bas à gauche. Cosinus et sinus y sont tous deux négatifs."},
+  ], exemple:"$@f{5π}{4}$ dépasse $π$ mais reste sous $@f{3π}{2}$ : le point est dans le troisième quart, en bas à gauche. Cosinus et sinus y sont tous deux négatifs."},
   {t:"methode", titre:"Résoudre une équation trigonométrique", etapes:[
    "**Isoler le cosinus ou le sinus** d'un côté.",
    "**Vérifier que la valeur est entre $-1$ et $1$** : au-delà, il n'y a aucune solution.",
@@ -2344,17 +2344,17 @@ exos:[
 
  {id:"tr13", niveau:2, type:"num", enonce:"Combien vaut $cos@f{2π}{3}$ ?",
   rep:-0.5, tol:0.01,
-  diag:[{v:0.5, m:"C'est $cos@f{π}{3}$. L'angle $@f{2π}{3}$ vaut 120° : il est dans le deuxième quadrant, à **gauche** de l'axe vertical, donc son abscisse — le cosinus — est négative."},
+  diag:[{v:0.5, m:"C'est $cos@f{π}{3}$. L'angle $@f{2π}{3}$ vaut 120° : il est dans le deuxième quart, à **gauche** de l'axe vertical, donc son abscisse — le cosinus — est négative."},
         {v:0.866, m:"C'est $sin@f{2π}{3}$, l'ordonnée. Le cosinus est l'abscisse : c'est la première coordonnée du point."},
         {v:-0.866, m:"Tu as le bon signe mais la mauvaise valeur : $-@f{@r{3}}{2}$ correspondrait à $cos@f{5π}{6}$. Pour $@f{2π}{3}$, la valeur absolue du cosinus est $@f{1}{2}$."},
         {v:0.667, m:"Tu as calculé $@f{2}{3}$ en oubliant le $π$. L'angle est $@f{2π}{3}$ radians, soit 120°, et il faut lire son cosinus sur le cercle."}],
-  corr:["**Convertir pour visualiser.** $@f{2π}{3} = @f{2}{3} × 180° = 120°$. C'est un angle obtus, situé dans le deuxième quadrant — en haut à gauche du cercle.",
-        "**En déduire les signes tout de suite.** Dans ce quadrant, l'abscisse est **négative** et l'ordonnée positive. Donc $cos@f{2π}{3} < 0$ : la moitié des réponses possibles est déjà éliminée.",
+  corr:["**Convertir pour visualiser.** $@f{2π}{3} = @f{2}{3} × 180° = 120°$. C'est un angle obtus, situé dans le deuxième quart — en haut à gauche du cercle.",
+        "**En déduire les signes tout de suite.** Dans ce quart, l'abscisse est **négative** et l'ordonnée positive. Donc $cos@f{2π}{3} < 0$ : la moitié des réponses possibles est déjà éliminée.",
         "**Utiliser l'angle associé.** $@f{2π}{3} = π - @f{π}{3}$, et la formule du cours donne $cos(π - x) = -cos x$.",
         "**Appliquer.** $cos@f{2π}{3} = -cos@f{π}{3} = -@f{1}{2} = -0{,}5$.",
         "**Contrôle sur le cercle.** Le point d'angle 120° a pour coordonnées $(-@f{1}{2} ; @f{@r{3}}{2})$, soit environ $(-0{,}5 ; 0{,}87)$. L'abscisse est bien $-0{,}5$ ✓",
-        "**La méthode générale.** Pour tout angle remarquable hors du premier quadrant : d'abord le quadrant (il donne les signes), ensuite l'angle associé (il donne la valeur). Dans cet ordre, on ne se trompe jamais de signe."],
-  indice:"$@f{2π}{3}$ vaut 120°. Dans quel quadrant ? Quel est le signe de l'abscisse là-bas ?"},
+        "**La méthode générale.** Pour tout angle remarquable hors du premier quart : d'abord le quart (il donne les signes), ensuite l'angle associé (il donne la valeur). Dans cet ordre, on ne se trompe jamais de signe."],
+  indice:"$@f{2π}{3}$ vaut 120°. Dans quel quart ? Quel est le signe de l'abscisse là-bas ?"},
 
  {id:"tr14", niveau:3, type:"qcm", enonce:"Que vaut $cos(π + x)$ ?",
   choix:["$-cos x$","$cos x$","$-sin x$","$sin x$"], bonne:0,
@@ -4334,20 +4334,33 @@ MODELES["cercle-trigo"] = function(){
     point(svg,R,c,s,"M","ink");
     var t = Math.round(ang*180/Math.PI);
     var fp = fracPi(ang);
+    // eqSign : "=" seulement si le nombre affiché à 2 décimales est bien
+    // la valeur exacte (à l'epsilon flottant près) — jamais pour une
+    // valeur irrationnelle (√3/2 → 0,87 reste une approximation, donc ≈).
+    function eqSign(x){
+      return Math.abs(parseFloat(x.toFixed(2)) - x) < 1e-9 ? "=" : "≈";
+    }
+    // fmt : évite l'affichage "-0,00" pour un cos/sin numériquement quasi
+    // nul (ex. cos(3π/2) ≈ -1.8e-16 en flottant) — sans quoi le signe
+    // négatif survit au toFixed(2) alors que la valeur exacte est 0.
+    function fmt(x){
+      var d = Math.abs(x) < 5e-3 ? 0 : x;
+      return d.toFixed(2).replace(".",",");
+    }
     lecture.innerHTML =
       '<span style="color:var(--ambre)">angle '+t+'° '+(fp.exact?"=":"≈")+' '+fp.txt+'</span> &nbsp; '+
-      '<span style="color:var(--bleu)">cos = '+c.toFixed(2).replace(".",",")+'</span> &nbsp; '+
-      '<span style="color:var(--vert)">sin = '+s.toFixed(2).replace(".",",")+'</span>';
+      '<span style="color:var(--bleu)">cos '+eqSign(c)+' '+fmt(c)+'</span> &nbsp; '+
+      '<span style="color:var(--vert)">sin '+eqSign(s)+' '+fmt(s)+'</span>';
   }
   function fracPi(a){
-    // Tolérance angulaire FIXE (0,5°), convertie pour chaque dénominateur
-    // testé — l'ancienne tolérance était fixée sur "num" directement, donc
-    // 20 fois plus large pour un dénominateur 1 que pour un dénominateur 12
-    // (jusqu'à 3,6° d'écart), au point d'afficher « angle 178° = π » comme
-    // si c'était une égalité exacte. 0,5° est choisi pour coïncider avec
-    // l'arrondi au degré affiché juste à côté (Math.round) : les deux ne
-    // peuvent plus se contredire (ex. "angle 180° ≈ 1π" pour 179,5°).
-    var v = a/Math.PI, den=[1,2,3,4,6,12], tolDeg=0.5, i;
+    // L'angle affiché ici est déjà aimanté à la source (voir pointe()) sur
+    // les multiples exacts de π/12 dès qu'un geste en approche à moins de
+    // 0,5° : cos/sin sont donc recalculés depuis ce même angle aimanté, et
+    // ne peuvent plus contredire la fraction annoncée. L'epsilon ci-dessous
+    // n'absorbe plus qu'une marge purement numérique (arrondi flottant),
+    // jamais la marge de 0,5° du geste — sinon "angle 31°" pourrait de
+    // nouveau s'afficher à côté de "= π/6".
+    var v = a/Math.PI, den=[1,2,3,4,6,12], EPS=1e-9, i;
     function coefTxt(nu, d){
       if(nu===0) return "0";
       var base = (Math.abs(nu)===1 ? "π" : Math.abs(nu)+"π");
@@ -4355,7 +4368,7 @@ MODELES["cercle-trigo"] = function(){
     }
     for(i=0;i<den.length;i++){
       var num = v*den[i];
-      if(Math.abs(num-Math.round(num)) < (tolDeg/180)*den[i]){
+      if(Math.abs(num-Math.round(num)) < EPS){
         return {txt:coefTxt(Math.round(num), den[i]), exact:true};
       }
     }
@@ -4372,6 +4385,15 @@ MODELES["cercle-trigo"] = function(){
     var q = local(ev);
     ang = Math.atan2(-(q.y-R.Y(0)), q.x-R.X(0));
     if(ang<0) ang += 2*Math.PI;
+    // Aimante l'angle sur la grille des multiples de π/12 (15°) dès que le
+    // geste en approche à moins de 0,5° : sans cela, fracPi() annonçait une
+    // fraction exacte de π ("= π/6") pendant que cos/sin restaient calculés
+    // sur l'angle réel non aimanté, légèrement différent — la ligne de
+    // lecture s'auto-contredisait (ex. "= π/6 … sin = 0,51" au lieu de 0,50).
+    var k = ang/(Math.PI/12), kR = Math.round(k);
+    if(Math.abs(k-kR) < 0.5/15){
+      ang = (kR % 24) * (Math.PI/12);
+    }
     redessine();
   }
   var actif = false;
