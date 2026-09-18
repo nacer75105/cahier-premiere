@@ -825,3 +825,26 @@ programmes générés par `al-for`/`al-while`). 0 bloquant restant.
   `print` utilisé avant d'être expliqué ; `L[-1]` non expliqué ; « Calculer
   u₁₅ » = 15 tours seulement depuis u₀ ; pièges `=`/`==` en double ;
   choix D d'`al4` trop facile à éliminer.
+
+**Passe `prof-pedagogue` du 2026-09-18** (listes en priorité, puis reste du
+chapitre), revérifiée par `relecteur-maths` (38 scripts Python réexécutés
+depuis le rendu `T()`, figure exécutée sous Node, 0 bloquant) :
+- *(Appliqué)* Section Listes reconstruite autour d'une image unique, le
+  **meuble à casiers** (reprise de l'image des suites du chapitre 1) :
+  besoin montré (variable qui écrase), crochets, lecture d'une case et
+  indice, départ à 0 (IndexError), `L[-1]`/`L[-2]`, `append`/`len`/`max`/
+  `sum` traduits, deux traces pas à pas, piège `L = L.append(...)`.
+- *(Appliqué)* Listes présentes dans la description, les pièges de lecture,
+  le lien avec les suites, une fiche méthode, un 4e programme de la figure
+  `trace-python`, et deux exercices (`al14`, `al15`) ; al11 en « cases ».
+- *(Appliqué)* Reste du chapitre : boucles motivées et traduites (avec
+  valeurs de départ), squelette de seuil ligne par ligne, « tester → faire
+  le tour → retester » unifié, feu tricolore pour `if`, exemples de
+  conditions, `def`/`return` et `print`/`return` concrets, double
+  indentation, `import`, étoile `*`, guillemets, lexique.
+
+Restent à traiter :
+- Génération de liste « en compréhension » et parcours `for x in L` :
+  cités par le programme de Première, absents du chapitre — **à confirmer
+  contre le programme 2026 / le manuel de la classe avant tout ajout**.
+- Générateur `al-liste` (lire une case) proposé, non ajouté.

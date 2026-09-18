@@ -3801,7 +3801,7 @@ exos:[
 {
 id:"algo", n:10, titre:"Algorithmique et Python",
 sous:"Faire calculer la machine",
-desc:"Variables, boucles, fonctions, recherche de seuil sur les suites et simulation en probabilités.",
+desc:"Variables, boucles, tests, fonctions, listes, recherche de seuil sur les suites et simulation en probabilités.",
 duree:35,
 sections:[
  {titre:"Ce que fait un programme", blocs:[
@@ -3811,16 +3811,24 @@ sections:[
   {t:"piege", titre:"Le piège du signe égal", x:"En maths, $u = u + 3$ est une équation impossible. En Python, c'est parfaitement normal : cela veut dire « prends la valeur actuelle de u, ajoute 3, et remets le résultat dans u ». La ligne se lit **de droite à gauche**."},
   {t:"exemple", titre:"Exemple guidé — suivre l'exécution", enonce:"Que contient la variable $u$ à la fin de ce programme ?<br><b>u = 2</b><br><b>u = u * 3</b><br><b>u = u + 1</b>", etapes:[
    {q:"Ligne 1", r:"On range 2 dans $u$. Donc $u$ vaut 2."},
-   {q:"Ligne 2", r:"On lit $u$ (soit 2), on multiplie par 3, on obtient 6, et on le range dans $u$. Donc $u$ vaut 6."},
+   {q:"Ligne 2", r:"L'étoile <b>*</b> est le signe « fois » de Python (le clavier n'a pas de ×). On lit $u$ (soit 2), on multiplie par 3, on obtient 6, et on le range dans $u$. Donc $u$ vaut 6."},
    {q:"Ligne 3", r:"On lit $u$ (soit 6), on ajoute 1, on obtient 7, et on le range dans $u$."},
    {q:"Résultat", r:"À la fin, $u$ vaut 7. La méthode sûre : dessine un tableau avec une colonne par variable, et une ligne par instruction."}
+  ]},
+  {t:"p", x:"Quatre mots reviennent souvent dans les corrigés ; les voici une fois pour toutes :"},
+  {t:"tbl", head:["Le mot","Ce qu'il veut dire","Exemple"], rows:[
+   ["affecter","ranger une valeur dans une variable","<b>u = 5</b>"],
+   ["initialiser","donner à une variable sa valeur de départ, avant la boucle","<b>n = 0</b>"],
+   ["incrémenter","augmenter de 1","<b>n = n + 1</b>"],
+   ["argument","une valeur placée entre les parenthèses de range, randint ou d'une fonction","le 5 de <b>range(5)</b>"]
   ]}
  ]},
 
  {titre:"Les boucles : répéter sans se répéter", blocs:[
-  {t:"p", x:"Deux boucles suffisent pour tout le programme de Première. La première répète un nombre de fois **connu à l'avance**, la seconde répète **tant qu'une condition est vraie**."},
-  {t:"formule", titre:"Boucle « pour » — nombre de tours connu", code:true, x:"<b>for i in range(5):</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>u = u + 3</b>", note:"range(5) donne 0, 1, 2, 3, 4 : cinq tours, mais le compteur s'arrête à 4."},
-  {t:"formule", titre:"Boucle « tant que » — condition d'arrêt", code:true, x:"<b>while u &lt; 100:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>u = u * 2</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>n = n + 1</b>", note:"On répète tant que la condition est vraie. Elle doit finir par devenir fausse, sinon le programme tourne indéfiniment."},
+  {t:"p", x:"Pourquoi une boucle ? Imagine qu'on te demande $u_{50}$ pour la suite $u_0 = 7$, $u_{n+1} = u_n + 3$. À la main, il faudrait écrire 50 fois la même ligne <b>u = u + 3</b>. Une boucle, c'est dire à la machine « refais cette ligne 50 fois », en une seule phrase — comme une consigne de sport : « 10 pompes » plutôt que « une pompe, une pompe, une pompe… »."},
+  {t:"p", x:"Deux boucles suffisent pour tout ce qu'on te demandera en Première. La première répète un nombre de fois **connu à l'avance**, la seconde répète **tant qu'une condition est vraie**."},
+  {t:"formule", titre:"Boucle « pour » — nombre de tours connu", code:true, x:"<b>u = 0</b><br><b>for i in range(5):</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>u = u + 3</b>", note:"Se lit : « pour i allant de 0 à 4, fais : ajouter 3 à u ». <b>for</b> veut dire « pour ». <b>range(5)</b> fabrique les numéros 0, 1, 2, 3, 4 : cinq tours, mais le compteur s'arrête à 4. <b>i</b> est ce compteur, que Python fait avancer tout seul, d'un cran par tour. Les deux-points <b>:</b> annoncent « voici ce qu'il faut répéter », et ce qu'il faut répéter, c'est la ligne décalée de quatre espaces vers la droite. Ici, $u$ passe par 3, 6, 9, 12 et finit à 15."},
+  {t:"formule", titre:"Boucle « tant que » — condition d'arrêt", code:true, x:"<b>u = 3</b><br><b>n = 0</b><br><b>while u &lt; 100:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>u = u * 2</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>n = n + 1</b>", note:"Se lit : « tant que u est plus petit que 100, fais : doubler u, puis ajouter 1 à n ». <b>while</b> veut dire « tant que ». <b>u &lt; 100</b> est une **condition** : une question à laquelle la machine répond oui ou non. Ici, $u$ passe par 6, 12, 24, 48, 96, 192 : à 192 la réponse devient non, on s'arrête, et $n$ vaut 6. La condition doit finir par devenir fausse, sinon le programme tourne indéfiniment."},
   {t:"p", x:"Comment choisir entre les deux ? Une seule question suffit : **est-ce que je sais à l'avance combien de fois répéter ?**"},
   {t:"tbl", head:["La situation","La boucle à prendre"], rows:[
    ["« Calculer les 20 premiers termes »","<b>for</b> — le nombre de tours est connu"],
@@ -3829,7 +3837,7 @@ sections:[
    ["« Combien de fois faut-il doubler pour… »","<b>while</b> — c'est justement la question"],
    ["« Répéter la simulation 10 000 fois »","<b>for</b> — le nombre est donné"]
   ]},
-  {t:"p", x:"La règle se déduit toujours de la même chose : si le nombre de répétitions **figure dans l'énoncé**, c'est <b>for</b> ; s'il est **ce qu'on cherche**, c'est <b>while</b>. Les exercices de seuil sont donc systématiquement des <b>while</b>."},
+  {t:"p", x:"La règle se déduit toujours de la même chose : si le nombre de répétitions **figure dans l'énoncé**, c'est <b>for</b> ; s'il est **ce qu'on cherche**, c'est <b>while</b>. Les exercices de **seuil** (« à partir de quand dépasse-t-on telle valeur ? » — la valeur à franchir s'appelle le seuil) sont donc systématiquement des <b>while</b>."},
   {t:"fig", titre:"Ce que fait une boucle « tant que »",
    vue:[0,0,10.5,6.5], w:400, h:265, grille:false, axes:false, graduations:false,
    objets:[
@@ -3851,24 +3859,36 @@ sections:[
     {t:"texte", x:7.6, y:4.6, txt:"non", couleur:"ink3", taille:12},
     {t:"texte", x:5.95, y:2.6, txt:"oui", couleur:"ink3", taille:12}
    ],
-   note:"On teste **avant** chaque tour, et on revient tester après. Dès que la condition devient fausse, on sort."},
+   note:"Le cycle est toujours : **tester → faire le tour → retester**. Dès qu'un test répond « non », on sort."},
   {t:"p", x:"Ce schéma explique ce qui déroute le plus : **à la sortie, la valeur a déjà dépassé le seuil**. La boucle teste, entre, fait son tour, revient tester — et le dernier tour effectué est justement celui qui fait franchir la limite. Quand la question est « à partir de quelle année dépasse-t-on 5000 € ? », c'est bien la valeur de $n$ à la sortie qu'il faut donner : c'est le premier moment où le dépassement a lieu."},
   {t:"piege", titre:"range(5) ne va pas jusqu'à 5", x:"<b>range(5)</b> produit 0, 1, 2, 3, 4 : cinq valeurs, mais la dernière est 4. Pour aller de 1 à 5 inclus, il faut écrire <b>range(1, 6)</b>. C'est la source d'erreur numéro un en lecture de code."},
   {t:"piege", titre:"L'indentation fait partie du code", x:"Les lignes décalées vers la droite sont **à l'intérieur** de la boucle : elles se répètent. Une ligne revenue à gauche s'exécute une seule fois, après la boucle. En Python, ce décalage n'est pas de la décoration."},
   {t:"exemple", titre:"Exemple guidé — une suite arithmétique en Python", enonce:"Que vaut $u$ après ce programme ?<br><b>u = 7</b><br><b>for i in range(4):</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>u = u + 3</b>", etapes:[
    {q:"Combien de tours ?", r:"range(4) donne 0, 1, 2, 3 : la boucle tourne **4 fois**."},
+   {q:"Et le i ?", r:"Il vaut 0, puis 1, 2, 3, mais il n'apparaît pas dans la ligne <b>u = u + 3</b> : ici il ne sert qu'à compter les tours, comme les doigts qu'on plie pour ne pas perdre le fil. C'est normal et très fréquent."},
    {q:"Que fait chaque tour ?", r:"Il ajoute 3 à $u$. C'est exactement une suite arithmétique de raison 3."},
    {q:"Dérouler", r:"7 → 10 → 13 → 16 → 19."},
    {q:"Résultat", r:"$u$ vaut 19. On le retrouve avec la formule du cours : $u_4 = 7 + 4 × 3 = 19$. ✓"}
-  ]}
+  ]},
+  {t:"p", x:"Pour voir une boucle s'exécuter pas à pas — ligne active surlignée, boîtes des variables mises à jour à chaque tour —, ouvre la figure du récapitulatif, à la fin du chapitre : c'est exactement le tableau d'exécution, mais animé. Tu peux y aller dès maintenant pour les deux premiers programmes ; les deux autres viendront après les tests et les listes."}
  ]},
 
  {titre:"Chercher un seuil", blocs:[
   {t:"idee", x:"C'est **l'exercice type** du programme : « à partir de quelle année la population dépasse-t-elle un million ? ». On ne connaît pas le nombre de tours à l'avance, donc on utilise une boucle « tant que »."},
+  {t:"p", x:"Un capital de 1000 € gagne 10 % par an. Au bout de combien d'années dépasse-t-il 5000 € ? Il faudrait résoudre $1000 × 1{,}1^n > 5000$ — et en Première, on n'a aucun outil de calcul pour trouver $n$ directement. Alors on fait comme à la main, mais sans se fatiguer : on multiplie par 1,1 année après année, en comptant les années, jusqu'à dépasser 5000. C'est exactement ce que fait le programme ci-dessous."},
   {t:"formule", titre:"Le squelette à connaître", code:true, x:"<b>u = 1000</b><br><b>n = 0</b><br><b>while u &lt; 5000:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>u = u * 1.1</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>n = n + 1</b><br><b>print(n)</b>", note:"Deux variables : $u$ suit la valeur, $n$ compte les étapes. La réponse est dans $n$. Attention : en Python, un nombre décimal s'écrit avec un **point** (<b>1.1</b>), jamais avec une virgule — <b>u * 1,1</b> ne multiplie pas par 1,1 et fait planter le programme."},
+  {t:"tbl", head:["Ligne","Ce qu'elle fait"], rows:[
+   ["<b>u = 1000</b>","le capital de départ"],
+   ["<b>n = 0</b>","le compteur d'années : rien d'écoulé au départ"],
+   ["<b>while u &lt; 5000:</b>","tant que le capital n'a pas atteint 5000, on continue"],
+   ["<b>u = u * 1.1</b>","une année passe : le capital gagne 10 %"],
+   ["<b>n = n + 1</b>","on compte cette année"],
+   ["<b>print(n)</b>","une fois sorti de la boucle, on **affiche** à l'écran le nombre d'années (<b>print</b> veut dire « afficher »)"]
+  ]},
   {t:"exemple", titre:"Exemple guidé — comprendre la sortie de boucle", enonce:"Un capital de 1000 € augmente de 10 % par an. Le programme ci-dessus affiche 17. Que signifie ce nombre ?", etapes:[
    {q:"Que compte $n$ ?", r:"Il augmente de 1 à chaque passage dans la boucle, donc il compte le nombre d'années écoulées."},
    {q:"Quand la boucle s'arrête-t-elle ?", r:"Dès que la condition $u < 5000$ devient fausse, c'est-à-dire dès que $u$ atteint ou dépasse 5000."},
+   {q:"Les premiers tours, à la main", r:"Départ : $u = 1000$, $n = 0$. Tour 1 : $u = 1100$, $n = 1$. Tour 2 : $u = 1210$, $n = 2$. Tour 3 : $u = 1331$, $n = 3$… On continue ainsi jusqu'à ce que $u$ dépasse 5000, ce qui arrive au 17e tour ($u ≈ 5054$)."},
    {q:"Interpréter", r:"Il faut 17 ans pour que le capital dépasse 5000 €."},
    {q:"Le point délicat", r:"À la sortie de la boucle, $u$ a **déjà dépassé** le seuil. La valeur affichée est la première année où le dépassement a lieu, pas la dernière année en dessous."}
   ]},
@@ -3877,11 +3897,11 @@ sections:[
  ]},
 
  {titre:"Les tests : faire un choix", blocs:[
-  {t:"idee", x:"Une boucle **while** sait déjà s'arrêter selon une condition, mais elle ne fait qu'une seule chose à la fois : soit elle refait le même bloc, soit elle s'arrête. Un **test** va plus loin : il permet au programme de choisir entre **deux actions différentes** — faire une chose **si** une condition est vraie, une autre sinon."},
-  {t:"p", x:"C'est un troisième outil essentiel, après les variables et les boucles : à eux trois — ranger une valeur, répéter, choisir — ils suffisent déjà à écrire des programmes utiles. Les fonctions et les listes, vues dans les sections suivantes, complètent la boîte à outils du programme de Première."},
-  {t:"formule", titre:"La forme complète", code:true, x:"<b>if condition:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>ce qu'on fait si c'est vrai</b><br><b>else:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>ce qu'on fait sinon</b>", note:"Un seul des deux blocs s'exécute, jamais les deux. Le <b>else</b> est facultatif : sans lui, si la condition est fausse, il ne se passe simplement rien."},
+  {t:"idee", x:"Au lieu de toujours faire la même chose, un programme peut **choisir**, comme toi devant un feu : s'il est vert, je passe ; sinon, je m'arrête. Si le dé tombe sur 6, je marque un point ; si le discriminant est positif, il y a deux solutions. C'est le rôle du **test** : faire une chose **si** une condition est vraie, une autre sinon. Une boucle <b>while</b> utilise aussi une condition, mais seulement pour décider de continuer ou d'arrêter ; le test, lui, choisit entre deux actions différentes."},
+  {t:"p", x:"C'est un troisième outil essentiel, après les variables et les boucles : à eux trois — ranger une valeur, répéter, choisir — ils suffisent déjà à écrire des programmes utiles. Les fonctions, puis les **listes** — la seule vraie nouveauté de Première en programmation —, vues dans les sections suivantes, complètent la boîte à outils."},
+  {t:"formule", titre:"La forme complète", code:true, x:"<b>if condition:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>ce qu'on fait si c'est vrai</b><br><b>else:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>ce qu'on fait sinon</b>", note:"<b>if</b> veut dire « si », <b>else</b> veut dire « sinon », et les deux-points annoncent le bloc décalé qui suit. Un seul des deux blocs s'exécute, jamais les deux. Le <b>else</b> est facultatif : sans lui, si la condition est fausse, il ne se passe simplement rien."},
   {t:"p", x:"Ce qui sépare les deux blocs, ce sont les **quatre espaces** au début de la ligne. En Python, ce décalage — l'indentation — n'est pas une décoration : c'est lui qui dit ce qui appartient au bloc. Une ligne recollée à gauche sort du test et s'exécutera dans tous les cas."},
-  {t:"formule", titre:"Écrire une condition", code:true, x:"<b>==</b> égal &nbsp;·&nbsp; <b>!=</b> différent<br><b>&lt;</b> plus petit &nbsp;·&nbsp; <b>&lt;=</b> plus petit ou égal<br><b>&gt;</b> plus grand &nbsp;·&nbsp; <b>&gt;=</b> plus grand ou égal<br><b>and</b> les deux &nbsp;·&nbsp; <b>or</b> l'un au moins", note:"Une condition n'a que deux réponses possibles : vrai (True) ou faux (False)."},
+  {t:"formule", titre:"Écrire une condition", code:true, x:"<b>==</b> égal &nbsp;·&nbsp; <b>!=</b> différent<br><b>&lt;</b> plus petit &nbsp;·&nbsp; <b>&lt;=</b> plus petit ou égal<br><b>&gt;</b> plus grand &nbsp;·&nbsp; <b>&gt;=</b> plus grand ou égal<br><b>and</b> les deux &nbsp;·&nbsp; <b>or</b> l'un au moins", note:"Une condition est une question à réponse oui/non : Python répond <b>True</b> (vrai) ou <b>False</b> (faux). Exemples avec x = 7 : <b>x != 3</b> (x est-il différent de 3 ?) donne True ; <b>x &gt;= 10</b> donne False ; <b>x &gt; 0 and x &lt; 10</b> (entre 0 et 10 ?) donne True ; <b>x == 1 or x == 2</b> donne False."},
   {t:"piege", titre:"Le signe = et le signe ==, à ne jamais confondre", x:"**Un seul signe égal range une valeur** : $x = 3$ met 3 dans la boîte $x$. **Deux signes égaux posent une question** : $x == 3$ demande « est-ce que $x$ vaut 3 ? » et répond vrai ou faux.<br><br>Écrire <b>if x = 3:</b> est une erreur que Python refuse d'exécuter. C'est le premier message d'erreur que rencontre tout débutant — et une fois qu'on connaît la distinction, on ne s'y fait plus prendre."},
   {t:"exemple", titre:"Exemple guidé — trois cas au lieu de deux", enonce:"Écrire un programme qui, selon la valeur du discriminant $Δ$ rangé dans la variable <b>d</b>, affiche le nombre de solutions de l'équation du second degré.", etapes:[
    {q:"Combien de cas ?", r:"Trois : $Δ > 0$ (deux solutions), $Δ = 0$ (une seule), $Δ < 0$ (aucune). Un simple if/else ne suffit pas, il n'offre que deux issues."},
@@ -3891,19 +3911,20 @@ sections:[
    {q:"Pourquoi l'ordre compte", r:"Comme il s'arrête au premier cas vrai, un test trop large placé en tête cache les suivants. Si l'on écrivait <b>if d >= 0:</b> puis <b>elif d == 0:</b>, le cas $Δ = 0$ serait déjà attrapé par le premier test : le programme afficherait 2, et <b>print(1)</b> ne s'exécuterait jamais. Le <b>else</b>, lui, se place obligatoirement en dernier : Python refuse de lancer un programme où il est placé avant un <b>elif</b>."},
    {q:"Le contrôle à faire", r:"Vérifie que les cas couvrent **toutes** les possibilités et ne se chevauchent pas. Ici : strictement positif, exactement nul, strictement négatif. Aucun oubli, aucun recouvrement."}
   ]},
-  {t:"astuce", titre:"Tester un programme sur les cas limites", x:"Un programme qui marche sur $Δ = 5$ peut échouer sur $Δ = 0$. Les erreurs se cachent presque toujours aux **frontières** : la valeur qui bascule d'un cas à l'autre, le zéro, le nombre négatif, la liste vide. Essaie toujours ces valeurs-là — c'est en une minute qu'on trouve la faute."},
+  {t:"astuce", titre:"Tester un programme sur les cas limites", x:"Un programme qui marche sur $Δ = 5$ peut échouer sur $Δ = 0$. Les erreurs se cachent presque toujours aux **frontières** : la valeur qui bascule d'un cas à l'autre, le zéro, le nombre négatif, la boucle qui ne fait aucun tour. Essaie toujours ces valeurs-là — c'est en une minute qu'on trouve la faute."},
   {t:"check", q:"Que fait <b>if x &gt; 10:</b> suivi d'une seule ligne indentée, si $x$ vaut 4 ?",
    choix:["Rien : la ligne indentée est sautée","Elle s'exécute quand même","Le programme s'arrête sur une erreur"], bonne:0,
    expl:["","La ligne indentée appartient au bloc du if : elle ne s'exécute que si la condition est vraie. Ici $4 > 10$ est faux, donc elle est ignorée.","Aucune erreur : une condition fausse sans else est un cas parfaitement normal. Le programme continue simplement après le bloc."]}
  ]},
 
  {titre:"Fonctions et simulation", blocs:[
-  {t:"p", x:"Une **fonction** en Python est un bloc de code réutilisable, à qui on donne des valeurs d'entrée et qui renvoie un résultat. C'est la même idée qu'une fonction mathématique."},
-  {t:"formule", titre:"Définir et utiliser une fonction", code:true, x:"<b>def terme(u0, r, n):</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>return u0 + n * r</b><br><br><b>terme(7, 3, 10)</b> renvoie <b>37</b>", note:"<b>def</b> définit, <b>return</b> renvoie la valeur. Sans return, la fonction ne rend rien."},
-  {t:"piege", titre:"print n'est pas return", x:"<b>print</b> affiche une valeur à l'écran ; <b>return</b> la renvoie pour qu'on puisse la réutiliser dans un autre calcul. Une fonction qui fait seulement <b>print</b> ne peut pas être utilisée dans une expression."},
+  {t:"p", x:"Imagine qu'il te faille $u_{10}$, $u_{50}$ et $u_{100}$ d'une suite arithmétique : sans fonction, il faudrait réécrire trois fois le même calcul. Une **fonction** en Python, c'est la formule écrite **une fois**, à qui on donne ses entrées entre parenthèses — exactement comme $f(x)$ en maths : tu donnes $x$, elle rend $f(x)$."},
+  {t:"formule", titre:"Définir et utiliser une fonction", code:true, x:"<b>def terme(u0, r, n):</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>return u0 + n * r</b><br><br><b>terme(7, 3, 10)</b> renvoie <b>37</b>", note:"Ligne 1 : <b>def</b> (de l'anglais « define », définir) annonce qu'on fabrique une fonction nommée <b>terme</b>. Les noms entre parenthèses, <b>u0, r, n</b>, sont des cases vides : les entrées qu'on donnera plus tard. Ligne 2, décalée parce qu'elle appartient à la fonction : <b>return</b> veut dire « rends ce résultat ». Quand on écrit <b>terme(7, 3, 10)</b>, Python remplit les cases dans l'ordre (u0 = 7, r = 3, n = 10), calcule 7 + 10 × 3 = 37 et rend 37. Sans return, la fonction calculerait mais ne rendrait rien."},
+  {t:"piege", titre:"print n'est pas return", x:"<b>print</b> montre le résultat à l'écran : toi tu le vois, mais le programme ne peut rien en faire. <b>return</b> tend le résultat au programme, qui peut le réutiliser — comme un camarade qui te passe sa réponse pour que tu continues le calcul. Exemple : avec <b>return</b>, <b>print(terme(7, 3, 10) + 1)</b> affiche 38. Si la fonction faisait <b>print</b> au lieu de <b>return</b>, elle afficherait 37, puis Python s'arrêterait sur une erreur au moment d'ajouter 1 : la fonction ne lui a rien rendu."},
   {t:"formule", titre:"Simuler le hasard", code:true, x:"<b>from random import randint</b><br><b>randint(1, 6)</b> tire un entier au hasard entre 1 et 6 **inclus**", note:"Contrairement à range, randint inclut les deux bornes."},
   {t:"exemple", titre:"Exemple guidé — estimer une probabilité", enonce:"Que fait ce programme ?<br><b>from random import randint</b><br><b>s = 0</b><br><b>for i in range(10000):</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>if randint(1, 6) == 6:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>s = s + 1</b><br><b>print(s / 10000)</b>", etapes:[
-   {q:"Que fait la boucle ?", r:"Elle lance un dé 10 000 fois."},
+   {q:"Que fait la boucle ?", r:"Elle lance un dé 10 000 fois : elle répète 10 000 fois le bloc décalé, et à chaque tour <b>randint(1, 6)</b> tire un nombre entre 1 et 6, comme un lancer de dé. Le compteur i ne sert qu'à compter les tours. La première ligne, <b>from random import randint</b>, va chercher l'outil <b>randint</b> dans la boîte à outils <b>random</b> (« hasard » en anglais) : sans elle, Python ne le connaît pas."},
+   {q:"Pourquoi deux décalages ?", r:"La ligne <b>if</b> est décalée une fois : elle est dans la boucle, donc refaite à chaque lancer. La ligne <b>s = s + 1</b> est décalée deux fois : elle est dans le <b>if</b>, lui-même dans la boucle — un décalage par niveau d'emboîtement, comme des poupées russes. Elle ne s'exécute que pendant un tour **et** seulement si le dé a donné 6. La dernière ligne, <b>print</b>, est collée à gauche : elle ne s'exécute qu'une fois, après les 10 000 lancers."},
    {q:"Que compte $s$ ?", r:"Le test <b>if</b> compare avec <b>==</b> : à chaque fois que le dé tombe sur 6, la condition est vraie et $s$ augmente de 1. Donc $s$ compte les 6 obtenus."},
    {q:"Que vaut l'affichage ?", r:"$s ÷ 10000$ est la **fréquence** d'apparition du 6."},
    {q:"Résultat attendu", r:"Environ 0,167, c'est-à-dire $@f{1}{6}$. Le programme estime la probabilité par l'expérience."},
@@ -3912,17 +3933,49 @@ sections:[
   {t:"piege", titre:"Un seul égal ou deux ?", x:"<b>=</b> range une valeur dans une variable. <b>==</b> pose une question : « est-ce égal ? ». Pour **tester une égalité** dans un <b>if</b> (comme <b>randint(1, 6) == 6</b>), il en faut toujours **deux** — mais un test comme <b>if x > 10:</b> ou <b>while u < 100:</b> n'a besoin d'aucun signe égal du tout, seulement du signe de comparaison."}
  ]},
  {titre:"Les listes : garder tous les termes", blocs:[
-  {t:"idee", x:"Une variable ne retient qu'une valeur : dès qu'on lui en range une nouvelle, l'ancienne disparaît. Une **liste** retient toute la série — pratique pour garder les termes d'une suite au lieu de seulement le dernier."},
-  {t:"formule", titre:"Créer, remplir, lire", code:true, x:"<b>L = []</b> crée une liste vide<br><b>L.append(7)</b> ajoute 7 à la fin<br><b>L[0]</b> lit le premier élément<br><b>len(L)</b> donne le nombre d'éléments", note:"Attention : le premier élément porte le numéro <b>0</b>, pas 1. Dans une liste de 5 éléments, les numéros vont de 0 à 4."},
-  {t:"piege", titre:"Le décalage des numéros", x:"C'est l'erreur classique. Pour une suite, elle tombe plutôt bien : si tu ranges $u_0$ en premier, alors $u_n$ se trouve en position $n$ — les numéros coïncident. Mais si tu commences à $u_1$, tout est décalé d'un cran et $u_n$ est en position $n-1$.<br><br>La règle sûre : **écris les deux ou trois premiers termes à la main** avec leur numéro de position, avant d'écrire la boucle."},
+  {t:"idee", x:"Une variable, c'est **une boîte** : elle ne garde qu'une seule valeur à la fois. Une **liste**, c'est **un meuble à casiers** : une rangée de cases collées les unes aux autres, rangée sous **un seul nom** (souvent <b>L</b>). Chaque case porte un numéro sur sa porte — 0, 1, 2, 3… — et contient une valeur. Tu connais déjà cette image : c'est celle des suites au chapitre 1, où le numéro sur la porte est le rang $n$ et le contenu du casier est $u_n$. Une liste, c'est une suite rangée dans la machine."},
+  {t:"p", x:"Pourquoi en a-t-on besoin ? Calculons $u_3$ pour la suite $u_0 = 2$, $u_{n+1} = 3u_n - 1$, avec une simple variable :<br><b>u = 2</b><br><b>for i in range(3):</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>u = 3 * u - 1</b><br><b>print(u)</b><br>Le programme affiche 41 : c'est bien $u_3$. Mais regarde ce qu'a vécu la boîte <b>u</b> pendant ce temps :"},
+  {t:"tbl", head:["Moment","Contenu de la boîte u"], rows:[
+   ["avant la boucle","2"],
+   ["après le tour 1","5 — le 2 est effacé"],
+   ["après le tour 2","14 — le 5 est effacé"],
+   ["après le tour 3","41 — le 14 est effacé"]
+  ]},
+  {t:"p", x:"À la fin, $u_0$, $u_1$ et $u_2$ ont disparu : **chaque nouvelle valeur a écrasé la précédente**. Impossible de répondre à « combien vaut $u_1$ ? », de calculer la somme $u_0 + u_1 + u_2 + u_3$ ou de chercher le plus grand terme. On pourrait ajouter un <b>print(u)</b> dans la boucle, mais les nombres s'afficheraient à l'écran puis seraient perdus pour la suite du programme. Ce qu'il faudrait, c'est **une case par terme** : exactement ce que fournit le meuble à casiers."},
+  {t:"formule", titre:"Écrire une liste : les crochets", code:true, x:"<b>L = [2, 5, 14]</b> range sous le nom <b>L</b> un meuble de trois cases : 2 dans la case 0, 5 dans la case 1, 14 dans la case 2<br><b>L = [2]</b> un meuble d'une seule case, qui contient 2<br><b>L = []</b> un meuble sans aucune case : la **liste vide**", note:"Les crochets <b>[ ]</b> sont le signe « liste » : ils entourent le contenu des cases, dans l'ordre, séparé par des virgules. La virgule sépare deux cases ; le séparateur décimal reste le **point** : <b>[1.5, 2]</b> est une liste de deux nombres, 1,5 et 2."},
+  {t:"p", x:"On peut dessiner <b>L = [2, 5, 14]</b> exactement comme le tableau rang / terme d'une suite au chapitre 1 :"},
+  {t:"tbl", head:["Numéro de case","0","1","2"], rows:[["Contenu","2","5","14"]]},
+  {t:"formule", titre:"Lire une case : son numéro entre crochets", code:true, x:"Avec <b>L = [2, 5, 14]</b> :<br><b>L[0]</b> se lit « L, case 0 » : elle contient 2<br><b>L[1]</b> se lit « L, case 1 » : elle contient 5<br><b>L[2]</b> se lit « L, case 2 » : elle contient 14<br><b>L[-1]</b> se lit « L, dernière case » : elle contient 14", note:"Collés derrière un nom de liste, les crochets ne créent rien : ils contiennent un **numéro de case**, qu'on appelle l'**indice**. <b>L[1]</b> en Python, c'est l'équivalent de $u_1$ en maths."},
+  {t:"piege", titre:"La première case porte le numéro 0", x:"C'est déroutant, parce que dans la vie on compte « premier, deuxième, troisième » à partir de 1. Mais le numéro d'une case ne dit pas « la combien-tième » : il dit **combien de cases il faut sauter depuis le début** pour l'atteindre. Pour la première, on n'en saute aucune : numéro 0. Pour la deuxième, on en saute une : numéro 1. Tu l'as déjà vu avec les suites : le premier terme s'appelle $u_0$, pas $u_1$.<br><br>Conséquence : dans une liste de 5 cases, les numéros vont de 0 à 4. La case <b>L[5]</b> n'existe pas, et Python s'arrête avec une erreur (<b>IndexError</b>)."},
+  {t:"p", x:"Et <b>L[-1]</b> ? Un numéro négatif veut dire qu'on **compte depuis la fin** : <b>L[-1]</b> est la dernière case, <b>L[-2]</b> l'avant-dernière. Avec <b>L = [2, 5, 14]</b>, <b>L[-1]</b> vaut 14 et <b>L[-2]</b> vaut 5. C'est précieux dans une boucle : la liste grandit à chaque tour, donc la dernière case ne porte jamais le même numéro d'un tour à l'autre. <b>L[-1]</b>, lui, la désigne toujours, sans qu'on ait à savoir combien il y a de cases."},
+  {t:"formule", titre:"Ajouter une case au bout : append", code:true, x:"<b>L.append(41)</b> se lit « L, ajoute à la fin : 41 »<br><b>len(L)</b> se lit « longueur de L » : le nombre de cases", note:"**append** est un mot anglais qui veut dire « ajouter à la fin », « accrocher au bout ». Le **point** entre <b>L</b> et <b>append</b> désigne **la liste qui reçoit** la nouvelle case : <b>L.append(41)</b>, c'est « au meuble L, accroche une case contenant 41 ». Aucune case existante n'est modifiée ; le meuble grandit d'une case. **len** vient de l'anglais « length », « longueur » : <b>len(L)</b> compte les cases sans regarder ce qu'elles contiennent. Deux autres outils servent une fois la liste remplie : <b>max(L)</b> donne la plus grande valeur rangée, <b>sum(L)</b> la somme de toutes les cases. Avec <b>L = [2, 5, 14, 41]</b>, <b>max(L)</b> vaut 41 et <b>sum(L)</b> vaut 62."},
+  {t:"p", x:"Regardons le meuble se construire, ligne après ligne :<br><b>L = []</b><br><b>L.append(2)</b><br><b>L.append(5)</b><br><b>L.append(14)</b><br><b>print(L)</b><br><b>print(len(L))</b>"},
+  {t:"tbl", head:["Ligne exécutée","Contenu de L","len(L)"], rows:[
+   ["<b>L = []</b>","[ ] — aucune case","0"],
+   ["<b>L.append(2)</b>","[2]","1"],
+   ["<b>L.append(5)</b>","[2, 5]","2"],
+   ["<b>L.append(14)</b>","[2, 5, 14]","3"]
+  ]},
+  {t:"p", x:"Le programme affiche <b>[2, 5, 14]</b> puis <b>3</b>. Remarque : la dernière case porte le numéro 2, c'est-à-dire <b>len(L)</b> moins 1 — toujours à cause du départ à 0."},
+  {t:"p", x:"Refaisons maintenant le calcul du début, mais en gardant tous les termes :<br><b>L = [2]</b><br><b>for i in range(3):</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>L.append(3 * L[-1] - 1)</b><br><b>print(L)</b><br>La ligne du milieu se lit **de l'intérieur vers l'extérieur** : Python regarde la dernière case (<b>L[-1]</b>), calcule 3 fois ce nombre moins 1, et seulement ensuite accroche le résultat au bout du meuble."},
+  {t:"tbl", head:["Tour","L[-1] avant le tour","Calcul","L après le tour"], rows:[
+   ["départ","—","—","[2]"],
+   ["1 ($i = 0$)","2","$3 × 2 - 1 = 5$","[2, 5]"],
+   ["2 ($i = 1$)","5","$3 × 5 - 1 = 14$","[2, 5, 14]"],
+   ["3 ($i = 2$)","14","$3 × 14 - 1 = 41$","[2, 5, 14, 41]"]
+  ]},
+  {t:"p", x:"Le programme affiche <b>[2, 5, 14, 41]</b> : cette fois, **rien n'est perdu**. $u_1$ est dans <b>L[1]</b>, $u_3$ dans <b>L[3]</b>. Et observe la deuxième colonne : à chaque tour, <b>L[-1]</b> désigne une case différente — celle qu'on vient d'ajouter."},
+  {t:"formule", titre:"Récapitulatif : créer, remplir, lire, compter", code:true, x:"<b>L = []</b> crée une liste vide<br><b>L.append(7)</b> accroche au bout une case contenant 7<br><b>L[0]</b> lit la case numéro 0, la première<br><b>L[-1]</b> lit la dernière case<br><b>len(L)</b> donne le nombre de cases", note:"Dans une liste de 5 cases, les numéros vont de 0 à 4."},
+  {t:"piege", titre:"Le décalage des numéros", x:"C'est l'erreur classique. Pour une suite, elle tombe plutôt bien : si tu ranges $u_0$ en premier, alors $u_n$ se trouve dans la case numéro $n$, <b>L[n]</b> — les numéros coïncident. Mais si tu commences à $u_1$, tout est décalé d'un cran et $u_n$ est dans la case numéro $n-1$.<br><br>La règle sûre : **écris les deux ou trois premiers termes à la main** avec leur numéro de case, avant d'écrire la boucle."},
   {t:"exemple", titre:"Exemple guidé — ranger les termes d'une suite", enonce:"La suite $u$ est définie par $u_0 = 2$ et $u_{n+1} = 3u_n - 1$. Écrire un programme qui range les termes de $u_0$ à $u_{10}$ dans une liste, puis affiche $u_{10}$.", etapes:[
    {q:"Créer la liste avec son premier terme", r:"<b>L = [2]</b> — la liste contient déjà $u_0$. On peut aussi écrire <b>L = []</b> puis <b>L.append(2)</b>, c'est équivalent."},
    {q:"Le nombre de tours", r:"On a $u_0$, il faut aller jusqu'à $u_{10}$ : il reste 10 termes à calculer, donc <b>for i in range(10):</b>."},
-   {q:"Le calcul dans la boucle", r:"Chaque nouveau terme se déduit du dernier rangé, que <b>L[-1]</b> désigne directement : <b>L.append(3 * L[-1] - 1)</b>."},
-   {q:"Le programme complet", r:"<b>L = [2]</b><br><b>for i in range(10):</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>L.append(3 * L[-1] - 1)</b><br><b>print(L[10])</b>"},
-   {q:"Vérifier à la main les premiers termes", r:"$u_0 = 2$, puis $3 × 2 - 1 = 5$, puis $3 × 5 - 1 = 14$, puis $3 × 14 - 1 = 41$. La liste commence par $[2, 5, 14, 41, …]$ — on peut le contrôler en affichant <b>L</b> en entier."},
+   {q:"Le calcul dans la boucle", r:"Chaque nouveau terme se calcule à partir du **dernier terme rangé**, c'est-à-dire la dernière case : <b>L[-1]</b>. D'où la ligne <b>L.append(3 * L[-1] - 1)</b> : on lit la dernière case, on calcule, on accroche le résultat au bout. Au tour suivant, la « dernière case » est celle qu'on vient d'ajouter."},
+   {q:"Le programme complet", r:"<b>L = [2]</b><br><b>for i in range(10):</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>L.append(3 * L[-1] - 1)</b><br><b>print(L[10])</b><br>Il affiche <b>88574</b>, c'est-à-dire $u_{10}$ : la case numéro 10 contient bien le terme de rang 10."},
+   {q:"Vérifier à la main les premiers termes", r:"$u_0 = 2$, puis $3 × 2 - 1 = 5$, puis $3 × 5 - 1 = 14$, puis $3 × 14 - 1 = 41$. La liste commence par $[2, 5, 14, 41, …]$ — on peut le contrôler en ajoutant <b>print(L)</b>, qui affiche <b>[2, 5, 14, 41, 122, 365, 1094, 3281, 9842, 29525, 88574]</b>."},
    {q:"Le contrôle qui rassure", r:"À la fin, <b>len(L)</b> doit valoir 11 : un terme de départ plus 10 calculés, donc $u_0$ à $u_{10}$. Si tu trouves 10, il manque un tour ; si tu trouves 12, il y en a un de trop."}
   ]},
+  {t:"piege", titre:"append ne se range pas dans L", x:"On écrit <b>L.append(41)</b> seul sur sa ligne, jamais <b>L = L.append(41)</b>. <b>append</b> modifie le meuble sur place et ne rend rien : cette seconde écriture remplacerait toute la liste par <b>None</b> (« rien » en Python), et <b>print(L)</b> afficherait <b>None</b>."},
   {t:"astuce", titre:"Quand une liste est-elle vraiment utile ?", x:"Si la question ne demande qu'**une** valeur — le terme de rang 20, le seuil atteint —, une simple variable suffit et le programme est plus court. La liste devient utile dès qu'il faut **revenir en arrière** : afficher tous les termes, chercher le plus grand, faire une somme, ou tracer un graphique."},
   {t:"tbl", head:["Ce que je veux faire","L'outil le plus simple"],
    rows:[["Connaître seulement le dernier terme","une variable, écrasée à chaque tour"],
@@ -3941,7 +3994,7 @@ sections:[
    ["2","400","2","vraie → on continue"],
    ["3","800","3","**fausse** → on sort"]
   ]},
-  {t:"p", x:"Voilà le tableau du programme « Chercher un seuil » de la figure ci-dessus ($u = 100$, doublement à chaque tour, seuil 500). Trois colonnes, quatre lignes, et la réponse apparaît toute seule : à la sortie, $n$ vaut 3. Remarque bien la dernière ligne — **on effectue le tour, puis on teste**. C'est pour cela que $u$ finit à 800, au-delà du seuil : la boucle ne s'arrête pas au moment où la condition devient fausse, mais au test suivant."},
+  {t:"p", x:"Voilà le tableau du programme « Chercher un seuil » de la figure ci-dessus ($u = 100$, doublement à chaque tour, seuil 500). Trois colonnes, quatre lignes, et la réponse apparaît toute seule : à la sortie, $n$ vaut 3. Remarque bien la dernière ligne. Le cycle est toujours : **tester → faire le tour → retester**. Au tour 3, le test voit 400 et dit oui ; pendant le tour, $u$ passe à 800, mais la boucle ne s'en aperçoit qu'au test suivant — et c'est là qu'elle sort. C'est pour cela que $u$ finit à 800, au-delà du seuil. Comme un contrôleur qui ne vérifie les billets qu'à l'entrée du wagon : une fois monté, on fait le trajet en entier."},
   {t:"tbl", head:["Ce qu'on te demande","Comment s'y prendre"], rows:[
    ["« Que vaut $u$ à la fin ? »","Tableau d'exécution, ligne par ligne"],
    ["« Combien de fois la boucle tourne-t-elle ? »","Compter les valeurs de range, ou dérouler le while"],
@@ -3949,9 +4002,9 @@ sections:[
    ["« Compléter la ligne manquante »","Traduire la formule du cours en Python"],
    ["« Que fait ce programme ? »","L'exécuter sur 2 ou 3 tours, puis généraliser"]
   ]},
-  {t:"piege", titre:"Les trois pièges de lecture", x:"**1. range(n) s'arrête à n−1.** range(6) donne 0,1,2,3,4,5 : six valeurs, dont la dernière est 5.<br>**2. L'indentation décide de tout.** Une ligne décalée est **dans** la boucle et se répète ; une ligne alignée à gauche s'exécute une seule fois, après.<br>**3. La boucle while dépasse le seuil.** À la sortie, la valeur a déjà franchi la limite — c'est normal, et c'est souvent ce qu'on demande."},
-  {t:"astuce", titre:"Le lien avec le reste du programme", x:"Ce chapitre n'est pas une matière à part : c'est un **outil pour les autres chapitres**. Une boucle qui ajoute toujours la même chose, c'est une suite arithmétique. Une boucle qui multiplie, c'est une suite géométrique. Un while avec un seuil, c'est la question « à partir de quelle année dépasse-t-on… ». Et une simulation avec randint, c'est de l'estimation de probabilité.<br><br>Quand un programme te paraît obscur, demande-toi de quel chapitre il parle. La réponse éclaire presque toujours le code."},
-  {t:"p", x:"Enfin, ne cherche pas à retenir Python par cœur. Cinq mots suffisent pour tout le programme de Première : <b>for</b>, <b>while</b>, <b>if</b>, <b>def</b>, <b>return</b>. Ce qu'on évalue, c'est ta capacité à suivre une exécution pas à pas — la même rigueur que pour dérouler une suite à la main."}
+  {t:"piege", titre:"Les quatre pièges de lecture", x:"**1. range(n) s'arrête à n−1.** range(6) donne 0,1,2,3,4,5 : six valeurs, dont la dernière est 5.<br>**2. L'indentation décide de tout.** Une ligne décalée est **dans** la boucle et se répète ; une ligne alignée à gauche s'exécute une seule fois, après.<br>**3. La boucle while dépasse le seuil.** À la sortie, la valeur a déjà franchi la limite — c'est normal, et c'est souvent ce qu'on demande.<br>**4. La première case d'une liste est L[0].** Dans une liste de $n$ cases, la dernière est <b>L[n-1]</b> — ou, plus simplement, <b>L[-1]</b>."},
+  {t:"astuce", titre:"Le lien avec le reste du programme", x:"Ce chapitre n'est pas une matière à part : c'est un **outil pour les autres chapitres**. Une boucle qui ajoute toujours la même chose, c'est une suite arithmétique. Une boucle qui multiplie, c'est une suite géométrique. Un while avec un seuil, c'est la question « à partir de quelle année dépasse-t-on… ». Et une simulation avec randint, c'est de l'estimation de probabilité. Enfin, une liste remplie avec append, c'est la suite elle-même, terme par terme : <b>L[n]</b> joue le rôle de $u_n$.<br><br>Quand un programme te paraît obscur, demande-toi de quel chapitre il parle. La réponse éclaire presque toujours le code."},
+  {t:"p", x:"Enfin, ne cherche pas à retenir Python par cœur. Quelques mots-clés et trois gestes de liste suffisent pour tout ce qu'on te demandera en Première : <b>for</b>, <b>while</b>, <b>if</b> (avec <b>elif</b> et <b>else</b>), <b>def</b>, <b>return</b>, et, pour les listes, les crochets <b>L[…]</b>, <b>append</b> et <b>len</b>. Ce qu'on évalue, c'est ta capacité à suivre une exécution pas à pas — la même rigueur que pour dérouler une suite à la main."}
  ]},
 {titre:"Les méthodes du chapitre", blocs:[
   {t:"methode", titre:"Lire un algorithme sans se tromper", etapes:[
@@ -3960,14 +4013,20 @@ sections:[
    "**Dérouler à la main, tour par tour**, en écrivant les valeurs. Ne jamais essayer de deviner le résultat de tête.",
    "**Repérer la condition d'arrêt** et vérifier à quel tour elle devient fausse.",
    "**Lire la réponse dans la dernière ligne** du tableau, pas dans la première."
-  ], exemple:"Avec $u = 1$ et une boucle « tant que $u < 10$ : $u = 2u$ », le tableau donne 1, 2, 4, 8, 16. La condition devient fausse à 16 : c'est la valeur finale."},
+  ], exemple:"Avec <b>u = 1</b> puis <b>while u &lt; 10:</b> et la ligne décalée <b>u = 2 * u</b>, le tableau donne 1, 2, 4, 8, 16. La condition devient fausse à 16 : c'est la valeur finale."},
   {t:"methode", titre:"Choisir entre « pour » et « tant que »", etapes:[
    "**Se demander si l'on connaît le nombre de tours à l'avance.**",
    "**Si oui, une boucle « pour »** : elle répète un nombre fixé de fois, et c'est le cas le plus fréquent.",
    "**Si non, une boucle « tant que »** : elle continue jusqu'à ce qu'une condition cesse d'être vraie.",
    "**Vérifier que la condition finira par devenir fausse** : sinon la boucle tourne indéfiniment.",
    "**S'assurer qu'une variable de la condition change dans la boucle** — c'est l'oubli qui provoque les boucles infinies."
-  ], exemple:"« Calculer les 10 premiers termes » : le nombre de tours est connu, donc une boucle « pour ». « Trouver le premier terme qui dépasse 1000 » : on ne sait pas combien il en faudra, donc « tant que »."}
+  ], exemple:"« Calculer les 10 premiers termes » : le nombre de tours est connu, donc une boucle « pour ». « Trouver le premier terme qui dépasse 1000 » : on ne sait pas combien il en faudra, donc « tant que »."},
+  {t:"methode", titre:"Lire un programme qui remplit une liste", etapes:[
+   "**Écrire le contenu de départ** entre crochets, avec le numéro 0 sous la première case.",
+   "**Pour chaque tour**, noter ce que vaut <b>L[-1]</b> avant le tour, faire le calcul, et accrocher la nouvelle case au bout.",
+   "**Numéroter les cases** à partir de 0 pour répondre à une question sur <b>L[k]</b>.",
+   "**Contrôler avec len** : nombre de cases de départ + nombre de tours."
+  ], exemple:"<b>L = [1]</b> puis 3 tours de <b>L.append(2 * L[-1])</b> : on obtient [1, 2, 4, 8], quatre cases numérotées de 0 à 3, donc <b>L[3]</b> vaut 8."}
  ]}
 ],
 exos:[
@@ -4076,17 +4135,17 @@ exos:[
 
  {id:"al11", niveau:2, type:"num", enonce:"Après ce programme, que vaut <b>len(L)</b> ?<br><b>L = [5]</b><br><b>for i in range(6):</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>L.append(L[-1] + 2)</b>",
   rep:7, tol:0.5,
-  diag:[{v:6, m:"Tu as compté les 6 tours de boucle, en oubliant l'élément déjà présent au départ : la liste ne commence pas vide, elle contient déjà 5."},
-        {v:1, m:"Tu as donné la taille de la liste **avant** la boucle. Chaque <b>append</b> ajoute un élément, et il y en a 6."},
-        {v:17, m:"Tu as donné la **valeur** du dernier élément ($5 + 6 × 2 = 17$), pas le nombre d'éléments. <b>len</b> compte les cases, il ne regarde pas ce qu'elles contiennent."},
-        {v:12, m:"Tu as compté 6 × 2. La boucle ajoute **un** élément par tour, pas deux : le 2 est la valeur ajoutée au dernier terme, pas un nombre d'éléments."}],
+  diag:[{v:6, m:"Tu as compté les 6 tours de boucle, en oubliant la case déjà présente au départ : la liste ne commence pas vide, elle contient déjà 5."},
+        {v:1, m:"Tu as donné la taille de la liste **avant** la boucle. Chaque <b>append</b> ajoute une case, et il y en a 6."},
+        {v:17, m:"Tu as donné le **contenu** de la dernière case ($5 + 6 × 2 = 17$), pas le nombre de cases. <b>len</b> compte les cases, il ne regarde pas ce qu'elles contiennent."},
+        {v:12, m:"Tu as compté 6 × 2. La boucle ajoute **une** case par tour, pas deux : le 2 est la valeur ajoutée au dernier terme, pas un nombre de cases."}],
   corr:["**Ce que compte <b>len</b>.** Le nombre de cases de la liste — jamais leur contenu.",
         "**Au départ.** <b>L = [5]</b> : une seule case, donc <b>len(L)</b> vaut 1.",
         "**Ce que fait la boucle.** <b>range(6)</b> donne six tours, et chaque tour exécute un <b>append</b>, qui ajoute exactement une case.",
         "**Le total.** $1 + 6 = 7$ cases. Donc <b>len(L)</b> vaut **7**.",
         "**Le contenu, pour vérifier.** <b>L[-1]</b> désigne toujours la dernière case, donc chaque terme vaut le précédent plus 2 : $[5, 7, 9, 11, 13, 15, 17]$. On compte bien 7 nombres.",
-        "**Le lien avec les suites.** Cette liste contient $u_0$ à $u_6$ d'une suite arithmétique de raison 2. Retiens la règle : pour obtenir les termes de $u_0$ à $u_n$, il faut **n tours** de boucle et la liste finit avec $n+1$ éléments."],
-  indice:"La liste n'est pas vide au départ. Compte d'abord ce qu'elle contient, puis ajoute un élément par tour."},
+        "**Le lien avec les suites.** Cette liste contient $u_0$ à $u_6$ d'une suite arithmétique de raison 2. Retiens la règle : pour obtenir les termes de $u_0$ à $u_n$, il faut **n tours** de boucle et la liste finit avec $n+1$ cases."],
+  indice:"La liste n'est pas vide au départ. Compte d'abord ce qu'elle contient, puis ajoute une case par tour."},
 
  {id:"al12", niveau:3, type:"qcm", enonce:"On veut trouver le premier rang $n$ tel que $u_n > 100$, pour la suite $u_0 = 1$, $u_{n+1} = 1{,}5 u_n$. Quel programme convient ?",
   choix:["<b>u = 1</b><br><b>n = 0</b><br><b>while u &lt;= 100:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>u = 1.5 * u</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>n = n + 1</b>",
@@ -4116,7 +4175,23 @@ exos:[
         "**Le tableau, tour par tour.** $i = 1$ : $s = 0 + 1 = 1$. $i = 2$ : $s = 1 + 4 = 5$. $i = 3$ : $s = 5 + 9 = 14$. $i = 4$ : $s = 14 + 16 = 30$.",
         "**Le résultat.** Le programme affiche **30**.",
         "**Vérification directe.** $1^2 + 2^2 + 3^2 + 4^2 = 1 + 4 + 9 + 16 = 30$ ✓ Sur un petit nombre de tours, refaire le calcul en ligne est le meilleur contrôle."],
-  indice:"<b>range(1, 5)</b> s'arrête à 4. Et la boucle additionne les **carrés**, pas les nombres."}
+  indice:"<b>range(1, 5)</b> s'arrête à 4. Et la boucle additionne les **carrés**, pas les nombres."},
+
+ {id:"al14", niveau:2, type:"num", enonce:"Que vaut <b>L[3]</b> à la fin ?<br><b>L = [1]</b><br><b>for i in range(4):</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>L.append(2 * L[-1])</b>",
+  rep:8, tol:0.5,
+  diag:[{v:4, m:"Tu as pris la case numéro 3 pour la troisième case. La numérotation commence à 0 : la troisième case est <b>L[2]</b>, et <b>L[3]</b> est la quatrième."},
+        {v:16, m:"16 est la dernière case, <b>L[-1]</b>. La liste a 5 cases, numérotées de 0 à 4 : la case 3 est l'avant-dernière."}],
+  corr:["**Remplir le meuble.** Départ : [1]. Chaque tour double la dernière case : [1, 2], puis [1, 2, 4], puis [1, 2, 4, 8], puis [1, 2, 4, 8, 16].",
+        "**Numéroter à partir de 0.** Case 0 : 1 ; case 1 : 2 ; case 2 : 4 ; case 3 : 8 ; case 4 : 16.",
+        "Donc <b>L[3]</b> vaut **8**, c'est-à-dire $u_3$ de la suite $u_0 = 1$, $u_{n+1} = 2u_n$."],
+  indice:"Écris la liste finale, puis le numéro de chaque case en dessous, en commençant à 0."},
+
+ {id:"al15", niveau:1, type:"num", enonce:"Avec <b>L = [3, 8, 1, 6]</b>, que vaut <b>L[1] + L[-1]</b> ?",
+  rep:14, tol:0.5,
+  diag:[{v:9, m:"Tu as pris <b>L[1]</b> pour la première case (3). La première case est <b>L[0]</b> ; <b>L[1]</b> est la deuxième, qui contient 8."},
+        {v:11, m:"Tu as pris <b>L[-1]</b> pour la première case (3). Le signe moins fait compter **depuis la fin** : <b>L[-1]</b> est la dernière case, qui contient 6."}],
+  corr:["<b>L[1]</b> : la case numéro 1, c'est-à-dire la deuxième, qui contient 8.","<b>L[-1]</b> : la dernière case, qui contient 6.","$8 + 6 = 14$."],
+  indice:"Numérote les cases 0, 1, 2, 3 sous la liste. Puis repère la dernière."}
 ]
 }
 ]);
@@ -5487,11 +5562,31 @@ MODELES["trace-python"] = function(){
        { l:1, v:{x:7}, m:"x % 2 est le reste de 7 divisé par 2, c'est-à-dire 1. Le test demande si ce reste vaut 0." },
        { l:1, v:{x:7}, m:"1 == 0 est faux → on saute tout le bloc du if." },
        { l:3, v:{x:7}, m:"On file directement au else." },
-       { l:4, v:{x:7}, m:"Affichage : impair." }],
+       { l:4, v:{x:7}, m:"Affichage : impair. Les guillemets de print(\"impair\") signalent un texte à afficher tel quel ; sans eux, Python chercherait une variable nommée impair." }],
       "Un seul des deux blocs s'exécute, jamais les deux. Le == pose une question (« est-ce égal ? ») ; le = simple, lui, range une valeur.");
   })();
 
-  var progs = [p1, p2, p3], choisi = 0, etape = 0;
+  /* -- programme 4 : remplir une liste (le meuble à casiers du cours) -- */
+  var p4 = (function(){
+    var e = [], L = [2];
+    function s(){ return "[" + L.join(", ") + "]"; }
+    e.push({ l:0, v:{L:s()}, m:"On crée un meuble à casiers d'une seule case, la case 0, qui contient 2 : c'est u₀." });
+    e.push({ l:1, v:{L:s()}, m:"La boucle va tourner 3 fois : i prendra les valeurs 0, 1, 2." });
+    for(var i = 0; i < 3; i++){
+      var der = L[L.length-1], nv = 3*der - 1;
+      e.push({ l:1, v:{L:s(), i:i}, m:"Tour n° " + (i+1) + " : i vaut " + i + "." });
+      L.push(nv);
+      e.push({ l:2, v:{L:s(), i:i}, m:"L[-1], la dernière case, contient " + der + ". 3 × " + der + " − 1 = " + nv +
+        " : on accroche au bout une nouvelle case, la case " + (L.length-1) + ". Les autres cases ne bougent pas." });
+    }
+    e.push({ l:1, v:{L:s(), i:2}, m:"i a fait le tour de range(3) : la boucle s'arrête." });
+    e.push({ l:3, v:{L:s(), i:2}, m:"Affichage : " + s() + ". Aucun terme n'a été écrasé : u₀ est dans L[0], u₃ dans L[3]." });
+    return prog("Remplir une liste",
+      ["L = [2]", "for i in range(3):", "    L.append(3 * L[-1] - 1)", "print(L)"], e,
+      "Chaque append accroche une case au bout du meuble sans toucher aux autres. L[-1] désigne toujours la dernière case — celle qu'on vient d'ajouter au tour précédent.");
+  })();
+
+  var progs = [p1, p2, p3, p4], choisi = 0, etape = 0;
 
   var boite = el("div","figBoite");
   var titre = el("div","figTitre","Exécuter un programme pas à pas");
