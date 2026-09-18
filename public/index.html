@@ -3865,7 +3865,7 @@ sections:[
 
  {titre:"Chercher un seuil", blocs:[
   {t:"idee", x:"C'est **l'exercice type** du programme : « à partir de quelle année la population dépasse-t-elle un million ? ». On ne connaît pas le nombre de tours à l'avance, donc on utilise une boucle « tant que »."},
-  {t:"formule", titre:"Le squelette à connaître", code:true, x:"<b>u = 1000</b><br><b>n = 0</b><br><b>while u &lt; 5000:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>u = u * 1.1</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>n = n + 1</b><br><b>print(n)</b>", note:"Deux variables : $u$ suit la valeur, $n$ compte les étapes. La réponse est dans $n$."},
+  {t:"formule", titre:"Le squelette à connaître", code:true, x:"<b>u = 1000</b><br><b>n = 0</b><br><b>while u &lt; 5000:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>u = u * 1.1</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>n = n + 1</b><br><b>print(n)</b>", note:"Deux variables : $u$ suit la valeur, $n$ compte les étapes. La réponse est dans $n$. Attention : en Python, un nombre décimal s'écrit avec un **point** (<b>1.1</b>), jamais avec une virgule — <b>u * 1,1</b> ne multiplie pas par 1,1 et fait planter le programme."},
   {t:"exemple", titre:"Exemple guidé — comprendre la sortie de boucle", enonce:"Un capital de 1000 € augmente de 10 % par an. Le programme ci-dessus affiche 17. Que signifie ce nombre ?", etapes:[
    {q:"Que compte $n$ ?", r:"Il augmente de 1 à chaque passage dans la boucle, donc il compte le nombre d'années écoulées."},
    {q:"Quand la boucle s'arrête-t-elle ?", r:"Dès que la condition $u < 5000$ devient fausse, c'est-à-dire dès que $u$ atteint ou dépasse 5000."},
@@ -3888,7 +3888,7 @@ sections:[
    {q:"Le mot-clé qui manque", r:"<b>elif</b> — contraction de « else if ». Il ajoute autant de cas intermédiaires qu'on veut, entre le <b>if</b> et le <b>else</b> final."},
    {q:"Le programme", r:"<b>if d > 0:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>print(2)</b><br><b>elif d == 0:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>print(1)</b><br><b>else:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>print(0)</b>"},
    {q:"Comment Python lit ça", r:"Il descend dans l'ordre et s'arrête **au premier test vrai**. Si $Δ = 5$, le premier test réussit, il affiche 2 et saute tout le reste — il ne va même pas regarder le <b>elif</b>."},
-   {q:"Pourquoi l'ordre compte", r:"Comme il s'arrête au premier cas vrai, il faut ranger les cas du plus précis au plus général. Un <b>else</b> placé en premier attraperait tout le monde et les autres branches ne serviraient jamais."},
+   {q:"Pourquoi l'ordre compte", r:"Comme il s'arrête au premier cas vrai, un test trop large placé en tête cache les suivants. Si l'on écrivait <b>if d >= 0:</b> puis <b>elif d == 0:</b>, le cas $Δ = 0$ serait déjà attrapé par le premier test : le programme afficherait 2, et <b>print(1)</b> ne s'exécuterait jamais. Le <b>else</b>, lui, se place obligatoirement en dernier : Python refuse de lancer un programme où il est placé avant un <b>elif</b>."},
    {q:"Le contrôle à faire", r:"Vérifie que les cas couvrent **toutes** les possibilités et ne se chevauchent pas. Ici : strictement positif, exactement nul, strictement négatif. Aucun oubli, aucun recouvrement."}
   ]},
   {t:"astuce", titre:"Tester un programme sur les cas limites", x:"Un programme qui marche sur $Δ = 5$ peut échouer sur $Δ = 0$. Les erreurs se cachent presque toujours aux **frontières** : la valeur qui bascule d'un cas à l'autre, le zéro, le nombre négatif, la liste vide. Essaie toujours ces valeurs-là — c'est en une minute qu'on trouve la faute."},
@@ -3902,7 +3902,7 @@ sections:[
   {t:"formule", titre:"Définir et utiliser une fonction", code:true, x:"<b>def terme(u0, r, n):</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>return u0 + n * r</b><br><br><b>terme(7, 3, 10)</b> renvoie <b>37</b>", note:"<b>def</b> définit, <b>return</b> renvoie la valeur. Sans return, la fonction ne rend rien."},
   {t:"piege", titre:"print n'est pas return", x:"<b>print</b> affiche une valeur à l'écran ; <b>return</b> la renvoie pour qu'on puisse la réutiliser dans un autre calcul. Une fonction qui fait seulement <b>print</b> ne peut pas être utilisée dans une expression."},
   {t:"formule", titre:"Simuler le hasard", code:true, x:"<b>from random import randint</b><br><b>randint(1, 6)</b> tire un entier au hasard entre 1 et 6 **inclus**", note:"Contrairement à range, randint inclut les deux bornes."},
-  {t:"exemple", titre:"Exemple guidé — estimer une probabilité", enonce:"Que fait ce programme ?<br><b>s = 0</b><br><b>for i in range(10000):</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>if randint(1, 6) == 6:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>s = s + 1</b><br><b>print(s / 10000)</b>", etapes:[
+  {t:"exemple", titre:"Exemple guidé — estimer une probabilité", enonce:"Que fait ce programme ?<br><b>from random import randint</b><br><b>s = 0</b><br><b>for i in range(10000):</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>if randint(1, 6) == 6:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>s = s + 1</b><br><b>print(s / 10000)</b>", etapes:[
    {q:"Que fait la boucle ?", r:"Elle lance un dé 10 000 fois."},
    {q:"Que compte $s$ ?", r:"Le test <b>if</b> compare avec <b>==</b> : à chaque fois que le dé tombe sur 6, la condition est vraie et $s$ augmente de 1. Donc $s$ compte les 6 obtenus."},
    {q:"Que vaut l'affichage ?", r:"$s ÷ 10000$ est la **fréquence** d'apparition du 6."},
@@ -3941,7 +3941,7 @@ sections:[
    ["2","400","2","vraie → on continue"],
    ["3","800","3","**fausse** → on sort"]
   ]},
-  {t:"p", x:"Voilà le tableau du programme de recherche de seuil vu plus haut. Trois colonnes, quatre lignes, et la réponse apparaît toute seule : à la sortie, $n$ vaut 3. Remarque bien la dernière ligne — **on effectue le tour, puis on teste**. C'est pour cela que $u$ finit à 800, au-delà du seuil : la boucle ne s'arrête pas au moment où la condition devient fausse, mais au test suivant."},
+  {t:"p", x:"Voilà le tableau du programme « Chercher un seuil » de la figure ci-dessus ($u = 100$, doublement à chaque tour, seuil 500). Trois colonnes, quatre lignes, et la réponse apparaît toute seule : à la sortie, $n$ vaut 3. Remarque bien la dernière ligne — **on effectue le tour, puis on teste**. C'est pour cela que $u$ finit à 800, au-delà du seuil : la boucle ne s'arrête pas au moment où la condition devient fausse, mais au test suivant."},
   {t:"tbl", head:["Ce qu'on te demande","Comment s'y prendre"], rows:[
    ["« Que vaut $u$ à la fin ? »","Tableau d'exécution, ligne par ligne"],
    ["« Combien de fois la boucle tourne-t-elle ? »","Compter les valeurs de range, ou dérouler le while"],
@@ -3996,7 +3996,7 @@ exos:[
   corr:["range(3) donne 0, 1, 2 : la boucle tourne 3 fois.","Tour 1 : $u = 2 × 3 = 6$.","Tour 2 : $u = 6 × 3 = 18$.","Tour 3 : $u = 18 × 3 = 54$.","(C'est une suite géométrique : $u = 2 × 3^3 = 54$.)"],
   indice:"Déroule les trois tours l'un après l'autre, en notant $u$ à chaque fois."},
 
- {id:"al4", niveau:2, type:"qcm", enonce:"Dans le programme <b>u = 100</b> / <b>n = 0</b> / <b>while u &lt; 500:</b> / <b>&nbsp;&nbsp;&nbsp;u = u * 2</b> / <b>&nbsp;&nbsp;&nbsp;n = n + 1</b>, que représente $n$ à la fin ?",
+ {id:"al4", niveau:2, type:"qcm", enonce:"Dans ce programme, que représente $n$ à la fin ?<br><b>u = 100</b><br><b>n = 0</b><br><b>while u &lt; 500:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>u = u * 2</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>n = n + 1</b>",
   choix:["Le nombre de doublements nécessaires pour dépasser 500",
          "La valeur finale de $u$",
          "Le nombre 500",
@@ -4023,12 +4023,14 @@ exos:[
   corr:["Formule du cours : $u_n = u_0 + n × r$.","En Python, la multiplication s'écrit avec une étoile.","On écrit donc : return u0 + n * r."],
   indice:"Traduis simplement la formule du terme général d'une suite arithmétique."},
 
- {id:"al7", niveau:3, type:"num", enonce:"Ce programme lance 6000 dés et compte les 6. La valeur affichée par <b>print(s / 6000)</b> sera proche de quel nombre ? (arrondir au centième)",
-  rep:0.17, tol:0.01,
+ {id:"al7", niveau:3, type:"num", enonce:"Ce programme lance 6000 dés et compte les 6 :<br><b>from random import randint</b><br><b>s = 0</b><br><b>for i in range(6000):</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>if randint(1, 6) == 6:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>s = s + 1</b><br><b>print(s / 6000)</b><br>La valeur affichée change à chaque exécution. De quelle probabilité théorique est-elle proche ? (donner sa valeur arrondie au centième)",
+  rep:0.17, tol:0.005,
   diag:[{v:1, m:"Tu as donné une probabilité de certitude. Obtenir un 6 n'arrive qu'une fois sur six en moyenne."},
         {v:6, m:"6 est le nombre de faces du dé, pas une probabilité. Une probabilité est toujours comprise entre 0 et 1."},
         {v:1000, m:"1000 est la valeur attendue de $s$ (le nombre de 6 obtenus). Mais le programme affiche $s ÷ 6000$, donc une fréquence."},
-        {v:0.6, m:"Tu as peut-être lu « 6 » comme un pourcentage. La probabilité d'obtenir un 6 est $@f{1}{6} ≈ 0{,}17$."}],
+        {v:0.16, m:"$@f{1}{6} = 0{,}1666…$ : arrondi au centième, cela donne 0,17 (le chiffre suivant, 6, fait arrondir au-dessus). 0,16 est une troncature — ou une valeur obtenue en exécutant le programme, qui fluctue autour de $@f{1}{6}$."},
+        {v:0.18, m:"Tu as sans doute arrondi une valeur obtenue en exécutant le programme. La question porte sur la probabilité théorique $@f{1}{6} = 0{,}1666…$, qui s'arrondit à 0,17."},
+        {v:0.06, m:"Tu as peut-être lu « 6 » comme « 6 % ». Mais la probabilité d'obtenir un 6 est une chance sur six : $@f{1}{6} ≈ 0{,}17$, soit environ 17 %."}],
   corr:["Sur un dé équilibré, la probabilité d'obtenir 6 vaut $@f{1}{6}$.","Sur 6000 lancers, on attend donc environ 1000 succès.","Le programme affiche $s ÷ 6000$, soit environ $@f{1000}{6000} = @f{1}{6}$.","$@f{1}{6} ≈ 0{,}17$."],
   indice:"Le programme calcule une fréquence. Vers quelle probabilité théorique doit-elle tendre ?"},
 
@@ -4086,19 +4088,19 @@ exos:[
         "**Le lien avec les suites.** Cette liste contient $u_0$ à $u_6$ d'une suite arithmétique de raison 2. Retiens la règle : pour obtenir les termes de $u_0$ à $u_n$, il faut **n tours** de boucle et la liste finit avec $n+1$ éléments."],
   indice:"La liste n'est pas vide au départ. Compte d'abord ce qu'elle contient, puis ajoute un élément par tour."},
 
- {id:"al12", niveau:3, type:"qcm", enonce:"On veut compter combien de termes de la suite $u_0 = 1$, $u_{n+1} = 1{,}5 u_n$ sont nécessaires pour dépasser 100. Quel programme convient ?",
-  choix:["<b>u = 1</b> / <b>n = 0</b> / <b>while u &lt;= 100:</b> / &nbsp;&nbsp;<b>u = 1.5 * u</b> / &nbsp;&nbsp;<b>n = n + 1</b>",
-         "<b>u = 1</b> / <b>n = 0</b> / <b>for i in range(100):</b> / &nbsp;&nbsp;<b>u = 1.5 * u</b>",
-         "<b>u = 1</b> / <b>while u &lt;= 100:</b> / &nbsp;&nbsp;<b>n = n + 1</b>",
-         "<b>u = 1</b> / <b>n = 0</b> / <b>while u &lt;= 100:</b> / &nbsp;&nbsp;<b>n = n + 1</b> / <b>u = 1.5 * u</b>"], bonne:0,
+ {id:"al12", niveau:3, type:"qcm", enonce:"On veut trouver le premier rang $n$ tel que $u_n > 100$, pour la suite $u_0 = 1$, $u_{n+1} = 1{,}5 u_n$. Quel programme convient ?",
+  choix:["<b>u = 1</b><br><b>n = 0</b><br><b>while u &lt;= 100:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>u = 1.5 * u</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>n = n + 1</b>",
+         "<b>u = 1</b><br><b>n = 0</b><br><b>for i in range(100):</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>u = 1.5 * u</b>",
+         "<b>u = 1</b><br><b>while u &lt;= 100:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>n = n + 1</b>",
+         "<b>u = 1</b><br><b>n = 0</b><br><b>while u &lt;= 100:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>n = n + 1</b><br><b>u = 1.5 * u</b>"], bonne:0,
   diag:["","Une boucle <b>for</b> impose son nombre de tours d'avance. Or ici on ignore combien il en faudra — c'est justement la question posée. Et ce programme ne compte rien : aucune variable $n$ ne bouge.",
-        "Deux défauts, chacun fatal. $n$ n'est jamais initialisé, donc Python s'arrête sur une erreur. Et surtout $u$ n'est jamais modifié : la condition reste vraie pour toujours, la boucle ne s'arrête jamais.",
+        "Deux défauts. D'abord $n$ n'est jamais initialisé : au premier tour, Python s'arrête sur une erreur (NameError). Et même si on ajoutait <b>n = 0</b>, $u$ n'est jamais modifié : la condition resterait vraie pour toujours et la boucle ne s'arrêterait jamais.",
         "Regarde l'indentation de la dernière ligne : <b>u = 1.5 * u</b> est collée à gauche, donc **hors** de la boucle. $u$ ne change pas pendant les tours, la condition reste vraie indéfiniment. Une boucle infinie."],
   corr:["**Reconnaître le type de question.** On cherche « à partir de quel rang », sans savoir d'avance combien de tours seront nécessaires. C'est la signature d'une boucle <b>while</b>, jamais d'une boucle <b>for</b>.",
         "**Les deux variables indispensables.** $u$ suit la valeur de la suite, $n$ compte les étapes. Toutes les deux doivent être initialisées **avant** la boucle.",
         "**Écrire la bonne condition.** On veut continuer **tant qu'on n'a pas dépassé** 100, donc <b>while u &lt;= 100:</b>. On sort dès que $u$ dépasse strictement 100.",
         "**Ce qu'il faut absolument dans la boucle.** Deux lignes, toutes les deux indentées : celle qui fait avancer $u$, et celle qui incrémente $n$. Si $u$ n'avance pas, la boucle ne s'arrête jamais.",
-        "**Où lire la réponse.** Dans $n$, pas dans $u$. La question porte sur le **nombre de termes**, pas sur la valeur atteinte.",
+        "**Où lire la réponse.** Dans $n$, pas dans $u$. La question porte sur le **rang** atteint (ici $n = 12$, car $u_{12} ≈ 129{,}7$), pas sur la valeur de $u$.",
         "**Le contrôle mental.** $1 ; 1{,}5 ; 2{,}25 ; …$ : la suite grandit, donc la condition finira par devenir fausse. Une boucle while doit toujours passer ce test avant d'être écrite."],
   indice:"Nombre de tours inconnu à l'avance → <b>while</b>. Et vérifie que la variable testée est bien modifiée **à l'intérieur** de la boucle."},
 
@@ -8142,19 +8144,24 @@ var G_ALGO = [
     // valeurs) : on écrit la liste complète tant qu'elle est courte.
     var listeRange = n<=3 ? Array.from({length:n}, function(_,i){return i;}).join(", ")
                           : "0, 1, … , "+(n-1);
+    // k négatif : on écrit « u = u - 6 » (et non « u + -6 ») dans le code,
+    // et on parenthèse k dans les calculs de la correction.
+    var neg = op==="+" && k<0;
+    var ligneCode = neg ? "u = u - "+(-k) : "u = u "+op+" "+k;
+    var kPar = k<0 ? "("+fr(k)+")" : fr(k);
     return { type:"num", niveau:1, rep:v,
-      enonce:"Que vaut $u$ à la fin ?<br><b>u = "+u+"</b><br><b>for i in range("+n+"):</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>u = u "+op+" "+k+"</b>",
+      enonce:"Que vaut $u$ à la fin ?<br><b>u = "+u+"</b><br><b>for i in range("+n+"):</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>"+ligneCode+"</b>",
       diag:[{v:suite[n-1], m:"Tu as fait "+(n-1)+(n-1>1?" tours":" tour")+" au lieu de "+n+". range("+n+") produit "+n+" valeurs : "+listeRange+"."},
             {v:op==="+" ? u+k : u*k, m:"Tu n'as fait qu'un seul tour. La boucle en fait "+n+" : il faut répéter l'opération autant de fois."},
             {v:op==="+" ? u+k*(n+1) : u*Math.pow(k,n+1), m:"Tu as fait un tour de trop. range("+n+") s'arrête à "+(n-1)+", ce qui fait "+n+" passages."}],
       corr:["**Compter les tours.** range("+n+") produit "+n+" valeurs (0 à "+(n-1)+"), donc la boucle s'exécute **"+n+" fois**.",
             "**Dresser le tableau d'exécution.** C'est la méthode fiable : une ligne par tour."]
         .concat(suite.slice(1).map(function(val,i){
-          return "Tour "+(i+1)+" : $u = "+fr(suite[i])+" "+(op==="+"?"+":"×")+" "+fr(k)+" = "+fr(val)+"$.";
+          return "Tour "+(i+1)+" : $u = "+fr(suite[i])+" "+(neg ? "- "+fr(-k) : (op==="+"?"+":"×")+" "+fr(k))+" = "+fr(val)+"$.";
         }))
         .concat(["**Résultat.** À la fin, $u$ vaut $"+fr(v)+"$.",
                  "**Lien avec le cours.** Cette boucle construit une suite "+(op==="+"?"arithmétique de raison "+fr(k):"géométrique de raison "+fr(k))+" : on retrouve $u_{"+n+"} = "+
-                 (op==="+" ? fr(u)+" + "+n+" × "+fr(k) : fr(u)+" × "+fr(k)+"^{"+n+"}")+" = "+fr(v)+"$."]),
+                 (op==="+" ? fr(u)+" + "+n+" × "+kPar : fr(u)+" × "+fr(k)+"^{"+n+"}")+" = "+fr(v)+"$."]),
       indice:"Compte d'abord le nombre de tours, puis déroule-les un par un dans un tableau." };
   }},
 
@@ -8170,18 +8177,16 @@ var G_ALGO = [
              "&nbsp;&nbsp;&nbsp;&nbsp;<b>u = u * "+q+"</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>n = n + 1</b>",
       diag:[{v:n-1, m:"Tu t'es arrêté un tour trop tôt. La boucle continue **tant que** $u$ est strictement inférieur à "+seuil+" : il faut un tour de plus pour franchir le seuil."},
             {v:n+1, m:"Tu as fait un tour de trop. Dès que $u$ atteint ou dépasse "+seuil+", le test devient faux et on sort sans refaire de tour."},
-            {v:arr(u*Math.pow(q,n)), m:"Tu as donné la valeur finale de $u$, pas celle de $n$. Le compteur $n$ compte les tours."}],
+            {v:u*Math.pow(q,n), m:"Tu as donné la valeur finale de $u$, pas celle de $n$. Le compteur $n$ compte les tours."}],
       corr:["**Comprendre ce que compte $n$.** Une seule ligne le modifie : $n = n + 1$, à l'intérieur de la boucle. Il compte donc les passages.",
             "**Comprendre la condition.** On répète **tant que** $u$ est strictement inférieur à "+seuil+". On teste avant chaque tour.",
             "**Dresser le tableau d'exécution.** Départ : $u = "+u+"$, $n = 0$."]
         .concat((function(){
-          // vv recalculé depuis la puissance exacte à chaque tour (pas depuis
-          // le vv déjà arrondi du tour précédent) : sinon l'arrondi se
-          // cumule tour après tour et finit par s'écarter de la valeur
-          // exacte — au point de contredire le diagnostic {v:arr(u*q^n)}
-          // de ce même exercice, qui repart toujours de la puissance exacte.
+          // vv non arrondi : avec q ∈ {2 ; 3 ; 1,5} et u entier, u*q^i est
+          // exact en binaire (au plus 8 décimales ici), c'est donc la vraie
+          // valeur affichée par Python — pas de « = » devant un arrondi.
           var l=[], i;
-          for(i=1;i<=n;i++){ var vv=arr(u*Math.pow(q,i)); l.push("Tour "+i+" : $u = "+fr(vv)+"$, $n = "+i+"$"+(vv<seuil ? " — encore inférieur à "+seuil+", on continue." : " — **atteint ou dépasse "+seuil+"**, on sort.")); }
+          for(i=1;i<=n;i++){ var vv=u*Math.pow(q,i); l.push("Tour "+i+" : $u = "+fr(vv)+"$, $n = "+i+"$"+(vv<seuil ? " — encore inférieur à "+seuil+", on continue." : " — **atteint ou dépasse "+seuil+"**, on sort.")); }
           return l;
         })())
         .concat(["**Résultat.** $n = "+n+"$.",

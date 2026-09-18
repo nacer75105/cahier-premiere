@@ -788,3 +788,40 @@ Points mineurs non corrigés (différés, aucun n'est bloquant) :
 - Astuce "Retenir lequel est lequel" (l.~3472) : l'argument "faire
   tourner les deux vecteurs d'un quart de tour" reste purement verbal,
   sans image concrète (ex. photo pivotée).
+
+## Algorithmique et Python (chapitre 10)
+
+**Passe de justesse du 2026-09-18** (`relecteur-maths`, 2 tours) : chaque
+programme **réellement exécuté** sous Python 3.14, reconstruit depuis le
+rendu `T()` de la page (45 scripts au tour 1, 17 au tour 2, + 708
+programmes générés par `al-for`/`al-while`). 0 bloquant restant.
+- *(Corrigé)* Exemple « trois cas » : « un `else` placé en premier
+  attraperait tout le monde » était faux (SyntaxError) → vrai piège
+  montré (`if d >= 0` puis `elif d == 0` affiche 2 pour Δ = 0).
+- *(Corrigé)* `al12` : « nombre de termes » alors que la réponse (12) est
+  un **rang** (13 termes de u₀ à u₁₂) → énoncé en rang ; choix de code
+  écrits sur plusieurs lignes (A et D ne différaient que par une
+  indentation quasi invisible, et D indenté aurait été juste aussi) ;
+  diag C : NameError d'abord, pas « boucle infinie ». Énoncé d'`al4` idem.
+- *(Corrigé)* `al7` : programme non affiché, et `tol:0.01` refusait 0,16
+  (arrondi flottant) — ~34 % des vraies exécutions → programme affiché,
+  question sur la probabilité théorique, `tol:0.005`, diags 0,16 / 0,18 /
+  0,06 (l'ancien diag 0,6 « pourcentage » ne correspondait à aucune erreur).
+- *(Corrigé)* Point décimal de Python (`1.1`, pas `1,1` → TypeError)
+  expliqué dans la note du squelette de seuil.
+- *(Corrigé)* `al-while` : trace « u = 3417,188 » arrondie posée avec « = »
+  → valeurs exactes. `al-for`, k < 0 : « u = u + -6 » → « u = u - 6 »,
+  « 3 × (-6) » parenthésé.
+- *(Corrigé)* Simulation : `from random import randint` manquant ; renvoi
+  « tableau du programme vu plus haut » ambigu → « Chercher un seuil » de
+  la figure.
+
+À REVOIR non traités (mineurs) :
+- Fragments `for … u = u + 3` / `while u < 100` sans initialisation.
+- `al-while`, q = 1,5 : la trace écrit 1500 là où Python afficherait 1500.0
+  (pas de `print(u)`, donc pas de contradiction).
+- `al6` : `**` jamais enseigné ; `al9` : « == uniquement dans une
+  condition » faux (`print(x == 5)`) ; « Cinq mots suffisent » incomplet ;
+  `print` utilisé avant d'être expliqué ; `L[-1]` non expliqué ; « Calculer
+  u₁₅ » = 15 tours seulement depuis u₀ ; pièges `=`/`==` en double ;
+  choix D d'`al4` trop facile à éliminer.
