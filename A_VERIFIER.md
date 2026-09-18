@@ -432,63 +432,199 @@ Points mineurs relevés par la relecture de justesse, non corrigés :
 
 ## Variables aléatoires (chapitre 9)
 
-- Le "Récapitulatif : trois nombres pour résumer le hasard" est placé
-  avant la section sur la loi binomiale et ferme le chapitre au milieu.
-- La figure `loi-binomiale` n'a aucun texte d'accompagnement (contexte
-  et manipulation), contrairement aux deux autres figures du chapitre.
-- Étiquettes de barres de la figure `loi-binomiale` qui perdent leur
-  "0" (affichage ",25" au lieu de "0,25").
-- Titre de la figure `dispersion-variance` ("Même espérance,
-  dispersions opposées") qui ne correspond pas à ce que montre la
-  figure (une seule loi symétrique, écart variable).
-- $@f{1}{6}^2$ rendu sans parenthèses (ambigu avec $1/(6^2)$).
-- Le raccourci de König-Huygens est présenté comme général après une
-  seule vérification numérique, sans dire "on l'admet" (contrairement
-  à la remarque sur la valeur absolue, plus haut dans le même chapitre).
-- $\sigma$ n'est jamais nommée "sigma" dans le texte.
-- Le "jeu du dé à 0,17€" est cité dans le texte avant que l'exercice
-  correspondant (`va3`) n'ait été vu.
-- La section échantillonnage définit la "moyenne observée" mais tous
-  les exemples/exercices autour parlent de "fréquence" sans faire le
-  pont entre les deux notions.
-- Renvoi au "programme du chapitre 10" présenté comme acquis, alors que
-  le chapitre 10 (Algorithmique) est postérieur au chapitre 9.
-- Collision de notation : le $n$ du nombre de valeurs de $X$ (loi de
-  probabilité) entre en collision avec le $n$ de $\mathcal{B}(n;p)$
-  quelques sections plus loin.
-- Le passage de l'indépendance de 2 événements (chapitre précédent) à
-  $n$ événements (loi binomiale) n'est pas signalé comme un saut.
-- "Factorielle" ($k!$) n'est jamais nommée dans le cours, alors que les
-  corrigés générés emploient le mot.
-- Aucun exercice ni contenu de cours sur les probabilités cumulées
-  ($P(X \geq 1) = 1 - P(X=0)$), pourtant fréquentes en contrôle.
-- Générateur `va-esperance` : quand $p=0{,}5$ est tiré, le distracteur
-  "moyenne simple" coïncide avec la bonne réponse (filtré techniquement
-  mais l'exercice perd son objet pédagogique dans ~12,5% des tirages) ;
-  même défaut sur `va-manquante` (~19,9% des tirages).
-- Figure `balance-esperance` placée avant que $E(X)$ soit formellement
-  défini (section suivante) ; le calcul $-1×0{,}5+2×0{,}5=0{,}5$ qu'elle
-  affiche n'est jamais montré explicitement dans le texte qui l'entoure.
-- Section "L'espérance" : la formule est posée avant l'intuition qui
-  l'explique (ordre inverse de la section "Variance", qui elle suit
-  l'ordre essai → échec → carré → formule, jugé meilleur).
-- Le raccourci de calcul de la variance (moyenne des carrés moins carré
-  de la moyenne) est généralisé à partir d'un seul exemple vérifié,
-  sans dire explicitement qu'on l'admet.
+**Passe de justesse du 2026-09-17** (`relecteur-maths`, balayage exhaustif
+des 3 figures et de 6 générateurs) : tous les items hérités du tout premier
+audit ont été traités, plus plusieurs bugs de figure/générateur non
+documentés découverts par balayage. Corrections appliquées à la main.
+
+- *(Corrigé — priorité)* Générateur `bi-pk` : `mil(...)` concaténé sans
+  `fr(...)` → point décimal anglais sur 100% des tirages. Remplacé par une
+  écriture décimale exacte construite en arithmétique entière (`pw()`,
+  vérifiée sous Node sur les 108 tirages), ce qui corrige **du même coup**
+  un second bug jamais documenté : la ligne "Tout multiplier" affichait un
+  produit de deux valeurs arrondies indépendamment au millième, faux dans
+  40% des tirages — au point que l'élève qui suivait le corrigé pouvait
+  être comptée fausse par la tolérance.
+- *(Corrigé — priorité)* Collision de notation sur $n$ : trois usages (nombre
+  de valeurs de $X$, taille d'échantillon, nombre de répétitions de
+  $\mathcal B(n;p)$). Le premier est renommé $r$ dans la formule
+  d'espérance et de variance, et la note de "Loi binomiale" signale
+  explicitement que son $n$ est celui des répétitions.
+- *(Corrigé — priorité)* König-Huygens : généralisé après une seule
+  vérification numérique, sans marque de statut, alors que le même
+  chapitre dit "on admet ici" pour $E(X)=np$ et $V(X)=np(1-p)$. Mention
+  "on l'admet ici, la démonstration dépassant le programme de Première"
+  ajoutée, plus le mot "admis" dans la note du bloc formule.
+- *(Corrigé — priorité)* Probabilités cumulées : aucun contenu (vérifié,
+  zéro occurrence de "au moins"/"au plus"/"cumulée" dans tout le
+  chapitre). Ajout d'un bloc de cours complet (construction de la règle
+  du contraire directement ici, sans dépendre du chapitre 8 où elle n'est
+  pas formellement enseignée ; formulaire $P(X≥1)$/$P(X≥2)$/$P(X≤1)$ ;
+  exemple guidé "au moins une pièce défectueuse" sur $ℬ(10;0{,}04)$ ;
+  piège "au moins 1 ≠ exactement 1") et de deux exercices, `va16`
+  ("au moins un pile" sur $ℬ(5;0{,}5)$) et `va17` ($P(X≥2)$ sur
+  $ℬ(6;0{,}2)$), chacun avec des diagnostics correspondant à une erreur
+  réelle.
+- *(Corrigé, découvert par balayage, non documenté avant ce tour)*
+  `bi-situation` : dans la branche non binomiale (35% des tirages), deux
+  distracteurs sur trois renvoyaient un message de correction sur l'ordre
+  des paramètres qui laissait entendre que la bonne réponse serait
+  $ℬ(n;p)$ — contredisant la bonne réponse "ce n'est pas une loi
+  binomiale". Ces deux branches renvoient maintenant, dans le cas non
+  binomial, une explication centrée sur la vraie raison (l'indépendance).
+- *(Corrigé, idem)* `bi-esp-var` : "$V(X) = n × p × q = V$" affiché avec
+  un "=" sur des valeurs arrondies indépendamment, faux dans ~16% des
+  couples $(n,p)$, et "$\sqrt V ≈ σ$" incohérent dans ~1,5% des cas — $V$
+  passé à 4 décimales (exact, puisque $n$ entier et $p$ à 2 décimales) et
+  $σ$ dérivé du $V$ affiché, pas du $V$ exact.
+- *(Corrigé, idem)* Figure `loi-binomiale` : "le plus probable : k = …"
+  désignait arbitrairement un seul mode alors que deux valeurs de $k$
+  peuvent être exactement à égalité (~13% des états atteignables,
+  ex. $n=1,p=0{,}5$) — l'ex-æquo est maintenant détecté et nommé.
+- *(Corrigé, idem)* Figure `loi-binomiale` : $V$ et $σ$ arrondis
+  indépendamment et posés avec "=" sur des valeurs arrondies — $V$ affiché
+  exact à 4 décimales, $σ$ dérivé de lui avec "≈".
+- *(Corrigé)* Étiquettes de barres de `loi-binomiale` amputées de leur "0"
+  ("`,25`" au lieu de "0,25") : `.replace("0,",",")` supprimé, passage à
+  3 décimales pour ne plus étiqueter "0" une probabilité non nulle.
+- *(Corrigé)* Titre de `dispersion-variance` ("Même espérance,
+  dispersions opposées") qui annonçait une comparaison de deux lois que la
+  figure ne montre pas (une seule loi symétrique, écart réglable au
+  curseur) → "Même espérance, dispersion réglable".
+- *(Corrigé)* $E(X)$ et la valeur $0{,}5$ employées dans le texte de
+  `balance-esperance` avant toute définition de l'espérance : le calcul
+  $-1×0{,}5+2×0{,}5=0{,}5$ est désormais montré sur place.
+- *(Corrigé)* Renvoi au "programme du chapitre 10" au passé (cours et
+  indice de `va10`), alors que le chapitre 10 est postérieur : reformulé
+  au futur, indice de `va10` rendu autosuffisant.
+- *(Corrigé)* $@f{1}{6}^2$ non parenthésé (l'exposant retombait près du
+  dénominateur, lisible "1/6²").
+- *(Corrigé)* Distracteurs morts (le moteur ne diagnostique jamais une
+  réponse juste, donc pas de message faux affiché, mais l'exercice perdait
+  son objet) : `va-esperance` ($p=0{,}5$ retiré des tirages possibles, et
+  un garde-fou empêche désormais $v_2=-v_1$, qui faisait aussi coïncider
+  deux diagnostics entre eux) ; `va-manquante` (tirage rejoué tant qu'un
+  diag coïncide avec la réponse) ; `bi-coef` (tirage rejoué tant que
+  $n×k$ coïncide avec la réponse **ou** avec $k!$).
+- *(Corrigé)* `va13`, diagnostic `v:12` générique remplacé par
+  l'identification précise de l'erreur ($6 × 2$, pas un quotient).
+- *(Corrigé)* Titre "Espérance et écart-type d'une loi binomiale" pour un
+  cadre contenant trois objets (E, V et σ) → "Espérance, variance et
+  écart-type…" ; "arrangements" employé pour des combinaisons dans un
+  diagnostic de `bi-pk` → "façons de les placer".
+
+**Vérification des correctifs du 2026-09-18** (`relecteur-maths`, 2 tours,
+balayages exhaustifs rejoués) : tous les correctifs ci-dessus sont validés
+(`pw`/`fr` sans point décimal ni NaN sur les 94 tirages servis de `bi-pk`,
+`va16`/`va17` recalculés). 5 nouveaux BLOQUANTS trouvés et corrigés :
+- *(Corrigé)* `va16`, diag `0.031` : "$0{,}5^5 = 0{,}031$" → "$= 0{,}03125 ≈ 0{,}031$".
+- *(Corrigé)* $P(X ≥ 2)$ posé dans le formulaire sans construction : ajout
+  d'un paragraphe (contraire de "au moins 2" = "0 ou 1", $X=0$ et $X=1$
+  incompatibles, règle "on additionne les chemins" du chapitre 8) ; la
+  note "les deux doivent se compléter à 1" (fausse telle quelle) est
+  reformulée sur un événement et son contraire.
+- *(Corrigé)* `bi-situation`, corr "Ce que ça débloque" : $V$ en `mil` →
+  égalité fausse pour $n$ impair et $p ∈ \{0{,}25 ; 0{,}75\}$ ; passé en `mil4`.
+- *(Corrigé)* Astuce "L'espérance n'est pas une valeur possible" : citait
+  "le jeu du dé" à 6 €/−1 € alors que le seul jeu du cours est à 2 €/−1 € ;
+  le jeu est maintenant présenté sur place ($E = @f{1}{6} ≈ 0{,}17$, celui
+  de `va3`). *Règle du même coup l'item "Le jeu du dé cité avec un article
+  défini" de la liste différée ci-dessous.*
+- *(Corrigé)* `va-esperance`, ligne "Remplacer" : "+ -8 × 0,8" dans 45 %
+  des tirages → valeur négative parenthésée.
+
+Points "À REVOIR" de la même relecture, corrigés :
+- *(Corrigé)* `va-manquante` : pour $(0{,}3 ; 0{,}4)$, les diags $1-p_1$ et
+  $p_1+p_2$ valaient tous deux 0,7 (mauvais diagnostic pour qui a
+  additionné) — tirage rejoué.
+- *(Corrigé)* `loi-binomiale` : étiquette "0" sur des barres de probabilité
+  non nulle (~418 étiquettes) → "≈0" sous 0,0005.
+- *(Corrigé)* `va17`, "Contrôle" : inférence "E(X) = 1,2 donc un peu moins
+  d'une chance sur deux" (pas une règle, et 0,345 n'est pas "un peu moins"
+  que 0,5) → contrôle exact $0{,}655 + 0{,}345 = 1$.
+- *(Corrigé)* Fiche méthode "Reconnaître et utiliser une loi binomiale" :
+  étape "au moins / au plus" ajoutée.
+- *(Corrigé)* `va5`, diag `v:4` : le chemin d'erreur décrit menait à 3, pas
+  à 4 → décrit maintenant "$0^2 + 2^2 = 4$ sans pondérer ni retirer $[E(X)]^2$".
+
+Points "À REVOIR" **non traités**, mineurs (aucun faux affiché) :
+- Piège "Au moins 1 ≠ exactement 1" : $P(X = 1) ≈ 0{,}277$ donné sans
+  calcul — ajouter "$= 10 × 0{,}04 × 0{,}96^9 ≈ 0{,}277$".
+- Exemple guidé "au moins une pièce", contrôle de bon sens : "largement en
+  dessous de 40 %" exagéré pour 33,5 % → "en dessous".
+- `bi-coef` : commentaire de code obsolète (ne cite que l'exclusion
+  $(5;2)$, la boucle exclut aussi $(6;4)$ où $6×4 = 4!$).
+- `bi-esp-var`, mode V, $(n;p) = (48;0{,}25)$ : $σ = np^2 = 3$, le diag
+  "multiplié par $p$ une seconde fois" est écarté par le filtre et l'élève
+  qui a fait $n·p·p$ lit "tu as poussé jusqu'à l'écart-type" (1 état sur 1098).
+- $V(X)$ et $σ(X)$ nommés autour de la figure `dispersion-variance` avant
+  leur définition (annoncé, mais le nom tombe avant).
+- "La définition même de la moyenne pondérée l'impose […] par
+  construction" (somme des écarts pondérés nulle) : la preuve tient en une
+  ligne, $(x_1 - E)p_1 + … = E - E × 1 = 0$ — l'écrire plutôt que l'affirmer.
+- Texte sous `balance-esperance` : "Le nombre qu'affiche la figure,
+  $E(X) = 0{,}5$" n'est vrai qu'au départ (curseur à 0,5) → "au départ" ;
+  et "On lui donnera son nom […] dans la section suivante" alors que la
+  phrase précédente l'appelle déjà "l'espérance".
+
+**Passe `prof-pedagogue` du 2026-09-18** : appliqués sur décision de
+l'utilisateur — intuition « compter ce qu'on ne veut pas » (exemple 3
+lancers, 7/8) avant la règle du contraire ; König-Huygens présenté comme
+« la même quantité calculée autrement », pas une seconde formule ; « P
+pour pile » distingué du $P$ de probabilité ; astuce « Pourquoi le carré »
+qui ne promet plus de « voir » un résultat admis. Tout revérifié par
+`relecteur-maths` (0 bloquant). **Non appliqués, à reprendre** (rapport
+complet avec textes prêts à coller, priorités 1 à 3) : construire
+$p^k(1-p)^{n-k}$ comme un chemin d'arbre à $n$ étages ; dire pourquoi on
+multiplie par $@b{n}{k}$ ; espérance : intuition « 1000 parties » avant la
+formule ; pont moyenne/fréquence par le codage 1/0 ; déplacer le
+récapitulatif en fin de chapitre (+ lignes binomiale) ; texte
+d'accompagnement et déplacement de la figure `loi-binomiale` ;
+« factorielle » et exemple $3! = 6$ ; preuve en une ligne de la somme des
+écarts nulle ; $V$/$σ$/$d$ avant définition autour de `dispersion-variance`
+et « sigma » ; $P(X=1) ≈ 0{,}277$ sans calcul ; texte sous
+`balance-esperance` ; intuition « 60 lancers → 10 six » pour $np$ ; note
+$n$/$r$ jugée trop lourde ; $x_i$ et « somme = 1 » non expliqués ; fiche
+méthode variance/écart-type générale ; code couleur des figures ; seuil
+« moins de 30 » ; **`@f{1}{6}^2 × @f{5}{6}^3` toujours non parenthésé
+dans l'exemple guidé « combien de six » (l.~3220) — contrairement à ce
+qu'affirme l'item « Corrigé » plus haut.**
+
+Points relevés par la relecture de justesse, **volontairement différés à
+la passe `prof-pedagogue`** (clarté et structure, aucun enjeu de justesse) :
+- Le "Récapitulatif : trois nombres pour résumer le hasard" ferme le
+  chapitre ("Un dernier mot sur le sens de tout ça") alors que deux
+  sections suivent (loi binomiale, méthodes), et son tableau de synthèse
+  ignore la loi binomiale.
+- La figure `loi-binomiale` est la seule des trois à n'avoir aucun texte
+  d'accompagnement (ni contexte, ni consigne de manipulation).
+- Le pont "moyenne observée" ↔ "fréquence" est asséné dans une note mais
+  jamais construit, alors que tous les exercices d'échantillonnage
+  raisonnent sur des fréquences.
+- $σ$ n'est jamais nommée "sigma" ; "factorielle" n'est jamais nommé non
+  plus (le symbole $k!$, lui, est bien défini) — *l'item d'origine parlait
+  de corrigés générés employant le mot : vérifié, ils ne l'emploient pas,
+  il n'apparaît que dans un commentaire de code.*
+- *(Réglé le 2026-09-18, voir plus haut)* "Le jeu du dé" est cité avec un
+  article défini (astuce "L'espérance n'est pas une valeur possible")
+  avant que `va3` n'introduise la situation.
+- Le passage de l'indépendance de 2 événements (chapitre 8) à $n$
+  événements n'est pas signalé comme un saut — il est réexpliqué en
+  français, donc autosuffisant, mais non nommé.
+- Aucune fiche méthode "calculer une variance et un écart-type" dans le
+  cas **général** (le cas binomial, lui, est couvert par la dernière étape
+  de la méthode "Reconnaître et utiliser une loi binomiale").
+- Code couleur du rouge incohérent entre les trois figures ($E(X)$ dans
+  deux d'entre elles, $σ$ — sans contrepartie dessinée — dans la
+  troisième).
+- `balance-esperance` : $E(X)=0$, donc le **jeu équitable** défini par le
+  cours, n'est atteignable par aucun cran du curseur ($E=3p-1$, pas de
+  0,05).
 - `figLecture` de `dispersion-variance` : la parenthèse "(cas
   particulier...)" coupe l'égalité entre deux "=", lecture bancale à
-  reformuler (ex. "V(X) = d² = 4 (cas particulier : ...)").
-- Générateur `bi-pk` : séparateur décimal anglais (point au lieu de
-  virgule) dans les valeurs intermédiaires affichées via `mil(...)`
-  sans passer par `fr(...)` — sur 100% des tirages testés.
-- Titre "Espérance et écart-type d'une loi binomiale" alors que le
-  cadre contient aussi la variance (trois objets, pas deux) ; le bloc
-  "idee" ajouté dit "ces deux formules" pour la même raison.
-- `va13` : distracteur `v:12` avec message générique, sans identifier
-  l'erreur précise de l'élève (contrairement aux autres diag du
-  chapitre).
-- Aucune fiche méthode "calculer une variance/écart-type d'une loi
-  binomiale" dans "Les méthodes du chapitre".
+  reformuler.
+- Section "L'espérance" : la formule est posée avant l'intuition qui
+  l'explique (ordre inverse de la section "Variance", jugée meilleure).
 
 ## Géométrie repérée (chapitre 7)
 

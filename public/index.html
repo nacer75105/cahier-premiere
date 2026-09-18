@@ -3104,17 +3104,17 @@ sections:[
   {t:"formule", titre:"Loi de probabilité", x:"C'est le tableau qui donne toutes les valeurs possibles de $X$ et leurs probabilités.", note:"Contrôle obligatoire : la somme de la ligne des probabilités doit valoir exactement 1."},
   {t:"tbl", head:["$x_i$","−1","2"], rows:[["$P(X = x_i)$","0,5","0,5"]]},
   {t:"figi", nom:"balance-esperance"},
-  {t:"p", x:"Cette figure donne une intuition qu'aucune formule ne donne : **l'espérance est un point d'équilibre**. Imagine les deux barres comme deux poids posés sur une règle. L'endroit où la règle tient en équilibre, c'est $E(X)$. Déplace le curseur : quand les poids sont égaux, l'équilibre est au milieu ; dès que l'un des deux devient plus probable, l'équilibre se déplace de son côté — jamais l'inverse."},
+  {t:"p", x:"Cette figure donne une intuition qu'aucune formule ne donne : **l'espérance est un point d'équilibre**. Imagine les deux barres comme deux poids posés sur une règle. L'endroit où la règle tient en équilibre, c'est $E(X)$. Le nombre qu'affiche la figure, $E(X) = 0{,}5$, s'obtient en pondérant chaque gain par sa probabilité : $-1 × 0{,}5 + 2 × 0{,}5 = -0{,}5 + 1 = 0{,}5$. On lui donnera son nom et sa formule générale dans la section suivante. Déplace le curseur : quand les poids sont égaux, l'équilibre est au milieu ; dès que l'un des deux devient plus probable, l'équilibre se déplace de son côté — jamais l'inverse."},
   {t:"p", x:"Cela explique du même coup pourquoi l'espérance n'est pas forcément une valeur atteignable. Ici elle vaut $0{,}5$, alors que le gain ne peut être que $-1$ ou $2$. Le point d'équilibre d'une balançoire n'est pas l'endroit où l'on s'assoit."},
   {t:"piege", titre:"Le contrôle qui sauve", x:"Si la somme des probabilités ne fait pas 1, il y a forcément une erreur quelque part. Prends dix secondes pour additionner la ligne du bas avant de continuer."}
  ]},
 
  {titre:"L'espérance : le gain moyen à long terme", blocs:[
   {t:"idee", x:"L'espérance répond à : **si je répétais l'expérience des milliers de fois, combien gagnerais-je en moyenne par partie ?**"},
-  {t:"formule", titre:"Espérance", x:"$E(X) = x_1 P(X = x_1) + x_2 P(X = x_2) + … + x_n P(X = x_n)$", note:"Chaque valeur est pondérée par sa probabilité. C'est une moyenne, mais pondérée."},
+  {t:"formule", titre:"Espérance", x:"$E(X) = x_1 P(X = x_1) + x_2 P(X = x_2) + … + x_r P(X = x_r)$", note:"Chaque valeur est pondérée par sa probabilité. C'est une moyenne, mais pondérée. Ici $r$ est simplement le nombre de valeurs que peut prendre $X$ — on ne le note pas $n$, parce que la lettre $n$ servira plus loin à tout autre chose : le nombre de répétitions d'une loi binomiale."},
   {t:"p", x:"Le mot important est **pondérée**. Une moyenne ordinaire traite toutes les valeurs à égalité : la moyenne de 10 et 0 vaut 5. Mais si le 10 n'arrive qu'une fois sur dix et le 0 neuf fois sur dix, dire « en moyenne 5 » serait absurde — on obtient presque toujours 0. La bonne réponse est $10 × 0{,}1 + 0 × 0{,}9 = 1$."},
   {t:"p", x:"D'où la formule : chaque valeur est multipliée par **son poids**, c'est-à-dire par la fréquence à laquelle elle apparaît. Les valeurs rares comptent peu, les valeurs fréquentes comptent beaucoup. Si tu comprends ça, tu n'auras jamais besoin de mémoriser la formule : elle se réécrit toute seule."},
-  {t:"astuce", titre:"L'espérance n'est pas une valeur possible", x:"Une espérance de $0{,}17$ € au jeu du dé ne veut pas dire qu'on gagne 17 centimes : on gagne 6 € ou on perd 1 €, jamais 17 centimes. C'est un **niveau moyen à long terme**, pas un résultat de partie.<br><br>C'est comme les « 1,8 enfant par famille » : aucune famille n'a 1,8 enfant. L'espérance est un indicateur, pas une prédiction."},
+  {t:"astuce", titre:"L'espérance n'est pas une valeur possible", x:"Prends un autre jeu : on lance un dé, on gagne 6 € si on obtient 6, sinon on perd 1 €. Son espérance vaut $@f{1}{6} ≈ 0{,}17$ € (tu la calculeras en exercice). Cela ne veut pas dire qu'on gagne 17 centimes : on gagne 6 € ou on perd 1 €, jamais 17 centimes. C'est un **niveau moyen à long terme**, pas un résultat de partie.<br><br>C'est comme les « 1,8 enfant par famille » : aucune famille n'a 1,8 enfant. L'espérance est un indicateur, pas une prédiction."},
   {t:"exemple", titre:"Exemple guidé — ce jeu est-il rentable ?", enonce:"Une loterie coûte 2 € le ticket. On gagne 50 € avec une probabilité de 0,01, 5 € avec une probabilité de 0,1, et rien sinon. Le jeu est-il favorable au joueur ?", etapes:[
    {q:"Définir la variable", r:"Soit $X$ le gain **net**, c'est-à-dire après déduction des 2 € du ticket. Les valeurs possibles sont $48$, $3$ et $-2$."},
    {q:"Écrire la loi", r:"$P(X = 48) = 0{,}01$, $P(X = 3) = 0{,}1$, et $P(X = -2) = 1 - 0{,}01 - 0{,}1 = 0{,}89$."},
@@ -3142,9 +3142,9 @@ sections:[
   {t:"p", x:"Ce n'est pas un hasard de calcul : ça arrivera **toujours**, quelle que soit la variable. C'est la définition même de la moyenne pondérée qui l'impose — les écarts positifs et négatifs s'annulent exactement, par construction. Mesurer l'écart brut ne dira donc jamais rien sur le risque : il faut empêcher les écarts de s'annuler entre eux."},
   {t:"idee", titre:"L'idée : mettre les écarts au carré", x:"Un carré est toujours positif, qu'on parte d'un écart négatif ou positif. En mettant chaque écart au carré avant de le moyenner, les compensations disparaissent — et ce qu'il reste mesure vraiment l'étalement."},
   {t:"p", x:"Reprenons le même exemple : $(0 - 2)^2 × 0{,}5 + (4 - 2)^2 × 0{,}5 = 4 × 0{,}5 + 4 × 0{,}5 = 2 + 2 = 4$. Ce nombre — la moyenne pondérée des écarts **au carré** à l'espérance — porte un nom : c'est la **variance**, notée $V(X)$. Par définition, $V(X) = 4$ ici."},
-  {t:"astuce", titre:"Pourquoi le carré, et pas juste la valeur absolue", x:"Prendre la valeur absolue de chaque écart marcherait aussi pour empêcher les compensations — et c'est d'ailleurs ce que fait « l'écart moyen absolu » dans d'autres contextes. Le carré est préféré en probabilités parce qu'il se calcule et se manipule algébriquement bien plus facilement, comme tu vas le voir avec le raccourci ci-dessous."},
-  {t:"p", x:"Refaire ce calcul en repassant par chaque écart, à chaque fois, est lourd. Il existe un raccourci équivalent, plus rapide : la **moyenne des carrés des valeurs**, moins **le carré de la moyenne**. Vérifions qu'il retombe sur le même résultat : moyenne des carrés $= 0^2 × 0{,}5 + 4^2 × 0{,}5 = 8$ ; carré de la moyenne $= 2^2 = 4$ ; $8 - 4 = 4$. Bien le même nombre — ce raccourci n'est qu'une autre façon d'écrire exactement le calcul qu'on vient de faire à la main, comme le tableau des dérivées était un raccourci pour ne plus refaire un calcul de limite à chaque fois."},
-  {t:"formule", titre:"Variance", x:"$V(X) = x_1^2 P(X = x_1) + … + x_n^2 P(X = x_n) - [E(X)]^2$", note:"Ce n'est pas une nouvelle définition : c'est le raccourci de calcul pour la moyenne pondérée des écarts au carré à l'espérance, vue juste au-dessus. Traduction : moyenne des carrés, moins le carré de la moyenne."},
+  {t:"astuce", titre:"Pourquoi le carré, et pas juste la valeur absolue", x:"Prendre la valeur absolue de chaque écart marcherait aussi pour empêcher les compensations — et c'est d'ailleurs ce que fait « l'écart moyen absolu » dans d'autres contextes. Le carré est préféré en probabilités parce qu'il se calcule et se manipule algébriquement bien plus facilement : c'est lui qui permet le raccourci de calcul ci-dessous (dont la démonstration, admise ici, repose justement sur le développement d'un carré)."},
+  {t:"p", x:"Refaire ce calcul en repassant par chaque écart, à chaque fois, est lourd. Il existe un autre chemin, plus rapide, qui mène **au même nombre** : la **moyenne des carrés des valeurs**, moins **le carré de la moyenne**. Vérifions qu'il retombe sur le même résultat : moyenne des carrés $= 0^2 × 0{,}5 + 4^2 × 0{,}5 = 8$ ; carré de la moyenne $= 2^2 = 4$ ; $8 - 4 = 4$. Bien le même nombre. Et ce n'est pas une coïncidence propre à cet exemple : **les deux calculs donnent toujours le même résultat, pour n'importe quelle variable aléatoire. On l'admet ici — la démonstration existe, mais elle dépasse le programme de Première.** Il n'y a donc pas deux variances : il y a **une seule quantité**, la variance, et deux façons de la calculer. La définition dit ce qu'elle mesure (l'étalement autour de l'espérance) ; le raccourci la calcule plus vite. C'est ce raccourci qu'on utilisera désormais, comme le tableau des dérivées était un raccourci pour ne plus refaire un calcul de limite à chaque fois."},
+  {t:"formule", titre:"Variance", x:"$V(X) = x_1^2 P(X = x_1) + … + x_r^2 P(X = x_r) - [E(X)]^2$", note:"Ce n'est pas une seconde formule à retenir à côté de la définition : c'est **la même quantité** — la moyenne pondérée des écarts au carré à l'espérance, vue juste au-dessus — calculée par un autre chemin (admis). Traduction : moyenne des carrés, moins le carré de la moyenne. Si tu l'oublies, reviens à la définition : tu trouveras le même nombre, juste plus lentement."},
   {t:"formule", titre:"Écart-type", x:"$σ(X) = @r{V(X)}$", note:"On revient ainsi à l'unité de départ (des euros, des points…). C'est ce qu'on interprète."},
   {t:"exemple", titre:"Exemple guidé — calculer un écart-type", enonce:"Soit $X$ prenant la valeur 0 avec une probabilité de 0,5 et la valeur 4 avec une probabilité de 0,5. Calculer $E(X)$, $V(X)$ et $σ(X)$.", etapes:[
    {q:"Espérance", r:"$E(X) = 0 × 0{,}5 + 4 × 0{,}5 = 2$."},
@@ -3167,7 +3167,7 @@ sections:[
    {q:"Ce qu'il faut en retenir", r:"Plus l'échantillon est grand, plus la moyenne observée se rapproche de l'espérance, et plus elle est stable d'un échantillon à l'autre."}
   ]},
   {t:"formule", titre:"La règle à retenir", x:"Quand $n$ grandit, la moyenne observée sur un échantillon de taille $n$ se rapproche de $E(X)$.", note:"C'est ce qui justifie qu'on estime une probabilité par une fréquence observée — et donc qu'on puisse la simuler."},
-  {t:"p", x:"C'est exactement ce que fait le programme de simulation du chapitre 10 : lancer un dé 6000 fois et compter les 6 donne une fréquence proche de $@f{1}{6}$. Sur 10 lancers seulement, la fréquence obtenue serait bien trop instable pour conclure quoi que ce soit."},
+  {t:"p", x:"C'est ce que fera le programme de simulation que tu écriras au chapitre 10 : lancer un dé 6000 fois et compter les 6 donne une fréquence proche de $@f{1}{6}$. Sur 10 lancers seulement, la fréquence obtenue serait bien trop instable pour conclure quoi que ce soit."},
   {t:"piege", titre:"Ce que l'espérance ne promet pas", x:"Une espérance de gain de $-1$ € ne veut pas dire qu'on perdra 1 € à chaque partie. On peut gagner gros une fois. Elle dit qu'**à la longue**, la perte moyenne par partie s'approchera de 1 €. C'est précisément là-dessus que reposent les casinos et les assurances."},
   {t:"astuce", titre:"Comment lire un énoncé d'échantillonnage", x:"Repère toujours la taille $n$. Si $n$ est petit (moins de 30), méfie-toi des conclusions tirées de la moyenne observée. Si $n$ est grand (plusieurs milliers), la moyenne observée est un bon estimateur."}
  ]},
@@ -3193,12 +3193,25 @@ sections:[
   {t:"idee", x:"Beaucoup de situations reviennent à répéter **la même expérience à deux issues** plusieurs fois de suite, de façon indépendante : c'est ce que décrit la **loi binomiale**."},
   {t:"p", x:"Une **épreuve de Bernoulli** est une expérience qui n'a que deux issues possibles : un « succès » (probabilité $p$) et un « échec » (probabilité $1-p$). Lancer une pièce et regarder si c'est pile, tirer une carte et regarder si c'est un roi, tester une pièce industrielle et voir si elle est défectueuse : à chaque fois, deux issues, une probabilité de succès fixée."},
   {t:"p", x:"Un **schéma de Bernoulli** consiste à répéter $n$ fois la même épreuve de Bernoulli, de façon indépendante : le résultat d'un essai ne change rien à la probabilité des essais suivants, et $p$ reste le même à chaque fois."},
-  {t:"formule", titre:"Loi binomiale", x:"Si $X$ compte le nombre de succès obtenus sur $n$ répétitions indépendantes d'une épreuve de Bernoulli de paramètre $p$, on dit que $X$ suit la loi binomiale de paramètres $n$ et $p$, notée $X ∼ ℬ(n ; p)$.", note:"Deux nombres suffisent à la décrire entièrement : $n$ (le nombre de répétitions) et $p$ (la probabilité de succès à chaque répétition)."},
+  {t:"formule", titre:"Loi binomiale", x:"Si $X$ compte le nombre de succès obtenus sur $n$ répétitions indépendantes d'une épreuve de Bernoulli de paramètre $p$, on dit que $X$ suit la loi binomiale de paramètres $n$ et $p$, notée $X ∼ ℬ(n ; p)$.", note:"Deux nombres suffisent à la décrire entièrement : $n$ (le nombre de répétitions) et $p$ (la probabilité de succès à chaque répétition). Attention : ce $n$-là n'est pas celui du début du chapitre (le nombre de valeurs de $X$, noté $r$) — ici il compte des **répétitions**, exactement comme le $n$ de la taille d'un échantillon."},
   {t:"p", x:"La question typique est : « quelle est la probabilité d'obtenir exactement $k$ succès sur les $n$ répétitions ? » Il y a deux choses à combiner. D'abord, la probabilité d'une suite précise de $k$ succès et $n-k$ échecs, dans un ordre donné : c'est $p^k (1-p)^{n-k}$, parce que les répétitions sont indépendantes. Ensuite, il faut compter **de combien de façons** ces $k$ succès peuvent se placer parmi les $n$ répétitions — c'est ce que compte le coefficient binomial $@b{n}{k}$, qui se lit « $k$ parmi $n$ »."},
   {t:"idee", titre:"Compter à la main, sur un petit cas", x:"Combien de façons de placer 2 succès parmi 4 répétitions ? Assez peu pour les lister toutes : les répétitions n°1-2, 1-3, 1-4, 2-3, 2-4, 3-4. **Six** façons."},
   {t:"p", x:"Retrouvons ce 6 par le calcul, en deux temps — la méthode qui marche pour n'importe quel $n$ et $k$, même quand lister à la main devient trop long. **D'abord, en tenant compte de l'ordre** : pour le premier succès, 4 répétitions possibles ; pour le second, il n'en reste que 3 : $4 × 3 = 12$. **Mais chaque paire a été comptée deux fois** dans ces 12 — une fois dans chaque ordre (par exemple, « succès en 1 puis en 3 » et « succès en 3 puis en 1 » désignent la même paire {1,3}). Il faut donc diviser par le nombre de façons de ranger 2 éléments, soit $2! = 2 × 1 = 2$ : $@f{12}{2} = 6$. On retombe bien sur les 6 listées à la main."},
   {t:"formule", titre:"Coefficient binomial", x:"$@b{n}{k} = @f{n × (n-1) × … × (n-k+1)}{k!}$", note:"Le numérateur a $k$ facteurs qui descendent depuis $n$. Le dénominateur, $k! = k × (k-1) × … × 1$, corrige le fait que l'ordre ne compte pas."},
   {t:"formule", titre:"Probabilité d'exactement $k$ succès", x:"$P(X = k) = @b{n}{k} p^k (1-p)^{n-k}$", note:"Pour un grand $n$, refaire ce calcul à la main devient long : la calculatrice donne $@b{n}{k}$ directement (touche « nCr » ou « Combinaison »), une fois qu'on sait ce que ce nombre compte."},
+  {t:"idee", titre:"« Au moins un » : passer par le contraire", x:"La formule ne donne qu'un $k$ à la fois. Or un énoncé demande très souvent « **au moins un** succès » — ce qui voudrait dire additionner $P(X=1) + P(X=2) + … + P(X=n)$, beaucoup trop long. Il y a un raccourci."},
+  {t:"p", x:"L'idée est simple : **quand ce qu'on veut couvre presque tous les cas, il est bien plus court de compter ce qu'on ne veut pas.** Exemple : on lance une pièce équilibrée 3 fois (P pour pile, F pour face — ce P-là n'a rien à voir avec le $P$ de « probabilité »). Il y a 8 résultats possibles, tous de même probabilité $@f{1}{8}$ : PPP, PPF, PFP, FPP, PFF, FPF, FFP, FFF. « Au moins un pile » est vrai pour 7 d'entre eux : il faudrait tous les additionner. « Aucun pile », lui, n'arrive que dans un seul cas : FFF. On calcule ce seul cas et on le retire du total : la probabilité d'obtenir au moins un pile vaut $1 - @f{1}{8} = @f{7}{8}$. Avec 10 lancers, il y aurait 1023 résultats favorables contre un seul défavorable : le raccourci devient indispensable."},
+  {t:"p", x:"« Au moins un succès » et « **aucun** succès » sont deux événements **contraires** : ils ne peuvent jamais être vrais tous les deux en même temps, et l'un des deux se produit forcément — il n'y a pas de troisième possibilité. Deux événements dans ce cas ont des probabilités qui s'additionnent toujours exactement à 1. D'où : $P(X ≥ 1) = 1 - P(X = 0)$. Un seul calcul au lieu de $n$."},
+  {t:"p", x:"Même idée pour « au moins 2 » : son contraire est « moins de 2 », c'est-à-dire « 0 ou 1 succès ». Comme $X$ ne peut pas valoir 0 et 1 en même temps, les événements $X = 0$ et $X = 1$ sont **incompatibles** (chapitre 8 : ils ne peuvent pas se produire ensemble). Aucun cas n'est donc compté deux fois, et leurs probabilités s'additionnent — c'est la règle « on additionne les chemins » des arbres du chapitre 8 : $P(X ≤ 1) = P(X = 0) + P(X = 1)$. D'où $P(X ≥ 2) = 1 - P(X ≤ 1) = 1 - P(X = 0) - P(X = 1)$."},
+  {t:"formule", titre:"Probabilités cumulées", x:"$P(X ≥ 1) = 1 - P(X = 0)$<br>$P(X ≥ 2) = 1 - P(X = 0) - P(X = 1)$<br>$P(X ≤ 1) = P(X = 0) + P(X = 1)$", note:"Un événement « au moins » se calcule par son contraire ; un événement « au plus » s'additionne terme à terme. Contrôle : un événement et son contraire — par exemple $P(X ≥ 2)$ et $P(X ≤ 1)$ — se complètent toujours à 1."},
+  {t:"exemple", titre:"Exemple guidé — au moins une pièce défectueuse", enonce:"Une machine produit 4 % de pièces défectueuses. On en prélève 10 au hasard, de façon indépendante. Quelle est la probabilité qu'au moins une soit défectueuse ?", etapes:[
+   {q:"Reconnaître la loi", r:"Deux issues (défectueuse ou non), 10 prélèvements indépendants, $p = 0{,}04$ constant : $X ∼ ℬ(10 ; 0{,}04)$."},
+   {q:"Traduire « au moins une »", r:"$P(X ≥ 1)$. Son contraire est « aucune défectueuse », c'est-à-dire $X = 0$ : $P(X ≥ 1) = 1 - P(X = 0)$."},
+   {q:"Calculer $P(X = 0)$", r:"$P(X = 0) = @b{10}{0} × 0{,}04^0 × 0{,}96^{10}$. Or $@b{10}{0} = 1$ (une seule façon de n'avoir aucun succès) et $0{,}04^0 = 1$ : il reste $0{,}96^{10} ≈ 0{,}665$."},
+   {q:"Conclure", r:"$P(X ≥ 1) ≈ 1 - 0{,}665 = 0{,}335$, soit environ 34 % de chances d'avoir au moins une pièce défectueuse sur les 10."},
+   {q:"Contrôle de bon sens", r:"Chaque pièce n'a que 4 % de risque, mais on en prélève 10 : il est normal que le risque global soit bien plus grand que 4 %, et tout aussi normal qu'il reste largement en dessous de $10 × 4 = 40$ %, puisque les cas où plusieurs pièces sont défectueuses ne se comptent qu'une fois."}
+  ]},
+  {t:"piege", titre:"« Au moins 1 », ce n'est pas « exactement 1 »", x:"$P(X ≥ 1)$ compte **tous** les cas à partir de 1 : une, deux, dix défectueuses. $P(X = 1)$ n'en compte qu'un seul. Ici $P(X = 1) ≈ 0{,}277$ contre $P(X ≥ 1) ≈ 0{,}335$ : deux nombres différents, deux questions différentes."},
   {t:"figi", nom:"loi-binomiale"},
   {t:"exemple", titre:"Exemple guidé — combien de six en cinq lancers ?", enonce:"On lance un dé équilibré 5 fois. On appelle succès l'obtention d'un 6. Quelle est la probabilité d'obtenir exactement 2 six ?", etapes:[
    {q:"Reconnaître le schéma", r:"5 lancers indépendants, deux issues à chaque fois (6 ou pas 6) : c'est un schéma de Bernoulli répété. $X$ = nombre de six suit $ℬ(n ; p)$ avec $n = 5$ et $p = @f{1}{6}$."},
@@ -3209,7 +3222,7 @@ sections:[
    {q:"Conclure", r:"Il y a environ 16 % de chances d'obtenir exactement 2 six sur 5 lancers."}
   ]},
   {t:"idee", titre:"D'où viennent ces deux formules", x:"Chaque répétition, prise seule, rapporte 1 succès avec une probabilité $p$ et 0 sinon : son espérance vaut donc $p$. On admet ici que sur $n$ répétitions, les espérances s'additionnent (ce résultat général se démontre au-delà du programme de Première) : $E(X) = p + p + … + p = np$. La variance suit le même principe de cumul sur les $n$ répétitions indépendantes et vaut $V(X) = np(1-p)$ — on admet ce second résultat aussi, pour la même raison."},
-  {t:"formule", titre:"Espérance et écart-type d'une loi binomiale", x:"$E(X) = np$ &nbsp;&nbsp; et &nbsp;&nbsp; $V(X) = np(1-p)$, donc $σ(X) = @r{np(1-p)}$", note:"Pas besoin de repasser par le tableau valeurs/probabilités : ces deux formules donnent directement l'espérance et la variance dès qu'on a reconnu une loi binomiale."},
+  {t:"formule", titre:"Espérance, variance et écart-type d'une loi binomiale", x:"$E(X) = np$ &nbsp;&nbsp; et &nbsp;&nbsp; $V(X) = np(1-p)$, donc $σ(X) = @r{np(1-p)}$", note:"Pas besoin de repasser par le tableau valeurs/probabilités : ces deux formules donnent directement l'espérance et la variance dès qu'on a reconnu une loi binomiale."},
   {t:"piege", titre:"$p$ est la probabilité de succès, jamais d'échec", x:"Si l'énoncé dit « la pièce a 5 % de chances d'être défectueuse » et que le succès qu'on compte est justement « être défectueuse », alors $p = 0{,}05$ — pas $0{,}95$. Relis toujours l'énoncé pour savoir ce que tu appelles « succès »."},
   {t:"piege", titre:"Ne pas confondre avec les probabilités conditionnelles", x:"Dans un schéma de Bernoulli, les répétitions sont **indépendantes** : le résultat d'un essai ne change rien à la probabilité des suivants. C'est très différent du chapitre précédent, où l'on pouvait tirer des boules **sans remise** — là, chaque tirage change les probabilités du suivant, et la loi binomiale ne s'applique plus."},
   {t:"check", q:"Un examinateur teste 8 étudiants pris au hasard ; chacun a une probabilité de 0,7 de réussir, indépendamment des autres. On note $X$ le nombre d'étudiants qui réussissent. Quelle est la loi de $X$ ?",
@@ -3238,6 +3251,7 @@ sections:[
    "**Identifier $n$ et $p$** à partir de l'énoncé, en repérant précisément ce qui compte comme « succès ».",
    "**Écrire $X ∼ ℬ(n ; p)$.**",
    "**Pour une probabilité ponctuelle $P(X=k)$** : appliquer $@b{n}{k} p^k (1-p)^{n-k}$.",
+   "**Pour « au moins » ou « au plus »** : « au moins » passe par le contraire, par ex. $P(X ≥ 1) = 1 - P(X = 0)$ ; « au plus » additionne les cas, par ex. $P(X ≤ 1) = P(X = 0) + P(X = 1)$.",
    "**Pour l'espérance ou la variance** : utiliser directement $E(X) = np$ et $V(X) = np(1-p)$, sans repasser par le tableau."
   ], exemple:"On lance une pièce 6 fois et on compte les piles. $n=6$, $p=0{,}5$. $E(X) = 6 × 0{,}5 = 3$ : en moyenne, 3 piles sur 6 lancers."}
  ]}
@@ -3279,7 +3293,7 @@ exos:[
   rep:1, tol:0.001,
   diag:[{v:2, m:"Tu as sans doute oublié de retrancher $[E(X)]^2$. La moyenne des carrés vaut 2, mais il faut ensuite retirer $1^2 = 1$."},
         {v:0, m:"Tu as peut-être soustrait le carré de l'espérance à chaque terme. On ne le retire qu'une seule fois, à la fin."},
-        {v:4, m:"Tu as oublié de pondérer par les probabilités : $2^2 × 0{,}5 = 2$, et non 4."}],
+        {v:4, m:"Tu as additionné les carrés $0^2 + 2^2 = 4$ sans les multiplier par leurs probabilités, et sans retirer $[E(X)]^2$. Pondérée, la moyenne des carrés vaut $0^2 × 0{,}5 + 2^2 × 0{,}5 = 2$, puis $V(X) = 2 - 1^2 = 1$."}],
   corr:["$E(X) = 0 × 0{,}5 + 2 × 0{,}5 = 1$.","Moyenne des carrés : $0^2 × 0{,}5 + 2^2 × 0{,}5 = 2$.","$V(X) = 2 - 1^2$.","$V(X) = 1$."],
   indice:"Calcule d'abord l'espérance, puis la moyenne des carrés, et retranche le carré de l'espérance à la fin."},
 
@@ -3324,7 +3338,7 @@ exos:[
         "60 lancers, c'est déjà mieux que 6, mais la fréquence fluctuera encore sensiblement autour de $0{,}167$.",
         "C'est justement le point central du chapitre : plus l'échantillon est grand, plus la fréquence observée se rapproche de la probabilité théorique et se stabilise."],
   corr:["La fréquence observée s'approche de la probabilité théorique quand la taille de l'échantillon augmente.","Avec $n = 6$, la fluctuation est énorme.","Avec $n = 100000$, la fréquence sera presque toujours très proche de $0{,}167$.","C'est ce qui rend les simulations informatiques utiles : on peut prendre $n$ très grand."],
-  indice:"Repense au programme du chapitre 10 : pourquoi lançait-il le dé 6000 fois plutôt que 10 ?"},
+  indice:"Compare la taille des quatre échantillons. Sur combien de lancers la fréquence a-t-elle le plus de chances de s'être stabilisée ?"},
 
  {id:"va11", niveau:2, type:"num", enonce:"On lance une pièce équilibrée 4 fois. Quelle est la probabilité d'obtenir exactement 3 piles ?",
   rep:0.25, tol:0.001,
@@ -3344,7 +3358,7 @@ exos:[
 
  {id:"va13", niveau:1, type:"num", enonce:"Dans un schéma de Bernoulli répété 6 fois, de combien de façons différentes peut-on placer exactement 2 succès parmi les 6 répétitions ?",
   rep:15, tol:0.001,
-  diag:[{v:12, m:"Ce n'est pas le bon calcul du coefficient binomial. $@b{6}{2} = @f{6×5}{2×1} = 15$."},
+  diag:[{v:12, m:"Tu as multiplié 6 par 2. Un coefficient binomial n'est jamais le produit des deux nombres : il passe toujours par un quotient, $@b{6}{2} = @f{6×5}{2×1} = 15$."},
         {v:30, m:"Tu as oublié de diviser par $2! = 2$. $@b{6}{2} = @f{6×5}{2×1}$, pas $6×5$ seul."},
         {v:6, m:"6 serait le nombre de façons de placer un seul succès parmi 6, pas deux."}],
   corr:["C'est exactement ce que compte le coefficient binomial $@b{6}{2}$.","$@b{6}{2} = @f{6×5}{2×1} = @f{30}{2} = 15$.","Il y a 15 façons de placer les 2 succès parmi les 6 répétitions."],
@@ -3367,7 +3381,23 @@ exos:[
         "Si chaque réponse dépend de la précédente, les répétitions ne sont pas indépendantes : condition indispensable à la loi binomiale.",
         "Un seul lancer n'est pas une répétition : il faut plusieurs essais pour parler de loi binomiale."],
   corr:["Une loi binomiale demande des répétitions **indépendantes** de la même épreuve à deux issues, avec une probabilité de succès qui ne change pas.","Tirer avec remise garantit cette indépendance et cette probabilité constante — contrairement au tirage sans remise ou aux réponses corrélées.","C'est donc la situation « on tire une carte, on la remet, et on répète » qui suit une loi binomiale."],
-  indice:"Cherche laquelle des quatre situations garde exactement la même probabilité de succès à chaque répétition, indépendamment des précédentes."}
+  indice:"Cherche laquelle des quatre situations garde exactement la même probabilité de succès à chaque répétition, indépendamment des précédentes."},
+
+ {id:"va16", niveau:2, type:"num", enonce:"On lance une pièce équilibrée 5 fois. Quelle est la probabilité d'obtenir **au moins un** pile ? (arrondir au millième)",
+  rep:0.969, tol:0.002,
+  diag:[{v:0.031, m:"Tu as calculé $P(X = 0) = 0{,}5^5 = 0{,}03125 ≈ 0{,}031$, c'est-à-dire la probabilité de n'obtenir **aucun** pile. C'est le contraire de ce qui est demandé : il reste à faire $1 - 0{,}031$."},
+        {v:0.156, m:"Tu as calculé $P(X = 1) = @b{5}{1} × 0{,}5^1 × 0{,}5^4 ≈ 0{,}156$, c'est-à-dire **exactement** un pile. « Au moins un » inclut aussi 2, 3, 4 ou 5 piles."},
+        {v:0.5, m:"0,5 est la probabilité de pile à **un seul** lancer. Sur 5 lancers, obtenir au moins un pile est bien plus probable que ça."}],
+  corr:["$X$ = nombre de piles suit $ℬ(5 ; 0{,}5)$.","« Au moins un » se calcule par son contraire : $P(X ≥ 1) = 1 - P(X = 0)$.","$P(X = 0) = 0{,}5^5 = 0{,}03125$.","$P(X ≥ 1) = 1 - 0{,}03125 = 0{,}96875 ≈ 0{,}969$.","Autrement dit : il est très rare (3 fois sur 100) de ne faire aucun pile en 5 lancers."],
+  indice:"Le contraire de « au moins un pile », c'est « aucun pile ». Lequel des deux est le plus facile à calculer ?"},
+
+ {id:"va17", niveau:3, type:"num", enonce:"Une variable $X$ suit la loi binomiale $ℬ(6 ; 0{,}2)$. Calculer $P(X ≥ 2)$, arrondi au millième.",
+  rep:0.345, tol:0.002,
+  diag:[{v:0.655, m:"Tu as calculé $P(X ≤ 1) = P(X=0) + P(X=1) ≈ 0{,}655$, c'est-à-dire le **contraire** de ce qui est demandé. Il reste à faire $1 - 0{,}655$."},
+        {v:0.738, m:"Tu as calculé $1 - P(X = 0) = P(X ≥ 1) ≈ 0{,}738$. Mais « au moins **deux** » exclut aussi le cas $X = 1$ : il faut retirer $P(X=1)$ en plus."},
+        {v:0.246, m:"Tu as calculé $P(X = 2) ≈ 0{,}246$, c'est-à-dire **exactement** deux succès. « Au moins deux » comprend aussi 3, 4, 5 et 6 succès."}],
+  corr:["**Traduire.** $P(X ≥ 2) = 1 - P(X = 0) - P(X = 1)$ : le contraire de « au moins 2 », c'est « 0 ou 1 ».","**Le cas 0.** $P(X = 0) = 0{,}8^6 ≈ 0{,}262$.","**Le cas 1.** $P(X = 1) = @b{6}{1} × 0{,}2 × 0{,}8^5 = 6 × 0{,}2 × 0{,}32768 ≈ 0{,}393$.","**Soustraire.** $P(X ≥ 2) ≈ 1 - 0{,}262 - 0{,}393 = 0{,}345$.","**Contrôle.** « Au moins 2 » et « au plus 1 » sont contraires, leurs probabilités doivent se compléter à 1 : $P(X ≤ 1) + P(X ≥ 2) ≈ 0{,}655 + 0{,}345 = 1$ ✓"],
+  indice:"Le contraire de « au moins 2 », c'est « 0 ou 1 ». Deux cas à calculer, puis une soustraction."}
 ]
 }
 ]);
@@ -5279,7 +5309,7 @@ MODELES["loi-binomiale"] = function(){
         width:larg*0.76, height:(h-mb)-Y(probas[i]),
         fill:coul("bleu"), opacity:.82, rx:2}));
       if(N <= 14 || i % 2 === 0) etiquette(svg, x+larg/2, h-mb+16, String(i), "ink3", 10);
-      if(larg > 26) etiquette(svg, x+larg/2, Y(probas[i])-5, nb(probas[i],2).replace("0,","," ), "ink3", 9);
+      if(larg > 26) etiquette(svg, x+larg/2, Y(probas[i])-5, probas[i] < 0.0005 ? "≈0" : nb(probas[i],3), "ink3", 9);
     }
     svg.appendChild(n("line",{x1:mg-8, y1:h-mb, x2:w-md, y2:h-mb,
       stroke:coul("ink3"), "stroke-width":1.4}));
@@ -5291,12 +5321,15 @@ MODELES["loi-binomiale"] = function(){
       stroke:coul("rouge"), "stroke-width":2, "stroke-dasharray":"5 4"}));
     etiquette(svg, xE, mh+8, "E(X) = " + nb(E), "rouge", 11.5).setAttribute("font-weight", 700);
 
-    var V = N*p*(1-p);
+    var V = Math.round(N*p*(1-p)*10000)/10000;
+    var mx = Math.max.apply(null, probas), modes = [];
+    for(i = 0; i <= N; i++) if(Math.abs(probas[i]-mx) < 1e-9) modes.push(i);
     lecture.innerHTML =
       "<b>X ∼ ℬ(" + N + " ; " + nb(p) + ")</b><br>" +
       "espérance E(X) = " + N + " × " + nb(p) + " = <b>" + nb(E) + "</b> &nbsp;·&nbsp; " +
-      "variance V(X) = <b>" + nb(V) + "</b> &nbsp;·&nbsp; écart-type σ = <b>" + nb(Math.sqrt(V)) + "</b><br>" +
-      "le plus probable : k = <b>" + probas.indexOf(Math.max.apply(null, probas)) + "</b>";
+      "variance V(X) = <b>" + nb(V,4) + "</b> &nbsp;·&nbsp; écart-type σ = √V(X) ≈ <b>" + nb(Math.sqrt(V)) + "</b><br>" +
+      "le plus probable : k = <b>" + modes.join("</b> et <b>") + "</b>" +
+      (modes.length > 1 ? " (exactement à égalité)" : "");
   }
 
   var ctr = el("div","figCurseurs");
@@ -5388,7 +5421,7 @@ MODELES["dispersion-variance"] = function(){
   ctr.appendChild(curseur("écart d", 0.5, 6, 0.5, d, function(x){ d = x; redessine(); }, nb));
 
   redessine();
-  boite.appendChild(el("div","figTitre","Même espérance, dispersions opposées"));
+  boite.appendChild(el("div","figTitre","Même espérance, dispersion réglable"));
   boite.appendChild(svg);
   boite.appendChild(lecture);
   boite.appendChild(ctr);
@@ -7875,8 +7908,8 @@ var G_PROBA = [
 
 { id:"va-esperance", chap:"variable", titre:"Espérance", niveau:1, gen:function(){
     var v1=nz(-10,12), v2=nz(-10,12);
-    while(v2===v1) v2=nz(-10,12);
-    var p=pick([0.2,0.25,0.3,0.4,0.5,0.6,0.75,0.8]);
+    while(v2===v1 || v2===-v1) v2=nz(-10,12);
+    var p=pick([0.2,0.25,0.3,0.4,0.6,0.75,0.8]);
     var rep=arr(v1*p+v2*(1-p));
     return { type:"num", niveau:1, rep:rep, tol:0.005,
       enonce:"Une variable $X$ prend la valeur $"+fr(v1)+"$ avec une probabilité de $"+fr(p)+"$, et la valeur $"+fr(v2)+"$ avec une probabilité de $"+fr(arr(1-p))+"$. Calculer $E(X)$.",
@@ -7884,7 +7917,7 @@ var G_PROBA = [
             {v:v1+v2, m:"Tu as additionné les valeurs sans les pondérer. Chacune doit d'abord être multipliée par sa probabilité."},
             {v:1, m:"Tu as additionné les probabilités. Leur somme vaut toujours 1 : c'est un contrôle, pas le résultat."}],
       corr:["**Écrire la formule.** $E(X) = x_1 P(X = x_1) + x_2 P(X = x_2)$ : chaque valeur multipliée par son poids.",
-            "**Remplacer.** $E(X) = "+fr(v1)+" × "+fr(p)+" + "+fr(v2)+" × "+fr(arr(1-p))+"$.",
+            "**Remplacer.** $E(X) = "+fr(v1)+" × "+fr(p)+" + "+(v2<0 ? "("+fr(v2)+")" : fr(v2))+" × "+fr(arr(1-p))+"$.",
             "**Les deux produits.** $"+fr(arr(v1*p))+"$ et $"+fr(arr(v2*(1-p)))+"$.",
             "**Additionner.** $E(X) = "+fr(rep)+"$.",
             "**Interpréter.** Sur un très grand nombre de répétitions, on obtient en moyenne $"+fr(rep)+"$ par tirage. Ce n'est pas une valeur atteignable — c'est un point d'équilibre."],
@@ -7892,8 +7925,9 @@ var G_PROBA = [
   }},
 
 { id:"va-manquante", chap:"variable", titre:"Probabilité manquante", niveau:1, gen:function(){
-    var p1=pick([0.1,0.15,0.2,0.25,0.3]), p2=pick([0.2,0.3,0.35,0.4]);
-    var rep=arr(1-p1-p2);
+    var p1,p2,rep;
+    do{ p1=pick([0.1,0.15,0.2,0.25,0.3]); p2=pick([0.2,0.3,0.35,0.4]); rep=arr(1-p1-p2); }
+    while(arr(p1+p2)===rep || arr(1-p1)===arr(p1+p2));
     return { type:"num", niveau:1, rep:rep, tol:0.005,
       enonce:"Une variable prend trois valeurs, avec les probabilités $"+fr(p1)+"$, $"+fr(p2)+"$ et $p$. Que vaut $p$ ?",
       diag:[{v:arr(1-p1), m:"Tu n'as retiré qu'une seule des deux probabilités connues. Il faut soustraire les deux."},
@@ -7922,6 +7956,14 @@ function coefBin(n,k){
 function fact(k){ var r=1; for(var i=2;i<=k;i++) r*=i; return r; }
 function arrang(n,k){ var r=1; for(var i=0;i<k;i++) r*=(n-i); return r; }
 function mil(x){ return Math.round(x*1000)/1000; }   /* arrondi au millième */
+function mil4(x){ return Math.round(x*10000)/10000; }  /* n entier, p à 2 décimales : np(1-p) exact à 4 décimales */
+function pw(cent, e){                      // (cent/100)^e, décimale exacte, en français
+  var num = String(Math.pow(cent, e)), d = 2*e;
+  while(num.length <= d) num = "0" + num;
+  var s = (num.slice(0, num.length-d) + "." + num.slice(num.length-d))
+            .replace(/0+$/,"").replace(/\.$/,"");
+  return fr(s);
+}
 
 var G_BINOMIALE = [
 
@@ -7929,7 +7971,7 @@ var G_BINOMIALE = [
     /* On écarte le tirage n=5, k=2 : il donne 5 × 2 = 10, exactement la bonne
        réponse, ce qui rendrait le distracteur « tu as multiplié » inutilisable. */
     var n,k,rep;
-    do{ n=ri(5,9); k=ri(2,n-2); rep=coefBin(n,k); }while(n*k===rep);
+    do{ n=ri(5,9); k=ri(2,n-2); rep=coefBin(n,k); }while(n*k===rep || n*k===fact(k));
     var A=arrang(n,k), kf=fact(k), deux=Math.pow(2,n);
     var haut=[], bas=[];
     for(var i=0;i<k;i++) haut.push(n-i);
@@ -7965,6 +8007,10 @@ var G_BINOMIALE = [
     var q=arr(1-p);
     var sansC=mil(Math.pow(p,k)*Math.pow(1-p,n-k));
     var sansQ=mil(C*Math.pow(p,k));
+    /* p est toujours un multiple de 0,05 : p^k s'écrit exactement en 2k
+       décimales. On la construit par arithmétique entière pour ne jamais
+       afficher une valeur arrondie dans une égalité (cf. CLAUDE.md). */
+    var pK = pw(Math.round(p*100), k), qNK = pw(Math.round((1-p)*100), n-k);
     var ctx=pick([
       {a:"Une urne contient des jetons, dont une proportion de "+fr(p)+" sont gagnants. On tire un jeton, on note le résultat, **on le remet**, et on recommence — "+n+" fois en tout.", s:"jetons gagnants"},
       {a:"Une roue de loterie donne un lot avec une probabilité de "+fr(p)+" à chaque tour. On la fait tourner "+n+" fois, chaque tour étant indépendant des autres.", s:"tours gagnants"},
@@ -7972,7 +8018,7 @@ var G_BINOMIALE = [
     ]);
     return { type:"num", niveau:2, rep:rep, tol:0.0015,
       enonce:ctx.a+" On note $X$ le nombre de "+ctx.s+". Calculer $P(X = "+k+")$, arrondi au millième.",
-      diag:[{v:sansC, m:"Tu as calculé la probabilité d'**une seule** suite précise : "+k+" succès d'abord, puis "+(n-k)+" échecs. Mais les "+k+" succès peuvent tomber à d'autres places : il y en a $@b{"+n+"}{"+k+"} = "+C+"$ arrangements possibles, et il faut multiplier par ce nombre."},
+      diag:[{v:sansC, m:"Tu as calculé la probabilité d'**une seule** suite précise : "+k+" succès d'abord, puis "+(n-k)+" échecs. Mais les "+k+" succès peuvent tomber à d'autres places : il y a $@b{"+n+"}{"+k+"} = "+C+"$ façons de les placer, et il faut multiplier par ce nombre."},
             {v:sansQ, m:"Tu as bien mis le coefficient "+C+" et le facteur $"+fr(p)+"^{"+k+"}$, mais tu as oublié les "+(n-k)+" répétitions **ratées**. Chacune a une probabilité de "+fr(q)+" : il manque le facteur $"+fr(q)+"^{"+(n-k)+"}$."},
             {v:C, m:"$"+C+"$ est le coefficient binomial $@b{"+n+"}{"+k+"}$ : il compte des façons de faire, ce n'est pas une probabilité. Une probabilité est toujours comprise entre 0 et 1."},
             {v:mil(Math.pow(p,k)), m:"Tu n'as gardé que $"+fr(p)+"^{"+k+"}$. Il manque deux choses : le coefficient binomial devant, et le sort des "+(n-k)+" autres répétitions."}
@@ -7980,9 +8026,9 @@ var G_BINOMIALE = [
       corr:["**Vérifier que c'est bien une loi binomiale.** Une même épreuve à deux issues (succès / échec), répétée "+n+" fois, de façon **indépendante**, avec la même probabilité "+fr(p)+" à chaque fois. Les trois conditions sont réunies : $X$ suit $ℬ("+n+" ; "+fr(p)+")$.",
             "**Écrire la formule.** $P(X = k) = @b{"+n+"}{k} p^k (1-p)^{"+n+"-k}$. Elle se lit en trois morceaux : combien de façons, puis les succès, puis les échecs.",
             "**Le nombre de façons.** $@b{"+n+"}{"+k+"} = "+C+"$ : il y a "+C+" manières de choisir lesquelles des "+n+" répétitions sont les "+k+" réussies.",
-            "**Les succès.** Chacun a une probabilité "+fr(p)+", et ils sont indépendants : $"+fr(p)+"^{"+k+"} = "+mil(Math.pow(p,k))+"$.",
-            "**Les échecs.** Il en reste "+(n-k)+", chacun de probabilité $1 - "+fr(p)+" = "+fr(q)+"$ : $"+fr(q)+"^{"+(n-k)+"} = "+mil(Math.pow(1-p,n-k))+"$.",
-            "**Tout multiplier.** $P(X = "+k+") = "+C+" × "+mil(Math.pow(p,k))+" × "+mil(Math.pow(1-p,n-k))+" ≈ "+fr(rep)+"$.",
+            "**Les succès.** Chacun a une probabilité "+fr(p)+", et ils sont indépendants : $"+fr(p)+"^{"+k+"} = "+pK+"$.",
+            "**Les échecs.** Il en reste "+(n-k)+", chacun de probabilité $1 - "+fr(p)+" = "+fr(q)+"$ : $"+fr(q)+"^{"+(n-k)+"} = "+qNK+"$.",
+            "**Tout multiplier.** $P(X = "+k+") = "+C+" × "+pK+" × "+qNK+" ≈ "+fr(rep)+"$.",
             "**Contrôle.** Le résultat est entre 0 et 1 ✓. Et il est plus grand que la probabilité d'une seule suite ("+fr(sansC)+"), ce qui est logique puisqu'on additionne "+C+" suites également probables."],
       indice:"Trois facteurs : le coefficient $@b{"+n+"}{"+k+"}$, puis $p$ élevé au nombre de succès, puis $1-p$ élevé au nombre d'échecs." };
   }},
@@ -7990,7 +8036,7 @@ var G_BINOMIALE = [
 { id:"bi-esp-var", chap:"variable", titre:"Espérance et variance", niveau:2, gen:function(){
     var n=ri(20,80);
     var p=pick([0.1,0.15,0.2,0.25,0.3,0.4,0.6,0.75,0.8]);
-    var q=arr(1-p), E=mil(n*p), V=mil(n*p*(1-p)), sd=mil(Math.sqrt(n*p*(1-p)));
+    var q=arr(1-p), E=mil(n*p), V=mil4(n*p*(1-p)), sd=mil(Math.sqrt(V));
     var mode=pick(["E","V"]);
     var ctx="Une variable aléatoire $X$ suit la loi binomiale $ℬ("+n+" ; "+fr(p)+")$.";
     if(mode==="E"){
@@ -8059,6 +8105,8 @@ var G_BINOMIALE = [
       enonce:enonce+" Quelle est la loi de $X$ ?",
       diag:choix.map(function(s,i){
         if(i===bonne) return "";
+        if(!binom)
+          return "Peu importe l'ordre ou la valeur des paramètres : ici, aucune loi binomiale ne convient. "+pourquoi;
         if(s==="Ce n'est pas une loi binomiale")
           return "Les trois conditions sont pourtant réunies. "+pourquoi+" C'est donc bien une loi binomiale.";
         if(s==="$ℬ("+fr(p)+" ; "+n+")$")
@@ -8073,7 +8121,7 @@ var G_BINOMIALE = [
            "**Vérifier l'indépendance.** "+pourquoi,
            "**Nommer les paramètres, dans le bon ordre.** $n = "+n+"$ (le nombre de répétitions) et $p = "+fr(p)+"$ (la probabilité de succès).",
            "**Conclure.** $X$ suit la loi binomiale $ℬ("+n+" ; "+fr(p)+")$, ce qui s'écrit aussi $X ∼ ℬ("+n+" ; "+fr(p)+")$.",
-           "**Ce que ça débloque.** Dès que la loi est reconnue, tout devient direct : $P(X=k) = @b{"+n+"}{k} p^k (1-p)^{"+n+"-k}$, $E(X) = "+fr(mil(n*p))+"$ et $V(X) = "+fr(mil(n*p*(1-p)))+"$."]
+           "**Ce que ça débloque.** Dès que la loi est reconnue, tout devient direct : $P(X=k) = @b{"+n+"}{k} p^k (1-p)^{"+n+"-k}$, $E(X) = "+fr(mil(n*p))+"$ et $V(X) = "+fr(mil4(n*p*(1-p)))+"$."]
         : ["**Chercher l'épreuve de base.** Elle a bien deux issues, et elle est bien répétée "+n+" fois : les deux premières conditions sont remplies.",
            "**Tester l'indépendance — c'est là que ça bloque.** "+pourquoi,
            "**Le détail qui décide.** Une seule expression change tout : « sans remise » (ou « différents »). Avec remise, c'est binomial ; sans remise, ça ne l'est plus.",
