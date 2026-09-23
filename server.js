@@ -345,7 +345,29 @@ app.post("/api/expliquer", autorise, async (req, res) => {
   }
 });
 
-/* --- 2. corriger une photo de travail manuscrit --- */
+/* --- 2. expliquer une photo d'un document du professeur ---
+   L'élève photographie un énoncé, un exercice ou un passage de cours et
+   demande à comprendre : elle n'a rien écrit. Prompt système dédié, car
+   SYSTEME_TUTEUR demande de « nommer l'erreur », ce qui pousserait le
+   modèle à inventer une copie fautive. */
+const SYSTEME_PHOTO = `Tu es professeur de mathématiques en classe de Première (spécialité maths, programme français). Une élève débutante t'envoie la photo d'un document de son professeur (énoncé d'exercice, extrait de cours, fiche) et te demande de l'aider à comprendre. Elle n'a rien écrit elle-même : il n'y a aucune copie à corriger.
+
+Fidélité à la photo :
+- Ce qui est écrit sur la photo fait autorité. Ne complète jamais un passage que tu ne lis pas, n'invente aucune donnée, ne reconstitue pas un exercice qui te semble classique.
+- N'invente jamais un travail de l'élève et ne cherche aucune erreur qu'elle aurait faite : elle demande à comprendre, pas à être corrigée.
+
+Pédagogie :
+- Tutoie-la. Sois encourageante, jamais condescendante.
+- Explique le pourquoi avant le comment : d'où vient la méthode, à quoi sert chaque étape, pourquoi on a le droit de la faire.
+- Phrases courtes, une idée à la fois, une étape par paragraphe. Aucun saut de calcul : chaque ligne découle visiblement de la précédente.
+- Quand une notion est abstraite, donne une image concrète (comparaison, situation de la vie courante, petit exemple chiffré).
+- Explique chaque mot technique la première fois que tu l'emploies.
+
+Rédaction :
+- Notation : encadre les maths par des dollars. Fractions @f{haut}{bas}, racines @r{contenu}, exposants ^{...}, indices _{...}, vecteurs @v{AB}. Exemple : "On calcule $x = @f{-b + @r{Δ}}{2a}$."
+- Pas de titres markdown, pas de tableaux. Des paragraphes séparés par une ligne vide, et des listes avec des tirets si besoin.
+- Vérifie chacun de tes calculs avant de l'écrire. Une explication fausse est pire que pas d'explication.`;
+
 app.post("/api/photo", autorise, async (req, res) => {
   if (tropRapide(req))
     return res.status(429).json({ erreur: "trop de demandes d'affilée — attends une minute" });
@@ -356,23 +378,28 @@ app.post("/api/photo", autorise, async (req, res) => {
   try {
 
     const texte = await demander({
-      system: SYSTEME_TUTEUR,
-      maxTokens: 3000,
+      system: SYSTEME_PHOTO,
+      // le raisonnement adaptatif se décompte de ce plafond : 3000 coupait
+      // parfois une explication pas à pas avant la fin
+      maxTokens: 6000,
       content: [
         blocImage(image),
         {
           type: "text",
           text:
-            `Voici la photo du travail de l'élève. Corrige-la comme le ferait un examinateur du bac : rigoureux, mais jamais décourageant.\n\n` +
-            (question ? `Sa question : ${question}\n\n` : "") +
+            `Voici la photo d'un document de mon professeur.\n\n` +
+            (question
+              ? `Ma question : ${question}\n\n`
+              : `Je n'ai pas posé de question précise : aide-moi à comprendre ce document.\n\n`) +
             `Procède dans cet ordre :\n` +
-            `1. Dis ce que tu lis (l'énoncé et ce qu'elle a écrit). Si un passage est illisible, dis-le franchement plutôt que de deviner.\n` +
-            `2. Reprends le raisonnement pas à pas. Si une erreur apparaît, cite la ligne exacte où ça dérape et précise sa nature : erreur de calcul (une valeur fausse), erreur de logique (un raisonnement qui ne tient pas), ou erreur de rédaction (une justification manquante ou imprécise, même si le résultat est juste).\n` +
-            `3. Donne un **verdict** en une ligne : ✅ Correct, 🟡 Correct mais à consolider, ou ❌ Faux — avec la raison précise.\n` +
-            `4. Signale la **faille** : l'endroit précis où un correcteur du bac enlèverait des points, même si la copie est globalement juste (une hypothèse non vérifiée, un cas particulier non traité, une conclusion non reformulée).\n` +
-            `5. Donne la méthode correcte, étape par étape.\n` +
-            `6. Pose une **question piège**, une seule, qui oblige l'élève à justifier le point le plus fragile de sa réponse — sans donner la réponse à cette question.\n` +
-            `7. Termine par le **réflexe** à prendre pour éviter cette erreur la prochaine fois.`,
+            `1. Lis. Recopie fidèlement ce que dit le document (l'énoncé, ou le passage concerné par ma question), sans rien corriger ni ajouter.\n` +
+            `2. Si une donnée nécessaire pour répondre est illisible ou incertaine (un nombre, un signe, un exposant, une fraction, un morceau de phrase), ARRÊTE-TOI après la lecture : dis précisément ce que tu n'arrives pas à lire et où, puis demande-moi une nouvelle photo (plus près, à plat, bien éclairée, sans reflet). Dans ce cas, n'explique rien et ne résous rien, même en faisant une hypothèse. Si le passage illisible ne sert pas à répondre, signale-le simplement et continue.\n` +
+            `3. Sinon, réponds à ma question. Selon ce que je demande et ce que montre le document :\n` +
+            `- un exercice à résoudre : dis d'abord ce qu'on cherche, quelle méthode on va utiliser et pourquoi c'est la bonne ; puis résous pas à pas en expliquant chaque étape ; termine par une phrase qui répond à la question de l'énoncé.\n` +
+            `- une notion ou un passage de cours : explique l'idée avec des mots simples, puis une image concrète, puis un petit exemple chiffré traité en entier.\n` +
+            `- un point précis que je ne comprends pas : concentre-toi dessus, sans refaire tout le document.\n` +
+            `Si le document contient plusieurs questions et que je n'en précise aucune, traite la première en détail et propose de continuer avec les suivantes.\n` +
+            `4. Termine par le **point à retenir** : l'idée ou le réflexe qui me servira sur un exercice du même type.`,
         },
       ],
     });

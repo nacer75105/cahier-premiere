@@ -6417,7 +6417,7 @@ function paintRail(){
     { id:"import",      label:"Mes cours", ic:"+" }
   ];
   // la page photo n'existe qu'en version connectée
-  if(window.IA_ACTIVE) nav.splice(4, 0, { id:"photo", label:"Corriger une photo", ic:"◉" });
+  if(window.IA_ACTIVE) nav.splice(4, 0, { id:"photo", label:"Expliquer une photo", ic:"◉" });
   nav.forEach(function(n){
     var b = el("button","navBtn");
     b.innerHTML = '<span class="ic">'+n.ic+'</span><span style="flex:1">'+n.label+'</span>'+
@@ -6494,7 +6494,7 @@ function paintRail(){
 function paintCrumb(){
   var c = COURS.filter(function(x){return x.id===route.chap;})[0];
   var txt = { accueil:"Accueil", revoir:"À revoir", memo:"Aide-mémoire",
-              import:"Mes cours", fiche:"Ma fiche", photo:"Corriger une photo", stats:"Mes statistiques",
+              import:"Mes cours", fiche:"Ma fiche", photo:"Expliquer une photo", stats:"Mes statistiques",
               entrainement:"Entraînement", controle:"Mode contrôle" }[route.page];
   if(route.page==="chap" && c) txt = "<b>Chapitre "+c.n+"</b> · "+A.esc(c.titre)+
     " · "+(route.onglet==="cours"?"Cours":"Exercices");
@@ -7085,11 +7085,13 @@ window.VUE_IMPORT = function(){
 function lireFichier(file){
   var nom = file.name.toLowerCase();
   if(file.type.indexOf("image")===0){
-    var fr=new FileReader();
-    fr.onload=function(){ draft.image=fr.result; draft.source="image";
+    window.PREPARER_IMAGE(file, function(err, d){
+      if(err){ A.toast("Image illisible par le navigateur — essaie en JPEG ou PNG."); return; }
+      draft.image=d; draft.source="image";
       if(!draft.titre) draft.titre=file.name.replace(/\.[^.]+$/,"");
-      window.RENDER(); };
-    fr.readAsDataURL(file); return;
+      window.RENDER();
+    });
+    return;
   }
   if(nom.slice(-4)===".pdf" || file.type==="application/pdf"){
     A.toast("Lecture du PDF…");
@@ -9185,16 +9187,40 @@ window.IA_GENERER_FICHE = function(draft, cb){
 };
 
 /* ---------------------------------------------------------------
-   3. Page « Corriger une photo »
+   3. Page « Expliquer une photo »
    --------------------------------------------------------------- */
 var photo = { image:null, question:"", reponse:null, enCours:false };
+
+/* Photo de téléphone -> JPEG redressé, 1500 px au plus sur le grand côté.
+   Le navigateur applique l'orientation EXIF en décodant l'<img> ; le JPEG
+   refait n'a plus d'étiquette, donc l'API le reçoit dans le bon sens, net,
+   et bien sous sa limite de 5 Mo (sans cela, l'API réduit elle-même une
+   photo de 4000 px et l'écriture devient illisible). */
+window.PREPARER_IMAGE = function(file, cb){
+  var MAX = 1500, url = URL.createObjectURL(file), im = new Image();
+  im.onload = function(){
+    URL.revokeObjectURL(url);
+    try{
+      var w0 = im.naturalWidth, h0 = im.naturalHeight;
+      var k = Math.min(1, MAX/Math.max(w0, h0));
+      var c = document.createElement("canvas");
+      c.width = Math.round(w0*k); c.height = Math.round(h0*k);
+      var ctx = c.getContext("2d");
+      ctx.fillStyle = "#fff"; ctx.fillRect(0, 0, c.width, c.height); // PNG transparent -> fond blanc
+      ctx.drawImage(im, 0, 0, c.width, c.height);
+      cb(null, c.toDataURL("image/jpeg", 0.85));
+    }catch(e){ cb(e); }
+  };
+  im.onerror = function(){ URL.revokeObjectURL(url); cb(new Error("image illisible")); };
+  im.src = url;
+};
 
 window.VUE_PHOTO = function(){
   var w = window.WRAPDIV();
   w.innerHTML =
-    '<div class="eyebrow">Correction de ton travail</div>'+
-    '<h1 style="font-size:31px;margin:8px 0 8px">Photographie ton exercice</h1>'+
-    '<p class="muted" style="max-width:62ch">Prends en photo ce que tu as écrit sur ton cahier — même raturé, même incomplet. Claude lit ton raisonnement et te dit <b>à quelle ligne</b> ça dérape, sans donner la réponse tout de suite.</p>';
+    '<div class="eyebrow">Explication d’un document</div>'+
+    '<h1 style="font-size:31px;margin:8px 0 8px">Photographie ton document</h1>'+
+    '<p class="muted" style="max-width:62ch">Prends en photo un énoncé, un exercice ou un passage de cours donné par ton professeur, et dis ce que tu veux comprendre. Claude le lit, puis t’explique <b>pas à pas</b> — le pourquoi, pas seulement le résultat. Si la photo est illisible, il te le dit plutôt que de deviner.</p>';
 
   var c1 = el("div","card pad"); c1.style.marginTop="22px";
   if(!photo.image){
@@ -9214,7 +9240,7 @@ window.VUE_PHOTO = function(){
     fi.onchange=function(){ if(fi.files[0]) charger(fi.files[0]); };
     c1.appendChild(drop);
   } else {
-    var im = el("img","imgPrev"); im.src=photo.image; im.alt="Ton exercice";
+    var im = el("img","imgPrev"); im.src=photo.image; im.alt="Ton document";
     c1.appendChild(im);
     var rr = el("div","row"); rr.style.marginTop="12px";
     var bc = el("button","btn sm","Changer de photo");
@@ -9229,7 +9255,7 @@ window.VUE_PHOTO = function(){
     c2.innerHTML = '<div class="eyebrow" style="margin-bottom:8px">Ta question (facultatif)</div>';
     var ta = el("textarea","inp");
     ta.style.minHeight="80px";
-    ta.placeholder="Ex. : je ne comprends pas pourquoi je ne trouve pas le bon discriminant.";
+    ta.placeholder="Ex. : je ne comprends pas la question 2. Ou : explique-moi comment on trouve le sommet de la parabole.";
     ta.value = photo.question;
     ta.oninput=function(){ photo.question=ta.value; };
     c2.appendChild(ta);
@@ -9237,7 +9263,7 @@ window.VUE_PHOTO = function(){
     bEnv.style.marginTop="12px";
     bEnv.disabled = photo.enCours;
     bEnv.onclick=function(){
-      photo.enCours = true; bEnv.disabled=true; bEnv.textContent="Claude lit ta copie…";
+      photo.enCours = true; bEnv.disabled=true; bEnv.textContent="Claude lit ton document…";
       api("/api/photo", { image:photo.image, question:photo.question })
         .then(function(j){ photo.reponse=j.texte; photo.enCours=false; window.RENDER(); })
         .catch(function(e){ photo.enCours=false; photo.reponse="ERREUR:"+e.message; window.RENDER(); });
@@ -9251,25 +9277,26 @@ window.VUE_PHOTO = function(){
     var c3 = el("div", err ? "fb bad" : "card pad");
     c3.style.marginTop="14px";
     if(err){
-      c3.innerHTML = '<div class="fbt">Correction indisponible</div><p>'+
+      c3.innerHTML = '<div class="fbt">Explication indisponible</div><p>'+
         A.esc(photo.reponse.slice(7))+'</p>';
     } else {
-      c3.innerHTML = '<div class="row" style="margin-bottom:10px"><span class="tag b">Correction</span></div>'+
+      c3.innerHTML = '<div class="row" style="margin-bottom:10px"><span class="tag b">Explication</span></div>'+
         '<div class="lesson">'+corpsTexte(photo.reponse)+'</div>';
     }
     w.appendChild(c3);
   }
 
   w.appendChild(el("div","callout co-piege",
-    '<div class="ct">À garder en tête</div><p>Cette correction est rédigée par un modèle de langage : elle est très utile pour comprendre, mais elle peut se tromper sur un calcul. '+
+    '<div class="ct">À garder en tête</div><p>Cette explication est rédigée par un modèle de langage : elle est très utile pour comprendre, mais elle peut se tromper sur un calcul. '+
     'Les '+(window.COURS||[]).reduce(function(n,c){ return n+c.exos.length; },0)+
     ' exercices des chapitres, eux, sont vérifiés. En cas de désaccord entre les deux, c’est le cahier qui a raison.</p>'));
 
   function charger(file){
-    if(file.size > 6*1024*1024){ A.toast("Photo trop lourde (6 Mo maximum)."); return; }
-    var fr = new FileReader();
-    fr.onload=function(){ photo.image=fr.result; photo.reponse=null; window.RENDER(); };
-    fr.readAsDataURL(file);
+    if(file.size > 25*1024*1024){ A.toast("Photo trop lourde (25 Mo maximum)."); return; }
+    window.PREPARER_IMAGE(file, function(err, d){
+      if(err){ A.toast("Photo illisible par le navigateur — essaie en JPEG ou PNG."); return; }
+      photo.image=d; photo.reponse=null; window.RENDER();
+    });
   }
   return w;
 };
