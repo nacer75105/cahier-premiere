@@ -848,3 +848,27 @@ Restent à traiter :
   cités par le programme de Première, absents du chapitre — **à confirmer
   contre le programme 2026 / le manuel de la classe avant tout ajout**.
 - Générateur `al-liste` (lire une case) proposé, non ajouté.
+
+## Retours de l'appli Python-Learn (2026-09-24)
+
+Trois défauts du cahier relevés pendant le travail sur Python-Learn
+(`Python-Learn_/A_VERIFIER.md`, section « Cahier de maths ») :
+- *(Corrigé)* Dérivation, astuce « Traduction en français » : « Nul = c'est
+  plat (sommet ou creux) » contredisait le piège x³ → « souvent un sommet ou
+  un creux, mais pas toujours », avec l'image du replat.
+- *(Corrigé)* Algorithmique : « condition d'arrêt » posé sur `while u < 100`
+  → « condition pour continuer » (titre, note, fiche méthode, contresens
+  « jusqu'à ce que » nommé).
+- *(Corrigé)* « Dépasse S » écrit `while u <= 700` (Suites) mais
+  `while u < 5000` (Algorithmique) → convention unique : « dépasse » ⇔ `<=`,
+  « atteint ou dépasse » ⇔ `<`. Squelette du seuil en `<=` (`<=` traduit en
+  ≤), nouveau piège « Dépasse ou atteint » (1 → 512 : 9 contre 10) ; al4, la
+  figure `trace-python` et `al-while` gardent `<` avec « atteindre ou
+  dépasser » ; « à la sortie, déjà dépassé » corrigé en « atteint ou dépassé »
+  partout où la condition est `<` (y compris `al-while`, qui tombe pile sur le
+  seuil dans 5 tirages sur 60).
+
+Relus par `relecteur-maths` (3 passages, zéro bloquant) et `prof-pedagogue`
+(2 passages, validé sans réserve).
+
+Reste : méthode de Newton absente du chapitre Dérivation (en cours).

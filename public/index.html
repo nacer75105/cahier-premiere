@@ -1408,7 +1408,7 @@ sections:[
   {t:"astuce", titre:"Pourquoi on n'écrit jamais $h = 0$", x:"Avec $h = 0$, la fraction devient $@f{0}{0}$ : elle n'a aucun sens. C'est précisément pour contourner cet obstacle qu'on a inventé la notion de limite. On ne pose jamais $h = 0$ ; on regarde ce qui se passe **quand $h$ s'en approche**. La nuance paraît subtile, mais c'est elle qui rend tout le calcul différentiel possible."},
   {t:"formule", titre:"Nombre dérivé", x:"$f'(a) = lim_{h → 0} @f{f(a + h) - f(a)}{h}$", note:"Autrement dit : la pente moyenne entre $a$ et un point tout proche, quand ce point se colle à $a$. En pratique on n'utilise presque jamais cette limite : on applique les formules du tableau plus bas."},
   {t:"p", x:"Une précision importante, qu'on admet sans la démontrer : cette limite n'existe pas forcément pour n'importe quelle fonction ni en n'importe quel point (il peut y avoir un angle, une cassure, ou une tangente verticale). Mais **les fonctions usuelles de ce chapitre sont dérivables sur les intervalles où elles sont définies**, à de rares exceptions signalées explicitement le moment venu (comme la racine carrée en 0, où la tangente est verticale — indiqué plus loin dans le tableau des dérivées) — sauf mention contraire, tu peux donc supposer que $f'(a)$ existe et te concentrer sur son calcul."},
-  {t:"astuce", titre:"Traduction en français", x:"$f'(a)$ est un nombre. C'est la pente de la courbe au point d'abscisse $a$. Positif = ça monte. Négatif = ça descend. Nul = c'est plat (sommet ou creux)."},
+  {t:"astuce", titre:"Traduction en français", x:"$f'(a)$ est un nombre. C'est la pente de la courbe au point d'abscisse $a$. Positif = ça monte. Négatif = ça descend. Nul = la tangente est horizontale : **souvent** un sommet ou un creux, **mais pas toujours** (pense à une route de montagne qui s'aplatit un instant sur un replat, puis continue de grimper : pente nulle, mais ni sommet ni creux. C'est ce que fait $x^3$ en 0 — voir le piège « Dérivée nulle ne veut pas dire extremum », plus loin)."},
   {t:"figi", nom:"tangente"},
   {t:"p", x:"Déplace le point $A$ le long de la courbe et regarde la droite rouge : c'est la tangente. Elle change d'inclinaison à mesure que $A$ se déplace, et le nombre $f'(a)$ affiché en dessous suit exactement cette inclinaison."},
   {t:"p", x:"Trois moments valent la peine d'être observés. Quand $A$ est **à gauche**, la courbe descend et la tangente penche vers le bas : $f'(a)$ est négatif. Quand $A$ est **à droite**, la courbe monte et $f'(a)$ devient positif. Et exactement **au creux**, la tangente devient horizontale : $f'(a) = 0$. C'est ce moment précis qu'on cherchera pour trouver un minimum ou un maximum — et c'est pour ça qu'on résoudra l'équation $f'(x) = 0$."},
@@ -3828,7 +3828,7 @@ sections:[
   {t:"p", x:"Pourquoi une boucle ? Imagine qu'on te demande $u_{50}$ pour la suite $u_0 = 7$, $u_{n+1} = u_n + 3$. À la main, il faudrait écrire 50 fois la même ligne <b>u = u + 3</b>. Une boucle, c'est dire à la machine « refais cette ligne 50 fois », en une seule phrase — comme une consigne de sport : « 10 pompes » plutôt que « une pompe, une pompe, une pompe… »."},
   {t:"p", x:"Deux boucles suffisent pour tout ce qu'on te demandera en Première. La première répète un nombre de fois **connu à l'avance**, la seconde répète **tant qu'une condition est vraie**."},
   {t:"formule", titre:"Boucle « pour » — nombre de tours connu", code:true, x:"<b>u = 0</b><br><b>for i in range(5):</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>u = u + 3</b>", note:"Se lit : « pour i allant de 0 à 4, fais : ajouter 3 à u ». <b>for</b> veut dire « pour ». <b>range(5)</b> fabrique les numéros 0, 1, 2, 3, 4 : cinq tours, mais le compteur s'arrête à 4. <b>i</b> est ce compteur, que Python fait avancer tout seul, d'un cran par tour. Les deux-points <b>:</b> annoncent « voici ce qu'il faut répéter », et ce qu'il faut répéter, c'est la ligne décalée de quatre espaces vers la droite. Ici, $u$ passe par 3, 6, 9, 12 et finit à 15."},
-  {t:"formule", titre:"Boucle « tant que » — condition d'arrêt", code:true, x:"<b>u = 3</b><br><b>n = 0</b><br><b>while u &lt; 100:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>u = u * 2</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>n = n + 1</b>", note:"Se lit : « tant que u est plus petit que 100, fais : doubler u, puis ajouter 1 à n ». <b>while</b> veut dire « tant que ». <b>u &lt; 100</b> est une **condition** : une question à laquelle la machine répond oui ou non. Ici, $u$ passe par 6, 12, 24, 48, 96, 192 : à 192 la réponse devient non, on s'arrête, et $n$ vaut 6. La condition doit finir par devenir fausse, sinon le programme tourne indéfiniment."},
+  {t:"formule", titre:"Boucle « tant que » — condition pour continuer", code:true, x:"<b>u = 3</b><br><b>n = 0</b><br><b>while u &lt; 100:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>u = u * 2</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>n = n + 1</b>", note:"Se lit : « tant que u est plus petit que 100, fais : doubler u, puis ajouter 1 à n ». <b>while</b> veut dire « tant que ». <b>u &lt; 100</b> est une **condition** : une question à laquelle la machine répond oui ou non. Tant que la réponse est oui, on refait un tour : c'est la condition pour **continuer**, pas pour s'arrêter. La boucle s'arrête quand elle devient fausse, c'est-à-dire quand $u$ n'est plus inférieur à 100 : il vaut 100 ou davantage, ce qu'on écrit $u ≥ 100$. Ici, $u$ passe par 6, 12, 24, 48, 96, 192 : à 192 la réponse devient non, on s'arrête, et $n$ vaut 6. La condition doit finir par devenir fausse, sinon le programme tourne indéfiniment."},
   {t:"p", x:"Comment choisir entre les deux ? Une seule question suffit : **est-ce que je sais à l'avance combien de fois répéter ?**"},
   {t:"tbl", head:["La situation","La boucle à prendre"], rows:[
    ["« Calculer les 20 premiers termes »","<b>for</b> — le nombre de tours est connu"],
@@ -3860,7 +3860,7 @@ sections:[
     {t:"texte", x:5.95, y:2.6, txt:"oui", couleur:"ink3", taille:12}
    ],
    note:"Le cycle est toujours : **tester → faire le tour → retester**. Dès qu'un test répond « non », on sort."},
-  {t:"p", x:"Ce schéma explique ce qui déroute le plus : **à la sortie, la valeur a déjà dépassé le seuil**. La boucle teste, entre, fait son tour, revient tester — et le dernier tour effectué est justement celui qui fait franchir la limite. Quand la question est « à partir de quelle année dépasse-t-on 5000 € ? », c'est bien la valeur de $n$ à la sortie qu'il faut donner : c'est le premier moment où le dépassement a lieu."},
+  {t:"p", x:"Ce schéma explique ce qui déroute le plus : **à la sortie, la valeur a déjà atteint ou dépassé le seuil** — jamais elle n'est restée en dessous. La boucle teste, entre, fait son tour, revient tester — et le dernier tour effectué est justement celui qui fait atteindre ou dépasser la limite. Quand la question est « à partir de quelle année dépasse-t-on 5000 € ? », c'est bien la valeur de $n$ à la sortie qu'il faut donner (à condition de continuer tant que $u ≤ 5000$, comme dans le squelette de la section suivante) : c'est le premier moment où le dépassement a lieu."},
   {t:"piege", titre:"range(5) ne va pas jusqu'à 5", x:"<b>range(5)</b> produit 0, 1, 2, 3, 4 : cinq valeurs, mais la dernière est 4. Pour aller de 1 à 5 inclus, il faut écrire <b>range(1, 6)</b>. C'est la source d'erreur numéro un en lecture de code."},
   {t:"piege", titre:"L'indentation fait partie du code", x:"Les lignes décalées vers la droite sont **à l'intérieur** de la boucle : elles se répètent. Une ligne revenue à gauche s'exécute une seule fois, après la boucle. En Python, ce décalage n'est pas de la décoration."},
   {t:"exemple", titre:"Exemple guidé — une suite arithmétique en Python", enonce:"Que vaut $u$ après ce programme ?<br><b>u = 7</b><br><b>for i in range(4):</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>u = u + 3</b>", etapes:[
@@ -3876,21 +3876,22 @@ sections:[
  {titre:"Chercher un seuil", blocs:[
   {t:"idee", x:"C'est **l'exercice type** du programme : « à partir de quelle année la population dépasse-t-elle un million ? ». On ne connaît pas le nombre de tours à l'avance, donc on utilise une boucle « tant que »."},
   {t:"p", x:"Un capital de 1000 € gagne 10 % par an. Au bout de combien d'années dépasse-t-il 5000 € ? Il faudrait résoudre $1000 × 1{,}1^n > 5000$ — et en Première, on n'a aucun outil de calcul pour trouver $n$ directement. Alors on fait comme à la main, mais sans se fatiguer : on multiplie par 1,1 année après année, en comptant les années, jusqu'à dépasser 5000. C'est exactement ce que fait le programme ci-dessous."},
-  {t:"formule", titre:"Le squelette à connaître", code:true, x:"<b>u = 1000</b><br><b>n = 0</b><br><b>while u &lt; 5000:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>u = u * 1.1</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>n = n + 1</b><br><b>print(n)</b>", note:"Deux variables : $u$ suit la valeur, $n$ compte les étapes. La réponse est dans $n$. Attention : en Python, un nombre décimal s'écrit avec un **point** (<b>1.1</b>), jamais avec une virgule — <b>u * 1,1</b> ne multiplie pas par 1,1 et fait planter le programme."},
+  {t:"formule", titre:"Le squelette à connaître", code:true, x:"<b>u = 1000</b><br><b>n = 0</b><br><b>while u &lt;= 5000:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>u = u * 1.1</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>n = n + 1</b><br><b>print(n)</b>", note:"<b>&lt;=</b> est la façon d'écrire $≤$ (« inférieur ou égal ») au clavier, qui n'a pas de touche $≤$ — exactement comme <b>*</b> remplace $×$. Donc <b>while u &lt;= 5000:</b> se lit « tant que $u ≤ 5000$ ». Deux variables : $u$ suit la valeur, $n$ compte les étapes. La réponse est dans $n$. Attention : en Python, un nombre décimal s'écrit avec un **point** (<b>1.1</b>), jamais avec une virgule — <b>u * 1,1</b> ne multiplie pas par 1,1 et fait planter le programme."},
   {t:"tbl", head:["Ligne","Ce qu'elle fait"], rows:[
    ["<b>u = 1000</b>","le capital de départ"],
    ["<b>n = 0</b>","le compteur d'années : rien d'écoulé au départ"],
-   ["<b>while u &lt; 5000:</b>","tant que le capital n'a pas atteint 5000, on continue"],
+   ["<b>while u &lt;= 5000:</b>","tant que $u ≤ 5000$ (le capital n'a pas encore dépassé 5000 : il est en dessous, ou pile à 5000), on refait un tour"],
    ["<b>u = u * 1.1</b>","une année passe : le capital gagne 10 %"],
    ["<b>n = n + 1</b>","on compte cette année"],
    ["<b>print(n)</b>","une fois sorti de la boucle, on **affiche** à l'écran le nombre d'années (<b>print</b> veut dire « afficher »)"]
   ]},
-  {t:"exemple", titre:"Exemple guidé — comprendre la sortie de boucle", enonce:"Un capital de 1000 € augmente de 10 % par an. Le programme ci-dessus affiche 17. Que signifie ce nombre ?", etapes:[
+  {t:"piege", titre:"« Dépasse » ou « atteint » : &lt;= ou &lt;", x:"« Dépasser 5000 », c'est être **strictement** plus grand que 5000. On continue donc tant que $u$ ne dépasse pas, c'est-à-dire tant que $u ≤ 5000$ : <b>while u &lt;= 5000:</b>. Avec <b>while u &lt; 5000:</b>, la boucle continue seulement tant que $u$ est **strictement** en dessous de 5000 : si $u$ tombait pile sur 5000, elle s'arrêterait déjà là, sans l'avoir dépassé. Ce programme-là répond donc à une autre question : « à partir de quand **atteint-on ou dépasse-t-on** 5000 ? ».<br><br>Ici, les deux programmes affichent 17, car aucune valeur ne tombe pile sur 5000 : le capital saute d'environ 4595 € la 16e année à environ 5054 € la 17e. Mais ce n'est pas toujours le cas. Partons de $u = 1$, doublons à chaque tour en comptant les tours dans $n$, avec le seuil 512 : 1 → 2 → 4 → 8 → 16 → 32 → 64 → 128 → 256 → **512** (9 tours) → 1024 (10 tours). Avec <b>while u &lt; 512:</b>, le test « 512 < 512 ? » répond non : on sort à 512, et $n$ vaut **9**. Avec <b>while u &lt;= 512:</b>, le test « 512 ≤ 512 ? » répond oui : on fait un tour de plus jusqu'à 1024, et $n$ vaut **10**. Seul le second répond à « quand dépasse-t-on 512 ? »."},
+  {t:"exemple", titre:"Exemple guidé — comprendre la sortie de boucle", enonce:"Un capital de 1000 € augmente de 10 % par an. Le squelette ci-dessus (avec <b>while u &lt;= 5000:</b>) affiche 17. Que signifie ce nombre ?", etapes:[
    {q:"Que compte $n$ ?", r:"Il augmente de 1 à chaque passage dans la boucle, donc il compte le nombre d'années écoulées."},
-   {q:"Quand la boucle s'arrête-t-elle ?", r:"Dès que la condition $u < 5000$ devient fausse, c'est-à-dire dès que $u$ atteint ou dépasse 5000."},
+   {q:"Quand la boucle s'arrête-t-elle ?", r:"Dès que la condition $u ≤ 5000$ devient fausse, c'est-à-dire dès que $u$ dépasse strictement 5000."},
    {q:"Les premiers tours, à la main", r:"Départ : $u = 1000$, $n = 0$. Tour 1 : $u = 1100$, $n = 1$. Tour 2 : $u = 1210$, $n = 2$. Tour 3 : $u = 1331$, $n = 3$… On continue ainsi jusqu'à ce que $u$ dépasse 5000, ce qui arrive au 17e tour ($u ≈ 5054$)."},
    {q:"Interpréter", r:"Il faut 17 ans pour que le capital dépasse 5000 €."},
-   {q:"Le point délicat", r:"À la sortie de la boucle, $u$ a **déjà dépassé** le seuil. La valeur affichée est la première année où le dépassement a lieu, pas la dernière année en dessous."}
+   {q:"Le point délicat", r:"À la sortie de la boucle, $u$ a **déjà dépassé** le seuil. La valeur affichée est la première année où le dépassement a lieu, pas la dernière année en dessous. Concrètement : après 16 ans, le capital vaut environ 4595 € — encore en dessous, la boucle continue. Après 17 ans, environ 5054 € — le test « 5054 ≤ 5000 ? » répond non, on sort. La réponse est 17, pas 16."}
   ]},
   {t:"piege", titre:"L'oubli du compteur", x:"Si tu oublies la ligne <b>n = n + 1</b> à l'intérieur de la boucle, $n$ reste bloqué à sa valeur de départ (0) : le programme tourne, $u$ grandit normalement, mais <b>print(n)</b> affichera 0 quel que soit le nombre réel de tours — un résultat qui a l'air de marcher (pas d'erreur) mais qui est faux. Et si tu places la ligne **en dehors** de la boucle (non indentée), elle ne s'exécute qu'une fois après coup : $n$ vaudra 1, là encore quel que soit le résultat."},
   {t:"astuce", titre:"Vérifier un seuil sans ordinateur", x:"Fais tourner le programme à la main sur 2 ou 3 tours seulement, dans un tableau. Si les premières valeurs sont bonnes, la logique l'est aussi."}
@@ -4002,7 +4003,7 @@ sections:[
    ["« Compléter la ligne manquante »","Traduire la formule du cours en Python"],
    ["« Que fait ce programme ? »","L'exécuter sur 2 ou 3 tours, puis généraliser"]
   ]},
-  {t:"piege", titre:"Les quatre pièges de lecture", x:"**1. range(n) s'arrête à n−1.** range(6) donne 0,1,2,3,4,5 : six valeurs, dont la dernière est 5.<br>**2. L'indentation décide de tout.** Une ligne décalée est **dans** la boucle et se répète ; une ligne alignée à gauche s'exécute une seule fois, après.<br>**3. La boucle while dépasse le seuil.** À la sortie, la valeur a déjà franchi la limite — c'est normal, et c'est souvent ce qu'on demande.<br>**4. La première case d'une liste est L[0].** Dans une liste de $n$ cases, la dernière est <b>L[n-1]</b> — ou, plus simplement, <b>L[-1]</b>."},
+  {t:"piege", titre:"Les quatre pièges de lecture", x:"**1. range(n) s'arrête à n−1.** range(6) donne 0,1,2,3,4,5 : six valeurs, dont la dernière est 5.<br>**2. L'indentation décide de tout.** Une ligne décalée est **dans** la boucle et se répète ; une ligne alignée à gauche s'exécute une seule fois, après.<br>**3. La boucle while ne s'arrête qu'une fois le seuil atteint ou dépassé.** À la sortie, la valeur a déjà atteint ou dépassé la limite (avec <b>&lt;</b>), ou l'a dépassée (avec <b>&lt;=</b>) — c'est normal, et c'est souvent ce qu'on demande.<br>**4. La première case d'une liste est L[0].** Dans une liste de $n$ cases, la dernière est <b>L[n-1]</b> — ou, plus simplement, <b>L[-1]</b>."},
   {t:"astuce", titre:"Le lien avec le reste du programme", x:"Ce chapitre n'est pas une matière à part : c'est un **outil pour les autres chapitres**. Une boucle qui ajoute toujours la même chose, c'est une suite arithmétique. Une boucle qui multiplie, c'est une suite géométrique. Un while avec un seuil, c'est la question « à partir de quelle année dépasse-t-on… ». Et une simulation avec randint, c'est de l'estimation de probabilité. Enfin, une liste remplie avec append, c'est la suite elle-même, terme par terme : <b>L[n]</b> joue le rôle de $u_n$.<br><br>Quand un programme te paraît obscur, demande-toi de quel chapitre il parle. La réponse éclaire presque toujours le code."},
   {t:"p", x:"Enfin, ne cherche pas à retenir Python par cœur. Quelques mots-clés et trois gestes de liste suffisent pour tout ce qu'on te demandera en Première : <b>for</b>, <b>while</b>, <b>if</b> (avec <b>elif</b> et <b>else</b>), <b>def</b>, <b>return</b>, et, pour les listes, les crochets <b>L[…]</b>, <b>append</b> et <b>len</b>. Ce qu'on évalue, c'est ta capacité à suivre une exécution pas à pas — la même rigueur que pour dérouler une suite à la main."}
  ]},
@@ -4011,9 +4012,9 @@ sections:[
    "**Repérer les variables** et leur valeur de départ.",
    "**Dresser un tableau** avec une colonne par variable, et une ligne par tour de boucle.",
    "**Dérouler à la main, tour par tour**, en écrivant les valeurs. Ne jamais essayer de deviner le résultat de tête.",
-   "**Repérer la condition d'arrêt** et vérifier à quel tour elle devient fausse.",
+   "**Repérer la condition écrite après while** : c'est la condition pour continuer. Vérifier à quel tour elle devient fausse : c'est là que la boucle s'arrête. Piège classique : lire <b>while u &lt; 10</b> comme « jusqu'à ce que u soit plus petit que 10 ». C'est l'inverse : on tourne **tant que** c'est vrai, et on sort quand ça cesse de l'être.",
    "**Lire la réponse dans la dernière ligne** du tableau, pas dans la première."
-  ], exemple:"Avec <b>u = 1</b> puis <b>while u &lt; 10:</b> et la ligne décalée <b>u = 2 * u</b>, le tableau donne 1, 2, 4, 8, 16. La condition devient fausse à 16 : c'est la valeur finale."},
+  ], exemple:"Avec <b>u = 1</b> puis <b>while u &lt; 10:</b> et la ligne décalée <b>u = 2 * u</b>, le tableau donne 1, 2, 4, 8, 16. La condition devient fausse à 16 (« 16 < 10 ? » : non) : c'est la valeur finale."},
   {t:"methode", titre:"Choisir entre « pour » et « tant que »", etapes:[
    "**Se demander si l'on connaît le nombre de tours à l'avance.**",
    "**Si oui, une boucle « pour »** : elle répète un nombre fixé de fois, et c'est le cas le plus fréquent.",
@@ -4056,14 +4057,14 @@ exos:[
   indice:"Déroule les trois tours l'un après l'autre, en notant $u$ à chaque fois."},
 
  {id:"al4", niveau:2, type:"qcm", enonce:"Dans ce programme, que représente $n$ à la fin ?<br><b>u = 100</b><br><b>n = 0</b><br><b>while u &lt; 500:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>u = u * 2</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>n = n + 1</b>",
-  choix:["Le nombre de doublements nécessaires pour dépasser 500",
+  choix:["Le nombre de doublements nécessaires pour atteindre ou dépasser 500",
          "La valeur finale de $u$",
          "Le nombre 500",
          "Le nombre de fois où $u$ est resté inférieur à 500 après la boucle"], bonne:0,
   diag:["", "$u$ et $n$ sont deux variables distinctes. $u$ suit la valeur qui grandit, $n$ ne fait que compter les tours.",
         "500 est le seuil écrit dans la condition, il ne change jamais. $n$ est un compteur qui part de 0.",
         "La boucle s'arrête précisément quand $u$ n'est plus inférieur à 500 : après la boucle, cela n'arrive plus jamais."],
-  corr:["$n$ part de 0 et augmente de 1 à chaque passage dans la boucle.","La boucle se répète tant que $u$ est strictement inférieur à 500.","Chaque passage double $u$.","Donc $n$ compte le nombre de doublements nécessaires pour que $u$ atteigne ou dépasse 500 (ici 3 : 100 → 200 → 400 → 800)."],
+  corr:["$n$ part de 0 et augmente de 1 à chaque passage dans la boucle.","La boucle se répète tant que $u$ est strictement inférieur à 500.","Chaque passage double $u$.","Donc $n$ compte le nombre de doublements nécessaires pour que $u$ atteigne ou dépasse 500 (ici 3 : 100 → 200 → 400 → 800). On dit « atteigne **ou** dépasse » parce que la condition est <b>&lt;</b> : si $u$ tombait pile sur 500, la boucle s'arrêterait déjà là, sans l'avoir dépassé — voir le piège « Dépasse ou atteint » de la section Chercher un seuil."],
   indice:"Regarde ce qui fait varier $n$ : une seule ligne le modifie. Que compte-t-elle ?"},
 
  {id:"al5", niveau:2, type:"num", enonce:"Pour le programme précédent ($u = 100$, doublement, seuil 500), quelle valeur $n$ affiche-t-il à la fin ?",
@@ -5548,7 +5549,7 @@ MODELES["trace-python"] = function(){
       e.push({ l:4, v:{u:u, n:n2}, m:"On compte une étape de plus : n = " + n2 + "." });
     }
     e.push({ l:2, v:{u:u, n:n2}, m:"Test : " + u + " < 500 ? Non → on sort de la boucle." });
-    e.push({ l:5, v:{u:u, n:n2}, m:"Affichage : " + n2 + ". Il a fallu " + n2 + " doublements pour dépasser 500." });
+    e.push({ l:5, v:{u:u, n:n2}, m:"Affichage : " + n2 + ". Il a fallu " + n2 + " doublements pour que u ne soit plus inférieur à 500 (ici " + u + " : il a même dépassé 500)." });
     return prog("Chercher un seuil",
       ["u = 100", "n = 0", "while u < 500:", "    u = u * 2", "    n = n + 1", "print(n)"], e,
       "Le test est refait avant chaque tour. C'est lui qui décide de continuer ou de sortir — et la réponse cherchée est dans n, pas dans u.");
@@ -8272,7 +8273,7 @@ var G_ALGO = [
       // pas une multiplication : du code qui ne s'exécuterait pas tel quel.
       enonce:"Que vaut $n$ à la fin ?<br><b>u = "+u+"</b><br><b>n = 0</b><br><b>while u &lt; "+seuil+":</b><br>"+
              "&nbsp;&nbsp;&nbsp;&nbsp;<b>u = u * "+q+"</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>n = n + 1</b>",
-      diag:[{v:n-1, m:"Tu t'es arrêté un tour trop tôt. La boucle continue **tant que** $u$ est strictement inférieur à "+seuil+" : il faut un tour de plus pour franchir le seuil."},
+      diag:[{v:n-1, m:"Tu t'es arrêté un tour trop tôt. La boucle continue **tant que** $u$ est strictement inférieur à "+seuil+" : il faut un tour de plus pour atteindre ou dépasser le seuil."},
             {v:n+1, m:"Tu as fait un tour de trop. Dès que $u$ atteint ou dépasse "+seuil+", le test devient faux et on sort sans refaire de tour."},
             {v:u*Math.pow(q,n), m:"Tu as donné la valeur finale de $u$, pas celle de $n$. Le compteur $n$ compte les tours."}],
       corr:["**Comprendre ce que compte $n$.** Une seule ligne le modifie : $n = n + 1$, à l'intérieur de la boucle. Il compte donc les passages.",
@@ -8287,7 +8288,7 @@ var G_ALGO = [
           return l;
         })())
         .concat(["**Résultat.** $n = "+n+"$.",
-                 "**Attention au dernier tour.** À la sortie, $u$ a **déjà dépassé** le seuil. C'est normal : la boucle teste avant, agit, puis re-teste. La réponse est le premier rang où le dépassement a lieu."]),
+                 "**Attention au dernier tour.** À la sortie, $u$ a **atteint ou dépassé** le seuil (la condition $u < "+seuil+"$ est devenue fausse). C'est normal : la boucle teste avant, agit, puis re-teste. La réponse est le premier rang où $u ≥ "+seuil+"$."]),
       indice:"Fais un tableau à deux colonnes, $u$ et $n$, et arrête-toi dès que la condition devient fausse." };
   }}
 ];
