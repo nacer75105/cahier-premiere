@@ -872,3 +872,18 @@ Relus par `relecteur-maths` (3 passages, zéro bloquant) et `prof-pedagogue`
 (2 passages, validé sans réserve).
 
 Reste : méthode de Newton absente du chapitre Dérivation (en cours).
+
+**Méthode de Newton ajoutée au chapitre Dérivation (2026-09-24)** — deux
+sections avant le Récapitulatif (« un pas » construit depuis la tangente,
+x₁ = a − f(a)/f'(a), comme au chapitre XV de Python-Learn ; puis la suite,
+le programme Python, trois pièges, les « cas favorables » sans garantie,
+l'arrêt trompeur), figure manipulable `MODELES["newton"]` (départ au curseur,
+0 exclu à la source, bouton « Faire un pas » jusqu'au pas n° 5), exercices
+de16–de18, ligne du récapitulatif. `relecteur-maths` : 7 passages, zéro
+bloquant (300 états de la figure balayés en valeurs exactes Fraction, libellés
+contrôlés en pixels) ; `prof-pedagogue` : 5 passages, validé sans réserve.
+Points de fond corrigés en route : le signe moins envoie là où la TANGENTE
+coupe l'axe, pas forcément vers la solution ; aucune garantie de convergence
+(contre-exemple 1/x − 2, décroissante sur ]0 ; +∞[ seulement) ; le test du
+changement de signe suppose une courbe sans trou ; la figure écrivait
+« f(xₖ) = 0 » pour des valeurs minuscules (désormais « ≈ 0 »).
